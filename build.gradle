@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8'
+        classpath group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'
+    testCompile "junit:junit:4.11"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main"]
+        }
+    }
+    test {
+        java {
+            srcDirs = ["src/test"]
+        }
+    }
+}
+
+test {
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+    }
+}
