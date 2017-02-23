@@ -1,0 +1,41 @@
+image: java:8-jdk
+
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - export TERM=dumb
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - rm -f  ./gradle/caches/modules-2/modules-2.lock
+  - rm -fr ./gradle/caches/*/plugin-resolution/
+  
+cache:
+  paths:
+    - ./gradle/caches/
+    - ./gradle/wrapper/
+
+build:
+  stage: build
+  script:
+    - gradle assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - gradle check
+
+deploy:
+  stage: deploy
+  script:
+    - ./deploy
+
+after_script:
+  - echo "End CI"
