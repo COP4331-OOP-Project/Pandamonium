@@ -8,11 +8,9 @@ stages:
 before_script:
   - export TERM=dumb
   - export GRADLE_USER_HOME=`pwd`/.gradle
-
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+  - rm -f  ./gradle/caches/modules-2/modules-2.lock
+  - rm -fr ./gradle/caches/*/plugin-resolution/
+  
 cache:
   paths:
     - ./gradle/caches/
