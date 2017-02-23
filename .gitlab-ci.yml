@@ -6,19 +6,22 @@ stages:
   - deploy
 
 before_script:
-#  - echo `pwd` # debug
-#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
+  - export TERM=dumb
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
-  paths:
-    - .gradle/wrapper
-    - .gradle/caches
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 build:
   stage: build
   script:
-    - ./gradle assemble
+    - gradle assemble
   artifacts:
     paths:
       - build/libs/*.jar
@@ -29,7 +32,7 @@ build:
 test:
   stage: test
   script:
-    - ./gradle check
+    - gradle check
 
 deploy:
   stage: deploy
