@@ -8,7 +8,7 @@ stages:
 before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
-  - chmod +x gradlew
+  - export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:
   paths:
@@ -18,7 +18,7 @@ cache:
 build:
   stage: build
   script:
-    - ./gradlew -g /cache/.gradle clean assemble
+    - ./gradlew assemble
   artifacts:
     paths:
       - build/libs/*.jar
@@ -29,7 +29,7 @@ build:
 test:
   stage: test
   script:
-    - ./gradlew -g /cache/.gradle check
+    - ./gradlew check
 
 deploy:
   stage: deploy
