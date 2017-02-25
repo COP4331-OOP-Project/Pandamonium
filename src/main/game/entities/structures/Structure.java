@@ -6,7 +6,7 @@ import game.gameboard.Location;
 /**
  * Created by Alex on 2/21/17.
  */
-public class Structure {
+public abstract class Structure {
     //private EntityID entityID;
     //private PowerState powerState;
     //private float defenseDamage;

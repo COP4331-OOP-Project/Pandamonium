@@ -17,6 +17,10 @@ public class PowerPlant extends Structure {
 
     }
 
+    public void unassignGenerator(){
+
+    }
+
     public void addWorker(){
 
     }

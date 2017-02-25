@@ -18,6 +18,10 @@ public class Fort extends Structure {
 
     }
 
+    public void unassignUnitBuilder(){
+
+    }
+
     public void addWorker(){
 
     }

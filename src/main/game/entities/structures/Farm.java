@@ -17,6 +17,10 @@ public class Farm extends Structure {
 
     }
 
+    public void unassignFarmer(){
+
+    }
+
     public void addWorker(){
 
     }

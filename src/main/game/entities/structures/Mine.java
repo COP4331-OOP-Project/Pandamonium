@@ -17,6 +17,10 @@ public class Mine extends Structure {
 
     }
 
+    public void unassignMiner(){
+
+    }
+
     public void addWorker(){
 
     }

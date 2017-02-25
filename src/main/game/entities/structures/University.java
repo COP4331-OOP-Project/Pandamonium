@@ -17,6 +17,10 @@ public class University extends Structure {
 
     }
 
+    public void unassignResearcher(){
+        
+    }
+
     public void addWorker(){
 
     }
