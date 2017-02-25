@@ -2,11 +2,12 @@ package game;
 
 //import game.entities.Army;
 //import game.entities.RallyPoint;
-import game.entities.factories.EntityFactory;
+//import game.entities.factories.EntityFactory;
 //import game.entities.factories.UnknownEntityCodeException;
-//import game.entities.structures.Base;
+//import game.gameboard.Resource;
 import game.entities.structures.Structure;
 import game.entities.units.*;
+import game.entities.structures.*;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,6 @@ public class Player {
     private ArrayList<Colonist> colonists;
     //private ArrayList<Worker> workers;
     private ArrayList<Structure> structures;
-    //private ArrayList<Base> bases;
     //private ArrayList<RallyPoint> rallyPoints;
     private ArrayList<Unit> totalUnits;
     private int totalUnitCount;
@@ -62,7 +62,6 @@ public class Player {
         colonists = new ArrayList<Colonist>();
         //workers = new ArrayList<Worker>();
         structures = new ArrayList<Structure>();
-        //bases = new ArrayList<Base>();
         //rallyPoints = new ArrayList<RallyPoint>();
         totalUnits = new ArrayList<Unit>();
 
@@ -73,7 +72,6 @@ public class Player {
             explorers.add(null);
             colonists.add(null);
             structures.add(null);
-            //bases.add(null);
             //rallyPoints.add(null);
         }
 
@@ -197,7 +195,17 @@ public class Player {
                 return;
             }
         }
-    }*/
+    }
+
+    public void addRallyPoint(RallyPoint rallyPoint){
+        if (rallyPoints.get(i) == null) {
+            rallyPoints.set(i, rallyPoint);
+            rallyPoint.setRallyID(i);
+            rallyPointsCount++;
+            return;
+        }
+    }
+    */
     /*
     public void removeArmy(Army army){
         armies.set(army.getInstanceId(), null);
@@ -276,7 +284,100 @@ public class Player {
     }*/
 
     public void addCapitol(Capitol capitol){
-        
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                //capital.setInstanceId(i);
+                structures.set(i, capitol);
+                return;
+            }
+        }
     }
 
+    public void addFarm(Farm farm){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                //farm.setInstanceId(i);
+                structures.set(i, farm);
+                return;
+            }
+        }
+    }
+
+    public void addFort(Fort fort){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                // fort.setInstanceId(i);
+                structures.set(i, fort);
+                return;
+            }
+        }
+    }
+
+    public void addMine(Mine mine){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                //mine.setInstanceId(i);
+                structures.set(i, mine);
+                return;
+            }
+        }
+    }
+
+    public void addObservationTower(ObservationTower tower){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                // tower.setInstanceId(i);
+                structures.set(i, tower);
+                return;
+            }
+        }
+    }
+
+    public void addPowerPlant(PowerPlant powerPlant){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                //powerPlant.setInstanceId(i);
+                structures.set(i, powerPlant);
+                return;
+            }
+        }
+    }
+
+    public void addUniversity(University university){
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i)==null){
+                //university.setInstanceId(i);
+                structures.set(i, university);
+                return;
+            }
+        }
+    }
+
+    public void removeCapitol(Capitol capitol){
+        //structures.set(capitol.getInstanceId(),null);
+    }
+
+    public void removeFarm(Farm farm){
+        //structures.set(farm.getInstanceId(),null);
+    }
+
+    public void removeFort(Fort fort){
+        //structures.set(fort.getInstanceId(),null);
+    }
+
+    public void removeMine(Mine mine){
+        //structures.set(mine.getInstanceId(),null);
+    }
+
+    public void removeObservationTower(ObservationTower tower){
+        //structures.set(tower.getInstanceId(),null);
+    }
+
+    public void removePowerPlant(PowerPlant powerPlant){
+        //structures.set(powerPlant.getInstanceId(),null);
+    }
+
+    public void removeUniversity(University university){
+        //structures.set(university.getInstanceId(),null);
+    }
 }
