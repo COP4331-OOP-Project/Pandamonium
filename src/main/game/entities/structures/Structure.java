@@ -26,6 +26,14 @@ public abstract class Structure {
         powerState= PowerState.POWERED_UP;
     }
 
+    public Location getLocation(){
+        return location;
+    }
+
+    public int getInstanceId(){
+        return entityId.getInstanceId();
+    }
+
     public void addCommandToQueue(Command command){
         CommandQueue.add(command);
     }
