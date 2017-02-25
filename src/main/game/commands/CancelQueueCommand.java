@@ -2,6 +2,7 @@ package game.commands;
 import game.entities.iEntity;
 
 // Clear the queued commands of the actor
+// Is this needed?
 public class CancelQueueCommand extends Command {
 
     private iEntity actor;

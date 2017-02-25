@@ -4,7 +4,7 @@ import game.entities.iHealer;
 import game.gameboard.Tile;
 
 // Initiate a heal with an actor
-public class HealCommand<T> extends Command {
+public class HealCommand extends Command {
 
     private iHealer actor;            // Actor to perform heal
     private Tile target;      // Direction of heal
