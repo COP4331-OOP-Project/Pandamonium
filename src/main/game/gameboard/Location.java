@@ -16,7 +16,6 @@ public class Location {
     public int getY() {
         return this.yIndex;
     }
-
     @Override
     public int hashCode() {
         return (100 * xIndex) + yIndex;
