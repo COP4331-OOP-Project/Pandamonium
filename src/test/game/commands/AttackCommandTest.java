@@ -1,7 +1,5 @@
 package game.commands;
 
-/**
- * Created by Alex on 2/21/17.
- */
+// Test the attack command
 public class AttackCommandTest {
 }

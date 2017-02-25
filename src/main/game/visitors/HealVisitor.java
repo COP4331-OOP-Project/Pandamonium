@@ -3,7 +3,7 @@ package game.visitors;
 import game.entities.iEntity;
 
 // Visitor to perform a heal on an entity
-public class HealVisitor {
+public class HealVisitor implements iTileActionVisitor {
 
     private double healAmount;    // Healing to visit entity with
 
