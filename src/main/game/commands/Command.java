@@ -1,7 +1,11 @@
 package game.commands;
 
-/**
- * Created by Alex on 2/21/17.
- */
-public class Command {
+
+// Command abstract
+public abstract class Command {
+    protected int duration;                                 // Duration of command until execution
+    public abstract void exec();                            // Basic execute signature for commands
+    public int getDuration() { return duration; }           // Get time until activation
+    public void iterateDuration() { this.duration--; }      // Iterate activation time
+
 }
