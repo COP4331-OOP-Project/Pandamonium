@@ -31,7 +31,7 @@ public class Location {
     }
 
     public Location directionLocation(int direction) {
-       //TODO Calculate new location based off direction
+        //TODO Calculate new location based off direction
         return this;
     }
 }
