@@ -24,7 +24,7 @@ public class UnitFactory {
             case MELEE:
                 return new Melee(unitStatistics.get(unit), location);
             case RANGED:
-                return new Colonist(unitStatistics.get(unit), location);
+                return new Ranged(unitStatistics.get(unit), location);
         }
         return null;
     }
