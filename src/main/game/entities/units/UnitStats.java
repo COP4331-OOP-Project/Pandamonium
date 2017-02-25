@@ -23,7 +23,7 @@ public class UnitStats {
                     this.offPow = 2;
                     this.defPow = 2;
                     this.armor = 2;
-                    this.speed = 10;
+                    this.speed = 3;
                     this.health = 10;
                     this.upkeep = .05f;
                     break;
@@ -31,7 +31,7 @@ public class UnitStats {
                     this.offPow = 5;
                     this.defPow = 5;
                     this.armor = 5;
-                    this.speed = 5;
+                    this.speed = 1;
                     this.health = 10;
                     this.upkeep = .1f;
                     break;
@@ -39,7 +39,7 @@ public class UnitStats {
                     this.offPow = 7;
                     this.defPow = 7;
                     this.armor = 3;
-                    this.speed = 5;
+                    this.speed = 2;
                     this.health = 10;
                     this.upkeep = .1f;
                     break;
