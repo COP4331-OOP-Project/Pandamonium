@@ -1,8 +1,5 @@
 package game.gameboard;
 
-/**
- * Created by David on 2/24/2017.
- */
 public class Location {
     private int xIndex;
     private int yIndex;
@@ -37,5 +34,4 @@ public class Location {
        //TODO Calculate new location based off direction
         return this;
     }
-
 }
