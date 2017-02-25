@@ -67,105 +67,27 @@ public class Player {
         structures = new ArrayList<Structure>();
         //rallyPoints = new ArrayList<RallyPoint>();
         totalUnits = new ArrayList<Unit>();
-
-        for (int i = 0; i < 10; i++) {
-            //armies.add(null);
-            melees.add(null);
-            ranges.add(null);
-            explorers.add(null);
-            colonists.add(null);
-            structures.add(null);
-            //rallyPoints.add(null);
-        }
-
-        for(int i=0;i<100;i++){
-            //workers.add(null);
-        }
     }
 
     public void addMelee(Melee melee){
-        if (totalUnits.size()>25) {
-            log.info("Unit list is full");
-            return;
-        }
-        for(int i = 0;i<melees.size();i++) {
-            if (melees.get(i) == null) {
-                melees.set(i, melee);
-                //melee.seInstanceId(i);
-                totalUnits.add(melee);
-                return;
-            }
-        }
-
-        //If the melee list if full
-        log.info("Melee list if full");
+        melees.add(melee);
     }
 
     public void addRanged(Ranged ranged){
-        if (totalUnits.size()>25) {
-            log.info("Unit list is full");
-            return;
-        }
-        for(int i = 0;i<ranges.size();i++) {
-            if (ranges.get(i) == null) {
-                ranges.set(i, ranged);
-                //ranges.setEntityId(i);
-                totalUnits.add(ranged);
-                return;
-            }
-        }
-
-        //If the rangelist if full
-        log.info("range list if full");
+        ranges.add(ranged);
     }
 
     public void addExplorer(Explorer explorer){
-        if (totalUnits.size()>25) {
-            log.info("Unit list is full");
-            return;
-        }
-        for(int i = 0;i<explorers.size();i++) {
-            if (explorers.get(i) == null) {
-                explorers.set(i, explorer);
-                //explorer.setEntityId(i);
-                totalUnits.add(explorer);
-                return;
-            }
-        }
-
-        //If the explorerlist if full
-        log.info("explorer list if full");
+        explorers.add(explorer);
     }
 
     public void addColonist(Colonist colonist){
-        if (totalUnits.size()>25) {
-            log.info("Unit list is full");
-            return;
-        }
-        for(int i = 0;i<colonists.size();i++) {
-            if (colonists.get(i) == null) {
-                colonists.set(i, colonist);
-                //colonist.setEntityId(i);
-                totalUnits.add(colonist);
-                return;
-            }
-        }
-
-        //If the colonist list if full
-        log.info("colonist list if full");
+        colonists.add(colonist);
     }
 
     /*
     public void addWorker(Worker worker){
-        for(int i = 0;i<workers.size();i++){
-            if(workers.get(i)==null){
-                workers.set(i,worker);
-                workers.setEntityId(i);
-                return;
-            }
-        }
-        //If the worker list if full
-        log.info("worker list if full");
+        workers.add(worker);
     }
     */
 
@@ -191,22 +113,11 @@ public class Player {
 */
     /*
     public void addArmy(Army army){
-        for(int i = 0;i<armies.size();i++){
-            if(armies.get(i)==null){
-                armies.set(i,army);
-                army.setInstanceId(i);
-                return;
-            }
-        }
+        armies.add(army);
     }
 
     public void addRallyPoint(RallyPoint rallyPoint){
-        if (rallyPoints.get(i) == null) {
-            rallyPoints.set(i, rallyPoint);
-            rallyPoint.setRallyID(i);
-            rallyPointsCount++;
-            return;
-        }
+        rallyPoint.add(rallyPoint);
     }
     */
     /*
@@ -215,145 +126,55 @@ public class Player {
     }*/
 
     public ArrayList<Melee> getMelees() {
-        ArrayList<Melee> gMelee = new ArrayList<Melee>();
-        for (int i = 0; i < melees.size(); i++) {
-            if (melees.get(i) != null) {
-                gMelee.add(melees.get(i));
-            }
-        }
-        return gMelee;
+        return melees;
     }
 
     public ArrayList<Ranged> getRanges() {
-        ArrayList<Ranged> gRange = new ArrayList<Ranged>();
-        for (int i = 0; i < ranges.size(); i++) {
-            if (ranges.get(i) != null) {
-                gRange.add(ranges.get(i));
-            }
-        }
-        return gRange;
+        return ranges;
     }
 
     public ArrayList<Explorer> getExplorers() {
-        ArrayList<Explorer> gExplorers = new ArrayList<Explorer>();
-        for (int i = 0; i < explorers.size(); i++) {
-            if (explorers.get(i) != null) {
-                gExplorers.add(explorers.get(i));
-            }
-        }
-        return gExplorers;
+        return explorers;
     }
 
     public ArrayList<Colonist> getColonists() {
-        ArrayList<Colonist> gColonists = new ArrayList<Colonist>();
-        for (int i = 0; i < colonists.size(); i++) {
-            if (colonists.get(i) != null) {
-                gColonists.add(colonists.get(i));
-            }
-        }
-        return gColonists;
+        return colonists;
     }
 
-    /*
-    public ArrayList<Base> getBases() {
-        ArrayList<Base> gBases = new ArrayList<Base>();
-        for (int i = 0; i < bases.size(); i++) {
-            if (bases.get(i) != null) {
-                gBases.add(bases.get(i));
-            }
-        }
-        return gBases;
-    }*/
-
     public ArrayList<Unit> getAllUnit() {
-        ArrayList<Unit> gUnit = new ArrayList<Unit>();
-        for (int i = 0; i < totalUnits.size(); i++) {
-            if (totalUnits.get(i) != null) {
-                gUnit.add(totalUnits.get(i));
-            }
-        }
-        return gUnit;
+        return totalUnits;
     }
     /*
     public ArrayList<Worker> getWorkers(){
-        ArrayList<Worker> gWorker = new ArrayList<~>();
-        for(int i = 0; i<workers.size();i++){
-            if(workers.get(i) != null){
-                gWorker.add(workers.get(i));
-            }
-        }
-
-        return gWorker;
+        return workers;
     }*/
 
     public void addCapitol(Capitol capitol){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                //capital.setInstanceId(i);
-                structures.set(i, capitol);
-                return;
-            }
-        }
+        structures.add(capitol);
     }
 
     public void addFarm(Farm farm){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                //farm.setInstanceId(i);
-                structures.set(i, farm);
-                return;
-            }
-        }
+        structures.add(farm);
     }
 
     public void addFort(Fort fort){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                // fort.setInstanceId(i);
-                structures.set(i, fort);
-                return;
-            }
-        }
+        structures.add(fort);
     }
 
     public void addMine(Mine mine){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                //mine.setInstanceId(i);
-                structures.set(i, mine);
-                return;
-            }
-        }
+        structures.add(mine);
     }
 
     public void addObservationTower(ObservationTower tower){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                // tower.setInstanceId(i);
-                structures.set(i, tower);
-                return;
-            }
-        }
+        structures.add(tower);
     }
 
     public void addPowerPlant(PowerPlant powerPlant){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                //powerPlant.setInstanceId(i);
-                structures.set(i, powerPlant);
-                return;
-            }
-        }
+        structures.add(powerPlant);
     }
 
     public void addUniversity(University university){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i)==null){
-                //university.setInstanceId(i);
-                structures.set(i, university);
-                return;
-            }
-        }
+        structures.add(university);
     }
 
     public void removeCapitol(Capitol capitol){
