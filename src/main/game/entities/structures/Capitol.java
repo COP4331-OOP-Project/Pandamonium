@@ -1,5 +1,6 @@
 package game.entities.structures;
 
+import game.entities.EntityId;
 import game.gameboard.Location;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ public class Capitol extends Structure {
     //private ArrayList<worker> miner;
     //private ArrayList<worker> breeder;
 
-    public Capitol(Location loc /*, EntityID entityID */){
-        super(loc/*, entityID*/);
+    public Capitol(Location loc , EntityId entityId ){
+        super(loc, entityId);
     }
 
     public void assignToFarmer(){
