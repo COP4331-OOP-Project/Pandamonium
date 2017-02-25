@@ -4,9 +4,6 @@ import game.gameboard.Location;
 
 import java.util.ArrayList;
 
-/**
- * Created by David on 2/21/2017.
- */
 public class Capitol extends Structure {
     //private ArrayList<worker> workers;
     //private ArrayList<worker> farmer;

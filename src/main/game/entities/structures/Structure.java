@@ -3,9 +3,6 @@ package game.entities.structures;
 import game.commands.Command;
 import game.gameboard.Location;
 
-/**
- * Created by Alex on 2/21/17.
- */
 public abstract class Structure {
     //private EntityID entityID;
     //private PowerState powerState;
