@@ -10,7 +10,7 @@ public class Farm extends Structure {
     //private ArrayList<worker> farmer;
 
     public Farm(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc/*, entityID*/);
     }
 
     public void assignToFarmer(){

@@ -15,7 +15,7 @@ public class Capitol extends Structure {
     //private ArrayList<worker> breeder;
 
     public Capitol(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc/*, entityID*/);
     }
 
     public void assignToFarmer(){

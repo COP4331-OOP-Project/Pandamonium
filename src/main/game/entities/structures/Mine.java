@@ -10,7 +10,7 @@ public class Mine extends Structure {
     //private ArrayList<worker> miner;
 
     public Mine(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc/*, entityID*/);
     }
 
     public void assignToMiner(){

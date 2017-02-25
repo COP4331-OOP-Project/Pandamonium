@@ -10,7 +10,7 @@ public class University extends Structure {
     //private ArrayList<worker> researcher;
 
     public University(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc /*, entityID*/);
     }
 
     public void assignToResearcher(){

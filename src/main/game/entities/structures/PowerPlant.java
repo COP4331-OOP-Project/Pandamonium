@@ -10,7 +10,7 @@ public class PowerPlant extends Structure {
     //private ArrayList<worker> generator;
 
     public PowerPlant(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc/*, entityID*/);
     }
 
     public void assignToGenerator(){

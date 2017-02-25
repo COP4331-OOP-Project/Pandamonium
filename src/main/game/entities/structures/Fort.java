@@ -11,7 +11,7 @@ public class Fort extends Structure {
     //private ArrayList<worker> unitBuilder;
 
     public Fort(Location loc /*, EntityID entityID */){
-        super(loc);
+        super(loc/*, entityID*/);
     }
 
     public void assignToUnitBuilder(){
