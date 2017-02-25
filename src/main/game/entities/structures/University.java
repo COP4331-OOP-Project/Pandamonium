@@ -1,13 +1,14 @@
 package game.entities.structures;
 
+import game.entities.EntityId;
 import game.gameboard.Location;
 
 public class University extends Structure {
     //private ArrayList<worker> workers;
     //private ArrayList<worker> researcher;
 
-    public University(Location loc /*, EntityID entityID */){
-        super(loc /*, entityID*/);
+    public University(Location loc , EntityId entityId ){
+        super(loc, entityId);
     }
 
     public void assignToResearcher(){
