@@ -1,7 +1,5 @@
 package game.entities.units;
 
-/**
- * Created by Alex on 2/21/17.
- */
+// Test the unit class
 public class UnitEntityTest {
 }

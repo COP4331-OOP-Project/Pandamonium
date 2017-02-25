@@ -1,7 +1,5 @@
 package game.entities.structures;
 
-/**
- * Created by Alex on 2/21/17.
- */
+// Test the structure class
 public class StructureEntityTest {
 }

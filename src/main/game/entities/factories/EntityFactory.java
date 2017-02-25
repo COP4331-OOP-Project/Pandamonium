@@ -1,7 +1,4 @@
 package game.entities.factories;
 
-/**
- * Created by Alex on 2/21/17.
- */
-public class EntityFactory {
-}
+// Factory to create entities for the game
+public class EntityFactory {}

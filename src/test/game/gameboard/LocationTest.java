@@ -1,7 +1,5 @@
 package game.gameboard;
 
-/**
- * Created by Alex on 2/21/17.
- */
+// Test the LocationTest class
 public class LocationTest {
 }
