@@ -22,11 +22,23 @@ public class Capitol extends Structure {
 
     }
 
+    public void unassignFarmer(){
+
+    }
+
     public void assignToGenerator(){
 
     }
 
+    public void unassignGenerator(){
+
+    }
+
     public void assignToMiner(){
+
+    }
+
+    public void unassignMiner(){
 
     }
 
@@ -38,7 +50,11 @@ public class Capitol extends Structure {
 
     }
 
-    public void breed(){
+    public void assignToBreeder(){
+
+    }
+
+    public void unassignBreeder(){
 
     }
 
