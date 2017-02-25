@@ -1,7 +1,13 @@
 package game.entities.units;
 
-/**
- * Created by Alex on 2/21/17.
- */
-public class Unit {
+import game.gameboard.Location;
+
+public abstract class Unit {
+    private UnitStats stats;
+    private Location location;
+
+    public Unit(UnitStats stats, Location location){
+        this.stats = stats;
+        this.location = location;
+    }
 }
