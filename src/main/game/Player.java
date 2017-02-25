@@ -34,6 +34,8 @@ public class Player {
     private ArrayList<Unit> totalUnits;
     private int totalUnitCount;
 
+    //private SimpleMap
+
 
     //Initial Units
     private Colonist initialColonist;
@@ -186,5 +188,95 @@ public class Player {
         workers.set(worker.getInstanceId(), null);
     }
 */
+    /*
+    public void addArmy(Army army){
+        for(int i = 0;i<armies.size();i++){
+            if(armies.get(i)==null){
+                armies.set(i,army);
+                army.setInstanceId(i);
+                return;
+            }
+        }
+    }*/
+    /*
+    public void removeArmy(Army army){
+        armies.set(army.getInstanceId(), null);
+    }*/
+
+    public ArrayList<Melee> getMelees() {
+        ArrayList<Melee> gMelee = new ArrayList<Melee>();
+        for (int i = 0; i < melees.size(); i++) {
+            if (melees.get(i) != null) {
+                gMelee.add(melees.get(i));
+            }
+        }
+        return gMelee;
+    }
+
+    public ArrayList<Ranged> getRanges() {
+        ArrayList<Ranged> gRange = new ArrayList<Ranged>();
+        for (int i = 0; i < ranges.size(); i++) {
+            if (ranges.get(i) != null) {
+                gRange.add(ranges.get(i));
+            }
+        }
+        return gRange;
+    }
+
+    public ArrayList<Explorer> getExplorers() {
+        ArrayList<Explorer> gExplorers = new ArrayList<Explorer>();
+        for (int i = 0; i < explorers.size(); i++) {
+            if (explorers.get(i) != null) {
+                gExplorers.add(explorers.get(i));
+            }
+        }
+        return gExplorers;
+    }
+
+    public ArrayList<Colonist> getColonists() {
+        ArrayList<Colonist> gColonists = new ArrayList<Colonist>();
+        for (int i = 0; i < colonists.size(); i++) {
+            if (colonists.get(i) != null) {
+                gColonists.add(colonists.get(i));
+            }
+        }
+        return gColonists;
+    }
+
+    /*
+    public ArrayList<Base> getBases() {
+        ArrayList<Base> gBases = new ArrayList<Base>();
+        for (int i = 0; i < bases.size(); i++) {
+            if (bases.get(i) != null) {
+                gBases.add(bases.get(i));
+            }
+        }
+        return gBases;
+    }*/
+
+    public ArrayList<Unit> getAllUnit() {
+        ArrayList<Unit> gUnit = new ArrayList<Unit>();
+        for (int i = 0; i < totalUnits.size(); i++) {
+            if (totalUnits.get(i) != null) {
+                gUnit.add(totalUnits.get(i));
+            }
+        }
+        return gUnit;
+    }
+    /*
+    public ArrayList<Worker> getWorkers(){
+        ArrayList<Worker> gWorker = new ArrayList<~>();
+        for(int i = 0; i<workers.size();i++){
+            if(workers.get(i) != null){
+                gWorker.add(workers.get(i));
+            }
+        }
+
+        return gWorker;
+    }*/
+
+    public void addCapitol(Capitol capitol){
+        
+    }
 
 }
