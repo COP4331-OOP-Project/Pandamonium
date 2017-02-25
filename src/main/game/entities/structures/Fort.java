@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.PowerState;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 
@@ -26,6 +27,10 @@ public class Fort extends Structure {
 
     public void removeWorker(){
 
+    }
+
+    public void combatState(){
+        setPowerState(PowerState.COMBAT);
     }
 
     public Unit buildUnit(){

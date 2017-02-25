@@ -33,18 +33,32 @@ public abstract class Structure {
     public void cancelQueueCommand(){
         CommandQueue.clear();
     }
-    //TODO add power state
+
+    public void setPowerState(PowerState powerState){
+        this.powerState=powerState;
+    }
+
     public void powerUp(){
-        powerState= PowerState.POWERED_UP;
+        setPowerState(PowerState.POWERED_UP);
     }
 
     public void powerDown(){
-        powerState= PowerState.POWERED_DOWN;
+        setPowerState(PowerState.POWERED_DOWN);
     }
 
     public void standby(){
-        powerState= PowerState.STANDBY;
+        setPowerState(PowerState.STANDBY);
     }
+
+    //TODO wait for command class to finish
+    /**public void doTurn() {
+        if (!CommandQueue.isEmpty()) {
+            if (CommandQueue.peek().getDuration() == 0) {                               // Test if next cmd can fire
+                CommandQueue.poll().exec();                                               // Execute next cmd
+            } else CommandQueue.peek().iterateDuration();
+        }
+
+    }**/
 
     public void decomission(){
 
