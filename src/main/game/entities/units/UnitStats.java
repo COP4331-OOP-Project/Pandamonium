@@ -11,6 +11,15 @@ public class UnitStats {
     private int health;
     private float upkeep;
 
+    public UnitStats(int offPow, int defPow, int armor, int speed, int health, float upkeep) {
+        this.offPow = offPow;
+        this.defPow = defPow;
+        this.armor = armor;
+        this.speed = speed;
+        this.health = health;
+        this.upkeep = upkeep;
+    }
+
     /* Accessors */
     public int getOffPow() { return offPow; }
     public int getDefPow() { return defPow; }
