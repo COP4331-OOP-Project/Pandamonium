@@ -26,10 +26,10 @@ public abstract class Panel {
     }
     
     public void setIsVisible(boolean isVisible) {
-    	if (isVisible == false) {
-    		hideGUIElements();
-    	} else {
+    	if (isVisible) {
     		showGUIElements();
+    	} else {
+    		hideGUIElements();
     	}
     	this.isVisible = isVisible;
     }
