@@ -2,11 +2,11 @@ package game.entities;
 
 public class EntityId {
     private int playerId;
-    private char typeId;
+    private EntityTypeEnum typeId;
     private Enum subTypeId;
     private int instanceId;
 
-    public EntityId(int playerId, char typeId, Enum subTypeId, int instanceId){
+    public EntityId(int playerId, EntityTypeEnum typeId, Enum subTypeId, int instanceId){
         this.playerId = playerId;
         this.typeId = typeId;
         this.subTypeId = subTypeId;
@@ -17,7 +17,7 @@ public class EntityId {
         return playerId;
     }
 
-    public char getTypeId(){
+    public EntityTypeEnum getTypeId(){
         return typeId;
     }
 
