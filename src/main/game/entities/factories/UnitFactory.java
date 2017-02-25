@@ -2,6 +2,7 @@ package game.entities.factories;
 
 import java.util.*;
 import game.entities.units.*;
+import game.gameboard.Location;
 
 public class UnitFactory {
     private Map<UnitType, UnitStats> unitStatistics;
@@ -14,16 +15,16 @@ public class UnitFactory {
         this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
     }
 
-    public Unit createUnit(UnitType unit){
+    public Unit createUnit(UnitType unit, Location location){
         switch(unit) {
             case COLONIST:
-                return new Colonist(unitStatistics.get(unit));
+                return new Colonist(unitStatistics.get(unit), location);
             case EXPLORER:
-                return new Explorer(unitStatistics.get(unit));
+                return new Explorer(unitStatistics.get(unit), location);
             case MELEE:
-                return new Melee(unitStatistics.get(unit));
+                return new Melee(unitStatistics.get(unit), location);
             case RANGED:
-                return new Colonist(unitStatistics.get(unit));
+                return new Colonist(unitStatistics.get(unit), location);
         }
         return null;
     }
