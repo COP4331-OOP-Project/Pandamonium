@@ -6,10 +6,11 @@ public class Army {
     private Reinforcement reinforcement;
     private RallyPoint rallyPoint;
 
-    public Army(EntityId entityId){
+    public Army(EntityId entityId, RallyPoint rp){
         this.entityId=entityId;
         battleGroup = new BattleGroup();
         reinforcement = new Reinforcement();
+        rallyPoint=rp;
     }
 
 }
