@@ -16,7 +16,7 @@ public abstract class Structure {
     public Structure(Location loc /*, EntityID entityID */){
         location=loc;
     }
-    //TODO add command queue? ASK TEAM IS THIS INTERFACE OR NOT?
+
     public void addCommandToQueue(){
 
     }
