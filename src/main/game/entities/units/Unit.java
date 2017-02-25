@@ -2,10 +2,7 @@ package game.entities.units;
 
 import game.gameboard.Location;
 
-/**
- * Created by Alex on 2/21/17.
- */
-public class Unit {
+public abstract class Unit {
     private UnitStats stats;
     private Location location;
 
