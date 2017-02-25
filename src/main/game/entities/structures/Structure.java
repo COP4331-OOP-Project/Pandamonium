@@ -2,6 +2,7 @@ package game.entities.structures;
 
 import game.commands.Command;
 import game.entities.EntityId;
+import game.entities.PowerState;
 import game.gameboard.Location;
 
 import java.util.LinkedList;
@@ -9,7 +10,7 @@ import java.util.Queue;
 
 public abstract class Structure {
     private EntityId entityId;
-    //private PowerState powerState;
+    private PowerState powerState;
     //private float defenseDamage;
     private Location location;
     private Queue<Command> CommandQueue;
@@ -22,6 +23,7 @@ public abstract class Structure {
         location=loc;
         this.entityId=entityId;
         CommandQueue = new LinkedList<>();
+        powerState= PowerState.POWERED_UP;
     }
 
     public void addCommandToQueue(Command command){
@@ -33,11 +35,15 @@ public abstract class Structure {
     }
     //TODO add power state
     public void powerUp(){
+        powerState= PowerState.POWERED_UP;
+    }
 
+    public void powerDown(){
+        powerState= PowerState.POWERED_DOWN;
     }
 
     public void standby(){
-
+        powerState= PowerState.STANDBY;
     }
 
     public void decomission(){
