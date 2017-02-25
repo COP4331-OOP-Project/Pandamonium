@@ -8,6 +8,10 @@ package game;
 import game.entities.structures.Structure;
 import game.entities.units.*;
 import game.entities.structures.*;
+import game.entities.factories.EntityFactory;
+//import game.entities.factories.UnknownEntityCodeException;
+import game.entities.structures.Structure;
+import game.entities.units.*;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +37,6 @@ public class Player {
     //private ArrayList<RallyPoint> rallyPoints;
     private ArrayList<Unit> totalUnits;
     private int totalUnitCount;
-
     //private SimpleMap
 
 
