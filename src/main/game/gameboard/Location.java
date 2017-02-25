@@ -20,10 +20,12 @@ public class Location {
         return this.yIndex;
     }
 
+    @Override
     public int hashCode() {
         return (100 * xIndex) + yIndex;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Location)) return false;
