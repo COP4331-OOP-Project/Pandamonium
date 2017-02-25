@@ -13,7 +13,7 @@ public final class MapLoader {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String currentLine;
 			int i = 0;
-			int invisibleLeft = 21;
+			int invisibleLeft = boardSize/2;
 			while ((currentLine = bufferedReader.readLine()) != null) {
 				String[] line = currentLine.split("\\s+");
 				int j = 0;
