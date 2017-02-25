@@ -1,7 +1,10 @@
 package game.entities.structures;
 
-/**
- * Created by David on 2/21/2017.
- */
+import game.entities.EntityId;
+import game.gameboard.Location;
+
 public class ObservationTower extends Structure {
+    public ObservationTower(Location loc , EntityId entityId ){
+        super(loc, entityId);
+    }
 }
