@@ -1,8 +1,5 @@
 package game.entities.units;
 
-/**
- * Created by khariollivierre on 2/25/17.
- */
 public class UnitStats {
     private int offPow;
     private int defPow;
@@ -11,13 +8,41 @@ public class UnitStats {
     private int health;
     private float upkeep;
 
-    public UnitStats(int offPow, int defPow, int armor, int speed, int health, float upkeep) {
-        this.offPow = offPow;
-        this.defPow = defPow;
-        this.armor = armor;
-        this.speed = speed;
-        this.health = health;
-        this.upkeep = upkeep;
+    public UnitStats(UnitType unit) {
+        switch(unit){
+            case COLONIST:
+                this.offPow = 1;
+                this.defPow = 1;
+                this.armor = 1;
+                this.speed = 1;
+                this.health = 10;
+                this.upkeep = .05f;
+                break;
+            case EXPLORER:
+                this.offPow = 2;
+                this.defPow = 2;
+                this.armor = 2;
+                this.speed = 10;
+                this.health = 10;
+                this.upkeep = .05f;
+                break;
+            case MELEE:
+                this.offPow = 5;
+                this.defPow = 5;
+                this.armor = 5;
+                this.speed = 5;
+                this.health = 10;
+                this.upkeep = .1f;
+                break;
+            case RANGED:
+                this.offPow = 7;
+                this.defPow = 7;
+                this.armor = 3;
+                this.speed = 5;
+                this.health = 10;
+                this.upkeep = .1f;
+                break;
+        }
     }
 
     /* Accessors */
