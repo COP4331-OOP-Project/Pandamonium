@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.View;
 
 public class GameEngine extends Application {
     @Override
@@ -13,6 +14,7 @@ public class GameEngine extends Application {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
+        new View(scene, root);
         //link the event handlers here
         new AnimationTimer() {
             @Override
