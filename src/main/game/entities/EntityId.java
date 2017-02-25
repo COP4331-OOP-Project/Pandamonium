@@ -1,6 +1,6 @@
 package game.entities;
 
-public class EntityId<T> {
+public class EntityId {
     private int playerId;
     private char typeId;
     private Enum subTypeId;
