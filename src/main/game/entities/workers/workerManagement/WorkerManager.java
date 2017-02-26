@@ -1,5 +1,6 @@
 package game.entities.workers.workerManagement;
 
+import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.workers.workerManagement.WorkerIdManager;
@@ -22,7 +23,7 @@ public class WorkerManager implements iWorkerResearchObserver {
     }
 
 
-    public void addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException {
+    public void addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
         this.workers.add(this.workerIdManager.createWorker(workerType, location));
     }
 

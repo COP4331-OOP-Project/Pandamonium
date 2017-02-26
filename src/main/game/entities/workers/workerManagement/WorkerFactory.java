@@ -1,5 +1,6 @@
 package game.entities.workers.workerManagement;
 
+import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
@@ -32,7 +33,7 @@ public class WorkerFactory implements iWorkerResearchObserver {
 
     }
 
-    public Worker createWorker(WorkerTypeEnum workerType, int id, Location location) {
+    public Worker createWorker(WorkerTypeEnum workerType, int id, Location location) throws WorkerTypeDoesNotExist {
         EntityId entityId = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id);
         switch(workerType) {
             case FOOD_GATHERER:
@@ -53,8 +54,9 @@ public class WorkerFactory implements iWorkerResearchObserver {
                 return new ResearchGenerator(entityId, workerProductionStatistics.get(workerType), location);
             case SOLDIER_GENERATOR:
                 return new SoldierGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            default:
+                throw new WorkerTypeDoesNotExist("Worker type " + workerType + "does not exist.");
         }
-        return null;
     }
 
     public void onProductionRateChanged(double productionRate) {

@@ -2,6 +2,7 @@ package game.entities.workers.workerManagement;
 
 import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistException;
 import game.entities.workers.workerManagement.exceptions.WorkerLimitExceededException;
+import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
@@ -26,9 +27,14 @@ public class workerManagerTest {
         try {
             Worker w = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
             Assert.assertEquals(w.getId().getInstanceId(), 0);
-        } catch (WorkerLimitExceededException e) {
+        } catch (WorkerLimitExceededException | WorkerTypeDoesNotExist e) {
             Assert.fail();
         }
+    }
+    
+    @Test
+    public void workerTypeDoesNotExist() {
+        
     }
 
     @Test(expected=WorkerLimitExceededException.class)
@@ -38,12 +44,16 @@ public class workerManagerTest {
                 this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
             }
 
-        } catch(WorkerLimitExceededException e) {
+        } catch(WorkerLimitExceededException | WorkerTypeDoesNotExist e) {
             Assert.fail();
         }
 
-        this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
-        Assert.fail();
+        try {
+            this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
+            Assert.fail();
+        } catch (WorkerTypeDoesNotExist e) {
+            Assert.fail();
+        }
     }
 
     @Test
@@ -54,7 +64,7 @@ public class workerManagerTest {
             w1 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
             w2 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
 
-        } catch (WorkerLimitExceededException e) {
+        } catch (WorkerLimitExceededException | WorkerTypeDoesNotExist e) {
             Assert.fail();
         }
 
@@ -70,7 +80,7 @@ public class workerManagerTest {
         try {
             Worker w3 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
             Assert.assertEquals(w3.getId().getInstanceId(), 0);
-        } catch (WorkerLimitExceededException e) {
+        } catch (WorkerLimitExceededException | WorkerTypeDoesNotExist e) {
             Assert.fail();
         }
     }

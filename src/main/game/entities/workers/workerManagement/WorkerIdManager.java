@@ -6,6 +6,7 @@ import game.entities.IdManager.exceptions.IdDoesNotExistException;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
 import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistException;
 import game.entities.workers.workerManagement.exceptions.WorkerLimitExceededException;
+import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
@@ -27,7 +28,7 @@ public class WorkerIdManager {
         this.idManager = new IdManager(WORKER_ID_MIN, WORKER_ID_MAX);
     }
 
-    public Worker createWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException {
+    public Worker createWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
         Integer newId;
         try {
             newId = this.idManager.getNewId();
