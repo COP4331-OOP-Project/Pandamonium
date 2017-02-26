@@ -116,21 +116,21 @@ public class Assets {
         loadItem("AOE_DIE", "assets/images/areaEffect/loseHealth.png");
         loadItem("AOE_LOSE", "assets/images/areaEffect/redCross.png");
         loadItem("AOE_HEAL", "assets/images/areaEffect/skullDecal.png");
-        loadItem("COMMAND_ASSIGN_WORKER", "assets/images/gui/commandIcons/icon/assignWorker.png");
-        loadItem("COMMAND_ATTACK", "assets/images/gui/commandIcons/icons/attack.png");
-        loadItem("COMMAND_BUILD", "assets/images/gui/commandIcons/icons/build.png");
-        loadItem("COMMAND_CANCEL_QUEUE", "assets/images/gui/commandIcons/icons/cancelQueue.png");
-        loadItem("COMMAND_DECOMMISSION", "assets/images/gui/commandIcons/icons/decommission.png");
-        loadItem("COMMAND_DEFEND", "assets/images/gui/commandIcons/icons/defend.png");
-        loadItem("COMMAND_DROP_OFF_WORKER", "assets/images/gui/commandIcons/icons/dropOffWorker.png");
-        loadItem("COMMAND_FOUND_CAPITOL", "assets/images/gui/commandIcons/icons/foundCapitol.png");
-        loadItem("COMMAND_GOTO_RALLY_POINT", "assets/images/gui/commandIcons/icons/gotoRallyPoint.png");
-        loadItem("COMMAND_HEAL", "assets/images/gui/commandIcons/icons/heal.png");
-        loadItem("COMMAND_MOVE", "assets/images/gui/commandIcons/icons/move.png");
-        loadItem("COMMAND_PICKUP_WORKER", "assets/images/gui/commandIcons/icons/pickupWorker.png");
-        loadItem("COMMAND_POWER_DOWN", "assets/images/gui/commandIcons/icons/powerDown.png");
-        loadItem("COMMAND_POWER_UP", "assets/images/gui/commandIcons/icons/powerUp.png");
-        loadItem("COMMAND_UNASSIGN_ALL_WORKERS", "assets/images/gui/commandIcons/icons/unassignAllWorkers.png");
+        loadItem("COMMAND_ASSIGN_WORKER", "assets/images/icon/assignWorker.png");
+        loadItem("COMMAND_ATTACK", "assets/images/icon/attack.png");
+        loadItem("COMMAND_BUILD", "assets/images/icon/build.png");
+        loadItem("COMMAND_CANCEL_QUEUE", "assets/images/icon/cancelQueue.png");
+        loadItem("COMMAND_DECOMMISSION", "assets/images/icon/decommission.png");
+        loadItem("COMMAND_DEFEND", "assets/images/icon/defend.png");
+        loadItem("COMMAND_DROP_OFF_WORKER", "assets/images/icon/dropOffWorker.png");
+        loadItem("COMMAND_FOUND_CAPITOL", "assets/images/icon/foundCapitol.png");
+        loadItem("COMMAND_GOTO_RALLY_POINT", "assets/images/icon/gotoRallyPoint.png");
+        loadItem("COMMAND_HEAL", "assets/images/icon/heal.png");
+        loadItem("COMMAND_MOVE", "assets/images/icon/move.png");
+        loadItem("COMMAND_PICKUP_WORKER", "assets/images/icon/pickupWorker.png");
+        loadItem("COMMAND_POWER_DOWN", "assets/images/icon/powerDown.png");
+        loadItem("COMMAND_POWER_UP", "assets/images/icon/powerUp.png");
+        loadItem("COMMAND_UNASSIGN_ALL_WORKERS", "assets/images/icon/unassignAllWorkers.png");
         loadItem("TEXT_PATTERN", "assets/images/textTexture.jpg");
     }
 
