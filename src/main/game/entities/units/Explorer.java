@@ -4,6 +4,6 @@ import game.gameboard.Location;
 
 public class Explorer extends Unit{
 
-    public Explorer(UnitStats stats, Location location){ super(stats, location); }
+    public Explorer(UnitStats stats, Location location, int ownerID){ super(stats, location, ownerID); }
 
 }

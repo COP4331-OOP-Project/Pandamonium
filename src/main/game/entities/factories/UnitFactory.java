@@ -15,16 +15,16 @@ public class UnitFactory {
         this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
     }
 
-    public Unit createUnit(UnitType unit, Location location){
+    public Unit createUnit(UnitType unit, Location location, int ownerID){
         switch(unit) {
             case COLONIST:
-                return new Colonist(unitStatistics.get(unit), location);
+                return new Colonist(unitStatistics.get(unit), location, ownerID);
             case EXPLORER:
-                return new Explorer(unitStatistics.get(unit), location);
+                return new Explorer(unitStatistics.get(unit), location, ownerID);
             case MELEE:
-                return new Melee(unitStatistics.get(unit), location);
+                return new Melee(unitStatistics.get(unit), location, ownerID);
             case RANGED:
-                return new Ranged(unitStatistics.get(unit), location);
+                return new Ranged(unitStatistics.get(unit), location, ownerID);
         }
         return null;
     }
