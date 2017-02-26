@@ -1,6 +1,6 @@
-package game.entities.Player;
+package game.entities.workers.workerManagement;
 
-import game.WorkerResearchObserver;
+import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.workers.workerManagement.WorkerIdManager;
 import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistException;
@@ -12,7 +12,7 @@ import game.resources.Resource;
 
 import java.util.ArrayList;
 
-public class WorkerManager implements WorkerResearchObserver {
+public class WorkerManager implements iWorkerResearchObserver {
 
     private ArrayList<Worker> workers;
     private WorkerIdManager workerIdManager;
@@ -50,7 +50,7 @@ public class WorkerManager implements WorkerResearchObserver {
         return null;
     }
 
-    public void onProductionRateChanged(int productionRate) {
+    public void onProductionRateChanged(double productionRate) {
         for (Worker w : this.workers) {
             w.setProductionRate(productionRate);
         }

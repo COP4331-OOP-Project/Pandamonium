@@ -1,6 +1,6 @@
 package game.entities.workers.workerManagement;
 
-import game.WorkerResearchObserver;
+import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
 import game.entities.workers.workerTypes.*;
@@ -12,7 +12,7 @@ import game.resources.ResourceTypeEnum;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WorkerFactory implements WorkerResearchObserver {
+public class WorkerFactory implements iWorkerResearchObserver {
 
     private Map<WorkerTypeEnum, WorkerStats> workerProductionStatistics;
     private int playerId;
@@ -57,7 +57,7 @@ public class WorkerFactory implements WorkerResearchObserver {
         return null;
     }
 
-    public void onProductionRateChanged(int productionRate) {
+    public void onProductionRateChanged(double productionRate) {
         for (Object o : this.workerProductionStatistics.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             WorkerStats workerStats = (WorkerStats) pair.getValue();
