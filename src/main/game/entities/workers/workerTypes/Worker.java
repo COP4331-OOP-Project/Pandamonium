@@ -49,4 +49,8 @@ public abstract class Worker {
     public void setUpkeep(Resource upkeep) {
         this.workerStats.setUpkeep(upkeep);
     }
+
+    public WorkerStats getWorkerStats() { return this.workerStats; }
+
+    public abstract Resource doProduction();
 }

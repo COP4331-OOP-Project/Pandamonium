@@ -3,9 +3,7 @@ package game.entities.workers.workerManagement;
 import game.WorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
-import game.entities.workers.workerTypes.FoodGatherer;
-import game.entities.workers.workerTypes.Worker;
-import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.entities.workers.workerTypes.*;
 import game.entities.workers.workerStats.WorkerStats;
 import game.gameboard.Location;
 import game.resources.Resource;
@@ -28,11 +26,30 @@ public class WorkerFactory implements WorkerResearchObserver {
     }
 
     public Worker createWorker(WorkerTypeEnum workerType, int id, Location location) {
-        EntityId entityid = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id);
+        EntityId entityId = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id);
         switch(workerType) {
-            case FOOD_GATHERER: {
-                return new FoodGatherer(entityid, workerProductionStatistics.get(workerType), location);
-            }
+            case FOOD_GATHERER:
+                return new FoodGatherer(entityId, workerProductionStatistics.get(workerType), location);
+            case ORE_GATHERER:
+                return new OreGatherer(entityId, workerProductionStatistics.get(workerType), location);
+            case PEAT_GATHERER:
+                return new PeatGatherer(entityId, workerProductionStatistics.get(workerType), location);
+            case NUTRIENT_GENERATOR:
+                return new NutrientGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            case METAL_GENERATOR:
+                return new MetalGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            case POWER_GENERATOR:
+                return new PowerGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            case WORKER_GENERATOR:
+                return new WorkerGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            case RESEARCH_GENERATOR:
+                return new ResearchGenerator(entityId, workerProductionStatistics.get(workerType), location);
+            case SOLDIER_GENERATOR:
+                return new SoldierGenerator(entityId, workerProductionStatistics.get(workerType), location);
+
+
+
+
         }
         return null;
     }
