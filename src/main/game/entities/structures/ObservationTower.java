@@ -10,22 +10,4 @@ public class ObservationTower extends Structure {
         super(loc, entityId);
     }
 
-    public double getCurrentHealth(){
-        return 0;
-    }
-    public Percentage getHealthPercentage(){
-        return null;
-    }
-    public void takeDamage(double damage){
-
-    }
-    public void heal(double healing){
-
-    }
-    public void accept(iTileActionVisitor v){
-
-    }
-    public void decommissionEntity(){
-
-    }
 }

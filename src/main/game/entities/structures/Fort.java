@@ -40,22 +40,4 @@ public class Fort extends Structure {
         return null;
     }
 
-    public double getCurrentHealth(){
-        return 0;
-    }
-    public Percentage getHealthPercentage(){
-        return null;
-    }
-    public void takeDamage(double damage){
-
-    }
-    public void heal(double healing){
-
-    }
-    public void accept(iTileActionVisitor v){
-
-    }
-    public void decommissionEntity(){
-
-    }
 }

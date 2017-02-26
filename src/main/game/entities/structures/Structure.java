@@ -3,8 +3,10 @@ package game.entities.structures;
 import game.commands.Command;
 import game.entities.Entity;
 import game.entities.EntityId;
+import game.entities.Percentage;
 import game.entities.PowerState;
 import game.gameboard.Location;
+import game.visitors.iTileActionVisitor;
 
 import java.util.Queue;
 
@@ -30,7 +32,19 @@ public abstract class Structure extends Entity {
 
     }**/
 
-    public void decomission(){
+    public double getCurrentHealth(){
+        return 0;
+    }
+    public Percentage getHealthPercentage(){
+        return null;
+    }
+    public void takeDamage(double damage){
+
+    }
+    public void heal(double healing){
+
+    }
+    public void decommissionEntity(){
 
     }
 }

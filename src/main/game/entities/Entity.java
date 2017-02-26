@@ -28,7 +28,9 @@ public abstract class Entity {
     public abstract Percentage getHealthPercentage();           // Return entity health pct.
     public abstract void takeDamage(double damage);             // Take damage to health
     public abstract void heal(double healing);                  // Heal for a given amount
-    public abstract void accept(iTileActionVisitor v);          // Accept visitors
+    public void accept(iTileActionVisitor v){                   // Accept visitors
+        v.visitEntity(this);
+    }
 
     // Command queue management
     public void addCommandToQueue(Command command){             //Add Command to queue
