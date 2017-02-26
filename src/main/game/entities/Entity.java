@@ -37,5 +37,6 @@ public abstract class Entity {
 
     // Required Accessors
     public abstract int getOwnerID();                           // Get owning player id
+    public abstract EntityId getEntityId();
 
 }
