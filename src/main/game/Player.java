@@ -1,23 +1,31 @@
 package game;
 
+import java.util.ArrayList;
+
+import javax.lang.model.UnknownEntityException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import game.entities.structures.Capitol;
+import game.entities.structures.Farm;
+import game.entities.structures.Fort;
+import game.entities.structures.Mine;
+import game.entities.structures.ObservationTower;
+import game.entities.structures.PowerPlant;
 //import game.entities.Army;
 //import game.entities.RallyPoint;
 //import game.entities.factories.EntityFactory;
 //import game.entities.factories.UnknownEntityCodeException;
 //import game.gameboard.Resource;
 import game.entities.structures.Structure;
-import game.entities.units.*;
-import game.entities.structures.*;
-import game.entities.factories.EntityFactory;
-//import game.entities.factories.UnknownEntityCodeException;
-import game.entities.structures.Structure;
-import game.entities.units.*;
+import game.entities.structures.University;
+import game.entities.units.Colonist;
+import game.entities.units.Explorer;
+import game.entities.units.Melee;
+import game.entities.units.Ranged;
+import game.entities.units.Unit;
 import game.gameboard.Location;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.lang.model.UnknownEntityException;
-import java.util.ArrayList;
 
 
 public class Player {

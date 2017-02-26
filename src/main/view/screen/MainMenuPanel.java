@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import view.Panel;
 import view.PanelManager;
-import view.View;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
