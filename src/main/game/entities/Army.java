@@ -2,24 +2,21 @@ package game.entities;
 
 import game.gameboard.Location;
 
-public class Army {
-    private EntityId entityId;
+public class Army extends Entity{
     private BattleGroup battleGroup;
     private Reinforcement reinforcement;
     private RallyPoint rallyPoint;
-    private Location location;
 
     public Army(EntityId entityId, RallyPoint rp){
-        this.entityId=entityId;
+        super(rp.getLocation(), entityId);
         battleGroup = new BattleGroup(rp.getLocation());
         reinforcement = new Reinforcement();
         rallyPoint=rp;
-        location=rp.getLocation();
     }
 
     public void moveRallyPoint(Location loc){
         rallyPoint.setLocation(loc);
-        location=loc;
+        moveToLocation(loc);
     }
 
     //TODO find way to update battlegroup and reinforcements
@@ -27,5 +24,20 @@ public class Army {
 
     }
 
+    public double getCurrentHealth(){
+        return 0;
+    }
+    public Percentage getHealthPercentage(){
+        return null;
+    }
+    public void takeDamage(double damage){
+
+    }
+    public void heal(double healing){
+
+    }
+    public void decommissionEntity(){
+
+    }
 
 }

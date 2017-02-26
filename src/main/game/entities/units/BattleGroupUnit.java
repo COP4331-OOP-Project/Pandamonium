@@ -5,7 +5,7 @@ import game.entities.EntityId;
 import game.entities.iAttacker;
 import game.gameboard.Location;
 
-public class BattleGroupUnit implements iAttacker {
+public class BattleGroupUnit implements iAttacker{
     private EntityId entityId;
     private UnitStats stats;
 
