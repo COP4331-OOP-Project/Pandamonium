@@ -11,10 +11,11 @@ import java.util.ArrayList;
 
 // Tile class for gameboard
 public class Tile implements iTileAccessors {
-    public boolean containsUnit;
-    public boolean containsArmy;
-    public boolean containsRallyPoint;
-    public boolean containsStructure;
+    private boolean containsUnit;
+    private boolean containsArmy;
+    private boolean containsRallyPoint;
+    private boolean containsStructure;
+
     //public Resource tileResource;
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
@@ -25,15 +26,15 @@ public class Tile implements iTileAccessors {
     private int ownerId;
 
     Tile(TerrainEnum tileType, Location location) {
-        Terrain = tileType;
-        units = new ArrayList<Unit>();
-        //armies = new ArrayList<Army>();
-        //rallyPoints = new ArrayList<RallyPoint>();
-        containsStructure = false;
-        containsRallyPoint = false;
-        containsUnit = false;
-        containsArmy = false;
-        structure = null;
+        this.Terrain = tileType;
+        this.units = new ArrayList<Unit>();
+        //this.armies = new ArrayList<Army>();
+        //this.rallyPoints = new ArrayList<RallyPoint>();
+        this.containsStructure = false;
+        this.containsRallyPoint = false;
+        this.containsUnit = false;
+        this.containsArmy = false;
+        this.structure = null;
         this.location = location;
         this.setOwnerId(-1);
     }
@@ -54,7 +55,7 @@ public class Tile implements iTileAccessors {
     }
 
     public void addStructure(Structure structure){
-        if(getContainStructure()==false){
+        if(containsStructure()==false){
             this.structure = structure;
         }
     }
@@ -86,22 +87,18 @@ public class Tile implements iTileAccessors {
 //        }
     }
 
-    public boolean getContainStructure(){
+    public boolean containsStructure(){
         if(structure!=null)
             return true;
         else
             return false;
     }
 
-    public boolean getContainUnit(){
-        if(units.isEmpty()== true)
-            return false;
-        else
-            return true;
+    public boolean containsUnit(){
+        return false;
     }
 
-    public boolean getContainArmy(){
-        //check if the tile contains army
+    public boolean containsArmy(){
         return false;
     }
 
