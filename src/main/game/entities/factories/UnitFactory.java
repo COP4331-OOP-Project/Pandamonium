@@ -3,6 +3,7 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
+import game.entities.EntityId;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
 import game.entities.units.Melee;
@@ -23,16 +24,16 @@ public class UnitFactory {
         this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
     }
 
-    public Unit createUnit(UnitType unit, Location location, int ownerID){
+    public Unit createUnit(UnitType unit, Location location, EntityId entityId){
         switch(unit) {
             case COLONIST:
-                return new Colonist(unitStatistics.get(unit), location, ownerID);
+                return new Colonist(unitStatistics.get(unit), location, entityId);
             case EXPLORER:
-                return new Explorer(unitStatistics.get(unit), location, ownerID);
+                return new Explorer(unitStatistics.get(unit), location, entityId);
             case MELEE:
-                return new Melee(unitStatistics.get(unit), location, ownerID);
+                return new Melee(unitStatistics.get(unit), location, entityId);
             case RANGED:
-                return new Ranged(unitStatistics.get(unit), location, ownerID);
+                return new Ranged(unitStatistics.get(unit), location, entityId);
         }
         return null;
     }
