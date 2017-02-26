@@ -3,12 +3,12 @@ package view.game;
 import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public abstract class OverviewPanel extends Panel {
-    public OverviewPanel(Assets assets, ViewEnum view) {
+    public OverviewPanel(AssetManager assets, ViewEnum view) {
 		super(assets, view);
 	}
 

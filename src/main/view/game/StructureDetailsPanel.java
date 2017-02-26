@@ -6,8 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import view.Assets;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class StructureDetailsPanel extends DetailsPanel {
     Font detailsFont = getAssets().getFont(0);
@@ -17,7 +17,7 @@ public class StructureDetailsPanel extends DetailsPanel {
     private static final int OFFSET = 80;
 	private static final int SPACING = 230;
 
-    public StructureDetailsPanel(Assets assets, ViewEnum viewEnum) {
+    public StructureDetailsPanel(AssetManager assets, ViewEnum viewEnum) {
     	super(assets, viewEnum);
     	ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));

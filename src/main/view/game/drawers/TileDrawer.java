@@ -1,8 +1,5 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
-import game.gameboard.Location;
 import view.game.GamePanel;
 
 public class TileDrawer {

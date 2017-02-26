@@ -1,18 +1,18 @@
 package view.game;
 
+import java.awt.Point;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class ControlModePanel extends Panel {
 	
@@ -33,7 +33,7 @@ public class ControlModePanel extends Panel {
     private String submodeString = "";
     private int mode = 0;
 
-    public ControlModePanel(Assets assets, ViewEnum view) {
+    public ControlModePanel(AssetManager assets, ViewEnum view) {
     	super(assets, view);
         ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));

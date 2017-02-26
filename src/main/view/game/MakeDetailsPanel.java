@@ -1,20 +1,16 @@
 package view.game;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.text.Font;
-import view.Assets;
-import view.Panel;
-import view.ViewEnum;
-
 import java.awt.Point;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Font;
+import view.Panel;
+import view.ViewEnum;
+import view.assets.AssetManager;
 
-/**
- * Created by Alex on 2/5/17.
- */
 public class MakeDetailsPanel extends Panel{
     private final static Logger log = LogManager.getLogger(ControlModePanel.class);
     private static final int PANEL_HEIGHT = 114;
@@ -22,8 +18,6 @@ public class MakeDetailsPanel extends Panel{
     private static final int PANEL_DISTANCE_FROM_LEFT = 210;
     private static final int TEXT_SPACING = 48;
     private static final int TEXT_LOCATION = 58;
-    private static final int COLONIST_LIST = 0;
-    private static final int BASE_LIST = 1;
     private static final int TEXT_OFFSET = 28;
     private Point screenDimensions;
 
@@ -35,7 +29,7 @@ public class MakeDetailsPanel extends Panel{
     private int mode = 0;
 
     // Constructor
-    public MakeDetailsPanel(Assets assets, ViewEnum viewEnum) {
+    public MakeDetailsPanel(AssetManager assets, ViewEnum viewEnum) {
     	super(assets, viewEnum);
     	this.setIsVisible(false);
     }
@@ -90,13 +84,11 @@ public class MakeDetailsPanel extends Panel{
 	@Override
 	public void hideGUIElements() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void showGUIElements() {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

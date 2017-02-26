@@ -1,17 +1,18 @@
 package view.game;
 
 import java.awt.Point;
+
 import javafx.scene.canvas.GraphicsContext;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public abstract class DetailsPanel extends Panel{
 	
     private int guiPanelHeight =
             (int) getAssets().getImage("GUI_BOTTOM").getHeight();
 	
-	public DetailsPanel(Assets assets, ViewEnum view) {
+	public DetailsPanel(AssetManager assets, ViewEnum view) {
 		super(assets, view);
 	}
 

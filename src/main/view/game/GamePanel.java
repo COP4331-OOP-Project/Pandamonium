@@ -1,16 +1,15 @@
 package view.game;
 
 import java.awt.Point;
-import game.entities.structures.Structure;
-import game.entities.units.Unit;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 import view.game.drawers.ArmyDrawer;
 import view.game.drawers.SelectedDrawer;
 import view.game.drawers.StructureDrawer;
@@ -29,9 +28,8 @@ public class GamePanel extends Panel {
     private GraphicsContext gc;
 	private Point screenDimensions;
 
-    public GamePanel(Camera camera, Assets assets, ViewEnum view) {
+    public GamePanel(AssetManager assets, Camera camera, ViewEnum view) {
     	super(assets, view);
-        this.camera = camera;
         screenDimensions = new Point();
         tileDrawer = new TileDrawer(this);
         unitDrawer = new UnitDrawer(this);

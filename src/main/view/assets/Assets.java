@@ -1,14 +1,16 @@
-package view;
+package view.assets;
 
-import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 
 public class Assets {
     private final static Logger log = LogManager.getLogger(Assets.class);
@@ -25,7 +27,7 @@ public class Assets {
     private Assets() {
     } //Constructor is Private, only one instance of Resources can be created
 
-    static Assets getInstance() {
+    static Assets getInstance() { //Only available to AssetManager, which is in package
         return INSTANCE;
     }
 
@@ -138,7 +140,8 @@ public class Assets {
         try {
             localUrl = file.toURI().toURL().toString();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+        	log.error("Invalid Image File Specified: " + name + " " + path);
+        	e.printStackTrace();
         }
         assets.put(name, new Image(localUrl));
         log.info("Loaded Item: " + name);

@@ -1,19 +1,19 @@
 package view.game;
 
 import java.awt.Point;
+
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class HoverPanel extends Panel {
 	String text;
     Group root;
 	
-    public HoverPanel(Assets assets, ViewEnum view) {
+    public HoverPanel(AssetManager assets, ViewEnum view) {
 		super(assets, view);
 	}
 

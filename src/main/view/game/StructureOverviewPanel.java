@@ -3,13 +3,12 @@ package view.game;
 import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import view.Assets;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class StructureOverviewPanel extends OverviewPanel {
-    public StructureOverviewPanel(Assets assets, ViewEnum view) {
+    public StructureOverviewPanel(AssetManager assets, ViewEnum view) {
 		super(assets, view);
 	}
 

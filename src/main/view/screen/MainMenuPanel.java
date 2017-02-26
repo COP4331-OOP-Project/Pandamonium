@@ -11,16 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import view.Assets;
 import view.Panel;
+import view.PanelManager;
 import view.View;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class MainMenuPanel extends Panel{
 	private static final int MAIN_MENU_BUTTON_SPACING = 100;
 	private static final int DISTANCE_UP_FROM_CENTER = 80;
     private DropShadow ds = new DropShadow();
-	View view;
+	PanelManager panelManager;
 	AnchorPane mainMenuElements = new AnchorPane();
 	Group root;
 	Button startGame = new Button("Start Game");
@@ -28,10 +29,10 @@ public class MainMenuPanel extends Panel{
 	Button settings = new Button("Settings");
 	Button exitGame = new Button("Exit Game");
 	
-	public MainMenuPanel(Group root, View view, Assets assets, ViewEnum viewEnum) {
+	public MainMenuPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(assets, viewEnum);
-		this.view = view;
 		this.root = root;
+		this.panelManager = panelManager;
     	ds.setOffsetY(6.0);
     	ds.setColor(Color.color(0, 0, 0));
 		setUpButtons();
@@ -42,21 +43,21 @@ public class MainMenuPanel extends Panel{
 		startGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //view.mainGameMode();
+                panelManager.setMode(ViewEnum.MAIN_GAME);
             }
         });
 		mapMaker.setId("mainMenuButton");
 		mapMaker.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //view.mapMakerMode();
+                panelManager.setMode(ViewEnum.MAP_MAKER);
             }
         });
 		settings.setId("mainMenuButton");
 		settings.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               // view.settingsMode();
+               panelManager.setMode(ViewEnum.SETTINGS);
             }
         });
 		exitGame.setId("mainMenuButton");
@@ -74,13 +75,13 @@ public class MainMenuPanel extends Panel{
 	}
 
 	@Override
-	public void draw(GraphicsContext gc, Point screenDimensions) {
-		gc.drawImage(getAssets().getImage("MENU_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
-		gc.setEffect(ds);
-		gc.setFont(getAssets().getFont(4));
-		gc.setFill(Color.WHITE);
-		gc.fillText("Asian Game!", screenDimensions.x/2 - 240, screenDimensions.y/4);
-		gc.setEffect(null);
+	public void draw(GraphicsContext g, Point screenDimensions) {
+		g.drawImage(getAssets().getImage("MENU_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+		g.setEffect(ds);
+		g.setFont(getAssets().getFont(4));
+		g.setFill(Color.WHITE);
+		g.fillText("Asian Game!", screenDimensions.x/2 - 240, screenDimensions.y/4);
+		g.setEffect(null);
 		startGame.setTranslateX(screenDimensions.x / 2 - startGame.getWidth() / 2);
 		startGame.setTranslateY(screenDimensions.y / 2 - DISTANCE_UP_FROM_CENTER);
 		mapMaker.setTranslateX(screenDimensions.x / 2 - mapMaker.getWidth() / 2);

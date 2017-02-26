@@ -1,8 +1,10 @@
 package view.game.drawers;
 
 import java.awt.Point;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import view.game.GamePanel;
 
 public class StructureDrawer {

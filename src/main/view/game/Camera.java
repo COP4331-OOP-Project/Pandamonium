@@ -1,7 +1,6 @@
 package view.game;
 
 import java.awt.Point;
-import view.Assets;
 
 public class Camera {
     private static final int HEX_W = 130;
@@ -12,7 +11,6 @@ public class Camera {
 	private static final double MAX_SCALE = 1.0; //Max amount to be zoomed in
 	
     private CameraCenterer panelCenterer;
-    private Point screenDimensions;
     private Point offset = new Point(180, -2350);
     
     //These values are used when dragging the Camera.
@@ -26,8 +24,7 @@ public class Camera {
 	Point mouseZoomStart = new Point(0,0);
 
 	
-    public Camera(Point screenDimensions) {
-    	this.screenDimensions = screenDimensions;
+    public Camera() {
         this.panelCenterer = new CameraCenterer(this);
     }
     
@@ -36,7 +33,7 @@ public class Camera {
      * must be handled every tick, such as checking the centering
      * and zooming.
      */
-	public void reAlign(Point selected) {
+	public void reAlign(Point selected, Point screenDimensions) {
         checkZooming();
         if (!zooming) {
         	panelCenterer.recenter(screenDimensions.x, screenDimensions.y);
@@ -85,7 +82,7 @@ public class Camera {
     					  (getPixelLocation(tile).y + TILE_SIZE / 2));
     }
     
-	public void zoom(double deltaY) {
+	public void zoom(double deltaY, Point screenDimensions) {
 		Point p = new Point((int)screenDimensions.x/2, (int)screenDimensions.y/2);
 		zoomCounter = 0;
 		if (!zooming) {

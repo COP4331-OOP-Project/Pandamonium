@@ -1,5 +1,12 @@
 package view.screen;
 
+import java.awt.Point;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import game.gameboard.MapLoader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -12,18 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import view.Assets;
-import view.View;
-import view.ViewEnum;
-import view.game.Camera;
 import view.Panel;
-import java.awt.Point;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import game.gameboard.MapLoader;
+import view.PanelManager;
+import view.ViewEnum;
+import view.assets.AssetManager;
+import view.game.Camera;
 
 public class MapMakerPanel extends Panel{
     private static final int BOARD_SIZE = 42;
@@ -32,8 +32,8 @@ public class MapMakerPanel extends Panel{
     private DropShadow ds = new DropShadow();
     Point screenDimensions = new Point(0,0);
     Point offset = new Point();
-    Camera camera = new Camera(screenDimensions);
-	View view;
+    Camera camera = new Camera();
+	PanelManager panelManager;
 	File waterMap = new File("assets/maps/allwater.map");
 	
 	Group root; //Any GUI Elements Must Be Added and Removed From Here
@@ -48,9 +48,9 @@ public class MapMakerPanel extends Panel{
     int brushSize = 1;
 	int[][] map;
 	
-	public MapMakerPanel(Group root, View view, Assets assets, ViewEnum viewEnum) {
+	public MapMakerPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(assets, viewEnum);
-		this.view = view;
+		this.panelManager = panelManager;
 		this.root = root;
     	ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
@@ -86,7 +86,7 @@ public class MapMakerPanel extends Panel{
 		exitToMenuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //view.mainMenuMode();
+                panelManager.setMode(ViewEnum.MAIN_MENU);
             }
         });
         brushSize1.getStyleClass().setAll("buttonSelected");

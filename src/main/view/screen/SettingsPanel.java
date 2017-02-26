@@ -1,19 +1,20 @@
 package view.screen;
 
 import java.awt.Point;
+
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import view.Assets;
 import view.Panel;
-import view.View;
+import view.PanelManager;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class SettingsPanel extends Panel{
-	View view;
+	PanelManager panelManager;
 	
-	public SettingsPanel(Group root, View view, Assets assets, ViewEnum viewEnum) {
+	public SettingsPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(assets, viewEnum);
-		this.view = view;
+		this.panelManager = panelManager;
 	}
 
 	@Override

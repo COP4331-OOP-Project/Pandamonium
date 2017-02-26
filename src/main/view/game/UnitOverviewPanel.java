@@ -1,14 +1,14 @@
 package view.game;
 
 import java.awt.Point;
+
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import view.Assets;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class UnitOverviewPanel extends OverviewPanel {
-    public UnitOverviewPanel(Assets assets, ViewEnum viewEnum) {
+    public UnitOverviewPanel(AssetManager assets, ViewEnum viewEnum) {
     	super(assets, viewEnum);
     	this.setIsVisible(false);
     }

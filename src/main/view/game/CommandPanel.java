@@ -1,6 +1,7 @@
 package view.game;
 
 import java.awt.Point;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -10,9 +11,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import view.Assets;
 import view.Panel;
 import view.ViewEnum;
+import view.assets.AssetManager;
 
 public class CommandPanel extends Panel{
 	private static final int COMMAND_Y_NORMAL = 99;
@@ -35,7 +36,7 @@ public class CommandPanel extends Panel{
 	private ToggleButton commandMove = new ToggleButton();
 	private HoverPanel hoverPanel;
 	
-	public CommandPanel(Group root, Assets assets, ViewEnum view) {
+	public CommandPanel(Group root, AssetManager assets, ViewEnum view) {
 		super(assets, view);
 		this.root = root;
 		hoverPanel = new HoverPanel(assets, view);
