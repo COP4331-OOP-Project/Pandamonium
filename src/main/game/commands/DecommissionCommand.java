@@ -1,13 +1,13 @@
 package game.commands;
 
-import game.entities.iEntity;
+import game.entities.Entity;
 
 // Decommission (destroy) the actor
 public class DecommissionCommand extends Command {
 
-    private iEntity actor;              // Actor to decomission
+    private Entity actor;              // Actor to decomission
 
-    public DecommissionCommand(iEntity actor) {
+    public DecommissionCommand(Entity actor) {
         this.actor = actor;             // Set actor
         super.duration = 0;             // No wait till activation
     }
