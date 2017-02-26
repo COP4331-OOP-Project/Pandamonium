@@ -4,6 +4,7 @@ import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistExcep
 import game.entities.workers.workerManagement.exceptions.WorkerLimitExceededException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.gameboard.Location;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,33 +12,20 @@ import org.junit.Test;
 public class workerManagerTest {
 
     WorkerIdManager workerIdManager;
+    Location aLocation;
 
     @Before
     public void setUp() {
-        this.workerIdManager = new WorkerIdManager(0, 5);
-    }
-
-    @Test
-    public void constructorTest() throws IllegalArgumentException {
-        // check that IllegalArgumentException is not thrown
-        new WorkerIdManager(0, 1);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void constructorIllegalArgument() throws IllegalArgumentException {
-        new WorkerIdManager(1, 0);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void constructorIllegalArgumentEqual() throws IllegalArgumentException {
-        new WorkerIdManager(5,5);
+        
+        this.workerIdManager = new WorkerIdManager(1);
+        this.aLocation = new Location(1,1);
     }
 
     @Test
     public void createWorker() {
         try {
-            Worker w = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Assert.assertEquals(w.getId(), 0);
+            Worker w = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
+            Assert.assertEquals(w.getId().getInstanceId(), 0);
         } catch (WorkerLimitExceededException e) {
             Assert.fail();
         }
@@ -46,25 +34,15 @@ public class workerManagerTest {
     @Test(expected=WorkerLimitExceededException.class)
     public void workerLimitExceeded() throws WorkerLimitExceededException {
         try {
-            Worker w1 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Worker w2 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Worker w3 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Worker w4 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Worker w5 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Worker w6 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-
-            Assert.assertEquals(w1.getId(), 0);
-            Assert.assertEquals(w2.getId(), 1);
-            Assert.assertEquals(w3.getId(), 2);
-            Assert.assertEquals(w4.getId(), 3);
-            Assert.assertEquals(w5.getId(), 4);
-            Assert.assertEquals(w6.getId(), 5);
+            for (int i = 0; i <= 99; i++) {
+                this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
+            }
 
         } catch(WorkerLimitExceededException e) {
             Assert.fail();
         }
 
-        this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
+        this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
         Assert.fail();
     }
 
@@ -73,8 +51,8 @@ public class workerManagerTest {
         Worker w1 = null;
         Worker w2 = null;
         try {
-            w1 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            w2 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
+            w1 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
+            w2 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
 
         } catch (WorkerLimitExceededException e) {
             Assert.fail();
@@ -90,8 +68,8 @@ public class workerManagerTest {
         }
 
         try {
-            Worker w3 = this.workerIdManager.createWorker(WorkerTypeEnum.FARMER);
-            Assert.assertEquals(w3.getId(), 0);
+            Worker w3 = this.workerIdManager.createWorker(WorkerTypeEnum.FOOD_GATHERER, this.aLocation);
+            Assert.assertEquals(w3.getId().getInstanceId(), 0);
         } catch (WorkerLimitExceededException e) {
             Assert.fail();
         }

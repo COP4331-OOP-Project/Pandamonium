@@ -1,5 +1,7 @@
 package game;
 
+import game.resources.Resource;
+
 import java.util.ArrayList;
 
 public class ResearchObservable implements WorkerResearchObservable {
@@ -14,15 +16,15 @@ public class ResearchObservable implements WorkerResearchObservable {
         this.observers.add(observer);
     }
 
-    public void upgradeWorkRadius(int newWorkRadius) {
+    public void changeProductionRate(int productionRate) {
         for (WorkerResearchObserver observer : this.observers) {
-            observer.onWorkRadiusUpgraded(newWorkRadius);
+            observer.onProductionRateChanged(productionRate);
         }
     }
 
-    public void upgradeWorkerDensity(int newWorkerDensity) {
+    public void changeUpkeep(Resource upkeep) {
         for (WorkerResearchObserver observer : this.observers) {
-            observer.onWorkerDensityUpgraded(newWorkerDensity);
+            observer.onUpkeepChanged(upkeep);
         }
     }
 }

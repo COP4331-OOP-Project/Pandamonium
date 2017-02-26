@@ -26,6 +26,6 @@ public class EntityId {
     }
 
     public int getInstanceId(){
-        return getInstanceId();
+        return this.instanceId;
     }
 }

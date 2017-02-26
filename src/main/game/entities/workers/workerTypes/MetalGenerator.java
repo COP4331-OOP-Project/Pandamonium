@@ -13,6 +13,6 @@ public class MetalGenerator extends Worker {
     }
 
     public Resource doProduction() {
-        return new Resource(this.getWorkerStats().getProductionRate(), ResourceTypeEnum.METAL);
+        return new Resource(this.getProductionRate(), ResourceTypeEnum.METAL);
     }
 }

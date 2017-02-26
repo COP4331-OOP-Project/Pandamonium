@@ -13,6 +13,6 @@ public class PowerGenerator extends Worker {
     }
 
     public Resource doProduction() {
-        return new Resource(this.getWorkerStats().getProductionRate(), ResourceTypeEnum.POWER);
+        return new Resource(this.getProductionRate(), ResourceTypeEnum.POWER);
     }
 }

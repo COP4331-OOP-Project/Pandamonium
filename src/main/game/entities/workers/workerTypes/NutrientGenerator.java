@@ -13,6 +13,6 @@ public class NutrientGenerator extends Worker {
     }
 
     public Resource doProduction() {
-        return new Resource(this.getWorkerStats().getProductionRate(), ResourceTypeEnum.NUTRIENTS);
+        return new Resource(this.getProductionRate(), ResourceTypeEnum.NUTRIENTS);
     }
 }

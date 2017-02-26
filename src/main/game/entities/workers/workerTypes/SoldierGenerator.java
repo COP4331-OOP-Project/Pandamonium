@@ -13,6 +13,6 @@ public class SoldierGenerator extends Worker {
     }
 
     public Resource doProduction() {
-        return new Resource(this.getWorkerStats().getProductionRate(), ResourceTypeEnum.SOLDIER_POINTS);
+        return new Resource(this.getProductionRate(), ResourceTypeEnum.SOLDIER_POINTS);
     }
 }

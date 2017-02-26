@@ -22,6 +22,13 @@ public class WorkerFactory implements WorkerResearchObserver {
         this.workerProductionStatistics = new HashMap<>();
         this.workerProductionStatistics.put(WorkerTypeEnum.FOOD_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.FOOD)));
         this.workerProductionStatistics.put(WorkerTypeEnum.ORE_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.ORE)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.PEAT_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.PEAT)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.NUTRIENT_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.NUTRIENTS)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.METAL_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.METAL)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.POWER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.POWER)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.WORKER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.WORKER_POINTS)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.RESEARCH_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.RESEARCH_POINTS)));
+        this.workerProductionStatistics.put(WorkerTypeEnum.SOLDIER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.SOLDIER_POINTS)));
 
     }
 
@@ -46,10 +53,6 @@ public class WorkerFactory implements WorkerResearchObserver {
                 return new ResearchGenerator(entityId, workerProductionStatistics.get(workerType), location);
             case SOLDIER_GENERATOR:
                 return new SoldierGenerator(entityId, workerProductionStatistics.get(workerType), location);
-
-
-
-
         }
         return null;
     }

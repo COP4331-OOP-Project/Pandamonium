@@ -50,6 +50,7 @@ public class WorkerIdManager {
         for (Worker w : this.workers) {
             if (w.getId() == id) {
                 this.workers.remove(w);
+                break;
             }
         }
     }
