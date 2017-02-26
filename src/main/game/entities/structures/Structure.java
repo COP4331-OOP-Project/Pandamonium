@@ -1,12 +1,12 @@
 package game.entities.structures;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import game.commands.Command;
 import game.entities.EntityId;
 import game.entities.PowerState;
 import game.gameboard.Location;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 public abstract class Structure {
     private EntityId entityId;
