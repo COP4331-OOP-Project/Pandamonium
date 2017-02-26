@@ -92,23 +92,43 @@ public class Player {
     */
 
     public void removeMelee(Melee melee){
-        //melees.set(melee.getInstanceId(), null);
+//        for(int i = 0;i<melees.size();i++){
+//            if(melees.get(i).getInstanceId() == melee.getInstanceId()){
+//                melees.remove(i);
+//            }
+//        }
     }
 
     public void removeRanged(Ranged ranged){
-        //ranges.set(ranged.getInstanceId(),null);
+//        for(int i = 0;i<ranges.size();i++){
+//            if(ranges.get(i).getInstanceId() == ranges.getInstanceId()){
+//                ranges.remove(i);
+//            }
+//        }
     }
 
     public void removeExplorer(Explorer explorer){
-        //explorers.set(explorer.getInstanceId(), null);
+//        for(int i = 0;i<explorers.size();i++){
+//            if(explorers.get(i).getInstanceId() == explorer.getInstanceId()){
+//                explorers.remove(i);
+//            }
+//        }
     }
 
     public void removeColonist(Colonist colonist){
-        //colonists.set(colonist.getInstanceId(),null);
+//        for(int i = 0;i<colonists.size();i++){
+//            if(colonists.get(i).getInstanceId() == colonist.getInstanceId()){
+//                colonists.remove(i);
+//            }
+//        }
     }
 /*
     public void remvoeWorker(Worker worker){
-        workers.set(worker.getInstanceId(), null);
+        for(int i = 0;i<melees.size();i++){
+            if(workers.get(i).getInstanceId() == worker.getInstanceId()){
+                workers.remove(i);
+            }
+        }
     }
 */
     /*
@@ -178,30 +198,58 @@ public class Player {
     }
 
     public void removeCapitol(Capitol capitol){
-        //structures.set(capitol.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == capitol.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removeFarm(Farm farm){
-        //structures.set(farm.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == farm.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removeFort(Fort fort){
-        //structures.set(fort.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == fort.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removeMine(Mine mine){
-        //structures.set(mine.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == mine.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removeObservationTower(ObservationTower tower){
-        //structures.set(tower.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == tower.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removePowerPlant(PowerPlant powerPlant){
-        //structures.set(powerPlant.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == powerPlant.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 
     public void removeUniversity(University university){
-        //structures.set(university.getInstanceId(),null);
+        for(int i = 0;i<structures.size();i++){
+            if(structures.get(i).getInstanceId() == university.getInstanceId()){
+                structures.remove(i);
+            }
+        }
     }
 }
