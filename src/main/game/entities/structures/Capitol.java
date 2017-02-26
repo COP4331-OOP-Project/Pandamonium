@@ -3,8 +3,6 @@ package game.entities.structures;
 import game.entities.EntityId;
 import game.gameboard.Location;
 
-import java.util.ArrayList;
-
 public class Capitol extends Structure {
     //private ArrayList<worker> workers;
     //private ArrayList<worker> farmer;
