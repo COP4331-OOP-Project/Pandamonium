@@ -9,12 +9,13 @@ import javafx.stage.Stage;
 import view.View;
 
 public class GameEngine extends Application {
+	GameModel model = new GameModel();
     @Override
     public void start(Stage stage) {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
-        new View(scene, root);
+        new View(model, scene, root);
         //link the event handlers here
         new AnimationTimer() {
             @Override
