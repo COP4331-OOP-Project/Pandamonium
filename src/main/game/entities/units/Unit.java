@@ -6,7 +6,6 @@ import game.entities.Entity;
 import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
-// TODO: Maybe fix imports on subclasses
 // TODO: Fix damage taking to account for defense
 // TODO: Implement Entity abstract functions
 
