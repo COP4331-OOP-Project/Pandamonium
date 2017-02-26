@@ -1,7 +1,15 @@
 package game.entities.factories;
 
-import java.util.*;
-import game.entities.units.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import game.entities.units.Colonist;
+import game.entities.units.Explorer;
+import game.entities.units.Melee;
+import game.entities.units.Ranged;
+import game.entities.units.Unit;
+import game.entities.units.UnitStats;
+import game.entities.units.UnitType;
 import game.gameboard.Location;
 
 public class UnitFactory {

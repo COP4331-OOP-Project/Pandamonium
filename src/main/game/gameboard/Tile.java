@@ -6,8 +6,6 @@ package game.gameboard;
 //import game.entities.units.Unit;
 import game.visitors.iTileActionVisitor;
 
-import java.util.ArrayList;
-
 // Tile class for gameboard
 public class Tile implements iTileAccessors {
 //    public boolean containsUnit;

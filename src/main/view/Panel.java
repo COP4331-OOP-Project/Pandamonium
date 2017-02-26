@@ -1,13 +1,15 @@
 package view;
 
 import java.awt.Point;
+
 import javafx.scene.canvas.GraphicsContext;
-import view.Assets;
+import view.assets.AssetManager;
 
 public abstract class Panel {
-	private ViewEnum view;
-	private Assets assets;
+	private ViewEnum viewEnum;
+	private AssetManager assets;
     private boolean isVisible = true;
+    private boolean GUIVisible = false;
     
     public abstract void draw(GraphicsContext gc, Point screenDimensions);
 
@@ -15,22 +17,27 @@ public abstract class Panel {
     
     public abstract void showGUIElements();
     
-    public Panel(Assets assets, ViewEnum view) {
+    public Panel(AssetManager assets, ViewEnum viewEnum) {
     	this.assets = assets;
+    	this.viewEnum = viewEnum;
     }
     
-    public void drawPanel(GraphicsContext gc, Point screenDimensions) {
-        if (isVisible) {
-            draw(gc, screenDimensions);
-        }
+    public void drawPanel(GraphicsContext gc, Point screenDimensions, ViewEnum gameMode) {
+    	if (gameMode == viewEnum && isVisible) {
+    		draw(gc, screenDimensions);
+    		if (!GUIVisible) {
+    			GUIVisible = true;
+    			showGUIElements();
+    		}
+    	} else {
+    		if (GUIVisible) {
+    			GUIVisible = false;
+    			hideGUIElements();
+    		}
+    	}
     }
     
     public void setIsVisible(boolean isVisible) {
-    	if (isVisible) {
-    		showGUIElements();
-    	} else {
-    		hideGUIElements();
-    	}
     	this.isVisible = isVisible;
     }
     
@@ -38,7 +45,7 @@ public abstract class Panel {
     	return isVisible;
     }
     
-    public Assets getAssets() {
+    public AssetManager getAssets() {
     	return assets;
     }
 }
