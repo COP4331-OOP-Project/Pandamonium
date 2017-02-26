@@ -1,8 +1,8 @@
 package game.commands;
 
-import game.entities.units.Unit;
-
 import java.util.ArrayList;
+
+import game.entities.units.Unit;
 
 /**
  * Band an established collection of unit actors

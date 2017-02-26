@@ -1,5 +1,5 @@
 package game.visitors;
-import game.entities.iEntity;
+import game.entities.Entity;
 
 // Visitor to perform an attack on an entity
 public class AttackVisitor implements iTileActionVisitor {
@@ -12,7 +12,7 @@ public class AttackVisitor implements iTileActionVisitor {
     }
 
     // Visit entity and deal damage based on created attack value
-    public void visitEntity(iEntity e) {
+    public void visitEntity(Entity e) {
         e.takeDamage(attackDamage);
     }
 

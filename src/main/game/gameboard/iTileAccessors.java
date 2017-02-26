@@ -5,8 +5,6 @@ package game.gameboard;
 //import game.entities.units.Unit;
 import game.visitors.iTileActionVisitor;
 
-import java.util.ArrayList;
-
 /**
  * Necessary commands for Tile access and management
  */

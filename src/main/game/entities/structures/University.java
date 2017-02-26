@@ -1,7 +1,9 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.Percentage;
 import game.gameboard.Location;
+import game.visitors.iTileActionVisitor;
 
 public class University extends Structure {
     //private ArrayList<worker> workers;
@@ -30,4 +32,5 @@ public class University extends Structure {
     public void research(){
 
     }
+
 }

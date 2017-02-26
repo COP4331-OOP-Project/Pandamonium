@@ -3,7 +3,7 @@ package game.commands;
 import game.Player;
 import game.entities.iAttacker;
 import game.entities.iDefender;
-import game.entities.iEntity;
+import game.entities.Entity;
 import game.entities.iHealer;
 import game.gameboard.Tile;
 
@@ -19,41 +19,44 @@ public class CommandDispatcher {
 
     // Issue an attack command
     public void issueAttackCommand(iAttacker a, Tile target) {
-        a.addCommandToQueue(new AttackCommand(a, target, 1));
+        Entity e = (Entity)a;
+        e.addCommandToQueue(new AttackCommand(a, target, 1));
     }
 
     // Issue a defend command
     public void issueDefendCommand(iDefender d, int direction) {
-        d.addCommandToQueue(new DefendCommand(d, direction, 1));
+        Entity e = (Entity)d;
+        e.addCommandToQueue(new DefendCommand(d, direction, 1));
     }
 
     // Issue a heal command
     public void issueHealCommand(iHealer h, Tile target) {
-        h.addCommandToQueue(new HealCommand(h, target, 1));
+        Entity e = (Entity)h;
+        e.addCommandToQueue(new HealCommand(h, target, 1));
     }
 
     // Issue a make command
-    public void issueMakeCommand(iEntity e, Tile target, String entityCode) {
+    public void issueMakeCommand(Entity e, Tile target, String entityCode) {
         e.addCommandToQueue(new MakeCommand(e, target, entityCode));
     }
 
     // Issue a power down command
-    public void issuePowerDownCommand(iEntity e) {
+    public void issuePowerDownCommand(Entity e) {
         e.addCommandToQueue(new PowerDownCommand(e));
     }
 
     // Issue a power up command
-    public void issuePowerUpCommand(iEntity e) {
+    public void issuePowerUpCommand(Entity e) {
         e.addCommandToQueue(new PowerUpCommand(e));
     }
 
     // Issue a decommission command
-    public void issueDecommissionCommand(iEntity e) {
+    public void issueDecommissionCommand(Entity e) {
         e.addCommandToQueue(new DecommissionCommand(e));
     }
 
     // Issue a cancel queue command
-    public void issueCancelQueueCommand(iEntity e) {
+    public void issueCancelQueueCommand(Entity e) {
         e.cancelQueuedCommands();
     }
 
