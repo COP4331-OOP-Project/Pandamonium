@@ -77,6 +77,7 @@ public class Tile implements iTileAccessors {
         }
 
         if (entityId.compareTo(structure.getEntityId())==1){
+
             this.structure = null;
         }
 
