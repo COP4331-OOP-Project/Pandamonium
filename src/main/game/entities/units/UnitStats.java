@@ -46,7 +46,7 @@ public class UnitStats {
                 default:
                     throw new UnitNotFoundException();
             }
-        } catch(UnitNotFoundException e){}
+        } catch(UnitNotFoundException e){ e.toString(); }
     }
 
     /* Accessors */
