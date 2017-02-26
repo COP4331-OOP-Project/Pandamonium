@@ -4,7 +4,16 @@ import game.commands.Command;
 import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public abstract class Entity {
+    private Queue<Command> commandQueue;
+    private PowerState powerState;
+
+    public Entity(){
+        commandQueue = new LinkedList<>();
+    }
 
     public abstract double getCurrentHealth();                  // Return entity health
     public abstract Percentage getHealthPercentage();           // Return entity health pct.
@@ -13,20 +22,38 @@ public abstract class Entity {
     public abstract void accept(iTileActionVisitor v);          // Accept visitors
 
     // Command queue management
-    public abstract void addCommandToQueue(Command command);    // Add new command to queue
+    public void addCommandToQueue(Command command){             //Add Command to queue
+        commandQueue.add(command);
+    }
     public abstract void doTurn();                              // Iterate turn
-    public abstract Command nextCommand();                      // Next queue for new command or decrement turn count
-    public abstract Command peekCommand();                      // Peek at next command
-    public abstract boolean isQueueEmpty();                     // Test is queue is empty
-    public abstract void cancelQueuedCommands();                // Clear command queue
+    public Command nextCommand(){                               // Next queue for new command or decrement turn count
+        return commandQueue.poll();
+    }
+    public Command peekCommand(){                               // Peek at next command
+        return commandQueue.peek();
+    }
+    public boolean isQueueEmpty(){                              // Test is queue is empty
+        return  commandQueue.isEmpty();
+    }
+    public void cancelQueuedCommands(){                         // Clear command queue
+        commandQueue.clear();
+    }
 
     // State
-    public abstract void powerDown();                           // Set power down state
-    public abstract void powerUp();                             // Set power up state
+    public void powerDown(){                                     // Set power down state
+        setPowerState(PowerState.POWERED_DOWN);
+    }
+    public void powerUp(){                                       // Set power up state
+        setPowerState(PowerState.POWERED_UP);
+    }
     public abstract void combatState();                         // Set combat state on entity
     public abstract void standby();                             // Set standby state on entity
-    public abstract PowerState getPowerState();                 // Get power state
-    public abstract void setPowerState(PowerState state);       // Set power state
+    public PowerState getPowerState(){                          // Get power state
+        return powerState;
+    }
+    public void setPowerState(PowerState state){                 // Set power state
+        powerState=state;
+    }
 
     // Decommission
     public abstract void decommissionEntity();                  // Destroy entity
