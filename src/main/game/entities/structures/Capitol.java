@@ -5,8 +5,6 @@ import game.entities.Percentage;
 import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
-import java.util.ArrayList;
-
 public class Capitol extends Structure {
     //private ArrayList<worker> workers;
     //private ArrayList<worker> farmer;

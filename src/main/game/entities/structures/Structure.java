@@ -1,5 +1,8 @@
 package game.entities.structures;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import game.commands.Command;
 import game.entities.Entity;
 import game.entities.EntityId;
@@ -8,10 +11,7 @@ import game.entities.PowerState;
 import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
-import java.util.Queue;
-
 public abstract class Structure extends Entity {
-    //TODO ADD STATS
 
     public Structure(Location loc , EntityId entityId ){
         super(loc, entityId);

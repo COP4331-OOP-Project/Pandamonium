@@ -1,4 +1,4 @@
-package view;
+package view.assets;
 
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
@@ -8,6 +8,7 @@ public class AssetManager {
 	
 	public AssetManager() {
 		this.assets = Assets.getInstance();
+		assets.loadResources();
 	}
 	
 	public Image getImage(String image) {
