@@ -1,9 +1,11 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.Percentage;
 import game.entities.PowerState;
 import game.entities.units.Unit;
 import game.gameboard.Location;
+import game.visitors.iTileActionVisitor;
 
 public class Fort extends Structure {
     //private ArrayList<worker> workers;
@@ -37,4 +39,5 @@ public class Fort extends Structure {
         //TODO Creating Unit Handling
         return null;
     }
+
 }

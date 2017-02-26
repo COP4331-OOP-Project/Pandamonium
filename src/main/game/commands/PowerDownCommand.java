@@ -1,13 +1,13 @@
 package game.commands;
 
-import game.entities.iEntity;
+import game.entities.Entity;
 
 // Initiate a change to powered down state with an actor
 public class PowerDownCommand extends Command {
 
-    private iEntity actor;                // Actor to power down
+    private Entity actor;                // Actor to power down
 
-    public PowerDownCommand(iEntity actor) {
+    public PowerDownCommand(Entity actor) {
         this.actor = actor;             // Set actor
         super.duration = 0;             // No wait till activation
     }

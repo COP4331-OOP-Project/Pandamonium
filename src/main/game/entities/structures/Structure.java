@@ -4,59 +4,19 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import game.commands.Command;
+import game.entities.Entity;
 import game.entities.EntityId;
+import game.entities.Percentage;
 import game.entities.PowerState;
 import game.gameboard.Location;
+import game.visitors.iTileActionVisitor;
 
-public abstract class Structure {
-    private EntityId entityId;
-    private PowerState powerState;
-    //private float defenseDamage;
-    private Location location;
-    private Queue<Command> CommandQueue;
-
-    public Structure(){
-
-    }
+public abstract class Structure extends Entity {
 
     public Structure(Location loc , EntityId entityId ){
-        location=loc;
-        this.entityId=entityId;
-        CommandQueue = new LinkedList<>();
-        powerState= PowerState.POWERED_UP;
+        super(loc, entityId);
     }
 
-    public Location getLocation(){
-        return location;
-    }
-
-    public int getInstanceId(){
-        return entityId.getInstanceId();
-    }
-
-    public void addCommandToQueue(Command command){
-        CommandQueue.add(command);
-    }
-
-    public void cancelQueueCommand(){
-        CommandQueue.clear();
-    }
-
-    public void setPowerState(PowerState powerState){
-        this.powerState=powerState;
-    }
-
-    public void powerUp(){
-        setPowerState(PowerState.POWERED_UP);
-    }
-
-    public void powerDown(){
-        setPowerState(PowerState.POWERED_DOWN);
-    }
-
-    public void standby(){
-        setPowerState(PowerState.STANDBY);
-    }
 
     //TODO wait for command class to finish
     /**public void doTurn() {
@@ -68,7 +28,19 @@ public abstract class Structure {
 
     }**/
 
-    public void decomission(){
+    public double getCurrentHealth(){
+        return 0;
+    }
+    public Percentage getHealthPercentage(){
+        return null;
+    }
+    public void takeDamage(double damage){
+
+    }
+    public void heal(double healing){
+
+    }
+    public void decommissionEntity(){
 
     }
 }

@@ -1,6 +1,6 @@
 package game.visitors;
 
-import game.entities.iEntity;
+import game.entities.Entity;
 
 // Visitor to perform a heal on an entity
 public class HealVisitor implements iTileActionVisitor {
@@ -13,6 +13,6 @@ public class HealVisitor implements iTileActionVisitor {
     }
 
     // Visit entity and heal based on healAmount
-    public void visitEntity(iEntity e) { e.heal(healAmount); }
+    public void visitEntity(Entity e) { e.heal(healAmount); }
 
 }

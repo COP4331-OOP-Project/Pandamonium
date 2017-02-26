@@ -1,7 +1,9 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.Percentage;
 import game.gameboard.Location;
+import game.visitors.iTileActionVisitor;
 
 public class Farm extends Structure {
     //private ArrayList<worker> workers;

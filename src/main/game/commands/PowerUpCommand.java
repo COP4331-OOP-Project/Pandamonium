@@ -1,14 +1,14 @@
 package game.commands;
 
-import game.entities.iEntity;
+import game.entities.Entity;
 
 // Initiate a change to powered up state with an actor
 public class PowerUpCommand extends Command {
 
-    private iEntity actor;                // Actor to power up
+    private Entity actor;                // Actor to power up
 
     // Constructor
-    public PowerUpCommand(iEntity actor) {
+    public PowerUpCommand(Entity actor) {
         this.actor = actor;             // Set actor
         super.duration = 0;             // No wait till activation
     }
