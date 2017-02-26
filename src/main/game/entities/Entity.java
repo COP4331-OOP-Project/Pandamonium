@@ -80,7 +80,7 @@ public abstract class Entity {
     public EntityId getEntityId(){                              // Get entity id
         return entityId;
     }
-    public int getInstance(){
+    public int getInstanceId(){
         return entityId.getInstanceId();                        // Get entity's instance id
     }
 
