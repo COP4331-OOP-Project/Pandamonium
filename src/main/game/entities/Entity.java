@@ -10,9 +10,18 @@ import java.util.Queue;
 public abstract class Entity {
     private Queue<Command> commandQueue;
     private PowerState powerState;
+    private Location location;
+    private EntityId entityId;
 
     public Entity(){
+
+    }
+
+    public Entity(Location location, EntityId entityId){
         commandQueue = new LinkedList<>();
+        powerUp();
+        this.location=location;
+        this.entityId=entityId;
     }
 
     public abstract double getCurrentHealth();                  // Return entity health
@@ -25,7 +34,9 @@ public abstract class Entity {
     public void addCommandToQueue(Command command){             //Add Command to queue
         commandQueue.add(command);
     }
-    public abstract void doTurn();                              // Iterate turn
+    public void doTurn(){
+        //TODO Fill this function out
+    }
     public Command nextCommand(){                               // Next queue for new command or decrement turn count
         return commandQueue.poll();
     }
@@ -46,8 +57,6 @@ public abstract class Entity {
     public void powerUp(){                                       // Set power up state
         setPowerState(PowerState.POWERED_UP);
     }
-    public abstract void combatState();                         // Set combat state on entity
-    public abstract void standby();                             // Set standby state on entity
     public PowerState getPowerState(){                          // Get power state
         return powerState;
     }
@@ -59,11 +68,22 @@ public abstract class Entity {
     public abstract void decommissionEntity();                  // Destroy entity
 
     // Location
-    public abstract Location getLocation();                     // Get location of entity
-    public abstract void setLocation(Location location);        // Set location
+    public Location getLocation(){                              // Get location of entity
+        return location;
+    }
+    public void moveToLocation(Location location){              // Set location
+        this.location=location;
+    }
 
     // Required Accessors
-    public abstract int getOwnerID();                           // Get owning player id
-    public abstract EntityId getEntityId();
+    public int getOwnerID(){                                    // Get owning player id
+        return entityId.getPlayerId();
+    }
+    public EntityId getEntityId(){                              // Get entity id
+        return entityId;
+    }
+    public int getInstance(){
+        return entityId.getInstanceId();                        // Get entity's instance id
+    }
 
 }
