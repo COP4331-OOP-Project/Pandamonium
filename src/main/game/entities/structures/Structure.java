@@ -13,10 +13,6 @@ import java.util.Queue;
 public abstract class Structure extends Entity {
     //TODO ADD STATS
 
-    public Structure(){
-
-    }
-
     public Structure(Location loc , EntityId entityId ){
         super(loc, entityId);
     }

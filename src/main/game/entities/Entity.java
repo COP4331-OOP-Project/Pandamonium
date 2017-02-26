@@ -13,10 +13,6 @@ public abstract class Entity {
     private Location location;
     private EntityId entityId;
 
-    public Entity(){
-
-    }
-
     public Entity(Location location, EntityId entityId){
         commandQueue = new LinkedList<>();
         powerUp();
