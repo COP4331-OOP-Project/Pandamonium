@@ -1,5 +1,8 @@
 package game.gameboard;
 
+/**
+ * Created by David on 2/24/2017.
+ */
 public class Location {
     private int xIndex;
     private int yIndex;
@@ -16,6 +19,7 @@ public class Location {
     public int getY() {
         return this.yIndex;
     }
+
     @Override
     public int hashCode() {
         return (100 * xIndex) + yIndex;
@@ -30,7 +34,8 @@ public class Location {
     }
 
     public Location directionLocation(int direction) {
-        //TODO Calculate new location based off direction
+       //TODO Calculate new location based off direction
         return this;
     }
+
 }
