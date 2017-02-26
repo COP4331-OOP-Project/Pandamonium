@@ -1,0 +1,5 @@
+package game.entities;
+
+public enum EntitySubtypeEnum {
+    MELEE, RANGE, COLONIST, EXPLORER, CAPITOL, FARM, MINE, POWERPLANT, OBSERVATION_TOWER, FORT, UNIVERSITY;
+}
