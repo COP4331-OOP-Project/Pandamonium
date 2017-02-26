@@ -7,6 +7,8 @@ import game.entities.units.Unit;
 import game.visitors.iTileActionVisitor;
 import game.entities.EntityId;
 
+import java.util.ArrayList;
+
 // Tile class for gameboard
 public class Tile implements iTileAccessors {
     public boolean containsUnit;
@@ -75,6 +77,7 @@ public class Tile implements iTileAccessors {
         }
 
         if (entityId.compareTo(structure.getEntityId())==1){
+
             this.structure = null;
         }
 
