@@ -7,7 +7,6 @@ import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
 // TODO: Fix damage taking to account for defense
-// TODO: Implement Entity abstract functions
 
 public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;

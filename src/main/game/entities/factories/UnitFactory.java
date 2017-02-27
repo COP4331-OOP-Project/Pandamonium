@@ -4,27 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import game.entities.EntityId;
-import game.entities.units.Colonist;
-import game.entities.units.Explorer;
-import game.entities.units.Melee;
-import game.entities.units.Ranged;
-import game.entities.units.Unit;
-import game.entities.units.UnitStats;
-import game.entities.units.UnitType;
+import game.entities.units.*;
 import game.gameboard.Location;
 
 public class UnitFactory {
     private Map<UnitType, UnitStats> unitStatistics;
 
     public UnitFactory(){
-        this.unitStatistics = new HashMap<UnitType, UnitStats>();
-        this.unitStatistics.put(UnitType.COLONIST, new UnitStats(UnitType.COLONIST));
-        this.unitStatistics.put(UnitType.EXPLORER, new UnitStats(UnitType.EXPLORER));
-        this.unitStatistics.put(UnitType.MELEE, new UnitStats(UnitType.MELEE));
-        this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
+        this.unitStatistics = new HashMap<>();
+        try {
+            this.unitStatistics.put(UnitType.COLONIST, new UnitStats(UnitType.COLONIST));
+            this.unitStatistics.put(UnitType.EXPLORER, new UnitStats(UnitType.EXPLORER));
+            this.unitStatistics.put(UnitType.MELEE, new UnitStats(UnitType.MELEE));
+            this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
+        }catch(UnitNotFoundException e){ System.out.println(e.getMessage()); }
     }
 
-    public Unit createUnit(UnitType unit, Location location, EntityId entityId){
+    public Unit createUnit(UnitType unit, Location location, EntityId entityId) throws UnitNotFoundException{
         switch(unit) {
             case COLONIST:
                 return new Colonist(unitStatistics.get(unit), location, entityId);
@@ -34,7 +30,8 @@ public class UnitFactory {
                 return new Melee(unitStatistics.get(unit), location, entityId);
             case RANGED:
                 return new Ranged(unitStatistics.get(unit), location, entityId);
+            default:
+                throw new UnitNotFoundException();
         }
-        return null;
     }
 }

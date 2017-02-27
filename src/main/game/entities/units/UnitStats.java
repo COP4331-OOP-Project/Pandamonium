@@ -8,45 +8,43 @@ public class UnitStats {
     private int health;
     private float upkeep;
 
-    public UnitStats(UnitType unit) {
-        try {
-            switch (unit) {
-                case COLONIST:
-                    this.offPow = 1;
-                    this.defPow = 1;
-                    this.armor = 1;
-                    this.speed = 1;
-                    this.health = 10;
-                    this.upkeep = .05f;
-                    break;
-                case EXPLORER:
-                    this.offPow = 2;
-                    this.defPow = 2;
-                    this.armor = 2;
-                    this.speed = 3;
-                    this.health = 10;
-                    this.upkeep = .05f;
-                    break;
-                case MELEE:
-                    this.offPow = 5;
-                    this.defPow = 5;
-                    this.armor = 5;
-                    this.speed = 1;
-                    this.health = 10;
-                    this.upkeep = .1f;
-                    break;
-                case RANGED:
-                    this.offPow = 7;
-                    this.defPow = 7;
-                    this.armor = 3;
-                    this.speed = 2;
-                    this.health = 10;
-                    this.upkeep = .1f;
-                    break;
-                default:
-                    throw new UnitNotFoundException();
-            }
-        } catch(UnitNotFoundException e){ e.toString(); }
+    public UnitStats(UnitType unit) throws UnitNotFoundException {
+        switch (unit) {
+            case COLONIST:
+                this.offPow = 1;
+                this.defPow = 1;
+                this.armor = 1;
+                this.speed = 1;
+                this.health = 10;
+                this.upkeep = .05f;
+                break;
+            case EXPLORER:
+                this.offPow = 2;
+                this.defPow = 2;
+                this.armor = 2;
+                this.speed = 3;
+                this.health = 10;
+                this.upkeep = .05f;
+                break;
+            case MELEE:
+                this.offPow = 5;
+                this.defPow = 5;
+                this.armor = 5;
+                this.speed = 1;
+                this.health = 10;
+                this.upkeep = .1f;
+                break;
+            case RANGED:
+                this.offPow = 7;
+                this.defPow = 7;
+                this.armor = 3;
+                this.speed = 2;
+                this.health = 10;
+                this.upkeep = .1f;
+                break;
+            default:
+                throw new UnitNotFoundException();
+        }
     }
 
     /* Accessors */
