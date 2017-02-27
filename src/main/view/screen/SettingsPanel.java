@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
@@ -203,8 +204,17 @@ public class SettingsPanel extends Panel {
 				    );
 			modeModifier = new ComboBox<String>(options);
 			modeModifier.setVisibleRowCount(3);
-			modeModifier.getStyleClass().add("dropDown");
-			modeModifier.applyCss();
+			modeModifier.setButtonCell(new ListCell<String>(){
+		        @Override
+		        protected void updateItem(String string, boolean empty) {
+		            super.updateItem(string, empty); 
+		            if(!(empty || string==null)){
+		                setStyle("-fx-text-fill: white");
+		                setText(string);
+		            }
+		        }
+
+		    });
 			modeModifier.setTranslateX(350);
 			modeModifier.setTranslateY(87 + SPACING);
 			settings.getChildren().add(modeModifier);
