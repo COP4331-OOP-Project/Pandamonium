@@ -201,7 +201,7 @@ public class SettingsPanel extends Panel {
 				    );
 			modeModifier = new ComboBox<String>(options);
 			modeModifier.setVisibleRowCount(3);
-			modeModifier.getStyleClass().setAll("dropDown");
+			modeModifier.getStyleClass().add("dropDown");
 			modeModifier.setTranslateX(350);
 			modeModifier.setTranslateY(87 + SPACING);
 			settings.getChildren().add(modeModifier);
