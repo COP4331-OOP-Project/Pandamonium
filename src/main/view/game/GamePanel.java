@@ -164,13 +164,11 @@ public class GamePanel extends Panel {
         return TILE_PIXEL_SIZE;
     }
 
-	@Override
 	public void hideGUIElements() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void showGUIElements() {
 		// TODO Auto-generated method stub
 		
