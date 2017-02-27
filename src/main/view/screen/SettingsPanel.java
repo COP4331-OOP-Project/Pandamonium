@@ -7,13 +7,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -25,50 +30,103 @@ import view.assets.AssetManager;
 
 public class SettingsPanel extends Panel {
 		private static final int SPACING = 33;
+		private static final String HUMAN_DAT_LOCATION = "assets/data/hctrl.dat";
+		private static final String PANDA_DAT_LOCATION = "assets/data/pctrl.dat";
 	    private DropShadow ds = new DropShadow();
-	    Point screenDimensions = new Point(0,0);
-		PanelManager panelManager;
-		SettingsEnum currentMode = SettingsEnum.GENERAL;
-		Group root; //Any GUI Elements Must Be Added and Removed From Here
-		AnchorPane settings = new AnchorPane();
-		Button loadButton = new Button("Load");
-		Button saveButton = new Button("Save");
-		Button exitToMenuButton = new Button("Main Menu");
-		ToggleButton general = new ToggleButton("General");
-	    ToggleButton humanControlsButton = new ToggleButton("Human");
-	    ToggleButton pandaControlsButton = new ToggleButton("Panda");
-	    String[][] humanControls = SettingsLoader.getControls(new File("assets/data/hctrl.dat"));
-	    String[][] pandaControls = SettingsLoader.getControls(new File("assets/data/hctrl.dat"));
-	    String[][] currentControls;
-	    ArrayList<Button> controlButtons = new ArrayList<Button>();
-		
+	    private Point screenDimensions = new Point(0,0);
+	    private PanelManager panelManager;
+	    private SettingsEnum currentMode = SettingsEnum.GENERAL;
+	    private Group root; //Any GUI Elements Must Be Added and Removed From Here
+	    private AnchorPane settings = new AnchorPane();
+	    private Button loadButton = new Button("Load");
+	    private Button saveButton = new Button("Save");
+	    private Button exitToMenuButton = new Button("Main Menu");
+	    private ToggleButton general = new ToggleButton("General");
+	    private ToggleButton humanControlsButton = new ToggleButton("Human");
+	    private ToggleButton pandaControlsButton = new ToggleButton("Panda");
+	    private String[][] humanControls = SettingsLoader.getControls(new File(HUMAN_DAT_LOCATION));
+	    private String[][] pandaControls = SettingsLoader.getControls(new File(PANDA_DAT_LOCATION));
+	    private ComboBox<String> modeModifier;
+	    private ArrayList<Button> controlButtons = new ArrayList<Button>();
+	    private int controlWaiting = 0;
+	    private boolean waitingForPress = false;
+	    
 		public SettingsPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 			super(assets, viewEnum);
 			this.panelManager = panelManager;
 			this.root = root;
 	    	ds.setOffsetY(2.0f);
 			setUpButtons();
-			setUpGeneralSettings();
-			setUpControlsSettings();
-			for (int i = 0; i < pandaControls.length; i++) {
+			ObservableList<String> options = 
+				    FXCollections.observableArrayList(
+				        "CONTROL",
+				        "SHIFT",
+				        "ALT"
+				    );
+			modeModifier = new ComboBox<String>(options);
+			modeModifier.setVisibleRowCount(3);
+			modeModifier.getStyleClass().setAll("dropDown");
+			modeModifier.setTranslateX(350);
+			modeModifier.setTranslateY(87 + SPACING);
+			settings.getChildren().add(modeModifier);
+			for (int i = 1; i < humanControls.length; i++) {
 				Button controlButton = new Button();
-				controlButton.setText(pandaControls[i][1]);
+				controlButton.setText(humanControls[i][1]);
 				controlButton.setTranslateX(350);
 				controlButton.setTranslateY(87 + SPACING * (i + 1));
 				controlButton.setId("controlButton");
 				settings.getChildren().add(controlButton);
+				controlButton.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override
+		            public void handle(ActionEvent event) {
+		            	if (!waitingForPress) {
+			            	for (int i = 0; i < controlButtons.size(); i++) {
+			            		if (controlButtons.get(i) == controlButton) {
+			            			handleChangeControl(i);
+			            		}
+			            	}
+			            }
+		            }
+		        });
+				root.setOnKeyReleased(new EventHandler<KeyEvent>() {
+		            @Override
+		            public void handle(KeyEvent event) {
+		            	if (waitingForPress) {
+			            	KeyCode key = event.getCode();
+			                String pressed = key.toString();
+							if (currentMode == SettingsEnum.HUMAN) {
+								humanControls[controlWaiting][1] = pressed;
+							} else {
+								pandaControls[controlWaiting][1] = pressed;
+							}
+							controlButtons.get(controlWaiting).setText(pressed);
+							waitingForPress = false;
+		            	}
+		                
+		            }
+		        });
 				controlButtons.add(controlButton);
 			}
 		}
 		
-		private void setUpControlsSettings() {
-			// TODO Auto-generated method stub
-			
+		private void handleChangeControl(int i) {
+			controlButtons.get(i).setText("Press Any Key");
+			waitingForPress = true;
+			controlWaiting = i;
 		}
-
-		private void setUpGeneralSettings() {
-			// TODO Auto-generated method stub
-			
+		
+		private void updateControlDisplay() {
+			if (currentMode == SettingsEnum.HUMAN) {
+				modeModifier.setValue(humanControls[0][1]);
+				for (int i = 1; i < humanControls.length; i++) {
+					controlButtons.get(i - 1).setText(humanControls[i][1]);
+				}
+			} else if (currentMode == SettingsEnum.PANDA) {
+				modeModifier.setValue(pandaControls[0][1]);
+				for (int i = 1; i < pandaControls.length; i++) {
+					controlButtons.get(i - 1).setText(pandaControls[i][1]);
+				}
+			}
 		}
 
 		private void setUpButtons() {
@@ -97,6 +155,8 @@ public class SettingsPanel extends Panel {
 			exitToMenuButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
+	            	updateControlDisplay();
+	            	exitSave();
 	                panelManager.setMode(ViewEnum.MAIN_MENU);
 	            }
 	        });
@@ -120,8 +180,9 @@ public class SettingsPanel extends Panel {
 	        humanControlsButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
+	            	saveCurrentSelections();
 	            	currentMode = SettingsEnum.HUMAN;
-	            	currentControls = humanControls;
+	            	updateControlDisplay();
 	                humanControlsButton.getStyleClass().setAll("buttonSelected");
 	                general.getStyleClass().setAll("button");
 	                pandaControlsButton.getStyleClass().setAll("button");
@@ -135,8 +196,9 @@ public class SettingsPanel extends Panel {
 	        pandaControlsButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
+	            	saveCurrentSelections();
 	            	currentMode = SettingsEnum.PANDA;
-	            	currentControls = pandaControls;
+	            	updateControlDisplay();
 	                pandaControlsButton.getStyleClass().setAll("buttonSelected");
 	                general.getStyleClass().setAll("button");
 	                humanControlsButton.getStyleClass().setAll("button");
@@ -144,7 +206,6 @@ public class SettingsPanel extends Panel {
 	                humanControlsButton.setSelected(false);
 	            }
 	        });
-
 			settings.getChildren().add(loadButton);
 			settings.getChildren().add(saveButton);
 			settings.getChildren().add(exitToMenuButton);
@@ -154,6 +215,19 @@ public class SettingsPanel extends Panel {
 			loadButton.setVisible(true);
 			saveButton.setVisible(true);
 			exitToMenuButton.setVisible(true);
+		}
+		
+        
+        private void saveCurrentSelections() {
+			if (currentMode != SettingsEnum.GENERAL) {
+				if (currentMode == SettingsEnum.HUMAN) {
+					humanControls[0][1] = modeModifier.getValue();
+				}
+				
+				if (currentMode == SettingsEnum.PANDA) {
+					pandaControls[0][1] = modeModifier.getValue();
+				}
+			}
 		}
 
 		@Override
@@ -189,9 +263,9 @@ public class SettingsPanel extends Panel {
 		    g.fillText("Mode/Command Backward", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Type/Instance Forward", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Type/Instace Backward", 15, 140 + SPACING * multiplier++);
+		    g.fillText("Select Item", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Show Unit Overview", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Show Structure Overview", 15, 140 + SPACING * multiplier++);
-		    g.fillText("Select Item", 15, 140 + SPACING * multiplier++);
 		    g.fillText("End Turn", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Move North", 15, 140 + SPACING * multiplier++);
 		    g.fillText("Move North-East", 15, 140 + SPACING * multiplier++);
@@ -204,6 +278,11 @@ public class SettingsPanel extends Panel {
 		}
 		
 		private void setCommandButtonVisibility(boolean visibility) {
+			if(visibility) {
+				modeModifier.setVisible(true);
+			} else {
+				modeModifier.setVisible(false);
+			}
 			for (Button button : controlButtons) {
 				button.setVisible(visibility);
 			}
@@ -232,23 +311,32 @@ public class SettingsPanel extends Panel {
 
 		private void saveControls() {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Save Map");
+			fileChooser.setTitle("Save Controls");
 			fileChooser.setInitialDirectory(new File("assets/controls"));
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Control Files", "*.ctr"));
-			File saveMap = fileChooser.showSaveDialog(null);
-			if (saveMap != null) {
-				saveFile(saveMap);
+			File saveControls = fileChooser.showSaveDialog(null);
+			if (saveControls != null) {
+				if (currentMode == SettingsEnum.HUMAN)
+					saveFile(saveControls, humanControls);
+				else
+					saveFile(saveControls, pandaControls);
 			}
 		}
+		
+		private void exitSave() {
+			saveFile(new File(PANDA_DAT_LOCATION), pandaControls);
+			saveFile(new File(HUMAN_DAT_LOCATION), humanControls);
+		}
 
-		private void saveFile(File saveControls) {  
+		private void saveFile(File saveControls, String[][] controls) {
+			saveCurrentSelections();
 			BufferedWriter writeMap;
 			try {
 				writeMap = new BufferedWriter(new PrintWriter(saveControls));
-				for (int i = 0; i < currentControls.length; i++) {
+				for (int i = 0; i < controls.length; i++) {
 					   String s = "";
-					   for (int j = 0; j < currentControls[i].length; j++) {
-						   s += (currentControls[i][j] + "\t");
+					   for (int j = 0; j < controls[i].length; j++) {
+						   s += (controls[i][j] + "\t");
 					   }
 					   writeMap.write(s);
 					   writeMap.newLine();
@@ -257,7 +345,6 @@ public class SettingsPanel extends Panel {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			   
 		}
 
 		private void loadControls() {
@@ -267,8 +354,12 @@ public class SettingsPanel extends Panel {
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Control Files", "*.ctr"));
 			File newControls = fileChooser.showOpenDialog(null);
 			if (newControls != null) {
-					currentControls = SettingsLoader.getControls(newControls);
+				if (currentMode == SettingsEnum.HUMAN)
+					humanControls = SettingsLoader.getControls(newControls);
+				if (currentMode == SettingsEnum.PANDA)
+					pandaControls = SettingsLoader.getControls(newControls);
 			}
+			updateControlDisplay();
 		}
 
 		@Override

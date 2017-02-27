@@ -36,6 +36,19 @@
      	#090a0c;
 }
 
+.dropDown {
+	-fx-background: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-font-family: "Nuku Nuku";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 15px;
+    -fx-padding: 1 4 1 4;
+}
+
 #button {
    .button;
 }
