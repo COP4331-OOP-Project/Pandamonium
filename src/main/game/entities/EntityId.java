@@ -28,7 +28,6 @@ public class EntityId implements Comparable<EntityId>  {
     public int getInstanceId(){
         return this.instanceId;
     }
-    
 
     //If entityId equals, return 1, else return 0;
     public int compareTo(EntityId entityId){
