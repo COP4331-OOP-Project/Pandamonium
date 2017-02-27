@@ -32,7 +32,7 @@ public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
 
     /* iAttacker */
     public double getDamage(){ return (double)stats.getOffPow(); }
-    public int getRange(){ return 1; }
+    public int getRange(){ return stats.getRange(); }
 
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
