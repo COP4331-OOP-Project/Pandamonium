@@ -41,9 +41,10 @@
 }
 
 #button:hover {
-     linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	 -fx-background-color: 
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
 
 #button:pressed {
@@ -52,6 +53,20 @@
      	linear-gradient(#26313b, #263446);
     -fx-font-size: 21px;
     -fx-padding: 6 12 6 12;
+}
+
+#controlButton {
+   .button;
+   -fx-padding: 1 4 1 4;
+}
+
+
+#controlButton:pressed {
+	-fx-background-color: 
+     	#1b263b,
+     	linear-gradient(#26313b, #263446);
+    -fx-font-size: 21px;
+    -fx-padding: 1 4 1 4;
 }
 
 .commandButton {
@@ -75,9 +90,10 @@
 }
 
 .commandButton:hover {
-     linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	-fx-background-color:
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
 #mainMenuButton {
     .button;
@@ -85,9 +101,10 @@
 }
 
 #mainMenuButton:hover {
-	 linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	-fx-background-color:
+	 	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
 
 #mainMenuButton:pressed {
