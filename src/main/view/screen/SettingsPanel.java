@@ -159,6 +159,7 @@ public class SettingsPanel extends Panel {
 		            	if (!waitingForPress) {
 			            	for (int i = 0; i < controlButtons.size(); i++) {
 			            		if (controlButtons.get(i) == controlButton) {
+			            			controlButtons.get(i).getStyleClass().add("buttonRed");
 			            			controlButtons.get(i).setText("Press Any Key");
 			            			waitingForPress = true;
 			            			controlWaiting = i;
@@ -179,6 +180,7 @@ public class SettingsPanel extends Panel {
 			    	if (waitingForPress) {
 			        	KeyCode key = event.getCode();
 			            String pressed = key.toString();
+			            controlButtons.get(controlWaiting).getStyleClass().remove("buttonRed");
 						if (currentMode == SettingsEnum.HUMAN) {
 							humanControls[controlWaiting][1] = pressed;
 						} else {
@@ -202,6 +204,7 @@ public class SettingsPanel extends Panel {
 			modeModifier = new ComboBox<String>(options);
 			modeModifier.setVisibleRowCount(3);
 			modeModifier.getStyleClass().add("dropDown");
+			modeModifier.applyCss();
 			modeModifier.setTranslateX(350);
 			modeModifier.setTranslateY(87 + SPACING);
 			settings.getChildren().add(modeModifier);
