@@ -1,5 +1,7 @@
 package controls;
 
+import java.io.File;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +19,10 @@ public class KeyEventController {
     View view;
     Scene scene;
     ControlFileReader controlReader;
+	private static final String HUMAN_CONFIG_FILE = "assets/data/hctrl.dat";
+	File humanControlsFile = new File(HUMAN_CONFIG_FILE);
+	private static final String PANDA_CONFIG_FILE = "assets/data/pctrl.dat";
+	File pandaControlsFile = new File(HUMAN_CONFIG_FILE);
     private boolean gettingMoves = false;
     private boolean gettingMakeList = false;
 	private static final String COMMAND_UP = "COMMAND_UP";
@@ -39,6 +45,7 @@ public class KeyEventController {
 	
     public KeyEventController(GameModel game, View view, Scene scene) {
     	controlReader = new ControlFileReader();
+    	controlReader.loadControls(humanControlsFile);
         this.game = game;
         this.view = view;
         this.scene = scene;
