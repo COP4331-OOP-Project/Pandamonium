@@ -90,10 +90,7 @@ public class Tile implements iTileAccessors {
     }
 
     public boolean getContainUnit(){
-        if(units.isEmpty()== true)
-            return false;
-        else
-            return true;
+        return (!units.isEmpty());
     }
 
     public boolean getContainArmy(){
