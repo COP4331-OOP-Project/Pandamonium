@@ -209,7 +209,7 @@ public class SettingsPanel extends Panel {
 		        protected void updateItem(String string, boolean empty) {
 		            super.updateItem(string, empty); 
 		            if(!(empty || string==null)){
-		                setStyle("-fx-text-fill: white");
+		                setStyle("-fx-text-fill: #e6e6e6");
 		                setText(string);
 		            }
 		        }
