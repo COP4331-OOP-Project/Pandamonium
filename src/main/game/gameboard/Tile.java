@@ -65,7 +65,7 @@ public class Tile implements iTileAccessors {
 
     //test if terrain is impassable
     public boolean isImpassable(){
-        return (Terrain == TerrainEnum.INVISIBLE || Terrain == TerrainEnum.WATER) ? true : false;
+        return(Terrain == TerrainEnum.WATER || Terrain == TerrainEnum.INVISIBLE);
     }
 
     public TerrainEnum getTileType() { return Terrain;}
@@ -87,10 +87,7 @@ public class Tile implements iTileAccessors {
     }
 
     public boolean containsStructure(){
-        if(structure!=null)
-            return true;
-        else
-            return false;
+        return (structure!=null);
     }
 
     public boolean containsUnit(){

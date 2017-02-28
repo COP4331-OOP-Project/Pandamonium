@@ -31,8 +31,10 @@ public class EntityId implements Comparable<EntityId>  {
 
     //If entityId equals, return 1, else return 0;
     public int compareTo(EntityId entityId){
-        if(this.playerId == entityId.getPlayerId()&&this.instanceId==entityId.getInstanceId()
-                &&this.subTypeId == entityId.getSubTypeId() &&this.typeId == entityId.getTypeId())
+        if(this.playerId == entityId.getPlayerId()
+                &&this.instanceId==entityId.getInstanceId()
+                &&this.subTypeId == entityId.getSubTypeId()
+                &&this.typeId == entityId.getTypeId())
             return 1;
         else
             return 0;
