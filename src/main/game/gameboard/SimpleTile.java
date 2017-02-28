@@ -46,4 +46,12 @@ public class SimpleTile{
     public Structure getStructure() {
     	return structure;
     }
+    
+    public TileVisibilityEnum getVisibility() {
+    	return visibility;
+    }
+    
+    public void setVisibility(TileVisibilityEnum visibility) {
+    	this.visibility = visibility;
+    }
 }
