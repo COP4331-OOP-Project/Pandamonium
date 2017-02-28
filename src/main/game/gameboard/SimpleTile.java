@@ -14,7 +14,7 @@ public class SimpleTile{
     private Structure structure;
     TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
 
-    SimpleTile(TerrainEnum tileType, Location location) {
+    SimpleTile(TerrainEnum tileType) {
         Terrain = tileType;
         units = new ArrayList<Unit>();
         armies = new ArrayList<Army>();
