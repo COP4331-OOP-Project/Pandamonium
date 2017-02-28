@@ -16,7 +16,7 @@ public class Army extends Entity{
 
     public void moveRallyPoint(Location loc){
         rallyPoint.setLocation(loc);
-        moveToLocation(loc);
+        setLocation(loc);
     }
 
     //TODO find way to update battlegroup and reinforcements
