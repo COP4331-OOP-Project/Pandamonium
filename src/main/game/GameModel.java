@@ -14,7 +14,7 @@ import game.gameboard.Location;
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
 	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
-    private final static Logger log = LogManager.getLogger(CommandController.class);
+    private final static Logger log = LogManager.getLogger(GameModel.class);
     private Player currentPlayer;
     private ArrayList<Player> players;
     private Gameboard gBoard;
