@@ -12,6 +12,7 @@ public class SimpleTile{
     private ArrayList<Army> armies;
     private ArrayList<RallyPoint> rallyPoints;
     private Structure structure;
+    TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
 
     SimpleTile(TerrainEnum tileType, Location location) {
         Terrain = tileType;
@@ -21,11 +22,11 @@ public class SimpleTile{
         structure = null;
     }
 
-    /*
-    public updateTile(Tile tile) {
-    	
+    public void updateTile(Tile tile) {
+    	if (visibility == TileVisibilityEnum.VISIBLE) {
+    		
+    	}
     }
-    */
     
     public ArrayList<Army> getArmies() {
     	return armies;
