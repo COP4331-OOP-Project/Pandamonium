@@ -61,27 +61,21 @@ public class SettingsPanel extends Panel {
 		}
 
 		private void setUpButtons() {
-			loadButton.setTranslateX(555);
-			loadButton.setTranslateY(7);
-			loadButton.setId("button");
+			setupButton(loadButton, 555, 7);
 			loadButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
 	                loadControls();
 	            }
 	        });
-			saveButton.setTranslateX(630);
-			saveButton.setTranslateY(7);
-			saveButton.setId("button");
+			setupButton(saveButton, 630, 7);
 			saveButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
 	                saveControlsFileChoose();
 	            }
 	        });
-			exitToMenuButton.setTranslateX(705);
-			exitToMenuButton.setTranslateY(7);
-			exitToMenuButton.setId("button");
+			setupButton(exitToMenuButton, 705, 7);
 			exitToMenuButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
@@ -91,9 +85,7 @@ public class SettingsPanel extends Panel {
 	                panelManager.setMode(ViewEnum.MAIN_MENU);
 	            }
 	        });
-	        general.getStyleClass().setAll("buttonSelected");
-			general.setTranslateX(165);
-	        general.setTranslateY(7);
+			setupToggleButton(general, 165, 7, "buttonSelected");
 	        general.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
@@ -105,9 +97,7 @@ public class SettingsPanel extends Panel {
 	                pandaControlsButton.setSelected(false);
 	            }
 	        });
-	        humanControlsButton.getStyleClass().setAll("button");
-	        humanControlsButton.setTranslateX(270);
-	        humanControlsButton.setTranslateY(7);
+	        setupToggleButton(humanControlsButton, 270, 7, "button");
 	        humanControlsButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
@@ -121,9 +111,7 @@ public class SettingsPanel extends Panel {
 	                pandaControlsButton.setSelected(false);
 	            }
 	        });
-	        pandaControlsButton.getStyleClass().setAll("button");
-	        pandaControlsButton.setTranslateX(357);
-	        pandaControlsButton.setTranslateY(7);
+	        setupToggleButton(pandaControlsButton, 357, 7, "button");
 	        pandaControlsButton.setOnAction(new EventHandler<ActionEvent>() {
 	            @Override
 	            public void handle(ActionEvent event) {
@@ -144,6 +132,18 @@ public class SettingsPanel extends Panel {
 			settings.getChildren().add(humanControlsButton);
 			settings.getChildren().add(pandaControlsButton);
 			setUpControlButtons();
+		}
+
+		private void setupButton(Button button, int x, int y) {
+			button.setTranslateX(555);
+			button.setTranslateY(7);
+			button.setId("button");
+		}
+		
+		private void setupToggleButton(ToggleButton button, int x, int y, String style) {
+			button.getStyleClass().setAll(style);
+			button.setTranslateX(x);
+	        button.setTranslateY(y);
 		}
 
 		private void setUpControlButtons() {
