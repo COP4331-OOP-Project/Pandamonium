@@ -12,7 +12,7 @@ public class Capitol extends Structure {
     //private ArrayList<worker> miner;
     //private ArrayList<worker> breeder;
 
-    public Capitol(Location loc , EntityId entityId ){
+    public Capitol(,Location loc , EntityId entityId ){
         super(loc, entityId);
     }
 
