@@ -1,20 +1,22 @@
 package game.entities.structures;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-import game.commands.Command;
 import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.Percentage;
-import game.entities.PowerState;
+import game.entities.stats.StructureStats;
 import game.gameboard.Location;
-import game.visitors.iTileActionVisitor;
 
-public abstract class Structure extends Entity {
+public class Structure extends Entity {
+    protected StructureStats stats;
 
-    public Structure(Location loc , EntityId entityId ){
-        super(loc, entityId);
+
+    public Structure(StructureStats stats, Location location , EntityId entityId ){
+        super(location, entityId);
+
+        this.stats = stats;
+        this.health = stats.getHealth();
+        this.healthPercent = new Percentage();
+        standby();
     }
 
 

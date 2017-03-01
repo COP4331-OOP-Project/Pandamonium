@@ -1,10 +1,9 @@
 package game.entities.units;
 
-import game.commands.Command;
 import game.entities.*;
 import game.entities.Entity;
+import game.entities.stats.UnitStats;
 import game.gameboard.Location;
-import game.visitors.iTileActionVisitor;
 
 // TODO: Fix damage taking to account for defense
 

@@ -1,8 +1,9 @@
 package game.entities.factories;
 
 import game.entities.EntityId;
+import game.entities.stats.StructureStats;
 import game.entities.structures.*;
-import game.entities.units.UnitNotFoundException;
+import game.entities.structures.exceptions.StructureNotFoundException;
 import game.gameboard.Location;
 
 import java.util.HashMap;
@@ -11,10 +12,10 @@ import java.util.Map;
 /**
  * Created by khariollivierre on 3/1/17.
  */
-public class StructureFactory {
+public class StructureFactory{
     private Map<StructureType, StructureStats> structureStatistics;
 
-    public UnitFactory(){
+    public StructureFactory(){
         this.structureStatistics = new HashMap<>();
         try {
             this.structureStatistics.put(StructureType.CAPITOL, new StructureStats(StructureType.CAPITOL));
@@ -27,19 +28,15 @@ public class StructureFactory {
         }catch(StructureNotFoundException e){ System.out.println(e.getMessage()); }
     }
 
-    /*
-        TODO: Fix structure constructors
-        TODO: Finish createStructure for structures
-        TODO: Finish StructureFactory, make sure there is no carryover from UnitStructure
-        TODO: More
-     */
-
     public Structure createStructure(StructureType struct, Location location, EntityId entityId) throws StructureNotFoundException {
         switch(struct) {
             case CAPITOL: return new Capitol(structureStatistics.get(struct), location, entityId);
-            case EXPLORER: return new Explorer(structureStatistics.get(unit), location, entityId);
-            case MELEE: return new Melee(structureStatistics.get(unit), location, entityId);
-            case RANGED: return new Ranged(structureStatistics.get(unit), location, entityId);
+            case FARM: return new Farm(structureStatistics.get(struct), location, entityId);
+            case FORT: return new Fort(structureStatistics.get(struct), location, entityId);
+            case MINE: return new Mine(structureStatistics.get(struct), location, entityId);
+            case OBSERVE: return new ObservationTower(structureStatistics.get(struct), location, entityId);
+            case PLANT: return new PowerPlant(structureStatistics.get(struct), location, entityId);
+            case UNIVERSITY: return new University(structureStatistics.get(struct), location, entityId);
             default: throw new StructureNotFoundException();
         }
     }

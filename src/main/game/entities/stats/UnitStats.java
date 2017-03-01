@@ -1,4 +1,7 @@
-package game.entities.units;
+package game.entities.stats;
+
+import game.entities.units.UnitType;
+import game.entities.units.exceptions.UnitNotFoundException;
 
 public class UnitStats {
     private int offPow;

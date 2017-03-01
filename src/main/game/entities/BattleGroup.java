@@ -1,7 +1,7 @@
 package game.entities;
 
 import game.entities.units.BattleGroupUnit;
-import game.entities.units.UnitStats;
+import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
 import java.util.ArrayList;

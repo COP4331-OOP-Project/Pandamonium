@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import game.entities.EntityId;
+import game.entities.stats.UnitStats;
 import game.entities.units.*;
+import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
 
 public class UnitFactory {
@@ -22,16 +24,11 @@ public class UnitFactory {
 
     public Unit createUnit(UnitType unit, Location location, EntityId entityId) throws UnitNotFoundException{
         switch(unit) {
-            case COLONIST:
-                return new Colonist(unitStatistics.get(unit), location, entityId);
-            case EXPLORER:
-                return new Explorer(unitStatistics.get(unit), location, entityId);
-            case MELEE:
-                return new Melee(unitStatistics.get(unit), location, entityId);
-            case RANGED:
-                return new Ranged(unitStatistics.get(unit), location, entityId);
-            default:
-                throw new UnitNotFoundException();
+            case COLONIST: return new Colonist(unitStatistics.get(unit), location, entityId);
+            case EXPLORER: return new Explorer(unitStatistics.get(unit), location, entityId);
+            case MELEE: return new Melee(unitStatistics.get(unit), location, entityId);
+            case RANGED: return new Ranged(unitStatistics.get(unit), location, entityId);
+            default: throw new UnitNotFoundException();
         }
     }
 }

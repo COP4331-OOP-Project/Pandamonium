@@ -1,16 +1,15 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
-import game.entities.Percentage;
+import game.entities.stats.StructureStats;
 import game.gameboard.Location;
-import game.visitors.iTileActionVisitor;
 
 public class Farm extends Structure {
     //private ArrayList<worker> workers;
     //private ArrayList<worker> farmer;
 
-    public Farm(Location loc , EntityId entityId ){
-        super(loc, entityId);
+    public Farm(StructureStats stats, Location location , EntityId entityId ){
+        super(stats, location, entityId);
     }
 
     public void assignToFarmer(){

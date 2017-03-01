@@ -1,4 +1,4 @@
-package game.entities.structures;
+package game.entities.structures.exceptions;
 
 /**
  * Created by khariollivierre on 3/1/17.

@@ -1,4 +1,4 @@
-package game.entities.units;
+package game.entities.units.exceptions;
 
 
 public class UnitNotFoundException extends Exception {
