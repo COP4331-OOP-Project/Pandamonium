@@ -1,7 +1,6 @@
 package game.entities.units;
 
 import game.entities.*;
-import game.entities.Entity;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
