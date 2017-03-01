@@ -43,7 +43,7 @@ public class MakeDetailsPanel extends Panel{
     }
 
     // Draw the panel
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
         this.screenDimensions = screenDimensions;
         updateType();
         gc.drawImage(getAssets().getImage("GUI_MODE_PANEL"), PANEL_DISTANCE_FROM_LEFT

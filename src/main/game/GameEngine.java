@@ -33,9 +33,9 @@ public class GameEngine extends Application {
         mouseEvents.handleEvents();
         new AnimationTimer() {
             @Override
-            public void handle(long now) {
+            public void handle(long currentPulse) {
                 //update game here
-                view.renderGame();
+                view.renderGame(currentPulse);
             }
         }.start();
         stage.setScene(scene);

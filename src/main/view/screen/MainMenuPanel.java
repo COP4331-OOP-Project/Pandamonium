@@ -9,11 +9,13 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.Panel;
 import view.PanelManager;
+import view.RotationAnimation;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
@@ -28,9 +30,13 @@ public class MainMenuPanel extends Panel{
 	Button mapMaker = new Button("Map Maker");
 	Button settings = new Button("Settings");
 	Button exitGame = new Button("Exit Game");
+	RotationAnimation humanFigure;
+	RotationAnimation pandaFigure;
 	
 	public MainMenuPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(gameModelAdapter, assets, viewEnum);
+		humanFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 50, true, 45);
+		pandaFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 50, true, 45);
 		this.root = root;
 		this.panelManager = panelManager;
     	ds.setOffsetY(6.0);
@@ -44,6 +50,7 @@ public class MainMenuPanel extends Panel{
             @Override
             public void handle(ActionEvent event) {
                 panelManager.setMode(ViewEnum.MAIN_GAME);
+                getAdapter().startGame();
             }
         });
 		mapMaker.setId("mainMenuButton");
@@ -74,9 +81,9 @@ public class MainMenuPanel extends Panel{
 		mainMenuElements.getChildren().add(exitGame);
 	}
 
-	@Override
-	public void draw(GraphicsContext g, Point screenDimensions) {
+	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		g.drawImage(getAssets().getImage("MENU_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+		drawCharacters(g, screenDimensions, currentPulse);
 		g.setEffect(ds);
 		g.setFont(getAssets().getFont(4));
 		g.setFill(Color.WHITE);
@@ -92,12 +99,15 @@ public class MainMenuPanel extends Panel{
 		exitGame.setTranslateY(screenDimensions.y / 2 + MAIN_MENU_BUTTON_SPACING * 3 - DISTANCE_UP_FROM_CENTER);
 	}
 
-	@Override
+	private void drawCharacters(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		pandaFigure.draw(g, screenDimensions.x/2 + 200, screenDimensions.y/2, 1, 1, currentPulse);
+		humanFigure.draw(g, screenDimensions.x/2 - 400, screenDimensions.y/2, 1, 1, currentPulse);
+	}
+
 	public void hideGUIElements() {
 		root.getChildren().remove(mainMenuElements);
 	}
 
-	@Override
 	public void showGUIElements() {
 		root.getChildren().add(mainMenuElements);
 	}

@@ -25,7 +25,7 @@ public class UnitDetailsPanel extends DetailsPanel {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
         drawBar(gc, screenDimensions);
         gc.setEffect(ds);
         drawText(gc, screenDimensions.y);

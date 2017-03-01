@@ -73,9 +73,9 @@ public class PanelManager {
 		panels.add(settingsPanel);
 	}
 	
-	public void drawPanels(Point screenDimensions) {
+	public void drawPanels(Point screenDimensions, long currentPulse) {
 		for (Panel panel : panels) {
-			panel.drawPanel(g, screenDimensions, currentGameMode);
+			panel.drawPanel(g, screenDimensions, currentGameMode, currentPulse);
 		}
 	}
 

@@ -41,7 +41,7 @@ public class View {
         scene.getStylesheets().add("file:///" + buttonStyle.getAbsolutePath().replace("\\", "/"));;
 	}
 
-    public void renderGame() {
+    public void renderGame(long currentPulse) {
     	double width = scene.getWidth();
     	double height = scene.getHeight();
         canvas.setWidth(width);
@@ -49,7 +49,7 @@ public class View {
         screenDimensions.x = (int)width;
         screenDimensions.y = (int)height;
         gc.clearRect(0, 0, width, height);
-        panelManager.drawPanels(screenDimensions);
+        panelManager.drawPanels(screenDimensions, currentPulse);
     }
     
     public void startDragging(double x, double y) {

@@ -12,7 +12,7 @@ public abstract class Panel {
     private boolean isVisible = true;
     private boolean GUIVisible = false;
     
-    public abstract void draw(GraphicsContext gc, Point screenDimensions);
+    public abstract void draw(GraphicsContext gc, Point screenDimensions, long currentPulse);
 
     public abstract void hideGUIElements();
     
@@ -24,9 +24,9 @@ public abstract class Panel {
     	this.viewEnum = viewEnum;
     }
     
-    public void drawPanel(GraphicsContext gc, Point screenDimensions, ViewEnum gameMode) {
+    public void drawPanel(GraphicsContext gc, Point screenDimensions, ViewEnum gameMode, long currentPulse) {
     	if (gameMode == viewEnum && isVisible) {
-    		draw(gc, screenDimensions);
+    		draw(gc, screenDimensions, currentPulse);
     		if (!GUIVisible) {
     			GUIVisible = true;
     			showGUIElements();

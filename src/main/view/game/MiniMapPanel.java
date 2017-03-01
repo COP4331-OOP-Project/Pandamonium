@@ -26,7 +26,7 @@ public class MiniMapPanel extends Panel {
 		super(gameModelAdapter, assets, view);
 	}
     
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
         this.screenDimensions = screenDimensions;
         /*
         for (int i = 0; i < game.getGameBoard().getTiles().length; i++) {

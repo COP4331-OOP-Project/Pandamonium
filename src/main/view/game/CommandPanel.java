@@ -63,8 +63,7 @@ public class CommandPanel extends Panel{
         });
 	}
 
-	@Override
-	public void draw(GraphicsContext gc, Point screenDimensions) {
+	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
         drawCommandPanel(gc);
 	}
@@ -137,12 +136,10 @@ public class CommandPanel extends Panel{
 		commandBuild.setTranslateY(y + SPACING);
 	}
 	*/
-	@Override
 	public void hideGUIElements() {
 		root.getChildren().remove(commandToggleButtons);
 	}
 
-	@Override
 	public void showGUIElements() {
 		root.getChildren().add(commandToggleButtons);
 	}

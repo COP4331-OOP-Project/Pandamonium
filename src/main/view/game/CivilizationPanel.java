@@ -23,8 +23,7 @@ public class CivilizationPanel extends Panel {
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
             drawBar(gc, screenDimensions);
             drawText(gc);
             drawPlayerIcon(gc);
@@ -53,11 +52,9 @@ public class CivilizationPanel extends Panel {
         g.drawImage(getAssets().getImage("GUI_TOP"), 0, 0);
     }
 
-	@Override
 	public void hideGUIElements() {
 	}
 
-	@Override
 	public void showGUIElements() {
 	}
 }

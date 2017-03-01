@@ -144,9 +144,8 @@ public class MapMakerPanel extends Panel{
 		exitToMenuButton.setVisible(true);
 	}
 
-	@Override
-	public void draw(GraphicsContext gc, Point screenDimensions) {
-		gc.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+		//gc.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
 		this.screenDimensions.x = screenDimensions.x;
 		this.screenDimensions.y = screenDimensions.y;
 		this.offset.x = screenDimensions.x/2 - OFFSET_X;
@@ -318,12 +317,10 @@ public class MapMakerPanel extends Panel{
 		}
 	}
 
-	@Override
 	public void hideGUIElements() {
 		root.getChildren().remove(mapStuff);
 	}
 
-	@Override
 	public void showGUIElements() {
 		root.getChildren().add(mapStuff);
 	}

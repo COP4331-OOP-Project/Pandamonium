@@ -39,8 +39,7 @@ public class GamePanel extends Panel {
         selectedDrawer = new SelectedDrawer(this);
     }
 
-    @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
 		//gc.drawImage(Assets.getInstance().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
         this.gc = gc;

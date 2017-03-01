@@ -16,7 +16,7 @@ public class UnitOverviewPanel extends OverviewPanel {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
         drawPanelBox(gc, screenDimensions);
         Font oldFont = gc.getFont();
         /*

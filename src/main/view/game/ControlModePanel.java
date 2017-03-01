@@ -40,8 +40,7 @@ public class ControlModePanel extends Panel {
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
     	this.screenDimensions = screenDimensions;
         //updateModes();
         drawModePanel(gc);

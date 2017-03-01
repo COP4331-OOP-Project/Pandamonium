@@ -27,7 +27,7 @@ public class HoverPanel extends Panel {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
+    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
     }
 
     @Override

@@ -25,6 +25,14 @@ public class Animation {
 			 cycleImage();
 			 currentTime = 0;
 		}
-		gc.drawImage(animationImages[currentImage], x, y, scaleX, scaleY);
+		drawImage(gc, animationImages[currentImage], x, y, scaleX, scaleY);
+	}
+	
+	public void drawImage(GraphicsContext gc, Image image, int x, int y, double scaleX, double scaleY) {
+		gc.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
+	}
+	
+	int getSpeed() {
+		return speed;
 	}
 }

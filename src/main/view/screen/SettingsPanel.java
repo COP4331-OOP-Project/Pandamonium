@@ -222,7 +222,7 @@ public class SettingsPanel extends Panel {
 		}
 		
 		@Override
-		public void draw(GraphicsContext g, Point screenDimensions) {
+		public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 			g.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
 			this.screenDimensions.x = screenDimensions.x;
 			this.screenDimensions.y = screenDimensions.y;
