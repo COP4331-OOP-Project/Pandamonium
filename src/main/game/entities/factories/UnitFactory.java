@@ -9,18 +9,19 @@ import game.entities.IdManager.IdManager;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
 import game.entities.factories.exceptions.ColonistLimitExceededException;
 import game.entities.factories.exceptions.*;
+import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.Unit;
-import game.entities.units.UnitStats;
 import game.entities.units.UnitType;
+import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
 import game.entities.EntityId;
 
 public class UnitFactory {
-    private Map<UnitType, UnitStats> unitStatistics;
+    private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
 
       private EntityId entityId;
       private IdManager colonistIdManager;
@@ -36,20 +37,22 @@ public class UnitFactory {
     public UnitFactory(){
         this.unitStatistics = new HashMap<>();
         try {
-            this.unitStatistics.put(UnitType.COLONIST, new UnitStats(UnitType.COLONIST));
-            this.unitStatistics.put(UnitType.EXPLORER, new UnitStats(UnitType.EXPLORER));
-            this.unitStatistics.put(UnitType.MELEE, new UnitStats(UnitType.MELEE));
-            this.unitStatistics.put(UnitType.RANGED, new UnitStats(UnitType.RANGED));
+            this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(UnitType.COLONIST));
+            this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(UnitType.EXPLORER));
+            this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(UnitType.MELEE));
+            this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(UnitType.RANGED));
         }catch(UnitNotFoundException e){ System.out.println(e.getMessage()); }
     }
   
-    public Unit createUnit(UnitType unit, Location location, int playerId) throws ColonistLimitExceededException, ExplorerLimitExceededException,
-                                                                                    RangedLimitExceededException, MeleeLimitExceededException{
+    public Unit createUnit(EntitySubtypeEnum unit, Location location, int playerId)
+            throws ColonistLimitExceededException, ExplorerLimitExceededException, RangedLimitExceededException,
+                    MeleeLimitExceededException, UnitNotFoundException
+    {
         switch(unit) {
             case COLONIST:{
                 try{
                     newColonistId = this.colonistIdManager.getNewId();
-                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, newColonistId );
+                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, newColonistId);
                     return new Colonist(unitStatistics.get(unit), location, entityId);
                 } catch (IdLimitExceededException e) {
                     throw new ColonistLimitExceededException("Colonist limit is reached, can't add new colonist");
@@ -72,7 +75,7 @@ public class UnitFactory {
                 } catch (IdLimitExceededException e){
                     throw new MeleeLimitExceededException("Melee limit is reached, can't add new melees");
                 }
-            case RANGED:{
+            case RANGE:{
                 try{
                     newRangedId = this.rangedIdManager.getNewId();
                     entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, newRangedId);
@@ -81,6 +84,7 @@ public class UnitFactory {
                     throw new RangedLimitExceededException("Ranged limit is reached, can't add new ranges");
                 }
             }
+            default: throw new UnitNotFoundException();
         }
     }
 }
