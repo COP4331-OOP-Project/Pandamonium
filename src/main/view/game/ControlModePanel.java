@@ -5,6 +5,8 @@ import java.awt.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import game.mode.Mode;
+import game.mode.Submode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -31,9 +33,9 @@ public class ControlModePanel extends Panel {
     private Font modeFont = getAssets().getFont(0);
     private Font subModeFont = getAssets().getFont(1);
     private String[] modeString = {"Rally Point", "Structure", "Unit", "Army"};
+    private Mode mode;
     private String submodeString = "";
-    private int mode = 0;
-
+    
     public ControlModePanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
         ds.setOffsetY(2.0f);
@@ -42,7 +44,7 @@ public class ControlModePanel extends Panel {
 
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
     	this.screenDimensions = screenDimensions;
-        //updateModes();
+    	updateModes();
         drawModePanel(gc);
         drawSubmodePanel(gc);
         gc.setFont(modeFont);
@@ -52,37 +54,12 @@ public class ControlModePanel extends Panel {
         drawSubmodeStrings(gc);
         gc.setEffect(null);
     }
-/*
     private void updateModes() {
-        if (game.getCurrentMode() == ModeEnum.RALLY_POINT) {
-            mode = 0;
-            submodeString = "";
-        } else if (game.getCurrentMode() == ModeEnum.STRUCTURE) {
-            mode = 1;
-            if (game.getCurrentType() == StructureEnum.BASE) {
-            	submodeString = "Base";
-            }
-        } else if (game.getCurrentMode() == ModeEnum.UNIT) {
-            mode = 2;
-            if (game.getCurrentType() == UnitEnum.EXPLORER)
-            	submodeString = "Explorer";
-            if (game.getCurrentType() == UnitEnum.COLONIST)
-            	submodeString = "Colonist";
-            if (game.getCurrentType() == UnitEnum.MELEE)
-            	submodeString = "Melee";
-            if (game.getCurrentType() == UnitEnum.RANGED)
-            	submodeString = "Ranged";
-        } else if (game.getCurrentMode() == ModeEnum.ARMY) {
-            mode = 3;
-            if (game.getCurrentType() == ArmyEnum.ENTIRE_ARMY)
-            	submodeString = "Entire Army";
-            if (game.getCurrentType() == ArmyEnum.BATTLE_GROUP)
-            	submodeString = "Battle Group";
-            if (game.getCurrentType() == ArmyEnum.REINFORCEMENTS)
-            	submodeString = "Reinforcements";
-        }
+    	mode = getAdapter().getCurrentMode();
+    	Submode submode = getAdapter().getCurrentSubmode();
+    	submodeString = submode.getText();
     }
-*/
+    
     private void drawModeStrings(GraphicsContext g) {
         g.fillText(modeString[0], screenDimensions.x - MODE_TEXT_X, MODE_TEXT_Y);
         g.fillText(modeString[1], screenDimensions.x - MODE_TEXT_X + MODE_TEXT_SPACING, MODE_TEXT_Y);
@@ -98,16 +75,16 @@ public class ControlModePanel extends Panel {
     	Image img = getAssets().getImage("GUI_MODE_PANEL");
         g.drawImage(img, screenDimensions.x - img.getWidth() , MODE_Y);
         switch (mode) {
-            case 0:
+            case RALLY_POINT:
                 g.drawImage(getAssets().getImage("GUI_MODE_SELECTED1"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
-            case 1:
+            case STRUCTURE:
                 g.drawImage(getAssets().getImage("GUI_MODE_SELECTED2"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
-            case 2:
+            case UNIT:
                 g.drawImage(getAssets().getImage("GUI_MODE_SELECTED3"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
-            case 3:
+            case ARMY:
                 g.drawImage(getAssets().getImage("GUI_MODE_SELECTED4"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
             default:
@@ -116,15 +93,13 @@ public class ControlModePanel extends Panel {
     }
 
     private void drawSubmodePanel(GraphicsContext g) {
-    	//if (game.getCurrentMode() != ModeEnum.RALLY_POINT)
+    	if (getAdapter().getCurrentMode() != Mode.RALLY_POINT)
     		g.drawImage(getAssets().getImage("GUI_SUBMODE_PANEL"), SUBMODE_X, SUBMODE_Y);
     }
 
-	@Override
 	public void hideGUIElements() {
 	}
 
-	@Override
 	public void showGUIElements() {
 	}
 }

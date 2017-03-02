@@ -5,7 +5,8 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.GameModel;
+import game.commands.CommandEnum;
+import game.mode.ControlMode;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -15,14 +16,14 @@ import view.View;
 public class KeyEventController {
 
     private final static Logger log = LogManager.getLogger(KeyEventController.class);
-    GameModel game;
+    ControlMode controlMode;
     View view;
     Scene scene;
     ControlFileReader controlReader;
 	private static final String HUMAN_CONFIG_FILE = "assets/data/hctrl.dat";
-	File humanControlsFile = new File(HUMAN_CONFIG_FILE);
 	private static final String PANDA_CONFIG_FILE = "assets/data/pctrl.dat";
-	File pandaControlsFile = new File(HUMAN_CONFIG_FILE);
+	File humanControlsFile = new File(HUMAN_CONFIG_FILE);
+	File pandaControlsFile = new File(PANDA_CONFIG_FILE);
     private boolean gettingMoves = false;
     private boolean gettingMakeList = false;
 	private static final String COMMAND_UP = "COMMAND_UP";
@@ -33,7 +34,6 @@ public class KeyEventController {
 	private static final String END_TURN = "END_TURN";
 	private static final String UNIT_OVERVIEW = "UNIT_OVERVIEW";
 	private static final String STRUCTURE_OVERVIEW = "STRUCTURE_OVERVIEW";
-	private static final String FORM_ARMY = "FORM_ARMY";
 	private static final String CENTER = "CENTER";
 	private static final String MOVE_0 = "MOVE_0";
 	private static final String MOVE_45 = "MOVE_45";
@@ -43,32 +43,31 @@ public class KeyEventController {
 	private static final String MOVE_315 = "MOVE_315";
 	private static final String CHANGE_CYCLING = "CHANGE_CYCLING";
 	
-    public KeyEventController(GameModel game, View view, Scene scene) {
+    public KeyEventController(ControlMode controlMode, View view, Scene scene) {
     	controlReader = new ControlFileReader();
     	controlReader.loadControls(humanControlsFile);
-        this.game = game;
-        this.view = view;
-        this.scene = scene;
+    	this.view = view;
+    	this.scene = scene;
+        this.controlMode = controlMode;
     }
-    /*
+    
     private void controlDownActions(KeyEvent e) {
         KeyCode key = e.getCode();
-        game.setShowingMakeDetails(false);
         if (key == controlReader.getControl(COMMAND_UP)) {
                 log.debug("CTRL + Up key pressed");
-                this.game.cycleModeBackward();
+                controlMode.cycleModeBackward();
                 
         } else if (key == controlReader.getControl(COMMAND_DOWN)) {
             	log.debug("CTRL + Down key pressed");
-            	this.game.cycleModeForward();
+            	controlMode.cycleModeForward();
             	
         } else if (key == controlReader.getControl(COMMAND_LEFT)) {
                 log.debug("CTRL + Right key pressed");
-                this.game.cycleTypeForward();
+                controlMode.cycleSubmodeForward();
                 
         } else if (key == controlReader.getControl(COMMAND_RIGHT)) {
                 log.debug("CTRL + Left key pressed");
-                this.game.cycleTypeBackward();
+                controlMode.cycleSubmodeBackward();
                 
         } else {
                 log.info("Invalid command");
@@ -79,48 +78,43 @@ public class KeyEventController {
         KeyCode key = e.getCode();
         if (key == controlReader.getControl(COMMAND_UP)) {
         	log.debug("Up key pressed");
-            this.game.cycleCommandForward();
+        	controlMode.cycleCommandForward();
             
         } else if (key == controlReader.getControl(COMMAND_DOWN)) {
         	log.debug("Down key pressed");
-        	this.game.cycleCommandBackward();
+        	controlMode.cycleCommandBackward();
         	
         } else if (key == controlReader.getControl(COMMAND_LEFT)) {
         	log.debug("Right key pressed");
-            this.game.cycleTypeInstanceBackward();
+        	controlMode.cycleTypeInstanceBackward();
             
         } else if (key == controlReader.getControl(COMMAND_RIGHT)) {
         	log.debug("Left key pressed");
-            this.game.cycleTypeInstanceForward();
+        	controlMode.cycleTypeInstanceForward();
             
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select key pressed");
-            CommandEnum command = this.game.executeCommand();
+            CommandEnum command = controlMode.executeCommand();
             if (command == CommandEnum.MOVE) {
-                this.gettingMoves = true;
+                gettingMoves = true;
             } else if (command == CommandEnum.MAKE) {
-                this.gettingMakeList = true;
+                gettingMakeList = true;
             }
         } else if (key == controlReader.getControl(CENTER)) {
         	log.debug("Center key pressed");
-            this.game.centerOnCurrentTypeInstance();
+        	controlMode.centerOnCurrentTypeInstance();
 
         } else if (key == controlReader.getControl(END_TURN)) {
-            log.debug("Escape pressed");
-            this.game.endTurn();
+            log.debug("End turn key pressed");
+            controlMode.endTurn();
             
         } else if (key == controlReader.getControl(UNIT_OVERVIEW)) {
             log.debug("Unit Overview Pressed");
-            this.view.toggleUnitOverview();
+            controlMode.toggleUnitOverview();
             
         } else if (key == controlReader.getControl(STRUCTURE_OVERVIEW)) {
             log.debug("Structure Overview Pressed");
-            this.view.toggleStructureOverview();
-            
-        } else if (key == controlReader.getControl(FORM_ARMY)) {
-        	log.debug("Form Army Key Pressed");
-            this.game.formArmy();
-            this.game.resetControls();
+            controlMode.toggleStructureOverview();
             
         } else {
             log.info("Invalid command");
@@ -131,31 +125,31 @@ public class KeyEventController {
         KeyCode key = e.getCode();
         if (key == controlReader.getControl(MOVE_0)) {
             log.debug("Move 0 Key Pressed");
-            this.game.addMoveToList(0);
+            controlMode.addMoveToList(0);
             
         } else if (key == controlReader.getControl(MOVE_45)) {
         	log.debug("Move 45 Key Pressed");
-            this.game.addMoveToList(45);
+        	controlMode.addMoveToList(45);
         	
         } else if (key == controlReader.getControl(MOVE_135)) {
         	log.debug("Move 135 Key Pressed");
-            this.game.addMoveToList(135);
+        	controlMode.addMoveToList(135);
         	
         } else if (key == controlReader.getControl(MOVE_180)) {
         	log.debug("Move 180 Key Pressed");
-            this.game.addMoveToList(180);
+        	controlMode.addMoveToList(180);
         	
         } else if (key == controlReader.getControl(MOVE_225)) {
         	log.debug("Move 225 Key Pressed");
-            this.game.addMoveToList(225);
+        	controlMode.addMoveToList(225);
         	
         } else if (key == controlReader.getControl(MOVE_315)) {
         	log.debug("Move 315 Key Pressed");
-            this.game.addMoveToList(315);
+        	controlMode.addMoveToList(315);
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select Item Pressed");
-            game.executeMoveCommand();
-            this.gettingMoves = false;
+            controlMode.executeMoveCommand();
+            gettingMoves = false;
         } else {
             log.info("Invalid command");
         }
@@ -168,48 +162,28 @@ public class KeyEventController {
         // Cycle key mode choices for
         if (key == controlReader.getControl(COMMAND_UP)) {
         	log.debug("UP Key pressed (Make)");
-            this.game.cycleMakeOptionUp();
+        	controlMode.cycleMakeOptionUp();
             
         } else if (key == controlReader.getControl(COMMAND_DOWN)) {
         	log.debug("DOWN Key pressed (Make)");
-            this.game.cycleMakeOptionDown();
+        	controlMode.cycleMakeOptionDown();
         	
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Enter pressed");
-            if (game.getCurrentType() == UnitEnum.COLONIST) game.executeMakeCommand(UnitEnum.COLONIST, "base");
-            else {
-                switch (this.game.getCurrentMakeOption()) {
-                    case 0:
-                        game.executeMakeCommand(StructureEnum.BASE, "melee");
-                        break;
-                    case 1:
-                        game.executeMakeCommand(StructureEnum.BASE, "ranged");
-                        break;
-                    case 2:
-                        game.executeMakeCommand(StructureEnum.BASE, "colonist");
-                        break;
-                    case 3:
-                        game.executeMakeCommand(StructureEnum.BASE, "explorer");
-                        break;
-                }
-
             }
-            this.gettingMakeList = false;
-            this.game.setShowingMakeDetails(false);
-        }
     }
-	*/
+    
     public void keyReleased(KeyEvent e) {
-    	if (this.gettingMoves) {
-            //this.getMoves(e);
-        } else if (this.gettingMakeList) {
-            //this.getMakeList(e);
+    	if (gettingMoves) {
+            getMoves(e);
+        } else if (gettingMakeList) {
+            getMakeList(e);
         } else if ((e.isControlDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.CONTROL)) ||
         			(e.isAltDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.ALT)) ||
         			(e.isShiftDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.SHIFT))){
-            //controlDownActions(e);
+            controlDownActions(e);
             return;
-        } //else normalKeyPressActions(e);
+        } else normalKeyPressActions(e);
     }
     
     public void handleEvents() {

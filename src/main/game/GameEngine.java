@@ -2,6 +2,7 @@ package game;
 
 import controls.KeyEventController;
 import controls.MouseEventController;
+import game.mode.ControlMode;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -15,8 +16,9 @@ public class GameEngine extends Application {
     private KeyEventController keyEvents;
     private MouseEventController mouseEvents;
 	private View view;
-	private GameModel gameModel = new GameModel();
-	private GameModelAdapter gameModelAdapter = new GameModelAdapter(gameModel);
+	private ControlMode controlMode;
+	private GameModel gameModel;
+	private GameModelAdapter gameModelAdapter;
     @Override
     public void start(Stage stage) {
         stage.setTitle("Asian Game");
@@ -25,16 +27,18 @@ public class GameEngine extends Application {
         //stage.setFullScreen(true);
         //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         //stage.setMaximized(true);
-        
+        gameModel = new GameModel();
+        controlMode = new ControlMode(gameModel);
+        gameModelAdapter = new GameModelAdapter(gameModel, controlMode);
         view = new View(gameModelAdapter, scene, root);
-        keyEvents = new KeyEventController(gameModel, view, scene);
+        keyEvents = new KeyEventController(controlMode, view, scene);
         keyEvents.handleEvents();
         mouseEvents = new MouseEventController(gameModel, view, scene);
         mouseEvents.handleEvents();
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
-                //update game here
+                gameModel.updateGame();
                 view.renderGame(currentPulse);
             }
         }.start();
