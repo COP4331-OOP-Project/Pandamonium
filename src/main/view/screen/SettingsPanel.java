@@ -136,8 +136,8 @@ public class SettingsPanel extends Panel {
 		}
 
 		private void setupButton(Button button, int x, int y) {
-			button.setTranslateX(555);
-			button.setTranslateY(7);
+			button.setTranslateX(x);
+			button.setTranslateY(y);
 			button.setId("button");
 		}
 		
