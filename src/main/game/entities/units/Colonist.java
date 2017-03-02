@@ -1,14 +1,9 @@
 package game.entities.units;
 
 import game.entities.EntityId;
+import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
-/**
- * Created by David on 2/22/2017.
- */
-public class Colonist extends Unit {
-
-    public Colonist(UnitStats stats, Location location, EntityId entityId){
-        super(stats, location, entityId);
-    }
+public class Colonist extends Unit{
+    public Colonist(UnitStats stats, Location location, EntityId entityId){ super(stats, location, entityId); }
 }

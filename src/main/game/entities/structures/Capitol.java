@@ -1,9 +1,8 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
-import game.entities.Percentage;
+import game.entities.stats.StructureStats;
 import game.gameboard.Location;
-import game.visitors.iTileActionVisitor;
 
 public class Capitol extends Structure {
     //private ArrayList<worker> workers;
@@ -12,8 +11,8 @@ public class Capitol extends Structure {
     //private ArrayList<worker> miner;
     //private ArrayList<worker> breeder;
 
-    public Capitol(Location loc , EntityId entityId ){
-        super(loc, entityId);
+    public Capitol(StructureStats stats, Location location , EntityId entityId ){
+        super(stats, location, entityId);
     }
 
     public void assignToFarmer(){

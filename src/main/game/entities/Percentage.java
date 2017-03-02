@@ -5,6 +5,8 @@ public class Percentage {
 
     private double healthPercent;         // Saved health percent value of entity
 
+    public Percentage(){ this.healthPercent = 1; }
+
     // Get health percentage
     public double getHealthPercent() {
         return healthPercent;
@@ -12,7 +14,7 @@ public class Percentage {
 
     // Update to new entity health value
     public void updateHealthPercentage(double health) {
-        this.healthPercent = health / 100;
+        this.healthPercent = health / 10;       // TODO: Change denominator to reflect base health
         if (this.healthPercent > 1) this.healthPercent = 1;
         else if (this.healthPercent < 0) this.healthPercent = 0;
     }

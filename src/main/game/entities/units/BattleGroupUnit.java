@@ -1,9 +1,8 @@
 package game.entities.units;
 
-import game.entities.BattleGroup;
 import game.entities.EntityId;
 import game.entities.iAttacker;
-import game.gameboard.Location;
+import game.entities.stats.UnitStats;
 
 public class BattleGroupUnit implements iAttacker{
     private EntityId entityId;

@@ -8,80 +8,60 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Entity {
-    private Queue<Command> commandQueue;
-    private PowerState powerState;
-    private Location location;
+    protected PowerState powerState;
+    protected Queue<Command> commandQueue;
+    protected int health;
+    protected Percentage healthPercent;
+    protected Location location;
     private EntityId entityId;
 
+
     public Entity(Location location, EntityId entityId){
-        commandQueue = new LinkedList<>();
-        powerUp();
-        this.location=location;
-        this.entityId=entityId;
+        this.commandQueue = new LinkedList<>();
+        this.location = location;
+        this.entityId = entityId;
     }
 
-    public abstract double getCurrentHealth();                  // Return entity health
-    public abstract Percentage getHealthPercentage();           // Return entity health pct.
-    public abstract void takeDamage(double damage);             // Take damage to health
-    public abstract void heal(double healing);                  // Heal for a given amount
-    public void accept(iTileActionVisitor v){                   // Accept visitors
-        v.visitEntity(this);
+    public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors
+
+    // Health
+    public double getCurrentHealth(){ return health; }                              // Return entity health
+    public Percentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
+    public void takeDamage(double damage){                                          // Take damage to health
+        this.health -= damage;
+        this.healthPercent.updateHealthPercentage((double)this.health);
+    }
+    public void heal(double healing){                                               // Heal for a given amount
+        this.health += healing;
+        this.healthPercent.updateHealthPercentage((double)this.health);
     }
 
     // Command queue management
-    public void addCommandToQueue(Command command){             //Add Command to queue
-        commandQueue.add(command);
-    }
-    public void doTurn(){
-        //TODO Fill this function out
-    }
-    public Command nextCommand(){                               // Next queue for new command or decrement turn count
-        return commandQueue.poll();
-    }
-    public Command peekCommand(){                               // Peek at next command
-        return commandQueue.peek();
-    }
-    public boolean isQueueEmpty(){                              // Test is queue is empty
-        return  commandQueue.isEmpty();
-    }
-    public void cancelQueuedCommands(){                         // Clear command queue
-        commandQueue.clear();
-    }
+    public void addCommandToQueue(Command command){ commandQueue.offer(command); }  // Add new command to queue
+    public void doTurn(){ /* TODO: Implement doTurn */ }                            // Iterate turn
+    public Command nextCommand(){ return commandQueue.poll(); }                     // Next queue for new command or decrement turn count
+    public Command peekCommand(){ return commandQueue.peek(); }                     // Peek at next command
+    public boolean isQueueEmpty(){ return commandQueue.isEmpty(); }                 // Test is queue is empty
+    public void cancelQueuedCommands(){ commandQueue.clear(); }                     // Clear command queue
 
     // State
-    public void powerDown(){                                     // Set power down state
-        setPowerState(PowerState.POWERED_DOWN);
-    }
-    public void powerUp(){                                       // Set power up state
-        setPowerState(PowerState.POWERED_UP);
-    }
-    public PowerState getPowerState(){                          // Get power state
-        return powerState;
-    }
-    public void setPowerState(PowerState state){                 // Set power state
-        powerState=state;
-    }
+    public void powerDown(){ powerState = PowerState.POWERED_DOWN; }                // Set power down state
+    public void powerUp(){ powerState = PowerState.POWERED_UP; }                    // Set power up state
+    public void combatState(){ powerState = PowerState.COMBAT; }                    // Set combat state on entity
+    public void standby(){ powerState = PowerState.STANDBY; }                       // Set standby state on entity
+    public PowerState getPowerState(){ return powerState; }                         // Get power state
+    public void setPowerState(PowerState state){ powerState = state; }              // Set power state
 
     // Decommission
-    public abstract void decommissionEntity();                  // Destroy entity
+    public void decommissionEntity(){ /* TODO: Implement decommissionEntity */ }    // Destroy entity
 
     // Location
-    public Location getLocation(){                              // Get location of entity
-        return location;
-    }
-    public void moveToLocation(Location location){              // Set location
-        this.location=location;
-    }
+    public Location getLocation(){ return location; }                               // Get location of entity
+    public void setLocation(Location location){ this.location = location; }         // Set location
 
     // Required Accessors
-    public int getOwnerID(){                                    // Get owning player id
-        return entityId.getPlayerId();
-    }
-    public EntityId getEntityId(){                              // Get entity id
-        return entityId;
-    }
-    public int getInstanceId(){
-        return entityId.getInstanceId();                        // Get entity's instance id
-    }
+    public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
+    public EntityId getEntityId(){ return entityId; }                               // Get entity id
+    public int getInstanceId(){ return entityId.getInstanceId(); }                  // Get entity's instance id
 
 }
