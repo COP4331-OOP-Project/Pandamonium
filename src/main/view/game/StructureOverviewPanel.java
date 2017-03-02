@@ -11,6 +11,7 @@ import view.assets.AssetManager;
 public class StructureOverviewPanel extends OverviewPanel {
     public StructureOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
 		super(gameModelAdapter, assets, view);
+		setIsVisible(false);
 	}
 
     @Override

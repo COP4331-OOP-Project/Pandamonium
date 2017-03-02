@@ -12,7 +12,7 @@ public class UnitOverviewPanel extends OverviewPanel {
 	
     public UnitOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
     	super(gameModelAdapter, assets, viewEnum);
-    	this.setIsVisible(false);
+    	setIsVisible(false);
     }
 
     @Override

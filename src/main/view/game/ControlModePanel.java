@@ -68,7 +68,8 @@ public class ControlModePanel extends Panel {
     }
 
     private void drawSubmodeStrings(GraphicsContext g) {
-        g.fillText(submodeString, SUBMODE_TEXT_X, SUBMODE_TEXT_Y);
+    	if (getAdapter().getCurrentMode() != Mode.RALLY_POINT)
+    		g.fillText(submodeString, SUBMODE_TEXT_X, SUBMODE_TEXT_Y);
     }
 
     private void drawModePanel(GraphicsContext g) {
