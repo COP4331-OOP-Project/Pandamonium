@@ -45,22 +45,12 @@ public class SplashPanel extends Panel{
 
 	private void checkSkipped() {
 		root.setOnMouseReleased(new EventHandler<MouseEvent>() { //Click to Skip
-            @Override
-            public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) {
             	player.stop();
-            	panelManager.setMode(ViewEnum.MAIN_MENU);
+                panelManager.setMode(ViewEnum.MAIN_MENU); //Skip if key pressed
             }
         });
-		
-		root.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.SPACE) {
-                	player.stop();
-                	panelManager.setMode(ViewEnum.MAIN_MENU); //Skip if space pressed
-                }
-            }
-        });
+
 	}
 
 	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
