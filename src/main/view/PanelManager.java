@@ -49,7 +49,7 @@ public class PanelManager {
 		panels.add(civilizationPanel);
 		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(commandPanel);
-		controlModePanel = new ControlModePanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
+		controlModePanel = new ControlModePanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
 		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
 		panels.add(gamePanel);

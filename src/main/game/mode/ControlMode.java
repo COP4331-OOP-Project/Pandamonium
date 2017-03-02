@@ -103,4 +103,13 @@ public class ControlMode {
 		return currentSubmode;
 	}
 
+	public void setMode(Mode mode) {
+		currentMode = mode;
+		cycleSubmodeForward();
+	}
+
+	public void setSubmode(Submode submode) {
+		currentSubmode = submode;
+	}
+
 }

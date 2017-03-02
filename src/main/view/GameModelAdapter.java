@@ -30,5 +30,13 @@ public class GameModelAdapter {
 	public Submode getCurrentSubmode() {
 		return controlMode.getGameSubmode();
 	}
+
+	public void setMode(Mode mode) {
+		controlMode.setMode(mode);
+	}
+	
+	public void setSubmode(Submode submode) {
+		controlMode.setSubmode(submode);
+	}
 	
 }

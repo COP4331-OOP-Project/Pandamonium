@@ -7,9 +7,12 @@ import org.apache.logging.log4j.Logger;
 
 import game.mode.Mode;
 import game.mode.Submode;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import view.GameModelAdapter;
@@ -34,15 +37,18 @@ public class ControlModePanel extends Panel {
     private Font subModeFont = getAssets().getFont(1);
     private String[] modeString = {"Rally Point", "Structure", "Unit", "Army"};
     private Mode mode;
+    private Group root;
     private String submodeString = "";
     
-    public ControlModePanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+    public ControlModePanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
+    	this.root = root;
         ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
     }
 
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+    	checkModeClicked();
     	this.screenDimensions = screenDimensions;
     	updateModes();
         drawModePanel(gc);
@@ -54,7 +60,29 @@ public class ControlModePanel extends Panel {
         drawSubmodeStrings(gc);
         gc.setEffect(null);
     }
-    private void updateModes() {
+    
+    private void checkModeClicked() {
+		root.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+               double x = event.getX();
+               double y = event.getY();
+               if (x > (screenDimensions.x - 503) && y < 45) { //Clicked in Mode Box
+            	   if (x > screenDimensions.x - 503 && x <= screenDimensions.x - 377) { //Click on RP
+            		   getAdapter().setMode(Mode.RALLY_POINT);
+            	   } else if (x > screenDimensions.x - 377 && x <= screenDimensions.x - 251) {//Click on Structure
+            		   getAdapter().setMode(Mode.STRUCTURE);
+            	   } else if (x > screenDimensions.x - 251 && x <= screenDimensions.x - 126) {//Click on Unit
+            		   getAdapter().setMode(Mode.UNIT);
+            	   } else { //Click on Army
+            		   getAdapter().setMode(Mode.ARMY);
+            	   }
+               }
+            }
+        });
+    }
+
+	private void updateModes() {
     	mode = getAdapter().getCurrentMode();
     	Submode submode = getAdapter().getCurrentSubmode();
     	submodeString = submode.getText();
