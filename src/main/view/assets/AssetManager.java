@@ -31,4 +31,12 @@ public class AssetManager {
 	public Media getSplash() {
 		return assets.getSplash();
 	}
+
+	public Media getGameMusic() {
+		return assets.getGameMusic();
+	}
+	
+	public Media getMenuMusic() {
+		return assets.getMenuMusic();
+	}
 }

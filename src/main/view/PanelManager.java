@@ -22,7 +22,8 @@ import view.screen.SettingsPanel;
 import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentGameMode = ViewEnum.SPLASH;
+	private ViewEnum currentViewMode = ViewEnum.SPLASH;
+	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
 	private CivilizationPanel civilizationPanel;
@@ -46,6 +47,7 @@ public class PanelManager {
 		this.gameModelAdapter = gameModelAdapter;
 		this.g = g;
 		this.assets = assets;
+		musicManager = new MusicManager(assets, group);
 		panels = new ArrayList<Panel>();
 		civilizationPanel = new CivilizationPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(civilizationPanel);
@@ -78,17 +80,18 @@ public class PanelManager {
 	}
 	
 	public void drawPanels(Point screenDimensions, long currentPulse) {
+		musicManager.updateMusic(currentViewMode);
 		for (Panel panel : panels) {
-			panel.drawPanel(g, screenDimensions, currentGameMode, currentPulse);
+			panel.drawPanel(g, screenDimensions, currentViewMode, currentPulse);
 		}
 	}
 
-	public void setMode(ViewEnum currentGameMode) {
-		this.currentGameMode = currentGameMode;
+	public void setMode(ViewEnum currentViewMode) {
+		this.currentViewMode = currentViewMode;
 	}
 
 	public void tileClicked(double x, double y) {
-		if (currentGameMode == ViewEnum.MAP_MAKER) {
+		if (currentViewMode == ViewEnum.MAP_MAKER) {
 			mapMakerPanel.tileClicked(new Point((int)x, (int)y));
 		}
 	}

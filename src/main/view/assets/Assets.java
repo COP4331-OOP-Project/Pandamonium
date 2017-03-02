@@ -18,6 +18,12 @@ public class Assets {
     private static final String SPLASH_SCREEN = "assets/video/Intro.mp4";
     private File splashFile;
     private Media splashScreen;
+    private static final String MENU_MUSIC = "assets/music/MainMenu.mp3";
+    private File menuMusicFile;
+    private Media menuMusic;
+    private static final String GAME_MUSIC = "assets/music/InGame.mp3";
+    private File gameMusicFile;
+    private Media gameMusic;
     private HashMap<String, Image> assets = new HashMap<String, Image>();
     private Font defaultFont;
     private Font smallFont;
@@ -35,11 +41,11 @@ public class Assets {
 
     public void loadResources() {
     	splashFile = new File(SPLASH_SCREEN);
-        try {
-			splashScreen = new Media(splashFile.toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		splashScreen = new Media(splashFile.toURI().toString());
+		menuMusicFile = new File(MENU_MUSIC);
+		menuMusic = new Media(menuMusicFile.toURI().toString());
+		gameMusicFile = new File(GAME_MUSIC);
+		gameMusic = new Media(gameMusicFile.toURI().toString());
         loadImages();
         loadFonts();
     }
@@ -175,5 +181,13 @@ public class Assets {
     
     public Media getSplash() {
     	return splashScreen;
+    }
+    
+    public Media getMenuMusic() {
+    	return menuMusic;
+    }
+    
+    public Media getGameMusic() {
+    	return gameMusic;
     }
 }
