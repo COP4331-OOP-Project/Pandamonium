@@ -2,6 +2,8 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 
 public class Animation {
 	 private Image[] animationImages;
@@ -25,14 +27,10 @@ public class Animation {
 			 cycleImage();
 			 currentTime = 0;
 		}
-		drawImage(gc, animationImages[currentImage], x, y, scaleX, scaleY);
+		drawImage(gc, animationImages[currentImage], x, y, scaleX, scaleY, currentTick);
 	}
 	
-	public void drawImage(GraphicsContext gc, Image image, int x, int y, double scaleX, double scaleY) {
+	public void drawImage(GraphicsContext gc, Image image, int x, int y, double scaleX, double scaleY, long currentTick) {
 		gc.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
-	}
-	
-	int getSpeed() {
-		return speed;
 	}
 }

@@ -31,12 +31,16 @@ public class MainMenuPanel extends Panel{
 	Button settings = new Button("Settings");
 	Button exitGame = new Button("Exit Game");
 	RotationAnimation humanFigure;
+	RotationAnimation humanFigure2;
 	RotationAnimation pandaFigure;
+	RotationAnimation pandaFigure2;
 	
 	public MainMenuPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(gameModelAdapter, assets, viewEnum);
-		humanFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 50, true, 45);
-		pandaFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 50, true, 45);
+		humanFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 20, 1.6, true, 20);
+		pandaFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 15, 1.5, true, 20);
+		humanFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 12, 1.1, true, 20);
+		pandaFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 7, 1.0, true, 20);
 		this.root = root;
 		this.panelManager = panelManager;
     	ds.setOffsetY(6.0);
@@ -100,8 +104,10 @@ public class MainMenuPanel extends Panel{
 	}
 
 	private void drawCharacters(GraphicsContext g, Point screenDimensions, long currentPulse) {
-		pandaFigure.draw(g, screenDimensions.x/2 + 200, screenDimensions.y/2, 1, 1, currentPulse);
-		humanFigure.draw(g, screenDimensions.x/2 - 400, screenDimensions.y/2, 1, 1, currentPulse);
+		pandaFigure.draw(g, screenDimensions.x/2 + 150, screenDimensions.y/2 - 50, 1, 1, currentPulse);
+		pandaFigure2.draw(g, screenDimensions.x/2 + 300, screenDimensions.y/2 - 50, 1, 1, currentPulse);
+		humanFigure.draw(g, screenDimensions.x/2 - 350, screenDimensions.y/2 - 50, 1, 1, currentPulse);
+		humanFigure2.draw(g, screenDimensions.x/2 - 500, screenDimensions.y/2 - 50, 1, 1, currentPulse);
 	}
 
 	public void hideGUIElements() {
