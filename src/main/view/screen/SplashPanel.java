@@ -46,8 +46,10 @@ public class SplashPanel extends Panel{
 	private void checkSkipped() {
 		root.setOnMouseReleased(new EventHandler<MouseEvent>() { //Click to Skip
 			public void handle(MouseEvent event) {
-            	player.stop();
-                panelManager.setMode(ViewEnum.MAIN_MENU); //Skip if key pressed
+				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+					player.stop();
+	                panelManager.setMode(ViewEnum.MAIN_MENU); //Skip if key pressed
+				}
             }
         });
 
