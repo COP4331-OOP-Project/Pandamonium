@@ -5,17 +5,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.text.Font;
 
 public class Assets {
     private final static Logger log = LogManager.getLogger(Assets.class);
     private static final Assets INSTANCE = new Assets(); //This is the one instance of resources (singleton)
     private static final String FONT = "assets/fonts/nuku.ttf";
+    private static final String SPLASH_SCREEN = "assets/video/Intro.mp4";
+    private File splashFile;
+    private Media splashScreen;
     private HashMap<String, Image> assets = new HashMap<String, Image>();
     private Font defaultFont;
     private Font smallFont;
@@ -32,6 +34,12 @@ public class Assets {
     }
 
     public void loadResources() {
+    	splashFile = new File(SPLASH_SCREEN);
+        try {
+			splashScreen = new Media(splashFile.toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
         loadImages();
         loadFonts();
     }
@@ -163,5 +171,9 @@ public class Assets {
             default:
                 return defaultFont;
         }
+    }
+    
+    public Media getSplash() {
+    	return splashScreen;
     }
 }

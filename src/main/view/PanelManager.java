@@ -19,9 +19,10 @@ import view.game.UnitOverviewPanel;
 import view.screen.MainMenuPanel;
 import view.screen.MapMakerPanel;
 import view.screen.SettingsPanel;
+import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentGameMode = ViewEnum.MAIN_MENU;
+	private ViewEnum currentGameMode = ViewEnum.SPLASH;
 	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
 	private CivilizationPanel civilizationPanel;
@@ -35,6 +36,7 @@ public class PanelManager {
 	private UnitDetailsPanel unitDetailsPanel;
 	private UnitOverviewPanel unitOverviewPanel;
 	private MainMenuPanel mainMenuPanel;
+	private SplashPanel splashPanel;
 	private MapMakerPanel mapMakerPanel;
 	private SettingsPanel settingsPanel;
 	private GraphicsContext g;
@@ -65,6 +67,8 @@ public class PanelManager {
 		panels.add(unitDetailsPanel);
 		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitOverviewPanel);
+		splashPanel = new SplashPanel(gameModelAdapter, group, this, assets, ViewEnum.SPLASH);
+		panels.add(splashPanel);
 		mainMenuPanel = new MainMenuPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_MENU);
 		panels.add(mainMenuPanel);
 		mapMakerPanel = new MapMakerPanel(gameModelAdapter, group, this, assets, ViewEnum.MAP_MAKER);

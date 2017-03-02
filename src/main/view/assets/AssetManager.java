@@ -1,6 +1,7 @@
 package view.assets;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.text.Font;
 
 public class AssetManager {
@@ -25,5 +26,9 @@ public class AssetManager {
 	
 	public Font getFont(int size) {
 		return assets.getFont(size);
+	}
+
+	public Media getSplash() {
+		return assets.getSplash();
 	}
 }
