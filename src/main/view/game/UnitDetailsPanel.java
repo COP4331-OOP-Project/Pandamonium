@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
@@ -17,8 +18,8 @@ public class UnitDetailsPanel extends DetailsPanel {
     private static final int OFFSET = 80;
 	private static final int SPACING = 230;
     
-    public UnitDetailsPanel(AssetManager assets, ViewEnum viewEnum) {
-    	super(assets, viewEnum);
+    public UnitDetailsPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	super(gameModelAdapter, assets, viewEnum);
     	ds.setOffsetY(2.0);
     	ds.setColor(Color.color(0, 0, 0));
     }

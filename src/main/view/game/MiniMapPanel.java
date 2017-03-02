@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import game.gameboard.TerrainEnum;
 import javafx.scene.canvas.GraphicsContext;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -21,8 +22,8 @@ public class MiniMapPanel extends Panel {
     private final static Logger log = LogManager.getLogger(MiniMapPanel.class);
     private Point screenDimensions;
 
-    public MiniMapPanel(AssetManager assets, ViewEnum view) {
-		super(assets, view);
+    public MiniMapPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
 	}
     
     public void draw(GraphicsContext gc, Point screenDimensions) {

@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import view.GameModelAdapter;
 import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
@@ -48,8 +49,8 @@ public class MapMakerPanel extends Panel{
     int brushSize = 1;
 	int[][] map;
 	
-	public MapMakerPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
-		super(assets, viewEnum);
+	public MapMakerPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
+		super(gameModelAdapter, assets, viewEnum);
 		this.panelManager = panelManager;
 		this.root = root;
     	ds.setOffsetY(2.0f);

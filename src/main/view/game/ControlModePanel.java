@@ -10,6 +10,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -33,8 +34,8 @@ public class ControlModePanel extends Panel {
     private String submodeString = "";
     private int mode = 0;
 
-    public ControlModePanel(AssetManager assets, ViewEnum view) {
-    	super(assets, view);
+    public ControlModePanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+    	super(gameModelAdapter, assets, view);
         ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
     }

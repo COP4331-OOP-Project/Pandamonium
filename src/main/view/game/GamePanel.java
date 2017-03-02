@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -28,8 +29,8 @@ public class GamePanel extends Panel {
     private GraphicsContext gc;
 	private Point screenDimensions;
 
-    public GamePanel(AssetManager assets, Camera camera, ViewEnum view) {
-    	super(assets, view);
+    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
+    	super(gameModelAdapter, assets, view);
         screenDimensions = new Point();
         tileDrawer = new TileDrawer(this);
         unitDrawer = new UnitDrawer(this);

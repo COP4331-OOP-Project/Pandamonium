@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import view.GameModelAdapter;
 import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
@@ -51,8 +52,8 @@ public class SettingsPanel extends Panel {
 	    private int controlWaiting = 0;
 	    private boolean waitingForPress = false;
 	    
-		public SettingsPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
-			super(assets, viewEnum);
+		public SettingsPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
+			super(gameModelAdapter, assets, viewEnum);
 			this.panelManager = panelManager;
 			this.root = root;
 	    	ds.setOffsetY(2.0f);
@@ -380,12 +381,10 @@ public class SettingsPanel extends Panel {
 			updateControlDisplay();
 		}
 
-		@Override
 		public void hideGUIElements() {
 			root.getChildren().remove(settings);
 		}
 
-		@Override
 		public void showGUIElements() {
 			root.getChildren().add(settings);
 		}

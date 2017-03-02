@@ -4,12 +4,13 @@ import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class StructureOverviewPanel extends OverviewPanel {
-    public StructureOverviewPanel(AssetManager assets, ViewEnum view) {
-		super(assets, view);
+    public StructureOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
 	}
 
     @Override

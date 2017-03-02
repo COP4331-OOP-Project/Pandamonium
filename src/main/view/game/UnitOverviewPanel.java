@@ -4,12 +4,14 @@ import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class UnitOverviewPanel extends OverviewPanel {
-    public UnitOverviewPanel(AssetManager assets, ViewEnum viewEnum) {
-    	super(assets, viewEnum);
+	
+    public UnitOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	super(gameModelAdapter, assets, viewEnum);
     	this.setIsVisible(false);
     }
 

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -29,8 +30,8 @@ public class MakeDetailsPanel extends Panel{
     private int mode = 0;
 
     // Constructor
-    public MakeDetailsPanel(AssetManager assets, ViewEnum viewEnum) {
-    	super(assets, viewEnum);
+    public MakeDetailsPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	super(gameModelAdapter, assets, viewEnum);
     	this.setIsVisible(false);
     }
 

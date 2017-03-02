@@ -25,12 +25,12 @@ public class View {
     private Point screenDimensions = new Point();
     private Scene scene;
     
-    public View(GameModel model, Scene scene, Group root) {
+    public View(GameModelAdapter gameModelAdapter, Scene scene, Group root) {
     	this.root = root;
     	this.scene = scene;
     	canvas = new Canvas(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
     	gc = canvas.getGraphicsContext2D();
-    	panelManager = new PanelManager(assets, root, gc, camera);
+    	panelManager = new PanelManager(gameModelAdapter, assets, root, gc, camera);
         setSceneTheme();
     }
 

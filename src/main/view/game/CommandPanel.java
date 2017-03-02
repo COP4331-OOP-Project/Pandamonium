@@ -11,6 +11,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -36,10 +37,10 @@ public class CommandPanel extends Panel{
 	private ToggleButton commandMove = new ToggleButton();
 	private HoverPanel hoverPanel;
 	
-	public CommandPanel(Group root, AssetManager assets, ViewEnum view) {
-		super(assets, view);
+	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
 		this.root = root;
-		hoverPanel = new HoverPanel(assets, view);
+		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
 		setUpToggleButton(commandBuild, getAssets().getImage("COMMAND_BUILD"));
 		setUpToggleButton(commandHeal, getAssets().getImage("COMMAND_HEAL"));
 		setUpToggleButton(commandAttack, getAssets().getImage("COMMAND_ATTACK"));

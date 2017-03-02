@@ -3,6 +3,7 @@ package view.game;
 import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -12,8 +13,8 @@ public abstract class DetailsPanel extends Panel{
     private int guiPanelHeight =
             (int) getAssets().getImage("GUI_BOTTOM").getHeight();
 	
-	public DetailsPanel(AssetManager assets, ViewEnum view) {
-		super(assets, view);
+	public DetailsPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
 	}
 
     void drawBar(GraphicsContext gc, Point screenDimensions) {

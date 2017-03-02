@@ -3,13 +3,14 @@ package view.game;
 import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
 public abstract class OverviewPanel extends Panel {
-    public OverviewPanel(AssetManager assets, ViewEnum view) {
-		super(assets, view);
+    public OverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
 	}
 
 	public void drawPanelBox(GraphicsContext gc, Point screenDimensions) {

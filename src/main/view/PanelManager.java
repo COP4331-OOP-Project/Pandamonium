@@ -22,6 +22,7 @@ import view.screen.SettingsPanel;
 
 public class PanelManager {
 	private ViewEnum currentGameMode = ViewEnum.MAIN_MENU;
+	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
 	private CivilizationPanel civilizationPanel;
 	private CommandPanel commandPanel;
@@ -39,35 +40,36 @@ public class PanelManager {
 	private GraphicsContext g;
 	private ArrayList<Panel> panels;
 	
-	public PanelManager(AssetManager assets, Group group, GraphicsContext g, Camera camera) {
+	public PanelManager(GameModelAdapter gameModelAdapter, AssetManager assets, Group group, GraphicsContext g, Camera camera) {
+		this.gameModelAdapter = gameModelAdapter;
 		this.g = g;
 		this.assets = assets;
 		panels = new ArrayList<Panel>();
-		civilizationPanel = new CivilizationPanel(assets, ViewEnum.MAIN_GAME);
+		civilizationPanel = new CivilizationPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(civilizationPanel);
-		commandPanel = new CommandPanel(group, assets, ViewEnum.MAIN_GAME);
+		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(commandPanel);
-		controlModePanel = new ControlModePanel(assets, ViewEnum.MAIN_GAME);
+		controlModePanel = new ControlModePanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
-		gamePanel = new GamePanel(assets, camera, ViewEnum.MAIN_GAME);
+		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
 		panels.add(gamePanel);
-		makeDetailsPanel = new MakeDetailsPanel(assets, ViewEnum.MAIN_GAME);
+		makeDetailsPanel = new MakeDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(makeDetailsPanel);
-		miniMapPanel = new MiniMapPanel(assets, ViewEnum.MAIN_GAME);
+		miniMapPanel = new MiniMapPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(miniMapPanel);
-		structureDetailsPanel = new StructureDetailsPanel(assets, ViewEnum.MAIN_GAME);
+		structureDetailsPanel = new StructureDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(structureDetailsPanel);
-		structureOverviewPanel = new StructureOverviewPanel(assets, ViewEnum.MAIN_GAME);
+		structureOverviewPanel = new StructureOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(structureOverviewPanel);
-		unitDetailsPanel = new UnitDetailsPanel(assets, ViewEnum.MAIN_GAME);
+		unitDetailsPanel = new UnitDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitDetailsPanel);
-		unitOverviewPanel = new UnitOverviewPanel(assets, ViewEnum.MAIN_GAME);
+		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitOverviewPanel);
-		mainMenuPanel = new MainMenuPanel(group, this, assets, ViewEnum.MAIN_MENU);
+		mainMenuPanel = new MainMenuPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_MENU);
 		panels.add(mainMenuPanel);
-		mapMakerPanel = new MapMakerPanel(group, this, assets, ViewEnum.MAP_MAKER);
+		mapMakerPanel = new MapMakerPanel(gameModelAdapter, group, this, assets, ViewEnum.MAP_MAKER);
 		panels.add(mapMakerPanel);
-		settingsPanel = new SettingsPanel(group, this, assets, ViewEnum.SETTINGS);
+		settingsPanel = new SettingsPanel(gameModelAdapter, group, this, assets, ViewEnum.SETTINGS);
 		panels.add(settingsPanel);
 	}
 	

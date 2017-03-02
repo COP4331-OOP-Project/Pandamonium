@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import view.GameModelAdapter;
 import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
@@ -28,8 +29,8 @@ public class MainMenuPanel extends Panel{
 	Button settings = new Button("Settings");
 	Button exitGame = new Button("Exit Game");
 	
-	public MainMenuPanel(Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
-		super(assets, viewEnum);
+	public MainMenuPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
+		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
 		this.panelManager = panelManager;
     	ds.setOffsetY(6.0);

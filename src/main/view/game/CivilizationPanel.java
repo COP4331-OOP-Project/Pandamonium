@@ -7,6 +7,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -16,8 +17,8 @@ public class CivilizationPanel extends Panel {
     private Font civInfoFont = getAssets().getFont(2);
     private ImagePattern textFill = new ImagePattern(getAssets().getImage("TEXT_PATTERN"),
             0, 0, 1, 1, true);
-    public CivilizationPanel(AssetManager assets, ViewEnum view) {
-    	super(assets, view);
+    public CivilizationPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
+    	super(gameModelAdapter, assets, view);
     	ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
     }

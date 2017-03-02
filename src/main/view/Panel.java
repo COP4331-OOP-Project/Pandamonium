@@ -8,6 +8,7 @@ import view.assets.AssetManager;
 public abstract class Panel {
 	private ViewEnum viewEnum;
 	private AssetManager assets;
+	private GameModelAdapter gameModelAdapter;
     private boolean isVisible = true;
     private boolean GUIVisible = false;
     
@@ -17,7 +18,8 @@ public abstract class Panel {
     
     public abstract void showGUIElements();
     
-    public Panel(AssetManager assets, ViewEnum viewEnum) {
+    public Panel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	this.gameModelAdapter = gameModelAdapter;
     	this.assets = assets;
     	this.viewEnum = viewEnum;
     }
@@ -47,5 +49,9 @@ public abstract class Panel {
     
     public AssetManager getAssets() {
     	return assets;
+    }
+    
+    public GameModelAdapter getAdapter() {
+    	return gameModelAdapter;
     }
 }

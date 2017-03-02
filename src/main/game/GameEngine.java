@@ -8,13 +8,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.GameModelAdapter;
 import view.View;
 
 public class GameEngine extends Application {
     private KeyEventController keyEvents;
     private MouseEventController mouseEvents;
 	private View view;
-	private GameModel game;
+	private GameModel gameModel = new GameModel();
+	private GameModelAdapter gameModelAdapter = new GameModelAdapter(gameModel);
     @Override
     public void start(Stage stage) {
         stage.setTitle("Asian Game");
@@ -23,11 +25,11 @@ public class GameEngine extends Application {
         //stage.setFullScreen(true);
         //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         //stage.setMaximized(true);
-        GameModel model = new GameModel();
-        view = new View(model, scene, root);
-        keyEvents = new KeyEventController(game, view, scene);
+        
+        view = new View(gameModelAdapter, scene, root);
+        keyEvents = new KeyEventController(gameModel, view, scene);
         keyEvents.handleEvents();
-        mouseEvents = new MouseEventController(game, view, scene);
+        mouseEvents = new MouseEventController(gameModel, view, scene);
         mouseEvents.handleEvents();
         new AnimationTimer() {
             @Override
