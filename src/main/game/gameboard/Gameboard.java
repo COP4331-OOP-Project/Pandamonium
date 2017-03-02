@@ -27,15 +27,15 @@ public class Gameboard {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 Location l = new Location(i, j);
                 if (map[i][j] == -1)
-                    //gameMap[i][j] = new Tile(TerrainEnum.INVISIBLE, l);
+                    gameMap[i][j] = new Tile(TerrainEnum.INVISIBLE, l);
                 if (map[i][j] == 0)
-                    //gameMap[i][j] = new Tile(TerrainEnum.GRASS, l);
+                    gameMap[i][j] = new Tile(TerrainEnum.GRASS, l);
                 if (map[i][j] == 1)
-                    //gameMap[i][j] = new Tile(TerrainEnum.SAND, l);
+                    gameMap[i][j] = new Tile(TerrainEnum.SAND, l);
                 if (map[i][j] == 2)
-                    //gameMap[i][j] = new Tile(TerrainEnum.WATER, l);
+                    gameMap[i][j] = new Tile(TerrainEnum.WATER, l);
                 if (map[i][j] == 3) {
-                    //gameMap[i][j] = new Tile(TerrainEnum.MOUNTAIN, l);
+                    gameMap[i][j] = new Tile(TerrainEnum.MOUNTAIN, l);
                 }
             }
         }

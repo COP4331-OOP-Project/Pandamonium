@@ -87,7 +87,7 @@ public class CommandPanel extends Panel{
     	drawToggleButton(g, commandDefend, 0, yDistance + ICON_WIDTH, CommandEnum.DEFEND);
     	drawToggleButton(g, commandPowerUp, ICON_WIDTH, yDistance + ICON_WIDTH, CommandEnum.POWER_UP);
     	drawToggleButton(g, commandPowerDown, ICON_WIDTH * 2, yDistance + ICON_WIDTH, CommandEnum.POWER_DOWN);
-    	drawToggleButton(g, cancelQueue, 0, yDistance + ICON_WIDTH * 2, CommandEnum.POWER_DOWN);
+    	drawToggleButton(g, cancelQueue, 0, yDistance + ICON_WIDTH * 2, CommandEnum.CANCEL_QUEUE);
     	drawToggleButton(g, commandDecommission, ICON_WIDTH, yDistance + ICON_WIDTH * 2, CommandEnum.DECOMMISSION);
     	drawToggleButton(g, commandMove, ICON_WIDTH * 2, yDistance + ICON_WIDTH * 2, CommandEnum.MOVE);
 }
@@ -139,5 +139,4 @@ public class CommandPanel extends Panel{
 	public void showGUIElements() {
 		root.getChildren().add(commandToggleButtons);
 	}
-
 }
