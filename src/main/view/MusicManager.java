@@ -21,9 +21,6 @@ public class MusicManager {
 	public MusicManager(AssetManager assets, Group root) {
 		this.assets = assets;
 		this.root = root;
-	}
-	
-	public void updateMusic(ViewEnum currentViewMode) {
 		menuMusic = assets.getMenuMusic();
 		gameMusic = assets.getGameMusic();
 		menuMusicPlayer = new MediaPlayer(menuMusic);
@@ -38,6 +35,9 @@ public class MusicManager {
 		    	   gameMusicPlayer.seek(Duration.ZERO);
 		         }
 		});
+	}
+	
+	public void updateMusic(ViewEnum currentViewMode) {
 		if (currentViewMode == ViewEnum.SETTINGS ||
 			currentViewMode == ViewEnum.MAIN_MENU ||
 			currentViewMode == ViewEnum.MAP_MAKER) {
@@ -63,14 +63,14 @@ public class MusicManager {
 
 	private void playMusic() {
 		if (menuMusicPlaying && menuMusicStarted) {
-			gameMusicPlayer.pause();
+			gameMusicPlayer.stop();
 			menuMusicPlayer.seek(Duration.ZERO);
 			menuMusicPlayer.play();
 			menuMusicStarted = false;
 		}
 		
 		if (gameMusicPlaying && gameMusicStarted) {
-			menuMusicPlayer.pause();
+			menuMusicPlayer.stop();
 			gameMusicPlayer.seek(Duration.ZERO);
 			gameMusicPlayer.play();
 			gameMusicStarted = false;
