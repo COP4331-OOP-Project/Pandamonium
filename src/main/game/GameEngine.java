@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.GameModelAdapter;
@@ -25,8 +26,8 @@ public class GameEngine extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
         //stage.setFullScreen(true);
-        //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        //stage.setMaximized(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setMaximized(true);
         gameModel = new GameModel();
         controlMode = new ControlMode(gameModel);
         gameModelAdapter = new GameModelAdapter(gameModel, controlMode);

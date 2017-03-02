@@ -27,20 +27,18 @@ public class SplashPanel extends Panel{
 	StackPane video = new StackPane();
 	final MediaPlayer player = new MediaPlayer(splash);
 	final MediaView view = new MediaView(player);
-    final DoubleProperty width = view.fitWidthProperty();
-    final DoubleProperty height = view.fitHeightProperty();
 	private boolean splashStarted = false;
-	private boolean splashFinished = false;
 	
-
 	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets,
 			ViewEnum viewEnum) {
 		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
 		checkSkipped();
 		this.panelManager = panelManager;
-	    width.bind(Bindings.selectDouble(view.sceneProperty(), "width"));
-	    height.bind(Bindings.selectDouble(view.sceneProperty(), "height"));
+		DoubleProperty viewWidth = view.fitWidthProperty();
+		DoubleProperty viewHeight = view.fitHeightProperty();
+		viewWidth.bind(Bindings.selectDouble(view.sceneProperty(), "width"));
+		viewHeight.bind(Bindings.selectDouble(view.sceneProperty(), "height"));
 	    view.setPreserveRatio(true);
 	    video.getChildren().add(view);
 	}
