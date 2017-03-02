@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controls.command.CommandController;
 import game.commands.MoveCommand;
 import game.entities.EntityId;
 import game.gameboard.Gameboard;
