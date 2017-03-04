@@ -95,4 +95,18 @@ public class PanelManager {
 			mapMakerPanel.tileClicked(new Point((int)x, (int)y));
 		}
 	}
+
+	public void toggleUnitOverview() {
+		if (currentViewMode == ViewEnum.MAIN_GAME) {
+	        structureOverviewPanel.hideIfVisible();
+	        unitOverviewPanel.toggle();
+		}
+	}
+
+	public void toggleStructureOverview() {
+		if (currentViewMode == ViewEnum.MAIN_GAME) {
+	    	unitOverviewPanel.hideIfVisible();
+	        structureOverviewPanel.toggle();
+		}
+	}
 }

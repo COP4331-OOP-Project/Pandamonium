@@ -37,24 +37,6 @@ public enum Submode {
                 : Submode.values()[Submode.values().length - 1];
     }
 	
-	public Submode getNext(Mode currentMode) {
-		Submode next = next();
-		if (currentMode == next.associatedMode) {
-			return next;
-		} else {
-			return getNext(currentMode, next);
-		}
-	}
-	
-	public Submode getPrevious(Mode currentMode) {
-		Submode previous = previous();
-		if (currentMode == previous.associatedMode) {
-			return previous;
-		} else {
-			return getPrevious(currentMode, previous);
-		}
-	}
-	
 	private Submode getNext(Mode currentMode, Submode submode) {
 		Submode next = submode.next();
 		if (currentMode == next.associatedMode) {
@@ -66,6 +48,24 @@ public enum Submode {
 	
 	private Submode getPrevious(Mode currentMode, Submode submode) {
 		Submode previous = submode.previous();
+		if (currentMode == previous.associatedMode) {
+			return previous;
+		} else {
+			return getPrevious(currentMode, previous);
+		}
+	}
+    
+	public Submode getNext(Mode currentMode) {
+		Submode next = next();
+		if (currentMode == next.associatedMode) {
+			return next;
+		} else {
+			return getNext(currentMode, next);
+		}
+	}
+	
+	public Submode getPrevious(Mode currentMode) {
+		Submode previous = previous();
 		if (currentMode == previous.associatedMode) {
 			return previous;
 		} else {

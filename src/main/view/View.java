@@ -67,4 +67,12 @@ public class View {
 	public void tileClicked(double x, double y) {
 		panelManager.tileClicked(x, y);
 	}
+
+	public void toggleUnitOverview() {
+		panelManager.toggleUnitOverview();
+	}
+
+	public void toggleStructureOverview() {
+		panelManager.toggleStructureOverview();
+	}
 }

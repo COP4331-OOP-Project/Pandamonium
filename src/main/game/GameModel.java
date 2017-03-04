@@ -9,6 +9,7 @@ import game.commands.MoveCommand;
 import game.entities.EntityId;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
+import game.mode.ControlMode;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);

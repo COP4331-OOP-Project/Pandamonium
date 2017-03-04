@@ -110,11 +110,11 @@ public class KeyEventController {
             
         } else if (key == controlReader.getControl(UNIT_OVERVIEW)) {
             log.debug("Unit Overview Pressed");
-            controlMode.toggleUnitOverview();
+            view.toggleUnitOverview();
             
         } else if (key == controlReader.getControl(STRUCTURE_OVERVIEW)) {
             log.debug("Structure Overview Pressed");
-            controlMode.toggleStructureOverview();
+            view.toggleStructureOverview();
             
         } else {
             log.info("Invalid command");

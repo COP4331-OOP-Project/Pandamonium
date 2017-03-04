@@ -65,16 +65,6 @@ public class ControlMode {
 		
 	}
 
-	public void toggleUnitOverview() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void toggleStructureOverview() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void addMoveToList(int degrees) {
 		// TODO Auto-generated method stub
 		

@@ -59,4 +59,14 @@ public class UnitOverviewPanel extends OverviewPanel {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void toggle() {
+		setIsVisible(!getIsVisible());
+	}
+
+	public void hideIfVisible() {
+		if (getIsVisible()) {
+			setIsVisible(false);
+		}
+	}
 }

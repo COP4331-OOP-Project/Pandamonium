@@ -32,4 +32,14 @@ public class StructureOverviewPanel extends OverviewPanel {
 
 	public void showGUIElements() {
 	}
+
+	public void toggle() {
+		setIsVisible(!getIsVisible());
+	}
+
+	public void hideIfVisible() {
+		if (getIsVisible()) {
+			setIsVisible(false);
+		}
+	}
 }
