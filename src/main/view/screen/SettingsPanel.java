@@ -353,9 +353,20 @@ public class SettingsPanel extends Panel {
 			try {
 				writeMap = new BufferedWriter(new PrintWriter(saveControls));
 				for (int i = 0; i < controls.length; i++) {
+					   int numberOfTabs = 3;
+					   if (i == 7) {
+						   numberOfTabs = 1;
+					   } else if (i == 0 || i == 2 || i == 3 || i == 4 || i == 6) {
+						   numberOfTabs = 2;
+					   } else if (i == 9 || i == 10 || i == 15) {
+						   numberOfTabs = 4;
+					   }
 					   String s = "";
 					   for (int j = 0; j < controls[i].length; j++) {
-						   s += (controls[i][j] + "\t");
+						   s += (controls[i][j]);
+						   for (int t = 0; t < numberOfTabs; t++) {
+							   s+= "\t";
+						   }
 					   }
 					   writeMap.write(s);
 					   writeMap.newLine();
