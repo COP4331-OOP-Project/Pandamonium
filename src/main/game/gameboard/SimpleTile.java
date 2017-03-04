@@ -2,6 +2,8 @@ package game.gameboard;
 
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 import game.entities.Army;
 import game.entities.RallyPoint;
 
@@ -12,19 +14,30 @@ public class SimpleTile{
     private ArrayList<Army> armies;
     private ArrayList<RallyPoint> rallyPoints;
     private Structure structure;
+    private Resource food;
+    private Resource ore;
+    private Resource peat;
     TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
 
-    SimpleTile(TerrainEnum tileType) {
-        Terrain = tileType;
-        units = new ArrayList<Unit>();
-        armies = new ArrayList<Army>();
-        rallyPoints = new ArrayList<RallyPoint>();
-        structure = null;
+    SimpleTile(Tile tile) {
+		units = tile.getUnits();
+		armies = tile.getArmies();
+		rallyPoints = tile.getRallyPoints();
+		structure = tile.getStructure();
+		food = tile.getResource(ResourceTypeEnum.FOOD);
+		ore = tile.getResource(ResourceTypeEnum.ORE);
+		peat = tile.getResource(ResourceTypeEnum.PEAT);
     }
 
     public void updateTile(Tile tile) {
     	if (visibility == TileVisibilityEnum.VISIBLE) {
-    		
+    		units = tile.getUnits();
+    		armies = tile.getArmies();
+    		rallyPoints = tile.getRallyPoints();
+    		structure = tile.getStructure();
+    		food = tile.getResource(ResourceTypeEnum.FOOD);
+    		ore = tile.getResource(ResourceTypeEnum.ORE);
+    		peat = tile.getResource(ResourceTypeEnum.PEAT);
     	}
     }
     
