@@ -36,7 +36,7 @@ public class RotationAnimation extends Animation{
 			lastPulse = currentPulse;
 			rotationStarted = true;
 		}
-		double rotationChange = (currentPulse - lastPulse)/15000000 * rotSpeed;
+		double rotationChange = (currentPulse - lastPulse) * rotSpeed;
 		if (backAndForth) {
 			if (currentDegree < -degrees || currentDegree > degrees) {
 				currentDegree = 0;

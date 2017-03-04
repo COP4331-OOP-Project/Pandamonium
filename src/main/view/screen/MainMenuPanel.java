@@ -37,10 +37,10 @@ public class MainMenuPanel extends Panel{
 	
 	public MainMenuPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets, ViewEnum viewEnum) {
 		super(gameModelAdapter, assets, viewEnum);
-		humanFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 20, 1.6, true, 20);
-		pandaFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 15, 1.5, true, 20);
-		humanFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 12, 1.1, true, 20);
-		pandaFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 7, 1.0, true, 20);
+		humanFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 17, 1.7, true, 22);
+		pandaFigure = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 15, 1.6, true, 25);
+		humanFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_HUMAN")}, 7, 1.0, true, 23);
+		pandaFigure2 = new RotationAnimation(new Image[]{getAssets().getImage("UNIT_GIANT_PANDA")}, 7, 1.0, true, 24);
 		this.root = root;
 		this.panelManager = panelManager;
     	ds.setOffsetY(6.0);

@@ -31,7 +31,7 @@ public class View {
     	canvas = new Canvas(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
     	screenDimensions.x = DEFAULT_SCREEN_WIDTH;
     	screenDimensions.y = DEFAULT_SCREEN_HEIGHT;
-    	camera = new Camera();
+    	camera = new Camera(screenDimensions);
     	gc = canvas.getGraphicsContext2D();
     	panelManager = new PanelManager(gameModelAdapter, assets, root, gc, camera);
         setSceneTheme();
@@ -65,7 +65,7 @@ public class View {
     }
 
 	public void zoom(double deltaY) {
-        camera.zoom(deltaY, screenDimensions);
+        camera.zoom(deltaY);
     }
 	
 	public void tileClicked(double x, double y) {

@@ -33,7 +33,7 @@ public class MapMakerPanel extends Panel{
     private DropShadow ds = new DropShadow();
     Point screenDimensions = new Point(0,0);
     Point offset = new Point();
-    Camera camera = new Camera();
+    Camera camera = new Camera(screenDimensions);
 	PanelManager panelManager;
 	File waterMap = new File("assets/maps/allwater.map");
 	

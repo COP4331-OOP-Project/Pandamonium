@@ -11,6 +11,7 @@ public class Camera {
 	private static final double MAX_SCALE = 1.0; //Max amount to be zoomed in
 	
     private CameraCenterer panelCenterer;
+    private Point screenDimensions;
     private Point offset = new Point(180, -2350);
     
     //These values are used when dragging the Camera.
@@ -24,7 +25,8 @@ public class Camera {
 	Point mouseZoomStart = new Point(0,0);
 
 	
-    public Camera() {
+    public Camera(Point screenDimensions) {
+    	this.screenDimensions = screenDimensions;
         this.panelCenterer = new CameraCenterer(this);
     }
     
@@ -82,8 +84,9 @@ public class Camera {
     					  (getPixelLocation(tile).y + TILE_SIZE / 2));
     }
     
-	public void zoom(double deltaY, Point screenDimensions) {
+	public void zoom(double deltaY) {
 		Point p = new Point((int)screenDimensions.x/2, (int)screenDimensions.y/2);
+		System.out.println(p.x + " " + p.y);
 		zoomCounter = 0;
 		if (!zooming) {
 			mouseZoomStart = getTileLocation(p);
