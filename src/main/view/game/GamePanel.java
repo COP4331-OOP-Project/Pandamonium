@@ -1,9 +1,6 @@
 package view.game;
 
 import java.awt.Point;
-
-import game.entities.Army;
-import game.entities.structures.Structure;
 import game.gameboard.SimpleTile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -33,10 +30,12 @@ public class GamePanel extends Panel {
     private SelectedDrawer selectedDrawer;
     private GraphicsContext gc;
 	private Point screenDimensions;
+	private AssetManager assets;
 
     public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
     	this.camera = camera;
+    	this.assets = assets;
         screenDimensions = new Point();
         tileDrawer = new TileDrawer(this, gameModelAdapter, assets);
         unitDrawer = new UnitDrawer(this);
@@ -47,7 +46,7 @@ public class GamePanel extends Panel {
 
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
     	this.currentPulse = currentPulse;
-		//gc.drawImage(Assets.getInstance().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+		gc.drawImage(assets.getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
         this.gc = gc;
         /*

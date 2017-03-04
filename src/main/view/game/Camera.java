@@ -79,6 +79,11 @@ public class Camera {
     	return p;
     }
     
+    public Point getPixelLocation(Point tile) {
+    	return new Point((int)(0.75f * scale * HEX_W * tile.x),
+        				 (int)(HEX_H * scale * (tile.x * 0.5f + tile.y)));
+    }
+    
     public Point getTileCenter(Point tile) {
     	return new Point ((getPixelLocation(tile).x + TILE_SIZE / 2),
     					  (getPixelLocation(tile).y + TILE_SIZE / 2));
@@ -150,9 +155,4 @@ public class Camera {
     		}
     	}
 	}
-    
-    private Point getPixelLocation(Point tile) {
-    	return new Point((int)(0.75f * scale * HEX_W * tile.x),
-        				 (int)(HEX_H * scale * (tile.x * 0.5f + tile.y)));
-    }
 }

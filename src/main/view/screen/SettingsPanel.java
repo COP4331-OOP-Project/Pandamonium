@@ -184,9 +184,9 @@ public class SettingsPanel extends Panel {
 			            String pressed = key.toString();
 			            controlButtons.get(controlWaiting).getStyleClass().remove("buttonRed");
 						if (currentMode == SettingsEnum.HUMAN) {
-							humanControls[controlWaiting][1] = pressed;
+							humanControls[controlWaiting + 1][1] = pressed;
 						} else {
-							pandaControls[controlWaiting][1] = pressed;
+							pandaControls[controlWaiting + 1][1] = pressed;
 						}
 						controlButtons.get(controlWaiting).setText(pressed);
 						waitingForPress = false;
@@ -320,6 +320,7 @@ public class SettingsPanel extends Panel {
 		
 		//Saves What is Visible In The Array
         private void saveCurrentSelections() {
+        	System.out.println(modeModifier.getValue());
 			if (currentMode != SettingsEnum.GENERAL) {
 				if (currentMode == SettingsEnum.HUMAN) {
 					humanControls[0][1] = modeModifier.getValue();

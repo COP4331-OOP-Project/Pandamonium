@@ -7,8 +7,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;

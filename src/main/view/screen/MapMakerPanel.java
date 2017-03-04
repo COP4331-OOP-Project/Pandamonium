@@ -132,7 +132,6 @@ public class MapMakerPanel extends Panel{
                 brushSize2.setSelected(false);
             }
         });
-
 		mapStuff.getChildren().add(loadMapButton);
 		mapStuff.getChildren().add(saveMapButton);
 		mapStuff.getChildren().add(exitToMenuButton);
@@ -244,7 +243,6 @@ public class MapMakerPanel extends Panel{
 
 	private void iterateTile(Point tileLocation) {
         changeDrawingType(tileLocation.x, tileLocation.y);
-
         if (brushSize == 2 || brushSize == 3){
             changeDrawingType(tileLocation.x, tileLocation.y - 1);
             changeDrawingType(tileLocation.x + 1, tileLocation.y - 1);
