@@ -2,11 +2,15 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.Army;
+import game.entities.structures.Structure;
+import game.gameboard.SimpleTile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
+import view.Animation;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
@@ -21,6 +25,7 @@ public class GamePanel extends Panel {
     private static final int TILE_PIXEL_SIZE = 130;
     Font tileFont = new Font("Lucida Sans", 20);
     private Camera camera;
+    private long currentPulse;
     private TileDrawer tileDrawer;
     private UnitDrawer unitDrawer;
     private ArmyDrawer armyDrawer;
@@ -31,8 +36,9 @@ public class GamePanel extends Panel {
 
     public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
+    	this.camera = camera;
         screenDimensions = new Point();
-        tileDrawer = new TileDrawer(this);
+        tileDrawer = new TileDrawer(this, gameModelAdapter, assets);
         unitDrawer = new UnitDrawer(this);
         armyDrawer = new ArmyDrawer(this);
         structureDrawer = new StructureDrawer(this);
@@ -40,6 +46,7 @@ public class GamePanel extends Panel {
     }
 
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+    	this.currentPulse = currentPulse;
 		//gc.drawImage(Assets.getInstance().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
         this.gc = gc;
@@ -54,18 +61,16 @@ public class GamePanel extends Panel {
     }
 
 	private void drawAllItems() {
-		/*
-        for (int i = 0; i < game.getGameBoard().getTiles().length; i++) {
-            for (int j = 0; j < game.getGameBoard().getTiles()[i].length; j++) {
-                Tile tile = game.getGameBoard().getTiles()[i][j];
-                Point p = new Point(tile.getLocation().getX(), tile.getLocation().getY());
+		SimpleTile[][] currentTiles = getAdapter().getCurrentTiles();
+        for (int i = 0; i < currentTiles.length; i++) {
+            for (int j = 0; j < currentTiles[i].length; j++) {
+                SimpleTile tile = currentTiles[i][j];
+                Point p = new Point(i, j);
 
                 //Draw Tiles
                 tileDrawer.drawTile(p, tile.getTileType());
-                if (tile.getUnits().size() > 1 && !tile.containsArmy) {
-                    getgc().fillText("" + tile.getUnits().size()
-                            , getCamera().offset(p).x + 5, getCamera().offset(p).y + 22);
                 }
+            /*
                 //Draw Structures
                 if (tile.containsStructure) {
                     Structure structure = tile.getStructure();
@@ -85,7 +90,7 @@ public class GamePanel extends Panel {
                             tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
                 }
                 //Draw Units
-                if (tile.containsUnit) {
+                if (tile.containsUnit()) {
                     for (Unit unit : tile.getUnits()) {
                         if (!tile.containsArmy) {
                             unitDrawer.drawUnit(p, unit.getUnitType(), unit.getOwnerID(), 0);
@@ -93,8 +98,8 @@ public class GamePanel extends Panel {
                     }
                 }
             }
-         }
-        */
+            */
+         }   
     }
 
     public void drawStaticTileElement(Point p, String image) {
@@ -120,37 +125,11 @@ public class GamePanel extends Panel {
         		rotate.getTx(), rotate.getTy());
     }
 
-    //public void drawAnimatedTileElement(Point p, String image1, String image2, String image3) {
-        /*
-    	Image img;
-        if(p.x % 2 == 0) {
-	    	switch (getAnimationImage()) { 
-		        	case 0:
-		            	img = getAssets().getImage(image1);
-		                break;
-		            case 2:
-		            	img = getAssets().getImage(image3);
-		                break;
-		            default:
-		            	img = getAssets().getImage(image2);
-	    	}
-        } else {
-        	switch (getAnimationImage()) { 
-        	case 0:
-            	img = Assets.getInstance().getImage(image1);
-                break;
-            case 2:
-            	img = Assets.getInstance().getImage(image2);
-                break;
-            default:
-            	img = Assets.getInstance().getImage(image3);
-        	}
-        }
-    	
-        gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
-        		camera.getScale() * img.getHeight());
-    }
-*/
+    public void drawAnimatedTileElement(Point p, Animation a) {
+    	a.draw(gc, camera.offset(p).x, camera.offset(p).y, camera.getScale(), 
+        		camera.getScale(), currentPulse);
+     }
+
     public Camera getCamera() {
         return camera;
     }

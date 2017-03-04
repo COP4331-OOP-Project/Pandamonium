@@ -44,7 +44,6 @@ public class RotationAnimation extends Animation{
 			if (goingBackward) {
 				currentDegree -= rotationChange;
 				lastPulse = currentPulse;
-				//System.out.println(currentDegree);
 				if (currentDegree <= -degrees) {
 					goingBackward = false;
 				}

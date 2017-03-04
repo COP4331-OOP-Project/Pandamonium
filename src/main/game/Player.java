@@ -32,6 +32,8 @@ import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
 import game.gameboard.SimpleTile;
+import game.gameboard.SimpleTileUpdater;
+import game.gameboard.Tile;
 
 
 public class Player {
@@ -57,7 +59,6 @@ public class Player {
     private Colonist initialColonist;
 
     public Player(int playerId, Location loc) {
-    	
         //loc is referring to the starting location of this player
         this.playerId = playerId;
 		try {
@@ -213,5 +214,22 @@ public class Player {
 
     public void removeUniversity(University university){
         structures.remove(university);
+    }
+    
+    public void initializeSimpleTiles(Tile[][] tiles) {
+    	simpleTiles = new SimpleTile[tiles.length][tiles[0].length];
+    	for (int i = 0; i < simpleTiles.length; i++) {
+    		for (int j = 0; j < simpleTiles[i].length; j++) {
+    			simpleTiles[i][j] = new SimpleTile(tiles[i][j]);
+    		}
+    	}
+    }
+    
+    public void updateSimpleTiles(Tile[][] tiles) {
+    	simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles);
+    }
+    
+    public SimpleTile[][] getSimpleTiles() {
+    	return simpleTiles;
     }
 }

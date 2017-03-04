@@ -22,7 +22,7 @@ public class ArmyDrawer {
         this.gamePanel = gamePanel;
     }
 
-    protected void drawArmy(Point p, int player, int rotation,
+    public void drawArmy(Point p, int player, int rotation,
                             int numOfUnits) {
         switch (player) {
             case 0:

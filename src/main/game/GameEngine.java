@@ -28,7 +28,7 @@ public class GameEngine extends Application {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setMaximized(true);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -50,7 +50,7 @@ public class GameEngine extends Application {
             @Override
             public void handle(long currentPulse) {
                 gameModel.updateGame();
-                view.renderGame(currentPulse);
+                view.renderGame();
             }
         }.start();
         stage.setScene(scene);

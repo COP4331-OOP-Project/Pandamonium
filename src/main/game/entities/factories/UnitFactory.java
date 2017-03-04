@@ -35,6 +35,7 @@ public class UnitFactory {
       private int newExplorerId;
 
     public UnitFactory(){
+    	colonistIdManager = new IdManager(0, 10);
         this.unitStatistics = new HashMap<>();
         try {
             this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(UnitType.COLONIST));

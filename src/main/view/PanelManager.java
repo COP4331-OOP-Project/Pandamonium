@@ -22,7 +22,7 @@ import view.screen.SettingsPanel;
 import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentViewMode = ViewEnum.SPLASH;
+	private ViewEnum currentViewMode = ViewEnum.MAIN_MENU;
 	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
@@ -49,14 +49,14 @@ public class PanelManager {
 		this.assets = assets;
 		musicManager = new MusicManager(assets, group);
 		panels = new ArrayList<Panel>();
+		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
+		panels.add(gamePanel);
 		civilizationPanel = new CivilizationPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(civilizationPanel);
 		controlModePanel = new ControlModePanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
 		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(commandPanel);
-		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
-		panels.add(gamePanel);
 		makeDetailsPanel = new MakeDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(makeDetailsPanel);
 		miniMapPanel = new MiniMapPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);

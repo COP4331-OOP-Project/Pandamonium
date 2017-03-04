@@ -20,7 +20,7 @@ public class GameModelAdapter {
 	}
 	
 	public SimpleTile[][] getCurrentTiles() {
-		return null;
+		return gameModel.getCurrentPlayer().getSimpleTiles();
 	}
 
 	public Mode getCurrentMode() {

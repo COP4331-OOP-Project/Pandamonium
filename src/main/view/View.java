@@ -16,19 +16,22 @@ public class View {
 
     private static final int DEFAULT_SCREEN_WIDTH = 1152;
     private static final int DEFAULT_SCREEN_HEIGHT = 648;
-    private Camera camera = new Camera();
+    private Camera camera;
     private Canvas canvas; //The GraphicsContext Goes on here.
     private GraphicsContext gc; //Image drawing is done with this
     private Group root; //Gui drawing is added to this
-    
     private PanelManager panelManager;
     private Point screenDimensions = new Point();
     private Scene scene;
+    private int pulse = 0;
     
     public View(GameModelAdapter gameModelAdapter, Scene scene, Group root) {
     	this.root = root;
     	this.scene = scene;
     	canvas = new Canvas(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+    	screenDimensions.x = DEFAULT_SCREEN_WIDTH;
+    	screenDimensions.y = DEFAULT_SCREEN_HEIGHT;
+    	camera = new Camera();
     	gc = canvas.getGraphicsContext2D();
     	panelManager = new PanelManager(gameModelAdapter, assets, root, gc, camera);
         setSceneTheme();
@@ -41,7 +44,7 @@ public class View {
         scene.getStylesheets().add("file:///" + buttonStyle.getAbsolutePath().replace("\\", "/"));;
 	}
 
-    public void renderGame(long currentPulse) {
+    public void renderGame() {
     	double width = scene.getWidth();
     	double height = scene.getHeight();
         canvas.setWidth(width);
@@ -49,7 +52,8 @@ public class View {
         screenDimensions.x = (int)width;
         screenDimensions.y = (int)height;
         gc.clearRect(0, 0, width, height);
-        panelManager.drawPanels(screenDimensions, currentPulse);
+        panelManager.drawPanels(screenDimensions, pulse);
+        pulse++;
     }
     
     public void startDragging(double x, double y) {

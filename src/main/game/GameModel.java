@@ -18,8 +18,7 @@ public class GameModel {
     private Player currentPlayer;
     private ArrayList<Player> players;
     private Gameboard gBoard;
-    private Player nextPlayer;
-    private int turnNum;
+    private int turnNum = 1;
     private ArrayList<MoveCommand> moveCommands = new ArrayList<MoveCommand>();
     private ArrayList<Location> moveLocations = new ArrayList<Location>();
     private Location lastMoveLocation;
@@ -33,9 +32,11 @@ public class GameModel {
         players.add(human);
         players.add(panda);
         gBoard = new Gameboard(players);
+        human.initializeSimpleTiles(gBoard.getTiles());
+        panda.initializeSimpleTiles(gBoard.getTiles());
+        human.updateSimpleTiles(gBoard.getTiles());
+        panda.updateSimpleTiles(gBoard.getTiles());
         currentPlayer = human;
-        nextPlayer = players.get(1);
-        turnNum = 1;
         gameHasStarted =  true;
     }
     
@@ -48,7 +49,17 @@ public class GameModel {
     private void checkIfGameOver() {
 	}
     
+    public void startTurn() {
+    	currentPlayer.updateSimpleTiles(gBoard.getTiles());
+    }
+    
     public void endTurn() {
+    	currentPlayer.updateSimpleTiles(gBoard.getTiles());
+    	if (currentPlayer == players.get(0)) {
+    		currentPlayer = players.get(1);
+    	} else {
+    		currentPlayer = players.get(0);
+    	}
     }
 
 	public ArrayList<Location> getMoveLocations() {

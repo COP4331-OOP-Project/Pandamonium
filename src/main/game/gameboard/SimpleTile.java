@@ -8,6 +8,9 @@ import game.entities.Army;
 import game.entities.RallyPoint;
 
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class SimpleTile{
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
@@ -17,9 +20,11 @@ public class SimpleTile{
     private Resource food;
     private Resource ore;
     private Resource peat;
-    TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
+    private TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
+    private final static Logger log = LogManager.getLogger(SimpleTile.class);
 
-    SimpleTile(Tile tile) {
+    public SimpleTile(Tile tile) {
+    	Terrain = tile.getTileType();
 		units = tile.getUnits();
 		armies = tile.getArmies();
 		rallyPoints = tile.getRallyPoints();
@@ -65,6 +70,20 @@ public class SimpleTile{
     }
     
     public void setVisibility(TileVisibilityEnum visibility) {
-    	this.visibility = visibility;
+    	if (visibility == TileVisibilityEnum.INVISIBLE && this.visibility != TileVisibilityEnum.INVISIBLE) {
+    		log.error("Can't set visible or semivisible tile to invisible!");
+    	} else {
+        	this.visibility = visibility;
+    	}
     }
+
+	public void setSemiIfVisible() {
+		if (visibility == TileVisibilityEnum.VISIBLE) {
+			setVisibility(TileVisibilityEnum.SEMI_VISIBLE);
+		}
+	}
+
+	public void setVisible() {
+		visibility = TileVisibilityEnum.VISIBLE;
+	}
 }
