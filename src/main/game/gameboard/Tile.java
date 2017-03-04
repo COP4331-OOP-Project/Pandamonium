@@ -76,6 +76,9 @@ public class Tile implements iTileAccessors {
 //        armies.add(army);
 //    }
 
+    public ArrayList<Unit> getUnits(){return units;}
+
+    public Structure getStructure(){return structure;}
     //test if terrain is impassable
     public boolean isImpassable(){
         return(Terrain == TerrainEnum.WATER || Terrain == TerrainEnum.NON_TILE || Terrain == TerrainEnum.MOUNTAIN);
@@ -107,11 +110,11 @@ public class Tile implements iTileAccessors {
         return (structure!=null);
     }
 
-    public boolean getContainUnit(){
+    public boolean containsUnit(){
         return (!units.isEmpty());
     }
 
-    public boolean getContainArmy(){
+    public boolean containsArmy(){
         //check if the tile contains army
         return false;
     }
