@@ -6,6 +6,7 @@ import javax.lang.model.UnknownEntityException;
 
 import game.entities.EntityId;
 import game.entities.workers.workerTypes.Worker;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -246,6 +247,13 @@ public class Player {
 		for(int i = 0;i<workers.size();i++){
 			if(entityId.compareTo(workers.get(i).getId())==1){
 				workers.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0; i<armies.size(); i++){
+			if(entityId.compareTo(armies.get(i).getEntityId())==1){
+				armies.remove(i);
 				return;
 			}
 		}
