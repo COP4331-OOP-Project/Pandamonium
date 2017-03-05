@@ -7,12 +7,10 @@ import game.entities.stats.StructureStats;
 import game.entities.stats.UnitStats;
 import game.entities.structures.Capitol;
 import game.entities.structures.Farm;
-import game.entities.structures.StructureType;
 import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.units.Colonist;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
-import game.entities.units.UnitType;
 import game.entities.units.exceptions.UnitNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -61,11 +59,11 @@ public class TileTest {
     public void setUp() {
         try {
             playerId = 1;
-            meleeStats = new UnitStats(UnitType.MELEE);
-            rangedStats = new UnitStats(UnitType.RANGED);
-            colonistStats = new UnitStats((UnitType.COLONIST));
-            capitolStat = new StructureStats(StructureType.CAPITOL);
-            farmStat = new StructureStats(StructureType.FARM);
+            meleeStats = new UnitStats(EntitySubtypeEnum.MELEE);
+            rangedStats = new UnitStats(EntitySubtypeEnum.RANGE);
+            colonistStats = new UnitStats((EntitySubtypeEnum.COLONIST));
+            capitolStat = new StructureStats(EntitySubtypeEnum.CAPITOL);
+            farmStat = new StructureStats(EntitySubtypeEnum.FARM);
 
 
             melee1Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1);
@@ -140,5 +138,17 @@ public class TileTest {
         Assert.assertEquals(this.tileGrass.getStructure(), capitol);
     }
 
+    @Test //Check unit and structure removal
+    public void testTileRemove(){
+        tileGrass.addUnit(melee1);
+        tileGrass.addUnit(melee2);
+
+        tileGrass.removeEntity(melee1Id);
+        Assert.assertEquals(tileGrass.getUnits().get(0), melee2);
+
+        tileGrass.addStructure(capitol);
+        tileGrass.removeEntity(capitolId);
+        Assert.assertEquals(tileGrass.getStructure(), null);
+    }
 
 }
