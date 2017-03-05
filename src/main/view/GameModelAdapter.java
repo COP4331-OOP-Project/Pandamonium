@@ -38,5 +38,13 @@ public class GameModelAdapter {
 	public void setSubmode(Submode submode) {
 		controlMode.setSubmode(submode);
 	}
+
+	public int getPlayer() {
+		if (gameModel.getCurrentPlayer() == gameModel.getPlayer(0)) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 	
 }

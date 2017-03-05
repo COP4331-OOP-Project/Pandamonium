@@ -5,7 +5,9 @@ import java.awt.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import game.gameboard.SimpleTile;
 import game.gameboard.TerrainEnum;
+import game.gameboard.TileVisibilityEnum;
 import javafx.scene.canvas.GraphicsContext;
 import view.GameModelAdapter;
 import view.Panel;
@@ -28,29 +30,14 @@ public class MiniMapPanel extends Panel {
     
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
         this.screenDimensions = screenDimensions;
-        /*
-        for (int i = 0; i < game.getGameBoard().getTiles().length; i++) {
-            for (int j = 0; j < game.getGameBoard().getTiles()[i].length; j++) {
+        SimpleTile[][] tiles = getAdapter().getCurrentTiles();
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
             	Point loc = new Point(i, j);
-            	Tile tile = game.getGameBoard().getTiles()[i][j];
-                drawSmallTile(gc, loc, tile.getTileType());
-
-                if (tile.containsStructure) {
-                    drawSmallStructure(new Point(tile.getStructure().getLocation().getX(),
-                            tile.getStructure().getLocation().getY()),
-                            tile.getStructure().getOwnerID(), gc);
-                }
-                if (tile.containsUnit) {
-                    for (Unit unit : tile.getUnits()) {
-                        if (!tile.containsArmy && !tile.containsArmy) {
-                            drawSmallUnit(new Point(tile.getLocation().getX(), tile.getLocation().getY()),
-                                    unit.getOwnerID(), gc);
-                        }
-                    }
-                }
+            	SimpleTile tile = tiles[i][j];
+                drawSmallTile(gc, loc, tile.getTileType(), tile.getVisibility());
             }
-           */
-        //}
+        }
         drawBorder(gc);
     }
 
@@ -78,29 +65,34 @@ public class MiniMapPanel extends Panel {
 
     }
 
-    private void drawSmallTile(GraphicsContext gc, Point tileLoc, TerrainEnum tileType) {
-        switch (tileType) {
-            case GRASS:
-                gc.drawImage(getAssets().getImage("GRASS_MINI"),
-                        offsetMini(tileLoc).x, offsetMini(tileLoc).y);
-                break;
-            case SAND:
-                gc.drawImage(getAssets().getImage("SAND_MINI"),
-                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
-                break;
-            case WATER:
-                gc.drawImage(getAssets().getImage("WATER_MINI"),
-                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
-                break;
-            case MOUNTAIN:
-                gc.drawImage(getAssets().getImage("MOUNTAIN_MINI"),
-                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
-                break;
-            case INVISIBLE:
-                break;
-            default:
-                log.warn("Invalid tile type on minimap: " + tileType);
-        }
+    private void drawSmallTile(GraphicsContext gc, Point tileLoc, TerrainEnum tileType, TileVisibilityEnum visibility) {
+    	if (visibility == TileVisibilityEnum.VISIBLE || visibility == TileVisibilityEnum.SEMI_VISIBLE) {
+	        switch (tileType) {
+	            case GRASS:
+	                gc.drawImage(getAssets().getImage("GRASS_MINI"),
+	                        offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+	                break;
+	            case SAND:
+	                gc.drawImage(getAssets().getImage("SAND_MINI"),
+	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+	                break;
+	            case WATER:
+	                gc.drawImage(getAssets().getImage("WATER_MINI"),
+	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+	                break;
+	            case MOUNTAIN:
+	                gc.drawImage(getAssets().getImage("MOUNTAIN_MINI"),
+	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+	                break;
+	            case NON_TILE:
+	                break;
+	            default:
+	                log.warn("Invalid tile type on minimap: " + tileType);
+	        }
+    	} else if (visibility == TileVisibilityEnum.INVISIBLE) {
+    		gc.drawImage(getAssets().getImage("CLOUDS_MINI"),
+                    offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+    	}
     }
 
     private Point offsetMini(Point p) {
@@ -112,14 +104,10 @@ public class MiniMapPanel extends Panel {
         return offsetPoint;
     }
 
-	@Override
 	public void hideGUIElements() {
 		
 	}
 
-	@Override
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 }

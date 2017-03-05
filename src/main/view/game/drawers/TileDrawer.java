@@ -2,6 +2,7 @@ package view.game.drawers;
 
 import java.awt.Point;
 import game.gameboard.TerrainEnum;
+import game.gameboard.TileVisibilityEnum;
 import javafx.scene.image.Image;
 import view.Animation;
 import view.GameModelAdapter;
@@ -13,7 +14,8 @@ public class TileDrawer {
     Animation grassAnimation;
     Animation waterAnimation;
     Animation mountainAnimation;
-
+    Animation invisibleAnimation;
+    
     public TileDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assetManager) {
         this.gamePanel = gamePanel;
         grassAnimation = new Animation(new Image[] {  assetManager.getImage("TERRAIN_GRASS1"),
@@ -25,10 +27,16 @@ public class TileDrawer {
         mountainAnimation = new Animation(new Image[] { assetManager.getImage("TERRAIN_MOUNTAIN1"),
 														assetManager.getImage("TERRAIN_MOUNTAIN2"), 
 														assetManager.getImage("TERRAIN_MOUNTAIN3")}, 15);
+        invisibleAnimation = new Animation(new Image[] { assetManager.getImage("TILE_INVISIBLE1"),
+														assetManager.getImage("TILE_INVISIBLE2"), 
+														assetManager.getImage("TILE_INVISIBLE3")}, 100);
     }
 
-    public void drawTile(Point p, TerrainEnum type) {
-        switch (type) {
+    public void drawTile(Point p, TerrainEnum type, TileVisibilityEnum visibility) {
+    	if (visibility == TileVisibilityEnum.INVISIBLE) {
+    		gamePanel.drawAnimatedTileElement(p, invisibleAnimation);
+    	} else {
+            switch (type) {
             case GRASS:
             	gamePanel.drawAnimatedTileElement(p, grassAnimation);
                 break;
@@ -41,9 +49,13 @@ public class TileDrawer {
             case MOUNTAIN:
                 gamePanel.drawAnimatedTileElement(p, mountainAnimation);
                 break;
-            case INVISIBLE:
+            case NON_TILE:
                 break;
-        }
+            }
+    		if (visibility == TileVisibilityEnum.SEMI_VISIBLE) {
+    			gamePanel.drawStaticTileElement(p, "semiVisible");
+    		}
+    	}
     }
 
     protected void drawMovingTiles() {

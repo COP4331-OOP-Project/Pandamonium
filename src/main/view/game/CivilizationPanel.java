@@ -30,10 +30,10 @@ public class CivilizationPanel extends Panel {
     }
 
     private void drawPlayerIcon(GraphicsContext g) {
-        //if player 0
-            //g.drawImage(Assets.getInstance().getImage("ICON_O"), 130, 3);
-        //if player 1
-            //g.drawImage(getAssets().getImage("ICON_B"), 130, 3);
+        if (getAdapter().getPlayer() == 0)
+            g.drawImage(getAssets().getImage("ICON_O"), 130, 3);
+        if (getAdapter().getPlayer() == 1)
+            g.drawImage(getAssets().getImage("ICON_B"), 130, 3);
     }
 
     private void drawText(GraphicsContext g) {

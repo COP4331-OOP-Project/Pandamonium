@@ -76,7 +76,7 @@ public class Tile implements iTileAccessors {
 
     //test if terrain is impassable
     public boolean isImpassable(){
-        return(Terrain == TerrainEnum.WATER || Terrain == TerrainEnum.INVISIBLE);
+        return(Terrain == TerrainEnum.WATER || Terrain == TerrainEnum.NON_TILE || Terrain == TerrainEnum.MOUNTAIN);
     }
 
     public TerrainEnum getTileType() { return Terrain;}

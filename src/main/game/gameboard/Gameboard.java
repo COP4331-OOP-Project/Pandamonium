@@ -27,7 +27,7 @@ public class Gameboard {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 Location l = new Location(i, j);
                 if (map[i][j] == -1)
-                    board[i][j] = new Tile(TerrainEnum.INVISIBLE, l);
+                    board[i][j] = new Tile(TerrainEnum.NON_TILE, l);
                 if (map[i][j] == 0)
                     board[i][j] = new Tile(TerrainEnum.GRASS, l);
                 if (map[i][j] == 1)

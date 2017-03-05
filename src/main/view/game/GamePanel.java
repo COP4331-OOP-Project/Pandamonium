@@ -67,7 +67,7 @@ public class GamePanel extends Panel {
                 Point p = new Point(i, j);
 
                 //Draw Tiles
-                tileDrawer.drawTile(p, tile.getTileType());
+                tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
                 }
             /*
                 //Draw Structures

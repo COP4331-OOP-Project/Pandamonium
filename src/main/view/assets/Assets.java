@@ -77,7 +77,8 @@ public class Assets {
         loadItem("GUI_MAP_BAR", "assets/images/gui/mapMakerBar.png");
         loadItem("GUI_BOTTOM", "assets/images/gui/bottomBar.png");
         loadItem("GUI_COMMAND_PANEL", "assets/images/gui/mode/commandPanel.png");
-        loadItem("GUI_MINI_MAP_BORDER", "assets/images/gui/miniBorder.png");
+        loadItem("GUI_MINI_MAP_BORDER", "assets/images/gui/miniMap/miniBorder.png");
+        loadItem("GUI_MINI_MAP_BACKGROUND", "assets/images/gui/miniMap/minimapBackground.png");
         loadItem("GUI_MODE_PANEL", "assets/images/gui/mode/modePanel.png");
         loadItem("GUI_SUBMODE_PANEL", "assets/images/gui/mode/subModePanel.png");
         loadItem("GUI_MODE_SELECTED1", "assets/images/gui/mode/selectedMode1.png");
@@ -94,10 +95,11 @@ public class Assets {
         loadItem("TERRAIN_WATER1", "assets/images/terrain/water/water1.png");
         loadItem("TERRAIN_WATER2", "assets/images/terrain/water/water2.png");
         loadItem("TERRAIN_WATER3", "assets/images/terrain/water/water3.png");
-        loadItem("GRASS_MINI", "assets/images/small/grassmini.png");
-        loadItem("SAND_MINI", "assets/images/small/sandmini.png");
-        loadItem("WATER_MINI", "assets/images/small/watermini.png");
-        loadItem("MOUNTAIN_MINI", "assets/images/small/mountainmini.png");
+        loadItem("CLOUDS_MINI", "assets/images/gui/miniMap/clouds.png");
+        loadItem("GRASS_MINI", "assets/images/gui/miniMap/grassmini.png");
+        loadItem("SAND_MINI", "assets/images/gui/miniMap/sandmini.png");
+        loadItem("WATER_MINI", "assets/images/gui/miniMap/watermini.png");
+        loadItem("MOUNTAIN_MINI", "assets/images/gui/miniMap/mountainmini.png");
         loadItem("UNIT_SELECTED", "assets/images/units/selectedUnit.png");
         loadItem("UNIT_LARGE_HUMAN", "assets/images/units/largeHuman.png");
         loadItem("UNIT_GIANT_HUMAN", "assets/images/units/giantHuman.png");
@@ -124,6 +126,10 @@ public class Assets {
         loadItem("RALLY_POINT_SELECTED", "assets/images/rallyPoint/selectedRallyPoint.png");
         loadItem("DETAILS_PANEL", "assets/images/detailsPanel/detailsPanel.png");
         loadItem("MOVE_SELECTED", "assets/images/tileCovering/moveSelected.png");
+        loadItem("TILE_INVISIBLE1", "assets/images/tileCovering/fog1.png");
+        loadItem("TILE_INVISIBLE2", "assets/images/tileCovering/fog2.png");
+        loadItem("TILE_INVISIBLE3", "assets/images/tileCovering/fog3.png");
+        loadItem("TILE_SEMI_VISIBLE", "assets/images/tileCovering/semiVisible.png");
         loadItem("AOE_DIE", "assets/images/areaEffect/loseHealth.png");
         loadItem("AOE_LOSE", "assets/images/areaEffect/redCross.png");
         loadItem("AOE_HEAL", "assets/images/areaEffect/skullDecal.png");
