@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 import game.entities.Army;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
+//import game.entities.Army;
+//import game.entities.RallyPoint;
+import com.sun.corba.se.impl.protocol.AddressingDispositionException;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.resources.Resource;
@@ -56,12 +59,22 @@ public class Tile implements iTileAccessors {
     }
 
     public int getOwner() {
+        if(this.units.isEmpty()){
+            ownerId = -1;
+        }
+        else {
+            ownerId = units.get(0).getOwnerID();
+        }
         return this.ownerId;
     }
 
     public Location getLocation(){return location;}
 
-    public void addUnit(Unit unit){
+    public void addUnit(Unit unit) {
+        if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
+            System.out.println("Good");
+            return;
+        }
         units.add(unit);
         //unit.setLocation(this.location);
     }
@@ -78,7 +91,6 @@ public class Tile implements iTileAccessors {
 
     public ArrayList<Unit> getUnits(){return units;}
 
-    public Structure getStructure(){return structure;}
     //test if terrain is impassable
     public boolean isImpassable(){
         return(Terrain == TerrainEnum.WATER || Terrain == TerrainEnum.NON_TILE || Terrain == TerrainEnum.MOUNTAIN);
@@ -122,10 +134,6 @@ public class Tile implements iTileAccessors {
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
         // for (iEntity e : Entities) { e.accept(v) }
-    }
-    
-    public ArrayList<Unit> getUnits() {
-    	return units;
     }
     
     public ArrayList<Army> getArmies() {
