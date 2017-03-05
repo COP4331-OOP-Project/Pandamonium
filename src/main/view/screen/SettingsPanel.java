@@ -320,7 +320,6 @@ public class SettingsPanel extends Panel {
 		
 		//Saves What is Visible In The Array
         private void saveCurrentSelections() {
-        	System.out.println(modeModifier.getValue());
 			if (currentMode != SettingsEnum.GENERAL) {
 				if (currentMode == SettingsEnum.HUMAN) {
 					humanControls[0][1] = modeModifier.getValue();

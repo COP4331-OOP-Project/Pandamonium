@@ -10,7 +10,7 @@ public class Camera {
 	private static final double MIN_SCALE = 0.4; //Min amount to be zoomed in
 	private static final double MAX_SCALE = 1.0; //Max amount to be zoomed in
 	
-    private CameraCenterer panelCenterer;
+    private CameraCenterer centerer = new CameraCenterer(this);
     private Point screenDimensions;
     private Point offset = new Point(180, -2350);
     
@@ -27,7 +27,6 @@ public class Camera {
 	
     public Camera(Point screenDimensions) {
     	this.screenDimensions = screenDimensions;
-        this.panelCenterer = new CameraCenterer(this);
     }
     
     /**
@@ -36,13 +35,14 @@ public class Camera {
      * and zooming.
      */
 	public void reAlign(Point selected, Point screenDimensions) {
+		this.screenDimensions = screenDimensions;
         checkZooming();
         if (!zooming) {
-        	panelCenterer.recenter(screenDimensions.x, screenDimensions.y);
+        	centerer.recenter(screenDimensions.x, screenDimensions.y);
         }
 
         if (selected.x != 0 && selected.y != 0) {
-            panelCenterer.centerOnTile(selected);
+            centerer.centerOnTile(selected);
         }
 	}
     
@@ -91,7 +91,6 @@ public class Camera {
     
 	public void zoom(double deltaY) {
 		Point p = new Point((int)screenDimensions.x/2, (int)screenDimensions.y/2);
-		System.out.println(p.x + " " + p.y);
 		zoomCounter = 0;
 		if (!zooming) {
 			mouseZoomStart = getTileLocation(p);
@@ -100,12 +99,12 @@ public class Camera {
 		if (deltaY > 0) {
 			if (scale < MAX_SCALE) {
 				scale += SCALE_AMOUNT;
-				panelCenterer.quickCenter(mouseZoomStart);
+				centerer.quickCenter(mouseZoomStart);
 			}
 		} else {
 			if (scale > MIN_SCALE) {
 				scale -= SCALE_AMOUNT;
-				panelCenterer.quickCenter(mouseZoomStart);
+				centerer.quickCenter(mouseZoomStart);
 			}
 		}
 	}
@@ -151,7 +150,7 @@ public class Camera {
     		if (zoomCounter > 40) {
     			zoomCounter = -1;
     			zooming = false;
-    			panelCenterer.stopCentering();
+    			centerer.stopCentering();
     		}
     	}
 	}

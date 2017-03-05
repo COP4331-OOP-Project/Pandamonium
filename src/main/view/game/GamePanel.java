@@ -142,12 +142,8 @@ public class GamePanel extends Panel {
     }
 
 	public void hideGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 }
