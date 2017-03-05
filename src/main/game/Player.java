@@ -225,8 +225,12 @@ public class Player {
     	}
     }
     
+    public ArrayList<Structure> getStructures() {
+    	return structures;
+    }
+    
     public void updateSimpleTiles(Tile[][] tiles) {
-    	simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles);
+    	simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);
     }
     
     public SimpleTile[][] getSimpleTiles() {

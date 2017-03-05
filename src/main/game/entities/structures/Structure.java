@@ -28,8 +28,13 @@ public class Structure extends Entity {
             } else CommandQueue.peek().iterateDuration();
         }
 
-    }**/
+    }
+     * @return **/
 
+    public StructureType getType() {
+    	return (StructureType) getEntityId().getSubTypeId();
+    }
+    
     public double getCurrentHealth(){
         return 0;
     }

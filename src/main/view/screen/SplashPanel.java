@@ -58,7 +58,7 @@ public class SplashPanel extends Panel{
 			playSplashVideo();
 			splashStarted = true;
 		} else {
-			if (player.getCurrentTime().toMillis() == 4907) {
+			if (player.getCurrentTime().toMillis() == 5142) {
 				player.stop();
 				panelManager.setMode(ViewEnum.MAIN_MENU);
 			}

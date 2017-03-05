@@ -59,6 +59,11 @@ public class SimpleTile{
     public ArrayList<Unit> getUnits(){
     	return units;
     }
+    
+    public int getUnitCount() {
+    	return units.size();
+    }
+    
     public TerrainEnum getTileType() {
     	return Terrain;
     }

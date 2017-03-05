@@ -1,6 +1,8 @@
 package view.game;
 
 import java.awt.Point;
+
+import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -68,7 +70,7 @@ public class GamePanel extends Panel {
 
                 //Draw Tiles
                 tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
-                }
+                
             /*
                 //Draw Structures
                 if (tile.containsStructure) {
@@ -88,16 +90,15 @@ public class GamePanel extends Panel {
                     armyDrawer.drawArmy(p,
                             tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
                 }
+                
+            */
                 //Draw Units
-                if (tile.containsUnit()) {
+                if (tile.getUnitCount() > 0) {
                     for (Unit unit : tile.getUnits()) {
-                        if (!tile.containsArmy) {
-                            unitDrawer.drawUnit(p, unit.getUnitType(), unit.getOwnerID(), 0);
-                        }
+                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
                     }
                 }
             }
-            */
          }   
     }
 
