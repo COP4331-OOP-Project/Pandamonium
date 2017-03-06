@@ -31,9 +31,22 @@ public class CivilizationPanel extends Panel {
     }
 
     private void drawResources(GraphicsContext g) {
-    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
-    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
-    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
+    	g.setFont(getAssets().getFont(1));
+    	if (getAdapter().getPlayer() == 0)
+    		g.drawImage(getAssets().getImage("ICON_FOOD_HUMAN"), 330, 4);
+    	else
+    		g.drawImage(getAssets().getImage("ICON_FOOD_PANDA"), 330, 4);
+    	g.setEffect(ds);
+    	g.fillText("" + getAdapter().getCurrentFood(), 366, 30);
+    	g.setEffect(null);
+    	g.drawImage(getAssets().getImage("ICON_POWER"), 427, 4);
+    	g.setEffect(ds);
+    	g.fillText("" + getAdapter().getCurrentPower(), 455, 30);
+    	g.setEffect(null);
+    	g.drawImage(getAssets().getImage("ICON_METAL"), 520, 4);
+    	g.setEffect(ds);
+    	g.fillText("" + getAdapter().getCurrentMetal(), 558, 30);
+    	g.setEffect(null);
 	}
 
 	private void drawPlayerIcon(GraphicsContext g) {

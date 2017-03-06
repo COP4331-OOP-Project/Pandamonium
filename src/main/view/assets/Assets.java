@@ -154,7 +154,7 @@ public class Assets {
         loadItem("ICON_ORE", "assets/images/icon/ore.png");
         loadItem("ICON_METAL", "assets/images/icon/metal.png");
         loadItem("ICON_PEAT", "assets/images/icon/peat.png");
-        loadItem("ICON_POWER", "assets/images/icon/peat.png");
+        loadItem("ICON_POWER", "assets/images/icon/power.png");
     }
 
     private void loadItem(String name, String path) {

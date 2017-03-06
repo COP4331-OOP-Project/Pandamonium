@@ -36,6 +36,8 @@ import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.gameboard.SimpleTileUpdater;
 import game.gameboard.Tile;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 
 
 public class Player {
@@ -56,6 +58,9 @@ public class Player {
     private ArrayList<Unit> totalUnits;
     private int totalUnitCount;
     private SimpleTile[][] simpleTiles;
+    private Resource nutrients = new Resource(0, ResourceTypeEnum.NUTRIENTS);
+    private Resource power = new Resource(0, ResourceTypeEnum.POWER);
+    private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
     private UnitFactory unitFactory = new UnitFactory();
     public Player(int playerId, Location loc) {
         armies = new ArrayList<Army>();
@@ -228,6 +233,18 @@ public class Player {
     
     public ArrayList<Structure> getStructures() {
     	return structures;
+    }
+    
+    public Resource getNutrients() {
+    	return nutrients;
+    }
+    
+    public Resource getPower() {
+    	return power;
+    }
+    
+    public Resource getMetal() {
+    	return metal;
     }
     
     public void updateSimpleTiles(Tile[][] tiles) {

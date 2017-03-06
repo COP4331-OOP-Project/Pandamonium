@@ -50,5 +50,18 @@ public class GameModelAdapter {
 	public int getTurnNum() {
 		return gameModel.getTurnNum();
 	}
+
+	//Yes I know these violate LoD
+	public int getCurrentFood() {
+		return (int)gameModel.getCurrentPlayer().getMetal().getAmount();
+	}
+	
+	public int getCurrentMetal() {
+		return (int)gameModel.getCurrentPlayer().getMetal().getAmount();
+	}
+	
+	public int getCurrentPower() {
+		return (int)gameModel.getCurrentPlayer().getPower().getAmount();
+	}
 	
 }
