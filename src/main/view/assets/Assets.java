@@ -121,8 +121,8 @@ public class Assets {
         loadItem("BASE_O", "assets/images/structure/baseOrange.png");
         loadItem("BASE_B_SMALL", "assets/images/small/baseblue.png");
         loadItem("BASE_O_SMALL", "assets/images/small/baseorange.png");
-        loadItem("ICON_O", "assets/images/icon/orange.png");
-        loadItem("ICON_B", "assets/images/icon/blue.png");
+        loadItem("ICON_HUMAN", "assets/images/icon/human.png");
+        loadItem("ICON_PANDA", "assets/images/icon/panda.png");
         loadItem("RALLY_POINT_SELECTED", "assets/images/rallyPoint/selectedRallyPoint.png");
         loadItem("DETAILS_PANEL", "assets/images/detailsPanel/detailsPanel.png");
         loadItem("MOVE_SELECTED", "assets/images/tileCovering/moveSelected.png");

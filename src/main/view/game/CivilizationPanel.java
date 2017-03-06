@@ -31,9 +31,9 @@ public class CivilizationPanel extends Panel {
 
     private void drawPlayerIcon(GraphicsContext g) {
         if (getAdapter().getPlayer() == 0)
-            g.drawImage(getAssets().getImage("ICON_O"), 130, 3);
+            g.drawImage(getAssets().getImage("ICON_HUMAN"), 130, 3);
         if (getAdapter().getPlayer() == 1)
-            g.drawImage(getAssets().getImage("ICON_B"), 130, 3);
+            g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
     }
 
     private void drawText(GraphicsContext g) {
