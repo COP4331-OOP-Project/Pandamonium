@@ -55,7 +55,8 @@ public class GamePanel extends Panel {
         Point selected = new Point(game.getCenterCoordinates().getX(),
 				   game.getCenterCoordinates().getY());
 		*/
-        //camera.reAlign(selected);
+        camera.adjustZoom(screenDimensions);
+        //camera.centerToSelected(selected, screenDimensions);
         drawAllItems();
         //selectedDrawer.drawSelectedItemOutline();
         //tileDrawer.drawMovingTiles();

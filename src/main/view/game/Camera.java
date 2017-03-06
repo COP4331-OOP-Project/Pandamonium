@@ -34,15 +34,18 @@ public class Camera {
      * must be handled every tick, such as checking the centering
      * and zooming.
      */
-	public void reAlign(Point selected, Point screenDimensions) {
+	public void centerToSelected(Point selected, Point screenDimensions) {
+		this.screenDimensions = screenDimensions;
+        if (selected.x != 0 && selected.y != 0) {
+            centerer.centerOnTile(selected);
+        }
+	}
+	
+	public void adjustZoom(Point screenDimensions) {
 		this.screenDimensions = screenDimensions;
         checkZooming();
         if (!zooming) {
         	centerer.recenter(screenDimensions.x, screenDimensions.y);
-        }
-
-        if (selected.x != 0 && selected.y != 0) {
-            centerer.centerOnTile(selected);
         }
 	}
     
