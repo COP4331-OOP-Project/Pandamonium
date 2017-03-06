@@ -2,6 +2,7 @@ package view.game;
 
 import java.awt.Point;
 
+import game.mode.Mode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
@@ -25,10 +26,12 @@ public class StructureDetailsPanel extends DetailsPanel {
     }
 
     public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
-        drawBar(gc, screenDimensions);
-        gc.setEffect(ds);
-        drawText(gc, screenDimensions.y);
-        gc.setEffect(null);
+    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE) {
+	    	drawBar(gc, screenDimensions);
+	        gc.setEffect(ds);
+	        drawText(gc, screenDimensions.y);
+	        gc.setEffect(null);
+    	}
     }
 
     private void drawText(GraphicsContext g, int height) {
