@@ -7,6 +7,8 @@ import javax.lang.model.UnknownEntityException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sun.javafx.print.Units;
+
 import game.entities.structures.Capitol;
 import game.entities.structures.Farm;
 import game.entities.structures.Fort;
@@ -55,23 +57,7 @@ public class Player {
     private int totalUnitCount;
     private SimpleTile[][] simpleTiles;
     private UnitFactory unitFactory = new UnitFactory();
-    //Initial Units
-    private Colonist initialColonist;
-
     public Player(int playerId, Location loc) {
-        //loc is referring to the starting location of this player
-        this.playerId = playerId;
-		try {
-			initialColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, loc, playerId);
-		} catch (ColonistLimitExceededException | ExplorerLimitExceededException | RangedLimitExceededException
-				| MeleeLimitExceededException | UnitNotFoundException e) {
-			e.printStackTrace();
-		}
-        init();
-    }
-
-    private void init(){
-        //Initialize all the arraylists of thsi player
         armies = new ArrayList<Army>();
         melees = new ArrayList<Melee>();
         ranges = new ArrayList<Ranged>();
@@ -81,22 +67,33 @@ public class Player {
         structures = new ArrayList<Structure>();
         rallyPoints = new ArrayList<RallyPoint>();
         totalUnits = new ArrayList<Unit>();
+        this.playerId = playerId;
+		try {
+			addColonist((Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, loc, playerId));
+		} catch (ColonistLimitExceededException | ExplorerLimitExceededException | RangedLimitExceededException
+				| MeleeLimitExceededException | UnitNotFoundException e) {
+			e.printStackTrace();
+		}
     }
 
     public void addMelee(Melee melee){
         melees.add(melee);
+        totalUnits.add(melee);
     }
 
     public void addRanged(Ranged ranged){
         ranges.add(ranged);
+        totalUnits.add(ranged);
     }
 
     public void addExplorer(Explorer explorer){
         explorers.add(explorer);
+        totalUnits.add(explorer);
     }
 
     public void addColonist(Colonist colonist){
         colonists.add(colonist);
+        totalUnits.add(colonist);
     }
 
     public void addWorker(Worker worker){
@@ -105,18 +102,22 @@ public class Player {
 
     public void removeMelee(Melee melee){
     	melees.remove(melee);
+    	totalUnits.remove(melee);
     }
 
     public void removeRanged(Ranged ranged){
     	ranges.remove(ranged);
+    	totalUnits.remove(ranged);
     }
 
     public void removeExplorer(Explorer explorer){
     	explorers.remove(explorer);
+    	totalUnits.remove(explorer);
     }
 
     public void removeColonist(Colonist colonist){
     	colonists.remove(colonist);
+    	totalUnits.remove(colonist);
     }
     
     public void removeWorker(Worker worker){

@@ -42,7 +42,7 @@ public class CivilizationPanel extends Panel {
         g.setFill(textFill);
         g.setEffect(ds);
         g.fillText("Player: ", 10, 34);
-        //g.fillText("Turn: " + game.getTurnNum() + "   O: 1-1   E: 2-2   F: 3-5", 180, 34);
+        g.fillText("Turn: " + getAdapter().getTurnNum() + "   O: 1-1   E: 2-2   F: 3-5", 180, 34);
         g.setEffect(null);
         g.setFont(old);
     }

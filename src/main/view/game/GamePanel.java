@@ -94,6 +94,7 @@ public class GamePanel extends Panel {
                 
             */
                 //Draw Units
+                
                 if (tile.getUnitCount() > 0) {
                     for (Unit unit : tile.getUnits()) {
                     	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());

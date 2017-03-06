@@ -61,8 +61,7 @@ public class ControlMode {
 	}
 
 	public void endTurn() {
-		// TODO Auto-generated method stub
-		
+		gameModel.endTurn();
 	}
 
 	public void addMoveToList(int degrees) {

@@ -46,5 +46,9 @@ public class GameModelAdapter {
 			return 1;
 		}
 	}
+
+	public int getTurnNum() {
+		return gameModel.getTurnNum();
+	}
 	
 }
