@@ -162,6 +162,8 @@ public class Assets {
         loadItem("ICON_STRUCTURE", "assets/images/icon/structure.png");
         loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
         loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
+        loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
+        loadItem("HEALTH_BAR_FILL", "assets/images/health/healthBarFilling.png");
     }
 
     private void loadItem(String name, String path) {

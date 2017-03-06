@@ -21,7 +21,6 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class ControlModePanel extends Panel {
-	
     private final static Logger log = LogManager.getLogger(ControlModePanel.class);
     private static final int MODE_Y = 0;
     private static final int MODE_TEXT_X = 495;

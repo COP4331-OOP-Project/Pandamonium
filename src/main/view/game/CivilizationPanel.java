@@ -11,6 +11,7 @@ import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+import view.game.drawers.HealthBarDrawer;
 
 public class CivilizationPanel extends Panel {
 	private DropShadow ds = new DropShadow();
