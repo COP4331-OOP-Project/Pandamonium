@@ -20,6 +20,7 @@ public class SimpleTile{
     private Resource food;
     private Resource ore;
     private Resource peat;
+    private boolean resourcesProspected = false;
     private TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
     private final static Logger log = LogManager.getLogger(SimpleTile.class);
 
@@ -94,5 +95,9 @@ public class SimpleTile{
 
 	public void setVisible() {
 		setVisibility(TileVisibilityEnum.VISIBLE);
+	}
+	
+	public void setProspected() {
+		resourcesProspected = true;
 	}
 }
