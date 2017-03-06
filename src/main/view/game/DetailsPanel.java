@@ -17,7 +17,7 @@ public abstract class DetailsPanel extends Panel{
 		super(gameModelAdapter, assets, view);
 	}
 
-    void drawBar(GraphicsContext gc, Point screenDimensions) {
-        gc.drawImage(getAssets().getImage("GUI_BOTTOM"), 0, screenDimensions.y - guiPanelHeight);
+    void drawBar(GraphicsContext g, Point screenDimensions) {
+        g.drawImage(getAssets().getImage("GUI_BOTTOM"), 0, screenDimensions.y - guiPanelHeight);
     }
 }

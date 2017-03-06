@@ -15,16 +15,16 @@ public class StructureOverviewPanel extends OverviewPanel {
 	}
 
     @Override
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
-        drawPanelBox(gc, screenDimensions);
-        Font oldFont = gc.getFont();
-        gc.setFont(getAssets().getFont(2));
-        gc.fillText("Structure Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
-        gc.setFont(getAssets().getFont(1));
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+        drawPanelBox(g, screenDimensions);
+        Font oldFont = g.getFont();
+        g.setFont(getAssets().getFont(2));
+        g.fillText("Structure Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
+        g.setFont(getAssets().getFont(1));
         //for (int i = 0; i < game.getCurrentPlayer().getBaseCount(); i++) {
-        //    gc.fillText("Base", screenDimensions.x / 2 - 370, screenDimensions.y / 2 + (i * 30) - 200);
+        //    g.fillText("Base", screenDimensions.x / 2 - 370, screenDimensions.y / 2 + (i * 30) - 200);
         //}
-        gc.setFont(oldFont);
+        g.setFont(oldFont);
     }
 
 	public void hideGUIElements() {

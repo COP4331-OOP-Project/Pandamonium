@@ -143,51 +143,51 @@ public class MapMakerPanel extends Panel{
 		exitToMenuButton.setVisible(true);
 	}
 
-	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
-		//gc.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		//g.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
 		this.screenDimensions.x = screenDimensions.x;
 		this.screenDimensions.y = screenDimensions.y;
 		this.offset.x = screenDimensions.x/2 - OFFSET_X;
 		this.offset.y = screenDimensions.y/2 - OFFSET_Y;
 		  for (int i = 0; i < map.length; i++) {
 	            for (int j = 0; j < map[i].length; j++) {
-	            	drawTile(gc, new Point(i,j), map[i][j]);
+	            	drawTile(g, new Point(i,j), map[i][j]);
 	            }
 		  }
-		  drawTopBar(gc);	 
+		  drawTopBar(g);	 
 	}
 
-	private void drawTopBar(GraphicsContext gc) {
-	      gc.drawImage(getAssets().getImage("GUI_MAP_BAR"), 0, 0);
-	      drawCurrentTile(gc);
-	      gc.setFont(getAssets().getFont(2));
-	      gc.setFill(Color.WHITE);
-	      gc.setEffect(ds);
-	      gc.fillText("Map Maker", 6, 35);
-	      gc.setEffect(null);
+	private void drawTopBar(GraphicsContext g) {
+	      g.drawImage(getAssets().getImage("GUI_MAP_BAR"), 0, 0);
+	      drawCurrentTile(g);
+	      g.setFont(getAssets().getFont(2));
+	      g.setFill(Color.WHITE);
+	      g.setEffect(ds);
+	      g.fillText("Map Maker", 6, 35);
+	      g.setEffect(null);
 	}
 
-	private void drawCurrentTile(GraphicsContext gc) {
+	private void drawCurrentTile(GraphicsContext g) {
 	    Image img;
 		switch (currentDrawingType) {
 	    	case 0:
 	    		img = getAssets().getImage("TERRAIN_GRASS1");
-	        	gc.drawImage(img, 175, 0, img.getWidth()/2.8, 
+	        	g.drawImage(img, 175, 0, img.getWidth()/2.8, 
 	            		img.getHeight()/2.8 + 2);
 	            break;
 	        case 1:
 	    		img = getAssets().getImage("TERRAIN_SAND");
-	    		gc.drawImage(img, 175, 0, img.getWidth()/2.8, 
+	    		g.drawImage(img, 175, 0, img.getWidth()/2.8, 
 	            		img.getHeight()/2.8 + 2);
 	            break;
 	        case 2:
 	        	img = getAssets().getImage("TERRAIN_WATER1");
-	        	gc.drawImage(img, 175, 0, img.getWidth()/2.8, 
+	        	g.drawImage(img, 175, 0, img.getWidth()/2.8, 
 	            		img.getHeight()/2.8 + 2);
 	            break;
 	        case 3:
 	        	img = getAssets().getImage("TERRAIN_MOUNTAIN1");
-	        	gc.drawImage(img, 175, 0, img.getWidth()/2.8, 
+	        	g.drawImage(img, 175, 0, img.getWidth()/2.8, 
 	            		img.getHeight()/2.8 + 2);
 	            break;
 	        case -1:
@@ -196,27 +196,27 @@ public class MapMakerPanel extends Panel{
 		
 	}
 
-	protected void drawTile(GraphicsContext gc, Point p, int type) {
+	protected void drawTile(GraphicsContext g, Point p, int type) {
 	    Image img;
 		switch (type) {
 	    	case 0:
 	    		img = getAssets().getImage("TERRAIN_GRASS1");
-	        	gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+	        	g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
 	            		camera.getScale() * img.getHeight());
 	            break;
 	        case 1:
 	    		img = getAssets().getImage("TERRAIN_SAND");
-	    		gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+	    		g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
 	            		camera.getScale() * img.getHeight());
 	            break;
 	        case 2:
 	        	img = getAssets().getImage("TERRAIN_WATER1");
-	        	gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+	        	g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
 	            		camera.getScale() * img.getHeight());
 	            break;
 	        case 3:
 	        	img = getAssets().getImage("TERRAIN_MOUNTAIN1");
-	        	gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+	        	g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
 	            		camera.getScale() * img.getHeight());
 	            break;
 	        case -1:

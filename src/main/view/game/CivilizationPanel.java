@@ -23,13 +23,20 @@ public class CivilizationPanel extends Panel {
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
-            drawBar(gc, screenDimensions);
-            drawText(gc);
-            drawPlayerIcon(gc);
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+            drawBar(g, screenDimensions);
+            drawText(g);
+            drawPlayerIcon(g);
+            drawResources(g);
     }
 
-    private void drawPlayerIcon(GraphicsContext g) {
+    private void drawResources(GraphicsContext g) {
+    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
+    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
+    	g.drawImage(getAssets().getImage("ICON_PANDA"), 130, 3);
+	}
+
+	private void drawPlayerIcon(GraphicsContext g) {
         if (getAdapter().getPlayer() == 0)
             g.drawImage(getAssets().getImage("ICON_HUMAN"), 130, 3);
         if (getAdapter().getPlayer() == 1)
@@ -42,7 +49,7 @@ public class CivilizationPanel extends Panel {
         g.setFill(textFill);
         g.setEffect(ds);
         g.fillText("Player: ", 10, 34);
-        g.fillText("Turn: " + getAdapter().getTurnNum() + "   O: 1-1   E: 2-2   F: 3-5", 180, 34);
+        g.fillText("Turn: " + getAdapter().getTurnNum(), 180, 34);
         g.setEffect(null);
         g.setFont(old);
     }

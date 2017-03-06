@@ -30,7 +30,7 @@ public class GamePanel extends Panel {
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private SelectedDrawer selectedDrawer;
-    private GraphicsContext gc;
+    private GraphicsContext g;
 	private Point screenDimensions;
 	private AssetManager assets;
 
@@ -46,11 +46,11 @@ public class GamePanel extends Panel {
         selectedDrawer = new SelectedDrawer(this);
     }
 
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
     	this.currentPulse = currentPulse;
-		gc.drawImage(assets.getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+		g.drawImage(assets.getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
-        this.gc = gc;
+        this.g = g;
         /*
         Point selected = new Point(game.getCenterCoordinates().getX(),
 				   game.getCenterCoordinates().getY());
@@ -94,7 +94,6 @@ public class GamePanel extends Panel {
                 
             */
                 //Draw Units
-                
                 if (tile.getUnitCount() > 0) {
                     for (Unit unit : tile.getUnits()) {
                     	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
@@ -106,29 +105,29 @@ public class GamePanel extends Panel {
 
     public void drawStaticTileElement(Point p, String image) {
     	Image img = getAssets().getImage(image);
-    	gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+    	g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
         		camera.getScale() * img.getHeight());
     }
 
     public void drawStaticTileElement(Point p, int rotation, String image) {
         Image img = getAssets().getImage(image);
-    	Affine currentRotation = gc.getTransform();
+    	Affine currentRotation = g.getTransform();
         rotateOnTile(p, rotation);
-        gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+        g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
         		camera.getScale() * img.getHeight());
-        gc.setTransform(currentRotation);
+        g.setTransform(currentRotation);
     }
 
     private void rotateOnTile(Point p, int degrees) {
         Rotate rotate = new Rotate(degrees,
                 (double) (camera.getTileCenter(p).x),
                 (double) (camera.getTileCenter(p).y));
-        gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
+        g.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
         		rotate.getTx(), rotate.getTy());
     }
 
     public void drawAnimatedTileElement(Point p, Animation a) {
-    	a.draw(gc, camera.offset(p).x, camera.offset(p).y, camera.getScale(), 
+    	a.draw(g, camera.offset(p).x, camera.offset(p).y, camera.getScale(), 
         		camera.getScale(), currentPulse);
      }
 
@@ -136,8 +135,8 @@ public class GamePanel extends Panel {
         return camera;
     }
 
-    public GraphicsContext getgc() {
-        return gc;
+    public GraphicsContext getGC() {
+        return g;
     }
 
     public int getTileSize() {

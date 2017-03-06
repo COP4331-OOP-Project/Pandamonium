@@ -25,12 +25,12 @@ public class StructureDetailsPanel extends DetailsPanel {
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
     	if (getAdapter().getCurrentMode() == Mode.STRUCTURE) {
-	    	drawBar(gc, screenDimensions);
-	        gc.setEffect(ds);
-	        drawText(gc, screenDimensions.y);
-	        gc.setEffect(null);
+	    	drawBar(g, screenDimensions);
+	        g.setEffect(ds);
+	        drawText(g, screenDimensions.y);
+	        g.setEffect(null);
     	}
     }
 

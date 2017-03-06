@@ -65,9 +65,9 @@ public class CommandPanel extends Panel{
         });
 	}
 
-	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
-        drawCommandPanel(gc);
+        drawCommandPanel(g);
 	}
 
     private void drawCommandPanel(GraphicsContext g) {

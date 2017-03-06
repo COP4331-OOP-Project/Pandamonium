@@ -21,14 +21,14 @@ public class RotationAnimation extends Animation{
 	}
 	
 	@Override
-	public void drawImage(GraphicsContext gc, Image image, int x, int y, double scaleX, double scaleY, long currentPulse) {
+	public void drawImage(GraphicsContext g, Image image, int x, int y, double scaleX, double scaleY, long currentPulse) {
 		updateRotation(currentPulse);
-		Affine currentRotation = gc.getTransform();
+		Affine currentRotation = g.getTransform();
 		Rotate rotate = new Rotate(currentDegree, (double) (x + image.getWidth()/2),(double) (y + image.getHeight()/2));
-        gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
+        g.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
         		rotate.getTx(), rotate.getTy());
-		gc.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
-		gc.setTransform(currentRotation);
+		g.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
+		g.setTransform(currentRotation);
 	}
 
 	private void updateRotation(long currentPulse) {

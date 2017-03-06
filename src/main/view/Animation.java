@@ -20,17 +20,17 @@ public class Animation {
 		 currentImage = (currentImage + 1) % animationImages.length; 
 	 }
 
-	public void draw(GraphicsContext gc, int x, int y, double scaleX, double scaleY, long currentTick) {
+	public void draw(GraphicsContext g, int x, int y, double scaleX, double scaleY, long currentTick) {
 		currentTime += currentTick - lastTick;
 		lastTick = currentTick;
 		if (currentTime >= speed) {
 			 cycleImage();
 			 currentTime = 0;
 		}
-		drawImage(gc, animationImages[currentImage], x, y, scaleX, scaleY, currentTick);
+		drawImage(g, animationImages[currentImage], x, y, scaleX, scaleY, currentTick);
 	}
 	
-	public void drawImage(GraphicsContext gc, Image image, int x, int y, double scaleX, double scaleY, long currentTick) {
-		gc.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
+	public void drawImage(GraphicsContext g, Image image, int x, int y, double scaleX, double scaleY, long currentTick) {
+		g.drawImage(image, x, y, image.getWidth() * scaleX, image.getHeight() * scaleY);
 	}
 }

@@ -109,18 +109,18 @@ public class Assets {
         loadItem("UNIT_LARGE_PANDA", "assets/images/units/largePanda.png");
         loadItem("UNIT_SMALL_PANDA", "assets/images/units/smallPanda.png");
         loadItem("UNIT_GIANT_PANDA", "assets/images/units/giantPanda.png");
-        loadItem("UNIT_O_SMALL", "assets/images/small/orange.png");
-        loadItem("UNIT_B_SMALL", "assets/images/small/blue.png");
+        loadItem("UNIT_HUMAN_MM", "assets/images/gui/miniMap/human.png");
+        loadItem("UNIT_PANDA_MM", "assets/images/gui/miniMap/panda.png");
         loadItem("UNIT_MELEE", "assets/images/units/decal/Melee.png");
         loadItem("UNIT_RANGED", "assets/images/units/decal/Ranged.png");
         loadItem("UNIT_EXPLORER", "assets/images/units/decal/Explorer.png");
         loadItem("UNIT_COLONIST", "assets/images/units/decal/Colonist.png");
         loadItem("BASE_SELECTED", "assets/images/structure/baseSelected.png");
         loadItem("BASE_ARROW", "assets/images/structure/baseArrow.png");
-        loadItem("BASE_B", "assets/images/structure/baseBlue.png");
-        loadItem("BASE_O", "assets/images/structure/baseOrange.png");
-        loadItem("BASE_B_SMALL", "assets/images/small/baseblue.png");
-        loadItem("BASE_O_SMALL", "assets/images/small/baseorange.png");
+        loadItem("BASE_HUMAN", "assets/images/structure/baseHuman.png");
+        loadItem("BASE_PANDA", "assets/images/structure/basePanda.png");
+        loadItem("BASE_HUMAN_MM", "assets/images/gui/miniMap/baseHuman.png");
+        loadItem("BASE_PANDA_MM", "assets/images/gui/miniMap/basePanda.png");
         loadItem("ICON_HUMAN", "assets/images/icon/human.png");
         loadItem("ICON_PANDA", "assets/images/icon/panda.png");
         loadItem("RALLY_POINT_SELECTED", "assets/images/rallyPoint/selectedRallyPoint.png");
@@ -149,6 +149,12 @@ public class Assets {
         loadItem("COMMAND_POWER_UP", "assets/images/icon/powerUp.png");
         loadItem("COMMAND_UNASSIGN_ALL_WORKERS", "assets/images/icon/unassignAllWorkers.png");
         loadItem("TEXT_PATTERN", "assets/images/textTexture.jpg");
+        loadItem("ICON_FOOD_HUMAN", "assets/images/icon/foodHuman.png");
+        loadItem("ICON_FOOD_PANDA", "assets/images/icon/foodPanda.png");
+        loadItem("ICON_ORE", "assets/images/icon/ore.png");
+        loadItem("ICON_METAL", "assets/images/icon/metal.png");
+        loadItem("ICON_PEAT", "assets/images/icon/peat.png");
+        loadItem("ICON_POWER", "assets/images/icon/peat.png");
     }
 
     private void loadItem(String name, String path) {

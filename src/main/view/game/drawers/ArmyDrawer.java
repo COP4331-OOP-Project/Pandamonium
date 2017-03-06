@@ -41,26 +41,26 @@ public class ArmyDrawer {
                 log.warn("Invalid Player :" + player
                         + " cannot have units drawn");
         }
-        GraphicsContext gc = gamePanel.getgc();
+        GraphicsContext g = gamePanel.getGC();
         Camera camera = gamePanel.getCamera();
-        gc.setFont(armyFont);
+        g.setFont(armyFont);
 
         if (numOfUnits < 10) {
-            gc.setFill(Color.BLACK);
-            gc.fillText("" + numOfUnits, camera.offset(p).x +
+            g.setFill(Color.BLACK);
+            g.fillText("" + numOfUnits, camera.offset(p).x +
                     gamePanel.getTileSize() / 2 - 15, camera.offset(p).y +
                     gamePanel.getTileSize() / 2 + 18);
-            gc.setFill(Color.WHITE);
-            gc.fillText("" + numOfUnits, camera.offset(p).x +
+            g.setFill(Color.WHITE);
+            g.fillText("" + numOfUnits, camera.offset(p).x +
                     gamePanel.getTileSize() / 2 - 17, camera.offset(p).y +
                     gamePanel.getTileSize() / 2 + 17);
         } else {
-            gc.setFill(Color.BLACK);
-            gc.fillText("" + numOfUnits, camera.offset(p).x +
+            g.setFill(Color.BLACK);
+            g.fillText("" + numOfUnits, camera.offset(p).x +
                     gamePanel.getTileSize() / 2 - 23, camera.offset(p).y +
                     gamePanel.getTileSize() / 2 + 18);
-            gc.setFill(Color.WHITE);
-            gc.fillText("" + numOfUnits, camera.offset(p).x +
+            g.setFill(Color.WHITE);
+            g.fillText("" + numOfUnits, camera.offset(p).x +
                     gamePanel.getTileSize() / 2 - 25, camera.offset(p).y +
                     gamePanel.getTileSize() / 2 + 17);
         }

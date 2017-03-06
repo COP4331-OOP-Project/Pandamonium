@@ -16,7 +16,7 @@ public class View {
     private static final int DEFAULT_SCREEN_HEIGHT = 648;
     private Camera camera;
     private Canvas canvas; //The GraphicsContext Goes on here.
-    private GraphicsContext gc; //Image drawing is done with this
+    private GraphicsContext g; //Image drawing is done with this
     private Group root; //Gui drawing is added to this
     private PanelManager panelManager;
     private Point screenDimensions = new Point();
@@ -30,8 +30,8 @@ public class View {
     	screenDimensions.x = DEFAULT_SCREEN_WIDTH;
     	screenDimensions.y = DEFAULT_SCREEN_HEIGHT;
     	camera = new Camera(screenDimensions);
-    	gc = canvas.getGraphicsContext2D();
-    	panelManager = new PanelManager(gameModelAdapter, assets, root, gc, camera);
+    	g = canvas.getGraphicsContext2D();
+    	panelManager = new PanelManager(gameModelAdapter, assets, root, g, camera);
         setSceneTheme();
     }
 
@@ -49,7 +49,7 @@ public class View {
         canvas.setHeight(height);
         screenDimensions.x = (int)width;
         screenDimensions.y = (int)height;
-        gc.clearRect(0, 0, width, height);
+        g.clearRect(0, 0, width, height);
         panelManager.drawPanels(screenDimensions, pulse);
         pulse++;
     }

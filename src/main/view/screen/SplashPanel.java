@@ -54,7 +54,7 @@ public class SplashPanel extends Panel{
 
 	}
 
-	public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		if (!splashStarted) {
 			playSplashVideo();
 			splashStarted = true;

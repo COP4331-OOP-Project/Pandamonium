@@ -16,12 +16,12 @@ public class UnitOverviewPanel extends OverviewPanel {
     }
 
     @Override
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
-        drawPanelBox(gc, screenDimensions);
-        Font oldFont = gc.getFont();
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+        drawPanelBox(g, screenDimensions);
+        Font oldFont = g.getFont();
         /*
-        gc.setFont(Assets.getInstance().getFont(2));
-        gc.fillText("Unit Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
+        g.setFont(Assets.getInstance().getFont(2));
+        g.fillText("Unit Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
         for (int i = 0; i < game.getCurrentPlayer().getAllUnit().size(); i++) {
             String unitString = "";
             UnitEnum unit = game.getCurrentPlayer().getAllUnit().get(i).getUnitType();
@@ -38,14 +38,14 @@ public class UnitOverviewPanel extends OverviewPanel {
                 unitString = "Colonist";
             }
             if (game.getSelectedUnit() == i) {
-            	gc.setFont(Assets.getInstance().getFont(1).deriveFont(Font.BOLD));
+            	g.setFont(Assets.getInstance().getFont(1).deriveFont(Font.BOLD));
             } else {
-            gc.setFont(getAssets().getFont(1));
+            g.setFont(getAssets().getFont(1));
             }
-            gc.fillText(unitString, screenDimensions.x / 2 - 370, screenDimensions.y / 2 + (i * 30) - 200);
+            g.fillText(unitString, screenDimensions.x / 2 - 370, screenDimensions.y / 2 + (i * 30) - 200);
         }
         */
-        gc.setFont(oldFont);
+        g.setFont(oldFont);
     }
 
 	@Override

@@ -47,18 +47,18 @@ public class ControlModePanel extends Panel {
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    public void draw(GraphicsContext gc, Point screenDimensions, long currentPulse) {
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
     	checkModeClicked();
     	this.screenDimensions = screenDimensions;
     	updateModes();
-        drawModePanel(gc);
-        drawSubmodePanel(gc);
-        gc.setFont(modeFont);
-        gc.setEffect(ds);
-        drawModeStrings(gc);
-        gc.setFont(subModeFont);
-        drawSubmodeStrings(gc);
-        gc.setEffect(null);
+        drawModePanel(g);
+        drawSubmodePanel(g);
+        g.setFont(modeFont);
+        g.setEffect(ds);
+        drawModeStrings(g);
+        g.setFont(subModeFont);
+        drawSubmodeStrings(g);
+        g.setEffect(null);
     }
     
     private void checkModeClicked() {
