@@ -53,7 +53,7 @@ public class TileDrawer {
                 break;
             }
     		if (visibility == TileVisibilityEnum.SEMI_VISIBLE) {
-    			gamePanel.drawStaticTileElement(p, "semiVisible");
+    			gamePanel.drawStaticTileElement(p, "TILE_SEMI_VISIBLE");
     		}
     	}
     }
