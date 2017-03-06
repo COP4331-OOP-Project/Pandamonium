@@ -15,6 +15,7 @@ import view.game.MiniMapPanel;
 import view.game.SideBarPanel;
 import view.game.StructureDetailsPanel;
 import view.game.StructureOverviewPanel;
+import view.game.TechOverviewPanel;
 import view.game.UnitDetailsPanel;
 import view.game.UnitOverviewPanel;
 import view.screen.MainMenuPanel;
@@ -34,10 +35,11 @@ public class PanelManager {
 	private GamePanel gamePanel;
 	private MakeDetailsPanel makeDetailsPanel;
 	private MiniMapPanel miniMapPanel;
-	private StructureDetailsPanel structureDetailsPanel;
-	private StructureOverviewPanel structureOverviewPanel;
-	private UnitDetailsPanel unitDetailsPanel;
 	private UnitOverviewPanel unitOverviewPanel;
+	private StructureOverviewPanel structureOverviewPanel;
+	private TechOverviewPanel techOverviewPanel;
+	private UnitDetailsPanel unitDetailsPanel;
+	private StructureDetailsPanel structureDetailsPanel;
 	private MainMenuPanel mainMenuPanel;
 	private SplashPanel splashPanel;
 	private MapMakerPanel mapMakerPanel;
@@ -57,7 +59,7 @@ public class PanelManager {
 		panels.add(civilizationPanel);
 		controlModePanel = new ControlModePanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
-		sideBarPanel = new SideBarPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
+		sideBarPanel = new SideBarPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group, this);
 		panels.add(sideBarPanel);
 		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(commandPanel);
@@ -73,6 +75,8 @@ public class PanelManager {
 		panels.add(unitDetailsPanel);
 		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitOverviewPanel);
+		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
+		panels.add(techOverviewPanel);
 		splashPanel = new SplashPanel(gameModelAdapter, group, this, assets, ViewEnum.SPLASH);
 		panels.add(splashPanel);
 		mainMenuPanel = new MainMenuPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_MENU);
@@ -103,6 +107,7 @@ public class PanelManager {
 	public void toggleUnitOverview() {
 		if (currentViewMode == ViewEnum.MAIN_GAME) {
 	        structureOverviewPanel.hideIfVisible();
+	        techOverviewPanel.hideIfVisible();
 	        unitOverviewPanel.toggle();
 		}
 	}
@@ -110,7 +115,16 @@ public class PanelManager {
 	public void toggleStructureOverview() {
 		if (currentViewMode == ViewEnum.MAIN_GAME) {
 	    	unitOverviewPanel.hideIfVisible();
+	    	techOverviewPanel.hideIfVisible();
 	        structureOverviewPanel.toggle();
+		}
+	}
+	
+	public void toggleTechOverview() {
+		if (currentViewMode == ViewEnum.MAIN_GAME) {
+	    	unitOverviewPanel.hideIfVisible();
+	    	structureOverviewPanel.hideIfVisible();
+	        techOverviewPanel.toggle();
 		}
 	}
 }

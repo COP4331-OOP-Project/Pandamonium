@@ -54,4 +54,8 @@ public abstract class Panel {
     public GameModelAdapter getAdapter() {
     	return gameModelAdapter;
     }
+    
+	public void toggle() {
+		isVisible = !isVisible;
+	}
 }

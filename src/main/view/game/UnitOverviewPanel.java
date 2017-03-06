@@ -19,8 +19,11 @@ public class UnitOverviewPanel extends OverviewPanel {
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
         drawPanelBox(g, screenDimensions);
         Font oldFont = g.getFont();
+        
+        g.setFont(getAssets().getFont(2));
+        g.fillText("Unit Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
+        g.setFont(getAssets().getFont(1));
         /*
-        g.setFont(Assets.getInstance().getFont(2));
         g.fillText("Unit Overview", screenDimensions.x / 2 - 370, screenDimensions.y / 2 - 245);
         for (int i = 0; i < game.getCurrentPlayer().getAllUnit().size(); i++) {
             String unitString = "";
@@ -58,15 +61,5 @@ public class UnitOverviewPanel extends OverviewPanel {
 	public void showGUIElements() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void toggle() {
-		setIsVisible(!getIsVisible());
-	}
-
-	public void hideIfVisible() {
-		if (getIsVisible()) {
-			setIsVisible(false);
-		}
 	}
 }

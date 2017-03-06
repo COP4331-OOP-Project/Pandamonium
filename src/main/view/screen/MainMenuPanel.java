@@ -78,7 +78,6 @@ public class MainMenuPanel extends Panel{
                 Platform.exit();
             }
         });
-		
 		mainMenuElements.getChildren().add(startGame);
 		mainMenuElements.getChildren().add(mapMaker);
 		mainMenuElements.getChildren().add(settings);
