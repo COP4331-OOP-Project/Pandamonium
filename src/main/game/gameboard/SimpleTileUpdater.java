@@ -28,15 +28,6 @@ public final class SimpleTileUpdater {
 				setSurroundingVisible(structure, simpleTiles);
 			}
 		}
-		updateVisiblties(new Location(12, 20), 5, simpleTiles);
-		simpleTiles[12][20].setSemiIfVisible();
-		simpleTiles[13][20].setSemiIfVisible();
-		simpleTiles[14][20].setSemiIfVisible();
-		simpleTiles[15][20].setSemiIfVisible();
-		simpleTiles[12][21].setSemiIfVisible();
-		simpleTiles[13][21].setSemiIfVisible();
-		simpleTiles[14][21].setSemiIfVisible();
-		simpleTiles[15][21].setSemiIfVisible();
 		return simpleTiles;
 	}
 
