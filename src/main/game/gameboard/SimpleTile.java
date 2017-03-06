@@ -93,6 +93,6 @@ public class SimpleTile{
 	}
 
 	public void setVisible() {
-		visibility = TileVisibilityEnum.VISIBLE;
+		setVisibility(TileVisibilityEnum.VISIBLE);
 	}
 }

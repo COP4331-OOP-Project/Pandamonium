@@ -4,7 +4,10 @@ import java.awt.Point;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -23,8 +26,8 @@ public class SplashPanel extends Panel{
 	Group root;
 	Media splash = getAssets().getSplash();
 	StackPane video = new StackPane();
-	final MediaPlayer player = new MediaPlayer(splash);
-	final MediaView view = new MediaView(player);
+	MediaPlayer player = new MediaPlayer(splash);
+	MediaView view = new MediaView(player);
 	private boolean splashStarted = false;
 	
 	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets,
@@ -33,10 +36,8 @@ public class SplashPanel extends Panel{
 		this.root = root;
 		checkSkipped();
 		this.panelManager = panelManager;
-		DoubleProperty viewWidth = view.fitWidthProperty();
-		DoubleProperty viewHeight = view.fitHeightProperty();
-		viewWidth.bind(Bindings.selectDouble(view.sceneProperty(), "width"));
-		viewHeight.bind(Bindings.selectDouble(view.sceneProperty(), "height"));
+	    view.fitWidthProperty().bind(Bindings.selectDouble(view.sceneProperty(), "width"));
+	    view.fitHeightProperty().bind(Bindings.selectDouble(view.sceneProperty(), "height"));
 	    view.setPreserveRatio(true);
 	    video.getChildren().add(view);
 	}

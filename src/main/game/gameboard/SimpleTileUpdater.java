@@ -1,17 +1,13 @@
 package game.gameboard;
 
-import java.awt.Point;
 import java.util.ArrayList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import game.Player;
 import game.entities.structures.ObservationTower;
 import game.entities.structures.Structure;
 import game.entities.structures.StructureType;
 import game.entities.units.Unit;
-import view.game.drawers.UnitDrawer;
 
 public final class SimpleTileUpdater {
 
@@ -32,6 +28,8 @@ public final class SimpleTileUpdater {
 				setSurroundingVisible(structure, simpleTiles);
 			}
 		}
+		updateVisiblties(new Location(1, 21), 50, simpleTiles);
+		//setVisible(new Location(12, 20), 1, simpleTiles);
 		return simpleTiles;
 	}
 
@@ -39,33 +37,47 @@ public final class SimpleTileUpdater {
 	private static void setSurroundingVisible(Structure structure, SimpleTile[][] tiles) {
 		ObservationTower tower = (ObservationTower) structure;
 		int visibility = 1; //This needs to be changed to units actual visibility
-		setVisible(tower.getLocation(), visibility, tiles); 
+		updateVisiblties(tower.getLocation(), visibility, tiles); 
 	}
 
 	private static void setSurroundingVisible(Unit unit, SimpleTile[][] tiles) {
 		int visibility = 1; //This needs to be changed to units actual visibility
-		setVisible(unit.getLocation(), visibility, tiles); 
+		updateVisiblties(unit.getLocation(), visibility, tiles); 
 	}
-	
-	//This function recursively draws the visibility based on the radius and location
-	//of a unit or tower 
-	private static void setVisible(Location loc, int radius, SimpleTile[][] tiles) {
+	 
+	private static void updateVisiblties(Location loc, int radius, SimpleTile[][] tiles) {
 		if (radius < 0) {
 			log.error("");
 		}
 		int x = loc.getX();
 		int y = loc.getY();
-		if (radius == 0) {
-			if (x >= 0 && y >= 0 && x < tiles.length && y < tiles.length) {
-				tiles[x][y].setVisible();
+		if (x >= 0 && y >= 0 && x < tiles.length && y < tiles.length) {
+			tiles[x][y].setVisible(); //Make the actual tile visible
+			for (int i = 1; i <= radius; i++) {
+				setVisible(x, y - i, tiles);
+				setVisible(x, y + i, tiles);
+				setVisible(x - i, y, tiles);
+				setVisible(x + i, y, tiles);
+				setVisible(x - i, y + i, tiles);
+				setVisible(x + i, y - i, tiles);
+				for (int j = 1; j <= radius; j++) {
+
+					setVisible(x + i, y - j, tiles);
+					setVisible(x + j, y - i, tiles);
+					setVisible(x - i, y + j, tiles);
+					setVisible(x - j, y + i, tiles);
+					if (i + j <= radius) {
+						setVisible(x + j, y + i, tiles);
+						setVisible(x - j, y - i, tiles);
+					}
+				}
 			}
-		} else {
-			setVisible(new Location(x, y - 1), radius - 1, tiles);
-			setVisible(new Location(x + 1, y - 1), radius - 1, tiles);
-			setVisible(new Location(x + 1, y), radius - 1, tiles);
-			setVisible(new Location(x, y + 1), radius - 1, tiles);
-			setVisible(new Location(x - 1, y + 1), radius - 1, tiles);
-			setVisible(new Location(x - 1, y), radius - 1, tiles);
+		}
+	}
+	
+	private static void setVisible(int x, int y, SimpleTile[][] tiles) {
+		if (x >= 0 && y >= 0 && x < tiles.length && y < tiles.length && tiles[x][y].getTileType() != TerrainEnum.NON_TILE) {
+			tiles[x][y].setVisible();
 		}
 	}
 

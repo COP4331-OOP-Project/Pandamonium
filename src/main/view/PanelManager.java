@@ -22,7 +22,7 @@ import view.screen.SettingsPanel;
 import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentViewMode = ViewEnum.SPLASH;
+	private ViewEnum currentViewMode = ViewEnum.MAIN_MENU;
 	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
