@@ -62,6 +62,7 @@
 
 #button:hover {
 	 -fx-background-color: 
+	 	#010712,
      	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
      	linear-gradient(#2b3d4d, #212a35),
      	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
@@ -100,6 +101,34 @@
     -fx-padding: 2 2 2 2;
 }
 
+.sideBarButton {
+     -fx-background-color: 
+     	#090a0c,
+     linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+     linear-gradient(#20262b, #191d22),
+     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-padding: 2 2 2 2;
+}
+
+.sideBarButton:hover {
+	-fx-background-color:
+     	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+}
+
+.sideBarButton:pressed {
+     -fx-background-color:
+     	#1b263b,
+     	linear-gradient(#26313b, #263446);
+	-fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-padding: 2 2 2 2;
+}
+
 .commandButtonSelected {
      -fx-background-color:
      	#1b263b,
@@ -111,6 +140,7 @@
 
 .commandButton:hover {
 	-fx-background-color:
+     	#010712,
      	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
      	linear-gradient(#2b3d4d, #212a35),
      	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
@@ -123,7 +153,8 @@
 
 #mainMenuButton:hover {
 	-fx-background-color:
-	 	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+	 	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
      	linear-gradient(#2b3d4d, #212a35),
      	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }

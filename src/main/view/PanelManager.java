@@ -12,6 +12,7 @@ import view.game.ControlModePanel;
 import view.game.GamePanel;
 import view.game.MakeDetailsPanel;
 import view.game.MiniMapPanel;
+import view.game.SideBarPanel;
 import view.game.StructureDetailsPanel;
 import view.game.StructureOverviewPanel;
 import view.game.UnitDetailsPanel;
@@ -27,6 +28,7 @@ public class PanelManager {
 	private GameModelAdapter gameModelAdapter;
 	private AssetManager assets;
 	private CivilizationPanel civilizationPanel;
+	private SideBarPanel sideBarPanel;
 	private CommandPanel commandPanel;
 	private ControlModePanel controlModePanel;
 	private GamePanel gamePanel;
@@ -55,6 +57,8 @@ public class PanelManager {
 		panels.add(civilizationPanel);
 		controlModePanel = new ControlModePanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
+		sideBarPanel = new SideBarPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
+		panels.add(sideBarPanel);
 		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(commandPanel);
 		makeDetailsPanel = new MakeDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);

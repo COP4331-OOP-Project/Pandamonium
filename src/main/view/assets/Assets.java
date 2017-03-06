@@ -73,6 +73,7 @@ public class Assets {
         loadItem("MENU_BACKGROUND", "assets/images/menu/menuBackground.jpg");
         loadItem("GAME_BACKGROUND", "assets/images/menu/gameBackground.jpg");
         loadItem("GUI_TOP", "assets/images/gui/topBar.png");
+        loadItem("GUI_SIDE", "assets/images/gui/sideBar.png");
         loadItem("GUI_HOVER", "assets/images/gui/hover.png");
         loadItem("GUI_MAP_BAR", "assets/images/gui/mapMakerBar.png");
         loadItem("GUI_BOTTOM", "assets/images/gui/bottomBar.png");
@@ -155,6 +156,12 @@ public class Assets {
         loadItem("ICON_METAL", "assets/images/icon/metal.png");
         loadItem("ICON_PEAT", "assets/images/icon/peat.png");
         loadItem("ICON_POWER", "assets/images/icon/power.png");
+        loadItem("ICON_VISIBILITY", "assets/images/icon/visibility.png");
+        loadItem("ICON_HUMAN_HEAD", "assets/images/icon/unitHuman.png");
+        loadItem("ICON_PANDA_HEAD", "assets/images/icon/unitPanda.png");
+        loadItem("ICON_STRUCTURE", "assets/images/icon/structure.png");
+        loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
+        loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
     }
 
     private void loadItem(String name, String path) {

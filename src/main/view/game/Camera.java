@@ -120,8 +120,9 @@ public class Camera {
 	public void continueDragging(double x, double y) {
 		double diffX = dragX - x;
 		double diffY = dragY - y;
-		setOffset(new Point(getOffset().x - (int)diffX,
-				(getOffset().y - (int)diffY)));
+		Point newPosition = new Point(getOffset().x - (int)diffX,
+				(getOffset().y - (int)diffY));
+		setOffset(newPosition);
 		dragX = x;
 		dragY = y;
 	}
