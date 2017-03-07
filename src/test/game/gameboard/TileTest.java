@@ -11,10 +11,13 @@ import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.units.Colonist;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
+import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class TileTest {
     int playerId;
@@ -126,8 +129,30 @@ public class TileTest {
         Assert.assertEquals(this.tileGrass.getUnits().size(), 1);
     }
 
+    @Test //Test contains unit
+    public void testContainsUnit(){
+        tileGrass.addUnit(colonist1);
+        Assert.assertEquals(tileGrass.containsUnit(), true);
+    }
+
+    @Test //Test unit arrayList
+    public void testReturnUnits(){
+        ArrayList<Unit> units = new ArrayList<Unit>();
+        units.add(melee1);
+        units.add(colonist1);
+        units.add(range1);
+        units.add(range2);
+
+        tileGrass.addUnit(melee1);
+        tileGrass.addUnit(colonist1);
+        tileGrass.addUnit(range1);
+        tileGrass.addUnit(range2);
+
+        Assert.assertEquals(tileGrass.getUnits(), units);
+    }
+
     @Test //Test on impassible tiles
-    public void testInpassableTile(){
+    public void testImpassableTile(){
         Assert.assertEquals(this.tileWater.isImpassable(), true);
     }
 
