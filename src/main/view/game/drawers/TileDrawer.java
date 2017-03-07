@@ -15,7 +15,6 @@ public class TileDrawer {
     Animation waterAnimation;
     Animation mountainAnimation;
     Animation invisibleAnimation;
-    Animation powerPlant;
     
     public TileDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assetManager) {
         this.gamePanel = gamePanel;
@@ -34,6 +33,7 @@ public class TileDrawer {
         invisibleAnimation = new Animation(new Image[] { assetManager.getImage("TILE_INVISIBLE1"),
 														assetManager.getImage("TILE_INVISIBLE2"), 
 														assetManager.getImage("TILE_INVISIBLE3")}, 100);
+
     }
 
     public void drawTile(Point p, TerrainEnum type, TileVisibilityEnum visibility) {
