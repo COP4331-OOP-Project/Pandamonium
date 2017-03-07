@@ -96,6 +96,9 @@ public class Assets {
         loadItem("TERRAIN_WATER1", "assets/images/terrain/water/water1.png");
         loadItem("TERRAIN_WATER2", "assets/images/terrain/water/water2.png");
         loadItem("TERRAIN_WATER3", "assets/images/terrain/water/water3.png");
+        loadItem("TERRAIN_WATER4", "assets/images/terrain/water/water4.png");
+        loadItem("TERRAIN_WATER5", "assets/images/terrain/water/water5.png");
+        loadItem("TERRAIN_WATER6", "assets/images/terrain/water/water6.png");
         loadItem("CLOUDS_MINI", "assets/images/gui/miniMap/clouds.png");
         loadItem("GRASS_MINI", "assets/images/gui/miniMap/grassmini.png");
         loadItem("SAND_MINI", "assets/images/gui/miniMap/sandmini.png");
@@ -117,9 +120,16 @@ public class Assets {
         loadItem("UNIT_EXPLORER", "assets/images/units/decal/Explorer.png");
         loadItem("UNIT_COLONIST", "assets/images/units/decal/Colonist.png");
         loadItem("BASE_SELECTED", "assets/images/structure/baseSelected.png");
-        loadItem("BASE_ARROW", "assets/images/structure/baseArrow.png");
         loadItem("BASE_HUMAN", "assets/images/structure/baseHuman.png");
         loadItem("BASE_PANDA", "assets/images/structure/basePanda.png");
+        loadItem("POWER_PLANT_HUMAN1", "assets/images/structure/powerPlantHuman1.png");
+        loadItem("POWER_PLANT_HUMAN2", "assets/images/structure/powerPlantHuman2.png");
+        loadItem("POWER_PLANT_HUMAN3", "assets/images/structure/powerPlantHuman3.png");
+        loadItem("POWER_PLANT_PANDA1", "assets/images/structure/powerPlantPanda1.png");
+        loadItem("POWER_PLANT_PANDA2", "assets/images/structure/powerPlantPanda2.png");
+        loadItem("POWER_PLANT_PANDA3", "assets/images/structure/powerPlantPanda3.png");
+        loadItem("OBSERVATION_TOWER_HUMAN", "assets/images/structure/observationTowerHuman.png");
+        loadItem("OBSERVATION_TOWER_PANDA", "assets/images/structure/observationTowerPanda.png");
         loadItem("BASE_HUMAN_MM", "assets/images/gui/miniMap/baseHuman.png");
         loadItem("BASE_PANDA_MM", "assets/images/gui/miniMap/basePanda.png");
         loadItem("ICON_HUMAN", "assets/images/icon/human.png");

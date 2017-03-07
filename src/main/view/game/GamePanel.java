@@ -40,10 +40,10 @@ public class GamePanel extends Panel {
     	this.assets = assets;
         screenDimensions = new Point();
         tileDrawer = new TileDrawer(this, gameModelAdapter, assets);
-        unitDrawer = new UnitDrawer(this);
-        armyDrawer = new ArmyDrawer(this);
-        structureDrawer = new StructureDrawer(this);
-        selectedDrawer = new SelectedDrawer(this);
+        unitDrawer = new UnitDrawer(this, gameModelAdapter, assets);
+        armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
+        structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
+        selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {

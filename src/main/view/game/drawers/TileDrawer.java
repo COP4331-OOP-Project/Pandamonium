@@ -15,18 +15,22 @@ public class TileDrawer {
     Animation waterAnimation;
     Animation mountainAnimation;
     Animation invisibleAnimation;
+    Animation powerPlant;
     
     public TileDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assetManager) {
         this.gamePanel = gamePanel;
         grassAnimation = new Animation(new Image[] {  assetManager.getImage("TERRAIN_GRASS1"),
 												 	  assetManager.getImage("TERRAIN_GRASS2"), 
 													  assetManager.getImage("TERRAIN_GRASS3")}, 30);
-        waterAnimation = new Animation(new Image[] { assetManager.getImage("TERRAIN_WATER3"),
+        waterAnimation = new Animation(new Image[] { assetManager.getImage("TERRAIN_WATER1"),
 													assetManager.getImage("TERRAIN_WATER2"), 
-													assetManager.getImage("TERRAIN_WATER1")}, 25);
+													assetManager.getImage("TERRAIN_WATER3"),
+													assetManager.getImage("TERRAIN_WATER4"),
+													assetManager.getImage("TERRAIN_WATER5"),
+													assetManager.getImage("TERRAIN_WATER6")}, 20);
         mountainAnimation = new Animation(new Image[] { assetManager.getImage("TERRAIN_MOUNTAIN1"),
 														assetManager.getImage("TERRAIN_MOUNTAIN2"), 
-														assetManager.getImage("TERRAIN_MOUNTAIN3")}, 15);
+														assetManager.getImage("TERRAIN_MOUNTAIN3")}, 25);
         invisibleAnimation = new Animation(new Image[] { assetManager.getImage("TILE_INVISIBLE1"),
 														assetManager.getImage("TILE_INVISIBLE2"), 
 														assetManager.getImage("TILE_INVISIBLE3")}, 100);

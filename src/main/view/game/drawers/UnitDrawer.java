@@ -7,14 +7,20 @@ import org.apache.logging.log4j.Logger;
 
 import game.entities.EntityId;
 import game.entities.units.UnitType;
+import view.GameModelAdapter;
+import view.assets.AssetManager;
 import view.game.GamePanel;
 
 public class UnitDrawer {
     private final static Logger log = LogManager.getLogger(UnitDrawer.class);
     private GamePanel gamePanel;
-
-    public UnitDrawer(GamePanel gamePanel) {
+    private GameModelAdapter gameModelAdapter;
+    private AssetManager assets;
+    
+    public UnitDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assets) {
         this.gamePanel = gamePanel;
+        this.gameModelAdapter = gameModelAdapter;
+        this.assets = assets;
     }
 /*
     protected void drawUnit(Point p, UnitEnum type, int player,

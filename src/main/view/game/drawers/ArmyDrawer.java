@@ -8,18 +8,24 @@ import org.apache.logging.log4j.Logger;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
+import view.assets.AssetManager;
 import view.game.Camera;
 import view.game.GamePanel;
 
 public class ArmyDrawer {
 
     private final static Logger log = LogManager.getLogger(GamePanel.class);
-    Font armyFont = new Font("Lucida Sans", 40);
-
+    private Font armyFont;
     private GamePanel gamePanel;
-
-    public ArmyDrawer(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    private GameModelAdapter gameModelAdapter;
+    private AssetManager assets;
+    
+    public ArmyDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assets) {
+        armyFont = assets.getFont(0);
+    	this.gamePanel = gamePanel;
+    	this.gameModelAdapter = gameModelAdapter;
+    	this.assets = assets;
     }
 
     public void drawArmy(Point p, int player, int rotation,
@@ -30,12 +36,6 @@ public class ArmyDrawer {
                 break;
             case 1:
                 gamePanel.drawStaticTileElement(p, rotation, "ARMY_B");
-                break;
-            case 2:
-                gamePanel.drawStaticTileElement(p, rotation, "ARMY_Y");
-                break;
-            case 3:
-                gamePanel.drawStaticTileElement(p, rotation, "ARMY_G");
                 break;
             default:
                 log.warn("Invalid Player :" + player
