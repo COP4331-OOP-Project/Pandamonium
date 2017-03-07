@@ -1,33 +1,51 @@
 package game.mode;
 
 import game.GameModel;
+import game.Player;
 import game.commands.CommandEnum;
 
-public class ControlMode {
-	Mode currentMode = Mode.RALLY_POINT;
-	Submode currentSubmode = Submode.RALLY_POINT;
-	GameModel gameModel;
+public class ModeController {
+	private Mode currentMode = Mode.RALLY_POINT;
+	private Submode currentSubmode = Submode.RALLY_POINT;
+	private SelectedEntityManager selectedManager;
+	private GameModel gameModel;
+	private Player currentPlayer;
 	
-	public ControlMode(GameModel gameModel) {
+	public ModeController(GameModel gameModel) {
 		this.gameModel = gameModel;
+		this.selectedManager = new SelectedEntityManager(gameModel, this);
+		currentPlayer = gameModel.getCurrentPlayer();
 	}
 
+	public void update() {
+		if (gameModel.getCurrentPlayer() != currentPlayer) {
+			currentPlayer = gameModel.getCurrentPlayer();
+			currentMode = Mode.RALLY_POINT;
+			currentSubmode = Submode.RALLY_POINT;
+			selectedManager.newPlayer();
+		}
+	}
+	
 	public void cycleModeForward() {
 		currentMode = currentMode.getNext();
 		cycleSubmodeForward();
+		selectedManager.cycle(true);
 	}
 	
 	public void cycleModeBackward() {
 		currentMode = currentMode.getPrevious();
 		cycleSubmodeForward();
+		selectedManager.cycle(false);
 	}
 
 	public void cycleSubmodeForward() {
 		currentSubmode = currentSubmode.getNext(currentMode);
+		selectedManager.cycle(true);
 	}
 
 	public void cycleSubmodeBackward() {
 		currentSubmode = currentSubmode.getPrevious(currentMode);
+		selectedManager.cycle(false);
 	}
 
 	public void cycleCommandForward() {
@@ -40,14 +58,12 @@ public class ControlMode {
 		
 	}
 
-	public void cycleTypeInstanceBackward() {
-		// TODO Auto-generated method stub
-		
+	public void cycleEntityBackward() {
+		selectedManager.cycle(false);
 	}
 
-	public void cycleTypeInstanceForward() {
-		// TODO Auto-generated method stub
-		
+	public void cycleEntityForward() {
+		selectedManager.cycle(true);
 	}
 
 	public CommandEnum executeCommand() {
@@ -100,5 +116,4 @@ public class ControlMode {
 	public void setSubmode(Submode submode) {
 		currentSubmode = submode;
 	}
-
 }

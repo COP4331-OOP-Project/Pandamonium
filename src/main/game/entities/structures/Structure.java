@@ -2,6 +2,7 @@ package game.entities.structures;
 
 import game.entities.Entity;
 import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
 import game.entities.Percentage;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
@@ -31,8 +32,8 @@ public class Structure extends Entity {
     }
      * @return **/
 
-    public StructureType getType() {
-    	return (StructureType) getEntityId().getSubTypeId();
+    public EntitySubtypeEnum getType() {
+    	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
     
     public double getCurrentHealth(){

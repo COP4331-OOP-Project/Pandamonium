@@ -5,7 +5,7 @@ import java.awt.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.entities.structures.StructureType;
+import game.entities.EntitySubtypeEnum;
 import javafx.scene.image.Image;
 import view.Animation;
 import view.GameModelAdapter;
@@ -42,7 +42,7 @@ public class StructureDrawer {
 												assetManager.getImage("MINE_PANDA4")}, 30);
     }
 
-    public void drawStructure(Point p, int player, StructureType type) {
+    public void drawStructure(Point p, int player, EntitySubtypeEnum type) {
         switch (type) {
 	        case CAPITOL :
 	        	if (player == 0)

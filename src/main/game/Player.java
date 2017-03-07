@@ -157,10 +157,6 @@ public class Player {
     public ArrayList<Colonist> getColonists() {
         return colonists;
     }
-
-    public ArrayList<Unit> getAllUnit() {
-        return totalUnits;
-    }
     
     public ArrayList<Worker> getWorkers(){
         return workers;
@@ -231,8 +227,21 @@ public class Player {
     	}
     }
     
+    
+    public ArrayList<RallyPoint> getRallyPoints() {
+    	return rallyPoints;
+    }
+    
     public ArrayList<Structure> getStructures() {
     	return structures;
+    }
+
+    public ArrayList<Unit> getUnits() {
+    	return totalUnits;
+    }
+    
+    public ArrayList<Army> getArmies() {
+    	return armies;
     }
     
     public Resource getNutrients() {

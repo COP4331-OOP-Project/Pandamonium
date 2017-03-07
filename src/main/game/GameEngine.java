@@ -2,7 +2,7 @@ package game;
 
 import controls.KeyEventController;
 import controls.MouseEventController;
-import game.mode.ControlMode;
+import game.mode.ModeController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,7 +20,7 @@ public class GameEngine extends Application {
     private KeyEventController keyEvents;
     private MouseEventController mouseEvents;
 	private View view;
-	private ControlMode controlMode;
+	private ModeController controlMode;
 	private GameModel gameModel;
 	private GameModelAdapter gameModelAdapter;
     @Override
@@ -39,7 +39,7 @@ public class GameEngine extends Application {
             }
         });
         gameModel = new GameModel();
-        controlMode = new ControlMode(gameModel);
+        controlMode = new ModeController(gameModel);
         gameModelAdapter = new GameModelAdapter(gameModel, controlMode);
         view = new View(gameModelAdapter, scene, root);
         keyEvents = new KeyEventController(controlMode, view, scene);
@@ -49,6 +49,7 @@ public class GameEngine extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
+            	controlMode.update();
                 gameModel.updateGame();
                 view.renderGame();
             }

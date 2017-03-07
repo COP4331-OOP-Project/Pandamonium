@@ -18,14 +18,20 @@ public class UnitDetailsPanel extends DetailsPanel {
     private static final int X_DISTANCE = 20;
     private static final int OFFSET = 80;
 	private static final int SPACING = 230;
+	private GameModelAdapter gameModelAdapter;
+	private AssetManager assets;
+	private ViewEnum viewEnum;
     
     public UnitDetailsPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
     	super(gameModelAdapter, assets, viewEnum);
+    	this.gameModelAdapter = gameModelAdapter;
+    	this.assets = assets;
+    	this.viewEnum = viewEnum;
     	ds.setOffsetY(2.0);
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    @Override
+
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
         if (getAdapter().getCurrentMode() == Mode.UNIT) {
         	drawBar(g, screenDimensions);
@@ -79,19 +85,13 @@ public class UnitDetailsPanel extends DetailsPanel {
                 g.fillText("You Have No Ranged Units", X_DISTANCE, height - 17);
             }
         }
-        */
         g.setFont(old);
+        */
     }
 
-	@Override
 	public void hideGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 }

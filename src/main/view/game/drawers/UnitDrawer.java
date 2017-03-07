@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import game.entities.EntityId;
-import game.entities.units.UnitType;
+import game.entities.EntitySubtypeEnum;
 import view.GameModelAdapter;
 import view.assets.AssetManager;
 import view.game.GamePanel;
@@ -22,49 +22,8 @@ public class UnitDrawer {
         this.gameModelAdapter = gameModelAdapter;
         this.assets = assets;
     }
-/*
-    protected void drawUnit(Point p, UnitEnum type, int player,
-                            int rotation) {
-        switch (player) {
-            case 0:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_O");
-                break;
-            case 1:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_B");
-                break;
-            case 2:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_Y");
-                break;
-            case 3:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_G");
-                break;
-            default:
-                log.warn("Invalid Player :" + player
-                        + " cannot have units drawn");
-        }
 
-        switch (type) {
-            case MELEE:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_MELEE");
-                break;
-            case RANGED:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_RANGED");
-                break;
-            case EXPLORER:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_EXPLORER");
-                break;
-            case COLONIST:
-                gamePanel.drawStaticTileElement(p, rotation, "UNIT_COLONIST");
-                break;
-            default:
-                log.warn("Invalid unit Type :" + type
-                        + " cannot be drawn");
-        }
-        
-    }
-    */
-
-	public void drawUnit(Point p, EntityId entityId, UnitType type) {
+	public void drawUnit(Point p, EntityId entityId, EntitySubtypeEnum type) {
 		if (entityId.getPlayerId() == 0) {
 			drawHuman(p);
 		} else {
@@ -77,7 +36,7 @@ public class UnitDrawer {
 				gamePanel.drawStaticTileElement(p, "UNIT_EXPLORER");
 			case MELEE:
 				gamePanel.drawStaticTileElement(p, "UNIT_MELEE");
-			case RANGED:
+			case RANGE:
 				gamePanel.drawStaticTileElement(p, "UNIT_RANGED");
 		}	
 	}

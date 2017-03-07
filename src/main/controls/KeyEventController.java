@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import game.commands.CommandEnum;
-import game.mode.ControlMode;
+import game.mode.ModeController;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -16,7 +16,7 @@ import view.View;
 public class KeyEventController {
 
     private final static Logger log = LogManager.getLogger(KeyEventController.class);
-    ControlMode controlMode;
+    ModeController controlMode;
     View view;
     Scene scene;
     ControlFileReader controlReader;
@@ -43,7 +43,7 @@ public class KeyEventController {
 	private static final String MOVE_315 = "MOVE_315";
 	private static final String CHANGE_CYCLING = "CHANGE_CYCLING";
 	
-    public KeyEventController(ControlMode controlMode, View view, Scene scene) {
+    public KeyEventController(ModeController controlMode, View view, Scene scene) {
     	controlReader = new ControlFileReader();
     	controlReader.loadControls(humanControlsFile);
     	this.view = view;
@@ -86,11 +86,11 @@ public class KeyEventController {
         	
         } else if (key == controlReader.getControl(COMMAND_LEFT)) {
         	log.debug("Right key pressed");
-        	controlMode.cycleTypeInstanceBackward();
+        	controlMode.cycleEntityBackward();
             
         } else if (key == controlReader.getControl(COMMAND_RIGHT)) {
         	log.debug("Left key pressed");
-        	controlMode.cycleTypeInstanceForward();
+        	controlMode.cycleEntityForward();
             
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select key pressed");

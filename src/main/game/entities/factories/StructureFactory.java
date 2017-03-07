@@ -38,13 +38,13 @@ public class StructureFactory{
     public StructureFactory(){
         this.structureStatistics = new HashMap<>();
         try {
-            this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(StructureType.CAPITOL));
-            this.structureStatistics.put(EntitySubtypeEnum.FARM, new StructureStats(StructureType.FARM));
-            this.structureStatistics.put(EntitySubtypeEnum.FORT, new StructureStats(StructureType.FORT));
-            this.structureStatistics.put(EntitySubtypeEnum.MINE, new StructureStats(StructureType.MINE));
-            this.structureStatistics.put(EntitySubtypeEnum.OBSERVE, new StructureStats(StructureType.OBSERVE));
-            this.structureStatistics.put(EntitySubtypeEnum.PLANT, new StructureStats(StructureType.PLANT));
-            this.structureStatistics.put(EntitySubtypeEnum.UNIVERSITY, new StructureStats(StructureType.UNIVERSITY));
+            this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(EntitySubtypeEnum.CAPITOL));
+            this.structureStatistics.put(EntitySubtypeEnum.FARM, new StructureStats(EntitySubtypeEnum.FARM));
+            this.structureStatistics.put(EntitySubtypeEnum.FORT, new StructureStats(EntitySubtypeEnum.FORT));
+            this.structureStatistics.put(EntitySubtypeEnum.MINE, new StructureStats(EntitySubtypeEnum.MINE));
+            this.structureStatistics.put(EntitySubtypeEnum.OBSERVE, new StructureStats(EntitySubtypeEnum.OBSERVE));
+            this.structureStatistics.put(EntitySubtypeEnum.PLANT, new StructureStats(EntitySubtypeEnum.PLANT));
+            this.structureStatistics.put(EntitySubtypeEnum.UNIVERSITY, new StructureStats(EntitySubtypeEnum.UNIVERSITY));
         }catch(StructureNotFoundException e){ System.out.println(e.getMessage()); }
     }
 

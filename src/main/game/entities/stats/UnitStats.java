@@ -1,6 +1,6 @@
 package game.entities.stats;
 
-import game.entities.units.UnitType;
+import game.entities.EntitySubtypeEnum;
 import game.entities.units.exceptions.UnitNotFoundException;
 
 public class UnitStats {
@@ -12,7 +12,7 @@ public class UnitStats {
     private int health;
     private float upkeep;
 
-    public UnitStats(UnitType unit) throws UnitNotFoundException {
+    public UnitStats(EntitySubtypeEnum unit) throws UnitNotFoundException {
         switch (unit) {
             case COLONIST:
                 this.offPow = 1;
@@ -41,7 +41,7 @@ public class UnitStats {
                 this.health = 10;
                 this.upkeep = .1f;
                 break;
-            case RANGED:
+            case RANGE:
                 this.offPow = 7;
                 this.defPow = 7;
                 this.range = 3;

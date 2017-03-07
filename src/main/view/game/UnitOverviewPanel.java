@@ -15,7 +15,6 @@ public class UnitOverviewPanel extends OverviewPanel {
     	setIsVisible(false);
     }
 
-    @Override
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
         drawPanelBox(g, screenDimensions);
         Font oldFont = g.getFont();
@@ -46,20 +45,16 @@ public class UnitOverviewPanel extends OverviewPanel {
             g.setFont(getAssets().getFont(1));
             }
             g.fillText(unitString, screenDimensions.x / 2 - 370, screenDimensions.y / 2 + (i * 30) - 200);
+           
         }
-        */
+        
         g.setFont(oldFont);
+         */
     }
 
-	@Override
 	public void hideGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import game.Player;
+import game.entities.EntitySubtypeEnum;
 import game.entities.structures.ObservationTower;
 import game.entities.structures.Structure;
-import game.entities.structures.StructureType;
 import game.entities.units.Unit;
 
 public final class SimpleTileUpdater {
@@ -14,7 +14,7 @@ public final class SimpleTileUpdater {
     private final static Logger log = LogManager.getLogger(SimpleTileUpdater.class);
 	public static SimpleTile[][] updateTiles(Tile[][] tiles, SimpleTile[][] simpleTiles, Player player) {
 		ArrayList<Structure> playerStructures = player.getStructures();
-		ArrayList<Unit> playerUnits = player.getAllUnit();
+		ArrayList<Unit> playerUnits = player.getUnits();
 		for (int i = 0; i < simpleTiles.length; i++) {
 			for (int j = 0; j < simpleTiles[i].length; j++) {
 				simpleTiles[i][j].setSemiIfVisible();
@@ -24,7 +24,7 @@ public final class SimpleTileUpdater {
 			setSurroundingVisible(unit, simpleTiles);
 		}
 		for (Structure structure: playerStructures) {
-			if (structure.getType() == StructureType.OBSERVE) {
+			if (structure.getType() == EntitySubtypeEnum.OBSERVE) {
 				setSurroundingVisible(structure, simpleTiles);
 			}
 		}

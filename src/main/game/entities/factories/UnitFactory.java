@@ -15,7 +15,6 @@ import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.Unit;
-import game.entities.units.UnitType;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
 import game.entities.EntityId;
@@ -38,10 +37,10 @@ public class UnitFactory {
     	colonistIdManager = new IdManager(0, 10);
         this.unitStatistics = new HashMap<>();
         try {
-            this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(UnitType.COLONIST));
-            this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(UnitType.EXPLORER));
-            this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(UnitType.MELEE));
-            this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(UnitType.RANGED));
+            this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));
+            this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(EntitySubtypeEnum.EXPLORER));
+            this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(EntitySubtypeEnum.MELEE));
+            this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(EntitySubtypeEnum.RANGE));
         }catch(UnitNotFoundException e){ System.out.println(e.getMessage()); }
     }
   

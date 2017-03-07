@@ -1,7 +1,7 @@
 package game.entities.stats;
 
 import game.entities.structures.exceptions.StructureNotFoundException;
-import game.entities.structures.StructureType;
+import game.entities.EntitySubtypeEnum;
 
 public class StructureStats {
     private int offPow;         // Damage dealt when attacking [Fort only]
@@ -11,7 +11,7 @@ public class StructureStats {
     private int prodRate;       // Efficiency rate (per worker) of task completion
     private float upkeep;       // Resources required to keep structure at full health
 
-    public StructureStats(StructureType struct) throws StructureNotFoundException {
+    public StructureStats(EntitySubtypeEnum struct) throws StructureNotFoundException {
         switch (struct) {
             case CAPITOL:
                 this.offPow = 0;

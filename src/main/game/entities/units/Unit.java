@@ -20,8 +20,8 @@ public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
         standby();
     }
 
-    public UnitType getType() {
-    	return (UnitType) getEntityId().getSubTypeId();
+    public EntitySubtypeEnum getType() { 
+    	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
     
     /* Accessors */

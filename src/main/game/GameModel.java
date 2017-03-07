@@ -9,7 +9,8 @@ import game.commands.MoveCommand;
 import game.entities.EntityId;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
-import game.mode.ControlMode;
+import game.mode.ModeController;
+import game.mode.SelectedEntityManager;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
@@ -22,7 +23,6 @@ public class GameModel {
     private ArrayList<MoveCommand> moveCommands = new ArrayList<MoveCommand>();
     private ArrayList<Location> moveLocations = new ArrayList<Location>();
     private Location lastMoveLocation;
-    private EntityId selectedEntity; 
     private boolean gameHasStarted = false;
     
     public void initializeGame() {
@@ -85,9 +85,5 @@ public class GameModel {
     
     public Player getPlayer(int playerID) {
         return players.get(playerID);
-    }
-    
-    public EntityId getSelectedEntity() {
-    	return selectedEntity;
     }
 }

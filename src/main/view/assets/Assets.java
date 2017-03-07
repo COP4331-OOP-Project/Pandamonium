@@ -151,9 +151,9 @@ public class Assets {
         loadItem("RALLY_POINT_SELECTED", "assets/images/rallyPoint/selectedRallyPoint.png");
         loadItem("DETAILS_PANEL", "assets/images/detailsPanel/detailsPanel.png");
         loadItem("MOVE_SELECTED", "assets/images/tileCovering/moveSelected.png");
-        loadItem("TILE_INVISIBLE1", "assets/images/tileCovering/fog1.png");
-        loadItem("TILE_INVISIBLE2", "assets/images/tileCovering/fog2.png");
-        loadItem("TILE_INVISIBLE3", "assets/images/tileCovering/fog3.png");
+        loadItem("TILE_FOG1", "assets/images/tileCovering/fog1.png");
+        loadItem("TILE_FOG2", "assets/images/tileCovering/fog2.png");
+        loadItem("TILE_FOG3", "assets/images/tileCovering/fog3.png");
         loadItem("TILE_SEMI_VISIBLE", "assets/images/tileCovering/semiVisible.png");
         loadItem("AOE_DIE", "assets/images/areaEffect/loseHealth.png");
         loadItem("AOE_LOSE", "assets/images/areaEffect/redCross.png");

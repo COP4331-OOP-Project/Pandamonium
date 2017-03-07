@@ -2,15 +2,15 @@ package view;
 
 import game.GameModel;
 import game.gameboard.SimpleTile;
-import game.mode.ControlMode;
+import game.mode.ModeController;
 import game.mode.Mode;
 import game.mode.Submode;
 
 public class GameModelAdapter {
 	GameModel gameModel;
-	ControlMode controlMode;
+	ModeController controlMode;
 	
-	public GameModelAdapter(GameModel gameModel, ControlMode controlMode) {
+	public GameModelAdapter(GameModel gameModel, ModeController controlMode) {
 		this.gameModel = gameModel;
 		this.controlMode = controlMode;
 	}
