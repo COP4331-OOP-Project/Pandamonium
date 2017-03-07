@@ -5,6 +5,7 @@ import java.awt.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import game.entities.structures.StructureType;
 import javafx.scene.image.Image;
 import view.Animation;
 import view.GameModelAdapter;
@@ -32,23 +33,28 @@ public class StructureDrawer {
    			 										  assetManager.getImage("POWER_PLANT_PANDA3")}, 50);
     }
 
-    protected void drawBase(Point p, int player, int rotation) {
-        switch (player) {
-            case 0:
-                gamePanel.drawStaticTileElement(p, "BASE_O");
-                break;
-            case 1:
-                gamePanel.drawStaticTileElement(p, "BASE_B");
-                break;
-            case 2:
-                gamePanel.drawStaticTileElement(p, "BASE_Y");
-                break;
-            case 3:
-                gamePanel.drawStaticTileElement(p, "BASE_G");
-                break;
-            default:
-                log.warn("Invalid player specific for drawing base");
+    public void drawStructure(Point p, int player, StructureType type) {
+        switch (type) {
+        case CAPITOL :
+        	if (player == 0)
+        		gamePanel.drawStaticTileElement(p, "BASE_HUMAN");
+        	else
+        		gamePanel.drawStaticTileElement(p, "BASE_PANDA");
+        	break;
+        case PLANT :
+        	if (player == 0)
+        		gamePanel.drawAnimatedTileElement(p, powerPlantHuman);
+        	else
+        		gamePanel.drawAnimatedTileElement(p, powerPlantPanda);
+        	break;
+        case OBSERVE:
+        	if (player == 0)
+        		gamePanel.drawStaticTileElement(p, "OBSERVATION_TOWER_HUMAN");
+        	else
+        		gamePanel.drawStaticTileElement(p, "OBSERVATION_TOWER_PANDA");
+        	break;
+		default:
+			break;
         }
-        gamePanel.drawStaticTileElement(p, rotation, "BASE_ARROW");
     }
 }

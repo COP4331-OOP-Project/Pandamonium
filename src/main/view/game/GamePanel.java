@@ -2,6 +2,7 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
 import javafx.scene.canvas.GraphicsContext;
@@ -72,14 +73,17 @@ public class GamePanel extends Panel {
                 //Draw Tiles
                 tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
                 
-            /*
-                //Draw Structures
-                if (tile.containsStructure) {
-                    Structure structure = tile.getStructure();
-                    structureDrawer.drawBase(p,
-                            structure.getOwnerID(), structure.getRotation());
+                if (tile.getUnitCount() > 0) {
+                    for (Unit unit : tile.getUnits()) {
+                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
+                    }
                 }
-
+           
+                if (tile.getStructure() != null) {
+                    Structure structure = tile.getStructure();
+                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
+                }
+                /*
                 //Draw Armies
                 if (tile.containsArmy) {
                     for (Army army : tile.getArmies()) {
@@ -93,12 +97,7 @@ public class GamePanel extends Panel {
                 }
                 
             */
-                //Draw Units
-                if (tile.getUnitCount() > 0) {
-                    for (Unit unit : tile.getUnits()) {
-                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
-                    }
-                }
+
             }
          }   
     }
