@@ -3,6 +3,7 @@ package game.mode;
 import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
+import game.entities.EntityId;
 
 public class ModeController {
 	private Mode currentMode = Mode.RALLY_POINT;
@@ -66,19 +67,15 @@ public class ModeController {
 		selectedManager.cycle(true);
 	}
 
+	public void endTurn() {
+		gameModel.endTurn();
+	}
+	
 	public CommandEnum executeCommand() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void centerOnCurrentTypeInstance() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void endTurn() {
-		gameModel.endTurn();
-	}
 
 	public void addMoveToList(int degrees) {
 		// TODO Auto-generated method stub
@@ -115,5 +112,9 @@ public class ModeController {
 
 	public void setSubmode(Submode submode) {
 		currentSubmode = submode;
+	}
+
+	public EntityId getSelectedEntity() {
+		return selectedManager.getSelectedEntity();
 	}
 }

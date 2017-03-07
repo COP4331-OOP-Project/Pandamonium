@@ -38,7 +38,7 @@ public class SideBarPanel extends Panel{
     	visibilityButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //Show visibility toggle panel
+                panelManager.toggleToggler();
             }
         });
     	setUpButton(unitButton, getAssets().getImage("ICON_HUMAN_HEAD"));

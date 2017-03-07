@@ -73,6 +73,7 @@ public class Assets {
         loadItem("MENU_BACKGROUND", "assets/images/menu/menuBackground.jpg");
         loadItem("GAME_BACKGROUND", "assets/images/menu/gameBackground.jpg");
         loadItem("GUI_TOP", "assets/images/gui/topBar.png");
+        loadItem("GUI_TOGGLE", "assets/images/gui/toggleBar.png");
         loadItem("GUI_SIDE", "assets/images/gui/sideBar.png");
         loadItem("GUI_HOVER", "assets/images/gui/hover.png");
         loadItem("GUI_MAP_BAR", "assets/images/gui/mapMakerBar.png");
@@ -186,6 +187,8 @@ public class Assets {
         loadItem("ICON_STRUCTURE", "assets/images/icon/structure.png");
         loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
         loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
+        loadItem("CHECKED", "assets/images/icon/checked.png");
+        loadItem("UNCHECKED", "assets/images/icon/unChecked.png");
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
         loadItem("HEALTH_BAR_FILL", "assets/images/health/healthBarFilling.png");
     }

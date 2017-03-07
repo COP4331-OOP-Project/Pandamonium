@@ -1,6 +1,7 @@
 package view;
 
 import game.GameModel;
+import game.entities.EntityId;
 import game.gameboard.SimpleTile;
 import game.mode.ModeController;
 import game.mode.Mode;
@@ -62,6 +63,10 @@ public class GameModelAdapter {
 	
 	public int getCurrentPower() {
 		return (int)gameModel.getCurrentPlayer().getPower().getAmount();
+	}
+
+	public EntityId getSelectedEntity() {
+		return controlMode.getSelectedEntity();
 	}
 	
 }

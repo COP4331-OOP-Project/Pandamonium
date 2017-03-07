@@ -41,6 +41,7 @@ public class CommandPanel extends Panel{
 	
 	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
 		super(gameModelAdapter, assets, view);
+		setIsVisible(false);
 		this.root = root;
 		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
 		setUpToggleButton(commandBuild, getAssets().getImage("COMMAND_BUILD"));

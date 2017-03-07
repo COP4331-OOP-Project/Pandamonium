@@ -7,5 +7,4 @@ public abstract class Command {
     public abstract void exec();                            // Basic execute signature for commands
     public int getDuration() { return duration; }           // Get time until activation
     public void iterateDuration() { this.duration--; }      // Iterate activation time
-
 }

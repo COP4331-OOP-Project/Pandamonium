@@ -102,7 +102,7 @@ public class KeyEventController {
             }
         } else if (key == controlReader.getControl(CENTER)) {
         	log.debug("Center key pressed");
-        	controlMode.centerOnCurrentTypeInstance();
+        	view.centerOnCurrentTypeInstance();
 
         } else if (key == controlReader.getControl(END_TURN)) {
             log.debug("End turn key pressed");

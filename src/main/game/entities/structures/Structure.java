@@ -9,11 +9,8 @@ import game.gameboard.Location;
 
 public class Structure extends Entity {
     protected StructureStats stats;
-
-
     public Structure(StructureStats stats, Location location , EntityId entityId ){
         super(location, entityId);
-
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new Percentage();

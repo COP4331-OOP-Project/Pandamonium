@@ -16,6 +16,7 @@ import view.game.SideBarPanel;
 import view.game.StructureDetailsPanel;
 import view.game.StructureOverviewPanel;
 import view.game.TechOverviewPanel;
+import view.game.ToggleBarPanel;
 import view.game.UnitDetailsPanel;
 import view.game.UnitOverviewPanel;
 import view.screen.MainMenuPanel;
@@ -38,6 +39,7 @@ public class PanelManager {
 	private UnitOverviewPanel unitOverviewPanel;
 	private StructureOverviewPanel structureOverviewPanel;
 	private TechOverviewPanel techOverviewPanel;
+	private ToggleBarPanel toggleBarPanel;
 	private UnitDetailsPanel unitDetailsPanel;
 	private StructureDetailsPanel structureDetailsPanel;
 	private MainMenuPanel mainMenuPanel;
@@ -77,6 +79,8 @@ public class PanelManager {
 		panels.add(unitOverviewPanel);
 		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(techOverviewPanel);
+		toggleBarPanel = new ToggleBarPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_GAME);
+		panels.add(toggleBarPanel);
 		splashPanel = new SplashPanel(gameModelAdapter, group, this, assets, ViewEnum.SPLASH);
 		panels.add(splashPanel);
 		mainMenuPanel = new MainMenuPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_MENU);
@@ -89,6 +93,7 @@ public class PanelManager {
 	
 	public void drawPanels(Point screenDimensions, long currentPulse) {
 		musicManager.updateMusic(currentViewMode);
+    	commandPanel.setIsVisible(gameModelAdapter.getSelectedEntity() != null);
 		for (Panel panel : panels) {
 			panel.drawPanel(g, screenDimensions, currentViewMode, currentPulse);
 		}
@@ -126,5 +131,13 @@ public class PanelManager {
 	    	structureOverviewPanel.hideIfVisible();
 	        techOverviewPanel.toggle();
 		}
+	}
+
+	public void toggleToggler() {
+		toggleBarPanel.toggle();
+	}
+
+	public void toggleMiniMap() {
+		miniMapPanel.toggle();
 	}
 }

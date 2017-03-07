@@ -77,4 +77,8 @@ public class View {
 	public void toggleStructureOverview() {
 		panelManager.toggleStructureOverview();
 	}
+
+	public void centerOnCurrentTypeInstance() {
+		
+	}
 }
