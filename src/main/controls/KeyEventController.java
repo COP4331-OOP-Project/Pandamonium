@@ -14,18 +14,18 @@ import javafx.scene.input.KeyEvent;
 import view.View;
 
 public class KeyEventController {
-
     private final static Logger log = LogManager.getLogger(KeyEventController.class);
-    ModeController controlMode;
-    View view;
-    Scene scene;
-    ControlFileReader controlReader;
 	private static final String HUMAN_CONFIG_FILE = "assets/data/hctrl.dat";
 	private static final String PANDA_CONFIG_FILE = "assets/data/pctrl.dat";
-	File humanControlsFile = new File(HUMAN_CONFIG_FILE);
-	File pandaControlsFile = new File(PANDA_CONFIG_FILE);
+	private File humanControlsFile = new File(HUMAN_CONFIG_FILE);
+	private File pandaControlsFile = new File(PANDA_CONFIG_FILE);
+    private ModeController controlMode;
+    private View view;
+    private Scene scene;
+    private ControlFileReader controlReader;
     private boolean gettingMoves = false;
     private boolean gettingMakeList = false;
+    private int currentPlayerControls = 1;
 	private static final String COMMAND_UP = "COMMAND_UP";
 	private static final String COMMAND_DOWN = "COMMAND_DOWN";
 	private static final String COMMAND_LEFT = "COMMAND_LEFT";
@@ -195,4 +195,12 @@ public class KeyEventController {
         });
     }
 
+	public void togglePlayer() {
+		currentPlayerControls = (currentPlayerControls + 1) % 2;
+		if (currentPlayerControls == 0) {
+			controlReader.loadControls(humanControlsFile);
+		} else {
+			controlReader.loadControls(pandaControlsFile);
+		}
+	}
 }

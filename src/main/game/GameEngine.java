@@ -46,6 +46,7 @@ public class GameEngine extends Application {
         view = new View(gameModelAdapter, scene, root);
         keyEvents = new KeyEventController(controlMode, view, scene);
         keyEvents.handleEvents();
+        controlMode.setKeyEventController(keyEvents);
         mouseEvents = new MouseEventController(gameModel, view, scene);
         mouseEvents.handleEvents();
         new AnimationTimer() {

@@ -1,5 +1,6 @@
 package game.mode;
 
+import controls.KeyEventController;
 import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
@@ -11,6 +12,7 @@ public class ModeController {
 	private SelectedEntityManager selectedManager;
 	private GameModel gameModel;
 	private Player currentPlayer;
+	private KeyEventController keyEventController;
 	
 	public ModeController(GameModel gameModel) {
 		this.gameModel = gameModel;
@@ -24,6 +26,7 @@ public class ModeController {
 			currentMode = Mode.RALLY_POINT;
 			currentSubmode = Submode.RALLY_POINT;
 			selectedManager.newPlayer();
+			keyEventController.togglePlayer();
 		}
 	}
 	
@@ -116,5 +119,9 @@ public class ModeController {
 
 	public EntityId getSelectedEntity() {
 		return selectedManager.getSelectedEntity();
+	}
+	
+	public void setKeyEventController(KeyEventController event) {
+		keyEventController = event;
 	}
 }
