@@ -5,6 +5,9 @@ import java.awt.Point;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
+import game.gameboard.TerrainEnum;
+import game.gameboard.TileVisibilityEnum;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
@@ -16,6 +19,7 @@ import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
 import view.game.drawers.ArmyDrawer;
+import view.game.drawers.ResourceDrawer;
 import view.game.drawers.SelectedDrawer;
 import view.game.drawers.StructureDrawer;
 import view.game.drawers.TileDrawer;
@@ -23,7 +27,6 @@ import view.game.drawers.UnitDrawer;
 
 public class GamePanel extends Panel {
     private static final int TILE_PIXEL_SIZE = 130;
-    Font tileFont = new Font("Lucida Sans", 20);
     private Camera camera;
     private long currentPulse;
     private TileDrawer tileDrawer;
@@ -31,20 +34,25 @@ public class GamePanel extends Panel {
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private SelectedDrawer selectedDrawer;
+    private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
 	private Point screenDimensions;
 	private AssetManager assets;
+	private ViewEnum view;
+	private boolean resourcesVisible = false;
 
-    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
+    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view, Group root) {
     	super(gameModelAdapter, assets, view);
     	this.camera = camera;
     	this.assets = assets;
+    	this.view = view;
         screenDimensions = new Point();
-        tileDrawer = new TileDrawer(this, gameModelAdapter, assets);
+        tileDrawer = new TileDrawer(this, assets);
         unitDrawer = new UnitDrawer(this, gameModelAdapter, assets);
         armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
         structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
         selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
+        resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
@@ -68,36 +76,39 @@ public class GamePanel extends Panel {
         for (int i = 0; i < currentTiles.length; i++) {
             for (int j = 0; j < currentTiles[i].length; j++) {
                 SimpleTile tile = currentTiles[i][j];
-                Point p = new Point(i, j);
-
-                //Draw Tiles
-                tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
-                
-                if (tile.getUnitCount() > 0) {
-                    for (Unit unit : tile.getUnits()) {
-                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
-                    }
+                if (tile.getTileType() != TerrainEnum.NON_TILE) {
+	                Point p = new Point(i, j);
+	
+	                //Draw Tiles
+	                tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
+	                if (tile.getVisibility() != TileVisibilityEnum.INVISIBLE && resourcesVisible) {
+	                	resourceDrawer.drawResources(tile, p, g);
+	                }
+	                if (tile.getUnitCount() > 0) {
+	                    for (Unit unit : tile.getUnits()) {
+	                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
+	                    }
+	                }
+	           
+	                if (tile.getStructure() != null) {
+	                    Structure structure = tile.getStructure();
+	                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
+	                }
+	                /*
+	                //Draw Armies
+	                if (tile.containsArmy) {
+	                    for (Army army : tile.getArmies()) {
+	                        armyDrawer.drawArmy(p, army.getOwnerID(),
+	                                army.getRotation(), army.getAllUnits().size());
+	                    }
+	                } else if (tile.containsArmy && tile.getUnits().size() > 0) {
+	                    // this is so wrong but might work for demo
+	                    armyDrawer.drawArmy(p,
+	                            tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
+	                }
+	                
+	            */
                 }
-           
-                if (tile.getStructure() != null) {
-                    Structure structure = tile.getStructure();
-                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
-                }
-                /*
-                //Draw Armies
-                if (tile.containsArmy) {
-                    for (Army army : tile.getArmies()) {
-                        armyDrawer.drawArmy(p, army.getOwnerID(),
-                                army.getRotation(), army.getAllUnits().size());
-                    }
-                } else if (tile.containsArmy && tile.getUnits().size() > 0) {
-                    // this is so wrong but might work for demo
-                    armyDrawer.drawArmy(p,
-                            tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
-                }
-                
-            */
-
             }
          }   
     }
@@ -142,6 +153,10 @@ public class GamePanel extends Panel {
         return TILE_PIXEL_SIZE;
     }
 
+    public void toggleResources() {
+    	resourcesVisible = !resourcesVisible;
+    }
+    
 	public void hideGUIElements() {
 	}
 

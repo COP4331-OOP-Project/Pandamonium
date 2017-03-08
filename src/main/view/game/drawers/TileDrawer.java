@@ -17,7 +17,7 @@ public class TileDrawer {
     Animation mountainAnimation;
     Animation fogAnimation;
     
-    public TileDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assetManager) {
+    public TileDrawer(GamePanel gamePanel, AssetManager assetManager) {
         this.gamePanel = gamePanel;
         grassAnimation = new Animation(new Image[] {  assetManager.getImage("TERRAIN_GRASS1"),
 												 	  assetManager.getImage("TERRAIN_GRASS2"), 
