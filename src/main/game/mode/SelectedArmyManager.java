@@ -6,7 +6,6 @@ import game.GameModel;
 import game.Player;
 import game.entities.Army;
 import game.entities.EntityId;
-import game.entities.RallyPoint;
 import game.gameboard.Location;
 
 public class SelectedArmyManager {

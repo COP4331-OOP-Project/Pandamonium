@@ -25,14 +25,15 @@ public class GameEngine extends Application {
 	private ModeController controlMode;
 	private GameModel gameModel;
 	private GameModelAdapter gameModelAdapter;
+	
     @Override
     public void start(Stage stage) {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
         //stage.setFullScreen(true);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         //stage.setMaximized(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {

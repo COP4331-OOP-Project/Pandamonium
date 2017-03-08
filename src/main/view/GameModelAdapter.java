@@ -3,8 +3,8 @@ package view;
 import game.GameModel;
 import game.entities.EntityId;
 import game.gameboard.SimpleTile;
-import game.mode.ModeController;
 import game.mode.Mode;
+import game.mode.ModeController;
 import game.mode.Submode;
 
 public class GameModelAdapter {

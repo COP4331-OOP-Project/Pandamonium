@@ -2,8 +2,6 @@ package view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.Rotate;
 
 public class Animation {
 	 private Image[] animationImages;

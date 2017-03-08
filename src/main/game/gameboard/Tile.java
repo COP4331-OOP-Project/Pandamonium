@@ -1,17 +1,19 @@
 package game.gameboard;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import game.entities.Army;
+import game.entities.EntityId;
+import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import game.visitors.iTileActionVisitor;
-import game.entities.Army;
-import game.entities.EntityId;
-import game.entities.RallyPoint;
-import java.util.ArrayList;
-import java.util.Random;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 // Tile class for gameboard
 public class Tile implements iTileAccessors {

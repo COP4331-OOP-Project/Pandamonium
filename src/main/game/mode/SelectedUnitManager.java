@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import game.GameModel;
 import game.Player;
 import game.entities.EntityId;
-import game.entities.RallyPoint;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 

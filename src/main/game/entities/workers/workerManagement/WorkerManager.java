@@ -1,17 +1,16 @@
 package game.entities.workers.workerManagement;
 
-import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
+import java.util.ArrayList;
+
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
-import game.entities.workers.workerManagement.WorkerIdManager;
 import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistException;
 import game.entities.workers.workerManagement.exceptions.WorkerLimitExceededException;
+import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
 import game.resources.Resource;
-
-import java.util.ArrayList;
 
 public class WorkerManager implements iWorkerResearchObserver {
 

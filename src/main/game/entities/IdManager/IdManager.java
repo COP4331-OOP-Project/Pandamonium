@@ -1,10 +1,9 @@
 package game.entities.IdManager;
 
+import java.util.TreeSet;
+
 import game.entities.IdManager.exceptions.IdDoesNotExistException;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
-import game.entities.IdManager.exceptions.InvalidIdRangeException;
-
-import java.util.*;
 
 /**
  * Created by gavin on 2/22/17.

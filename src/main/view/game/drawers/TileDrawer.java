@@ -1,6 +1,7 @@
 package view.game.drawers;
 
 import java.awt.Point;
+
 import game.gameboard.TerrainEnum;
 import game.gameboard.TileVisibilityEnum;
 import javafx.scene.image.Image;

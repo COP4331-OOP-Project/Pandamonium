@@ -6,22 +6,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import game.commands.MoveCommand;
-import game.entities.EntityId;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
-import game.mode.ModeController;
-import game.mode.SelectedEntityManager;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
 	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
     private final static Logger log = LogManager.getLogger(GameModel.class);
     private Player currentPlayer;
-    private ArrayList<Player> players;
     private Gameboard gBoard;
-    private int turnNum = 0;
+    private ArrayList<Player> players;
     private ArrayList<MoveCommand> moveCommands = new ArrayList<MoveCommand>();
     private ArrayList<Location> moveLocations = new ArrayList<Location>();
+    private int turnNum = 0;
     private Location lastMoveLocation;
     private boolean gameHasStarted = false;
     

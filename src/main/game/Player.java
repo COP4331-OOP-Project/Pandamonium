@@ -2,19 +2,9 @@ package game;
 
 import java.util.ArrayList;
 
-import javax.lang.model.UnknownEntityException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.sun.javafx.print.Units;
-
-import game.entities.structures.Capitol;
-import game.entities.structures.Farm;
-import game.entities.structures.Fort;
-import game.entities.structures.Mine;
-import game.entities.structures.ObservationTower;
-import game.entities.structures.PowerPlant;
 import game.entities.Army;
 import game.entities.EntitySubtypeEnum;
 import game.entities.RallyPoint;
@@ -23,6 +13,12 @@ import game.entities.factories.exceptions.ColonistLimitExceededException;
 import game.entities.factories.exceptions.ExplorerLimitExceededException;
 import game.entities.factories.exceptions.MeleeLimitExceededException;
 import game.entities.factories.exceptions.RangedLimitExceededException;
+import game.entities.structures.Capitol;
+import game.entities.structures.Farm;
+import game.entities.structures.Fort;
+import game.entities.structures.Mine;
+import game.entities.structures.ObservationTower;
+import game.entities.structures.PowerPlant;
 import game.entities.structures.Structure;
 import game.entities.structures.University;
 import game.entities.units.Colonist;

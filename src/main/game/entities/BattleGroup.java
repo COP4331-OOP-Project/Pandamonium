@@ -1,11 +1,11 @@
 package game.entities;
 
-import game.entities.units.BattleGroupUnit;
-import game.entities.stats.UnitStats;
-import game.gameboard.Location;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import game.entities.stats.UnitStats;
+import game.entities.units.BattleGroupUnit;
+import game.gameboard.Location;
 
 public class BattleGroup implements iAttacker{
     private ArrayList<BattleGroupUnit> bgUnits;

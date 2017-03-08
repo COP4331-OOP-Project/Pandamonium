@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.ColorAdjust;
 import view.assets.AssetManager;
-import view.game.ControlModePanel;
 
 public class HealthBarDrawer{
 	private final static Logger log = LogManager.getLogger(HealthBarDrawer.class);

@@ -3,12 +3,15 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
+import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.IdManager.IdManager;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
 import game.entities.factories.exceptions.ColonistLimitExceededException;
-import game.entities.factories.exceptions.*;
+import game.entities.factories.exceptions.ExplorerLimitExceededException;
+import game.entities.factories.exceptions.MeleeLimitExceededException;
+import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
@@ -17,7 +20,6 @@ import game.entities.units.Ranged;
 import game.entities.units.Unit;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
-import game.entities.EntityId;
 
 public class UnitFactory {
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;

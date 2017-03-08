@@ -1,7 +1,6 @@
 package game.mode;
 
 import game.GameModel;
-import game.Player;
 import game.entities.EntityId;
 import game.gameboard.Location;
 

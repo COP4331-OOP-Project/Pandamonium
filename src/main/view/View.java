@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Point;
 import java.io.File;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

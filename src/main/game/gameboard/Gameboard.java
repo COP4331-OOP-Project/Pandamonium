@@ -2,10 +2,11 @@ package game.gameboard;
 
 import java.io.File;
 import java.util.ArrayList;
-import game.Player;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import game.Player;
 
 public class Gameboard {
 	private static final int BOARD_SIZE = 42;

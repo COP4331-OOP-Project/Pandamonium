@@ -1,8 +1,8 @@
 package game.entities.workers.workerTypes;
 
+import game.entities.EntityId;
 import game.entities.workers.workerStats.WorkerStats;
 import game.gameboard.Location;
-import game.entities.EntityId;
 import game.resources.Resource;
 
 public abstract class Worker {

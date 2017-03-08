@@ -1,8 +1,10 @@
 package game.gameboard;
 
 import java.util.ArrayList;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import game.Player;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.ObservationTower;

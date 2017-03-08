@@ -1,7 +1,7 @@
 package game.entities.stats;
 
-import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.EntitySubtypeEnum;
+import game.entities.structures.exceptions.StructureNotFoundException;
 
 public class StructureStats {
     private int offPow;         // Damage dealt when attacking [Fort only]
