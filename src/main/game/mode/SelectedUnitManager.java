@@ -16,14 +16,15 @@ public class SelectedUnitManager {
 	private Player currentPlayer;
 	private ArrayList<Unit> units;
 	private int selectedElement = -1;
-	
-	public SelectedUnitManager(GameModel gameModel, ModeController controlMode) {
+
+	public SelectedUnitManager(GameModel gameModel,
+			ModeController controlMode) {
 		this.gameModel = gameModel;
 		this.controlMode = controlMode;
 	}
-	
+
 	public void updatePlayer() {
-		currentPlayer  = gameModel.getCurrentPlayer();
+		currentPlayer = gameModel.getCurrentPlayer();
 		units = currentPlayer.getUnits();
 		if (units.size() > 0) {
 			cycle(true);
@@ -34,7 +35,7 @@ public class SelectedUnitManager {
 		}
 		cycle(true);
 	}
-	
+
 	public EntityId getSelected() {
 		if (selectedUnit != null)
 			return selectedUnit.getEntityId();
@@ -50,16 +51,17 @@ public class SelectedUnitManager {
 		if (units.size() > 0) {
 			if (selectedElement == -1) {
 				selectedElement = 0;
-			} 
+			}
 			int startingElement = selectedElement;
-			while(selectedElement != startingElement) {
+			while (selectedElement != startingElement) {
 				if (forward) {
 					iterateForward();
 				} else {
 					iterateBackward();
 				}
 				selectedUnit = units.get(selectedElement);
-				if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
+				if (submodeFromUnit(selectedUnit) == controlMode
+						.getGameSubmode()) {
 					break;
 				}
 			}
@@ -79,15 +81,15 @@ public class SelectedUnitManager {
 
 	private Submode submodeFromUnit(Unit unit) {
 		switch (unit.getType()) {
-			case COLONIST:
+			case COLONIST :
 				return Submode.COLONIST;
-			case EXPLORER:
+			case EXPLORER :
 				return Submode.EXPLORER;
-			case MELEE:
+			case MELEE :
 				return Submode.MELEE;
-			case RANGE:
+			case RANGE :
 				return Submode.RANGED;
-			default:
+			default :
 				return null;
 		}
 	}
@@ -95,13 +97,12 @@ public class SelectedUnitManager {
 	private void iterateForward() {
 		selectedElement = selectedElement + 1 % units.size();
 	}
-	
+
 	private void iterateBackward() {
 		selectedElement--;
 		if (selectedElement == -1) {
 			selectedElement = units.size();
 		}
 	}
-
 
 }

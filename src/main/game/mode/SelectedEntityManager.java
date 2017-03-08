@@ -13,8 +13,9 @@ public class SelectedEntityManager {
 	private Location selectedLocation;
 	private ModeController controlMode;
 	private GameModel gameModel;
-	
-	public SelectedEntityManager(GameModel gameModel, ModeController controlMode) {
+
+	public SelectedEntityManager(GameModel gameModel,
+			ModeController controlMode) {
 		this.controlMode = controlMode;
 		this.gameModel = gameModel;
 		rallyManager = new SelectedRallyPointManager(gameModel, controlMode);
@@ -23,31 +24,30 @@ public class SelectedEntityManager {
 		armyManager = new SelectedArmyManager(gameModel, controlMode);
 	}
 
-
 	public void newPlayer() {
-			selectedEntity = null;
-			selectedLocation = null;
-			rallyManager.updatePlayer();
-			structureManager.updatePlayer();
-			unitManager.updatePlayer();
-			armyManager.updatePlayer();
+		selectedEntity = null;
+		selectedLocation = null;
+		rallyManager.updatePlayer();
+		structureManager.updatePlayer();
+		unitManager.updatePlayer();
+		armyManager.updatePlayer();
 	}
-	
+
 	public void setSelectedEntity(EntityId selectedEntity) {
 		this.selectedEntity = selectedEntity;
 	}
-	
+
 	public EntityId getSelectedEntity() {
 		return selectedEntity;
 	}
-	
+
 	public Location getSelectedLocation() {
 		return selectedLocation;
 	}
 
 	public void cycle(boolean forward) {
 		switch (controlMode.getGameMode()) {
-			case RALLY_POINT:
+			case RALLY_POINT :
 				rallyManager.cycle(forward);
 				if (rallyManager.getSelected() != null) {
 					selectedEntity = rallyManager.getSelected();
@@ -57,7 +57,7 @@ public class SelectedEntityManager {
 					selectedLocation = null;
 				}
 				break;
-			case STRUCTURE:
+			case STRUCTURE :
 				structureManager.cycle(forward);
 				if (structureManager.getSelected() != null) {
 					selectedEntity = structureManager.getSelected();
@@ -67,7 +67,7 @@ public class SelectedEntityManager {
 					selectedLocation = null;
 				}
 				break;
-			case UNIT:
+			case UNIT :
 				unitManager.cycle(forward);
 				if (unitManager.getSelected() != null) {
 					selectedEntity = unitManager.getSelected();
@@ -77,7 +77,7 @@ public class SelectedEntityManager {
 					selectedLocation = null;
 				}
 				break;
-			case ARMY:
+			case ARMY :
 				armyManager.cycle(forward);
 				if (armyManager.getSelected() != null) {
 					selectedEntity = armyManager.getSelected();
@@ -87,7 +87,7 @@ public class SelectedEntityManager {
 					selectedLocation = null;
 				}
 				break;
-			default:
+			default :
 		}
 	}
 }

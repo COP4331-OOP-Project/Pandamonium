@@ -15,8 +15,6 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class MiniMapPanel extends Panel {
-   
-
 	private static final int HEX_SIZE = 12;
     private static final int HEX_HEIGHT = 10;
     private static final int DISTANCE_FROM_RIGHT = 390;
