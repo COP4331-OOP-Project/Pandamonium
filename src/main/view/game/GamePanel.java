@@ -41,7 +41,7 @@ public class GamePanel extends Panel {
 	private ViewEnum view;
 	private boolean resourcesVisible = false;
 
-    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view, Group root) {
+    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
     	this.camera = camera;
     	this.assets = assets;

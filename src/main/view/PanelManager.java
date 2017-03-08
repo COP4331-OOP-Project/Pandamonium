@@ -56,7 +56,7 @@ public class PanelManager {
 		this.assets = assets;
 		musicManager = new MusicManager(assets, group);
 		panels = new ArrayList<Panel>();
-		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME, group);
+		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
 		panels.add(gamePanel);
 		civilizationPanel = new CivilizationPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(civilizationPanel);
