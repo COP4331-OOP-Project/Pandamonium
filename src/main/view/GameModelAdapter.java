@@ -10,7 +10,7 @@ import game.mode.Submode;
 public class GameModelAdapter {
 	GameModel gameModel;
 	ModeController controlMode;
-	
+
 	public GameModelAdapter(GameModel gameModel, ModeController controlMode) {
 		this.gameModel = gameModel;
 		this.controlMode = controlMode;
@@ -19,7 +19,7 @@ public class GameModelAdapter {
 	public void startGame() {
 		gameModel.initializeGame();
 	}
-	
+
 	public SimpleTile[][] getCurrentTiles() {
 		return gameModel.getCurrentPlayer().getSimpleTiles();
 	}
@@ -35,7 +35,7 @@ public class GameModelAdapter {
 	public void setMode(Mode mode) {
 		controlMode.setMode(mode);
 	}
-	
+
 	public void setSubmode(Submode submode) {
 		controlMode.setSubmode(submode);
 	}
@@ -52,21 +52,21 @@ public class GameModelAdapter {
 		return gameModel.getTurnNum();
 	}
 
-	//Yes I know these violate LoD
-	public int getCurrentFood() {
-		return (int)gameModel.getCurrentPlayer().getMetal().getAmount();
+	// Yes I know these violate LoD
+	public int getCurrentNutrients() {
+		return (int) gameModel.getCurrentPlayer().getNutrients().getAmount();
 	}
-	
+
 	public int getCurrentMetal() {
-		return (int)gameModel.getCurrentPlayer().getMetal().getAmount();
+		return (int) gameModel.getCurrentPlayer().getMetal().getAmount();
 	}
-	
+
 	public int getCurrentPower() {
-		return (int)gameModel.getCurrentPlayer().getPower().getAmount();
+		return (int) gameModel.getCurrentPlayer().getPower().getAmount();
 	}
 
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
 	}
-	
+
 }
