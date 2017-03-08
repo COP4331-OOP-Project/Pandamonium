@@ -8,23 +8,25 @@ import view.assets.AssetManager;
 public abstract class Panel {
 	private ViewEnum viewEnum;
 	private AssetManager assets;
+	private GameModelAdapter gameModelAdapter;
     private boolean isVisible = true;
     private boolean GUIVisible = false;
     
-    public abstract void draw(GraphicsContext gc, Point screenDimensions);
+    public abstract void draw(GraphicsContext g, Point screenDimensions, long currentPulse);
 
     public abstract void hideGUIElements();
     
     public abstract void showGUIElements();
     
-    public Panel(AssetManager assets, ViewEnum viewEnum) {
+    public Panel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	this.gameModelAdapter = gameModelAdapter;
     	this.assets = assets;
     	this.viewEnum = viewEnum;
     }
     
-    public void drawPanel(GraphicsContext gc, Point screenDimensions, ViewEnum gameMode) {
+    public void drawPanel(GraphicsContext g, Point screenDimensions, ViewEnum gameMode, long currentPulse) {
     	if (gameMode == viewEnum && isVisible) {
-    		draw(gc, screenDimensions);
+    		draw(g, screenDimensions, currentPulse);
     		if (!GUIVisible) {
     			GUIVisible = true;
     			showGUIElements();
@@ -48,4 +50,12 @@ public abstract class Panel {
     public AssetManager getAssets() {
     	return assets;
     }
+    
+    public GameModelAdapter getAdapter() {
+    	return gameModelAdapter;
+    }
+    
+	public void toggle() {
+		isVisible = !isVisible;
+	}
 }

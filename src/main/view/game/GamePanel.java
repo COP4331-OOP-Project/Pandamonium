@@ -2,11 +2,16 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.structures.Structure;
+import game.entities.units.Unit;
+import game.gameboard.SimpleTile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
+import view.Animation;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -20,59 +25,65 @@ public class GamePanel extends Panel {
     private static final int TILE_PIXEL_SIZE = 130;
     Font tileFont = new Font("Lucida Sans", 20);
     private Camera camera;
+    private long currentPulse;
     private TileDrawer tileDrawer;
     private UnitDrawer unitDrawer;
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private SelectedDrawer selectedDrawer;
-    private GraphicsContext gc;
+    private GraphicsContext g;
 	private Point screenDimensions;
+	private AssetManager assets;
 
-    public GamePanel(AssetManager assets, Camera camera, ViewEnum view) {
-    	super(assets, view);
+    public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
+    	super(gameModelAdapter, assets, view);
+    	this.camera = camera;
+    	this.assets = assets;
         screenDimensions = new Point();
-        tileDrawer = new TileDrawer(this);
-        unitDrawer = new UnitDrawer(this);
-        armyDrawer = new ArmyDrawer(this);
-        structureDrawer = new StructureDrawer(this);
-        selectedDrawer = new SelectedDrawer(this);
+        tileDrawer = new TileDrawer(this, gameModelAdapter, assets);
+        unitDrawer = new UnitDrawer(this, gameModelAdapter, assets);
+        armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
+        structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
+        selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
     }
 
-    @Override
-    public void draw(GraphicsContext gc, Point screenDimensions) {
-		//gc.drawImage(Assets.getInstance().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+    	this.currentPulse = currentPulse;
+		g.drawImage(assets.getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
-        this.gc = gc;
+        this.g = g;
         /*
         Point selected = new Point(game.getCenterCoordinates().getX(),
 				   game.getCenterCoordinates().getY());
 		*/
-        //camera.reAlign(selected);
+        camera.adjustZoom(screenDimensions);
+        //camera.centerToSelected(selected, screenDimensions);
         drawAllItems();
         //selectedDrawer.drawSelectedItemOutline();
         //tileDrawer.drawMovingTiles();
     }
 
 	private void drawAllItems() {
-		/*
-        for (int i = 0; i < game.getGameBoard().getTiles().length; i++) {
-            for (int j = 0; j < game.getGameBoard().getTiles()[i].length; j++) {
-                Tile tile = game.getGameBoard().getTiles()[i][j];
-                Point p = new Point(tile.getLocation().getX(), tile.getLocation().getY());
+		SimpleTile[][] currentTiles = getAdapter().getCurrentTiles();
+        for (int i = 0; i < currentTiles.length; i++) {
+            for (int j = 0; j < currentTiles[i].length; j++) {
+                SimpleTile tile = currentTiles[i][j];
+                Point p = new Point(i, j);
 
                 //Draw Tiles
-                tileDrawer.drawTile(p, tile.getTileType());
-                if (tile.getUnits().size() > 1 && !tile.containsArmy) {
-                    getgc().fillText("" + tile.getUnits().size()
-                            , getCamera().offset(p).x + 5, getCamera().offset(p).y + 22);
+                tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
+                
+                if (tile.getUnitCount() > 0) {
+                    for (Unit unit : tile.getUnits()) {
+                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
+                    }
                 }
-                //Draw Structures
-                if (tile.containsStructure) {
+           
+                if (tile.getStructure() != null) {
                     Structure structure = tile.getStructure();
-                    structureDrawer.drawBase(p,
-                            structure.getOwnerID(), structure.getRotation());
+                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
                 }
-
+                /*
                 //Draw Armies
                 if (tile.containsArmy) {
                     for (Army army : tile.getArmies()) {
@@ -84,94 +95,56 @@ public class GamePanel extends Panel {
                     armyDrawer.drawArmy(p,
                             tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
                 }
-                //Draw Units
-                if (tile.containsUnit) {
-                    for (Unit unit : tile.getUnits()) {
-                        if (!tile.containsArmy) {
-                            unitDrawer.drawUnit(p, unit.getUnitType(), unit.getOwnerID(), 0);
-                        }
-                    }
-                }
+                
+            */
+
             }
-         }
-        */
+         }   
     }
 
     public void drawStaticTileElement(Point p, String image) {
     	Image img = getAssets().getImage(image);
-    	gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+    	g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
         		camera.getScale() * img.getHeight());
     }
 
     public void drawStaticTileElement(Point p, int rotation, String image) {
         Image img = getAssets().getImage(image);
-    	Affine currentRotation = gc.getTransform();
+    	Affine currentRotation = g.getTransform();
         rotateOnTile(p, rotation);
-        gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
+        g.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
         		camera.getScale() * img.getHeight());
-        gc.setTransform(currentRotation);
+        g.setTransform(currentRotation);
     }
 
     private void rotateOnTile(Point p, int degrees) {
         Rotate rotate = new Rotate(degrees,
                 (double) (camera.getTileCenter(p).x),
                 (double) (camera.getTileCenter(p).y));
-        gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
+        g.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), 
         		rotate.getTx(), rotate.getTy());
     }
 
-    //public void drawAnimatedTileElement(Point p, String image1, String image2, String image3) {
-        /*
-    	Image img;
-        if(p.x % 2 == 0) {
-	    	switch (getAnimationImage()) { 
-		        	case 0:
-		            	img = getAssets().getImage(image1);
-		                break;
-		            case 2:
-		            	img = getAssets().getImage(image3);
-		                break;
-		            default:
-		            	img = getAssets().getImage(image2);
-	    	}
-        } else {
-        	switch (getAnimationImage()) { 
-        	case 0:
-            	img = Assets.getInstance().getImage(image1);
-                break;
-            case 2:
-            	img = Assets.getInstance().getImage(image2);
-                break;
-            default:
-            	img = Assets.getInstance().getImage(image3);
-        	}
-        }
-    	
-        gc.drawImage(img, camera.offset(p).x, camera.offset(p).y, camera.getScale() * img.getWidth(), 
-        		camera.getScale() * img.getHeight());
-    }
-*/
+    public void drawAnimatedTileElement(Point p, Animation a) {
+    	a.draw(g, camera.offset(p).x, camera.offset(p).y, camera.getScale(), 
+        		camera.getScale(), currentPulse);
+     }
+
     public Camera getCamera() {
         return camera;
     }
 
-    public GraphicsContext getgc() {
-        return gc;
+    public GraphicsContext getGC() {
+        return g;
     }
 
     public int getTileSize() {
         return TILE_PIXEL_SIZE;
     }
 
-	@Override
 	public void hideGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
-		
 	}
 }

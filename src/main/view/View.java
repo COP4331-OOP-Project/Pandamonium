@@ -3,7 +3,6 @@ package view;
 import java.awt.Point;
 import java.io.File;
 
-import game.GameModel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,21 +15,24 @@ public class View {
 
     private static final int DEFAULT_SCREEN_WIDTH = 1152;
     private static final int DEFAULT_SCREEN_HEIGHT = 648;
-    private Camera camera = new Camera();
+    private Camera camera;
     private Canvas canvas; //The GraphicsContext Goes on here.
-    private GraphicsContext gc; //Image drawing is done with this
+    private GraphicsContext g; //Image drawing is done with this
     private Group root; //Gui drawing is added to this
-    
     private PanelManager panelManager;
     private Point screenDimensions = new Point();
     private Scene scene;
+    private int pulse = 0;
     
-    public View(GameModel model, Scene scene, Group root) {
+    public View(GameModelAdapter gameModelAdapter, Scene scene, Group root) {
     	this.root = root;
     	this.scene = scene;
     	canvas = new Canvas(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-    	gc = canvas.getGraphicsContext2D();
-    	panelManager = new PanelManager(assets, root, gc, camera);
+    	screenDimensions.x = DEFAULT_SCREEN_WIDTH;
+    	screenDimensions.y = DEFAULT_SCREEN_HEIGHT;
+    	camera = new Camera(screenDimensions);
+    	g = canvas.getGraphicsContext2D();
+    	panelManager = new PanelManager(gameModelAdapter, assets, root, g, camera);
         setSceneTheme();
     }
 
@@ -48,8 +50,9 @@ public class View {
         canvas.setHeight(height);
         screenDimensions.x = (int)width;
         screenDimensions.y = (int)height;
-        gc.clearRect(0, 0, width, height);
-        panelManager.drawPanels(screenDimensions);
+        g.clearRect(0, 0, width, height);
+        panelManager.drawPanels(screenDimensions, pulse);
+        pulse++;
     }
     
     public void startDragging(double x, double y) {
@@ -61,10 +64,22 @@ public class View {
     }
 
 	public void zoom(double deltaY) {
-        camera.zoom(deltaY, screenDimensions);
+        camera.zoom(deltaY);
     }
 	
 	public void tileClicked(double x, double y) {
 		panelManager.tileClicked(x, y);
+	}
+
+	public void toggleUnitOverview() {
+		panelManager.toggleUnitOverview();
+	}
+
+	public void toggleStructureOverview() {
+		panelManager.toggleStructureOverview();
+	}
+
+	public void centerOnCurrentTypeInstance() {
+		
 	}
 }

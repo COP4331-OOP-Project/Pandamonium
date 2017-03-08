@@ -1,8 +1,8 @@
 package game;
 
-import game.resources.Resource;
-
 import java.util.ArrayList;
+
+import game.resources.Resource;
 
 public class ResearchObservable implements iWorkerResearchObservable {
 

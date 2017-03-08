@@ -8,19 +8,16 @@ import java.util.HashMap;
 
 import javafx.scene.input.KeyCode;
 
-
 public class ControlFileReader {
-	private static final String CONFIG_FILE = "assets/controls/controls.cfg";
-	File controlsFile = new File(CONFIG_FILE);
 	private HashMap<String, KeyCode> controls;
 	
 	public ControlFileReader() {
 		controls = new HashMap<String, KeyCode>();
-		loadControls();
 	}
 	
-	public void loadControls() {
+	public void loadControls(File controlsFile) {
 		try {
+			controls.clear();
 			FileReader fileReader = new FileReader(controlsFile);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String currentLine;
@@ -34,12 +31,9 @@ public class ControlFileReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public KeyCode getControl(String string) {
 		return controls.get(string);
 	}
-	
-	
 }

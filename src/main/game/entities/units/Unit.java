@@ -1,6 +1,12 @@
 package game.entities.units;
 
-import game.entities.*;
+import game.entities.Entity;
+import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
+import game.entities.Percentage;
+import game.entities.iAttacker;
+import game.entities.iDefender;
+import game.entities.iMoveable;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
@@ -20,6 +26,10 @@ public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
         standby();
     }
 
+    public EntitySubtypeEnum getType() { 
+    	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
+    }
+    
     /* Accessors */
     public UnitStats getStats() { return stats; }
     public int getOrientation() { return orientation; }

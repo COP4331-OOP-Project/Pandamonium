@@ -1,18 +1,30 @@
 package game.entities.factories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.IdManager.IdManager;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
-import game.entities.factories.exceptions.*;
+import game.entities.factories.exceptions.CapitolLimitExceededException;
+import game.entities.factories.exceptions.FarmLimitExceededException;
+import game.entities.factories.exceptions.FortLimitExceededException;
+import game.entities.factories.exceptions.MineLimitExceededException;
+import game.entities.factories.exceptions.ObserveLimitExceededException;
+import game.entities.factories.exceptions.PlantLimitExceededException;
+import game.entities.factories.exceptions.UniversityLimitExceededException;
 import game.entities.stats.StructureStats;
-import game.entities.structures.*;
+import game.entities.structures.Capitol;
+import game.entities.structures.Farm;
+import game.entities.structures.Fort;
+import game.entities.structures.Mine;
+import game.entities.structures.PowerPlant;
+import game.entities.structures.Structure;
+import game.entities.structures.University;
 import game.entities.structures.exceptions.StructureNotFoundException;
 import game.gameboard.Location;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class StructureFactory{
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
@@ -38,13 +50,13 @@ public class StructureFactory{
     public StructureFactory(){
         this.structureStatistics = new HashMap<>();
         try {
-            this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(StructureType.CAPITOL));
-            this.structureStatistics.put(EntitySubtypeEnum.FARM, new StructureStats(StructureType.FARM));
-            this.structureStatistics.put(EntitySubtypeEnum.FORT, new StructureStats(StructureType.FORT));
-            this.structureStatistics.put(EntitySubtypeEnum.MINE, new StructureStats(StructureType.MINE));
-            this.structureStatistics.put(EntitySubtypeEnum.OBSERVE, new StructureStats(StructureType.OBSERVE));
-            this.structureStatistics.put(EntitySubtypeEnum.PLANT, new StructureStats(StructureType.PLANT));
-            this.structureStatistics.put(EntitySubtypeEnum.UNIVERSITY, new StructureStats(StructureType.UNIVERSITY));
+            this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(EntitySubtypeEnum.CAPITOL));
+            this.structureStatistics.put(EntitySubtypeEnum.FARM, new StructureStats(EntitySubtypeEnum.FARM));
+            this.structureStatistics.put(EntitySubtypeEnum.FORT, new StructureStats(EntitySubtypeEnum.FORT));
+            this.structureStatistics.put(EntitySubtypeEnum.MINE, new StructureStats(EntitySubtypeEnum.MINE));
+            this.structureStatistics.put(EntitySubtypeEnum.OBSERVE, new StructureStats(EntitySubtypeEnum.OBSERVE));
+            this.structureStatistics.put(EntitySubtypeEnum.PLANT, new StructureStats(EntitySubtypeEnum.PLANT));
+            this.structureStatistics.put(EntitySubtypeEnum.UNIVERSITY, new StructureStats(EntitySubtypeEnum.UNIVERSITY));
         }catch(StructureNotFoundException e){ System.out.println(e.getMessage()); }
     }
 

@@ -2,18 +2,23 @@ package game;
 
 import java.util.ArrayList;
 
-import javax.lang.model.UnknownEntityException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import game.entities.Army;
+import game.entities.EntitySubtypeEnum;
+import game.entities.RallyPoint;
+import game.entities.factories.UnitFactory;
+import game.entities.factories.exceptions.ColonistLimitExceededException;
+import game.entities.factories.exceptions.ExplorerLimitExceededException;
+import game.entities.factories.exceptions.MeleeLimitExceededException;
+import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.structures.Capitol;
 import game.entities.structures.Farm;
 import game.entities.structures.Fort;
 import game.entities.structures.Mine;
 import game.entities.structures.ObservationTower;
 import game.entities.structures.PowerPlant;
-import game.entities.factories.EntityFactory;
 import game.entities.structures.Structure;
 import game.entities.structures.University;
 import game.entities.units.Colonist;
@@ -21,239 +26,236 @@ import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.Unit;
+import game.entities.units.exceptions.UnitNotFoundException;
+import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
-
+import game.gameboard.SimpleTile;
+import game.gameboard.SimpleTileUpdater;
+import game.gameboard.Tile;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 
 public class Player {
-    private final static Logger log = LogManager.getLogger(Player.class);
+	private final static Logger log = LogManager.getLogger(Player.class);
 
-    //Player ID of this player
-    private int playerId;
+	// Player ID of this player
+	private int playerId;
 
-    //ArrayLists of this player's instances
-    //private ArrayList<Army> armies;
-    private ArrayList<Melee> melees;
-    private ArrayList<Ranged> ranges;
-    private ArrayList<Explorer> explorers;
-    private ArrayList<Colonist> colonists;
-    //private ArrayList<Worker> workers;
-    private ArrayList<Structure> structures;
-    //private ArrayList<RallyPoint> rallyPoints;
-    private ArrayList<Unit> totalUnits;
-    private int totalUnitCount;
-    //private SimpleMap
+	// ArrayLists of this player's instances
+	private ArrayList<Army> armies;
+	private ArrayList<Melee> melees;
+	private ArrayList<Ranged> ranges;
+	private ArrayList<Explorer> explorers;
+	private ArrayList<Colonist> colonists;
+	private ArrayList<Worker> workers;
+	private ArrayList<Structure> structures;
+	private ArrayList<RallyPoint> rallyPoints;
+	private ArrayList<Unit> totalUnits;
+	private int totalUnitCount;
+	private SimpleTile[][] simpleTiles;
+	private Resource nutrients = new Resource(0, ResourceTypeEnum.NUTRIENTS);
+	private Resource power = new Resource(0, ResourceTypeEnum.POWER);
+	private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
+	private UnitFactory unitFactory = new UnitFactory();
+	public Player(int playerId, Location loc) {
+		armies = new ArrayList<Army>();
+		melees = new ArrayList<Melee>();
+		ranges = new ArrayList<Ranged>();
+		explorers = new ArrayList<Explorer>();
+		colonists = new ArrayList<Colonist>();
+		workers = new ArrayList<Worker>();
+		structures = new ArrayList<Structure>();
+		rallyPoints = new ArrayList<RallyPoint>();
+		totalUnits = new ArrayList<Unit>();
+		this.playerId = playerId;
+		try {
+			addColonist(
+					(Colonist) unitFactory.createUnit(EntitySubtypeEnum.COLONIST, loc, playerId));
+		} catch (ColonistLimitExceededException | ExplorerLimitExceededException
+				| RangedLimitExceededException | MeleeLimitExceededException
+				| UnitNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void addMelee(Melee melee) {
+		melees.add(melee);
+		totalUnits.add(melee);
+	}
 
-    //Initial Units
-    private Colonist initialColonist;
+	public void addRanged(Ranged ranged) {
+		ranges.add(ranged);
+		totalUnits.add(ranged);
+	}
 
-    public Player(int playerId, Location loc) {
-        //loc is referring to the starting location of this player
-        this.playerId = playerId;
+	public void addExplorer(Explorer explorer) {
+		explorers.add(explorer);
+		totalUnits.add(explorer);
+	}
 
-        try {
-            //initialColonist = (Colonist)EntityFactory.getEntity(loc, this.playerId, "c")
-        } catch (UnknownEntityException e){
-            log.error(e.getLocalizedMessage());
-        } finally {
-            init();
-        }
-    }
+	public void addColonist(Colonist colonist) {
+		colonists.add(colonist);
+		totalUnits.add(colonist);
+	}
 
-    private void init(){
-        //Initialize all the arraylists of thsi player
-        //armies = new ArrayList<Army>();
-        melees = new ArrayList<Melee>();
-        ranges = new ArrayList<Ranged>();
-        explorers = new ArrayList<Explorer>();
-        colonists = new ArrayList<Colonist>();
-        //workers = new ArrayList<Worker>();
-        structures = new ArrayList<Structure>();
-        //rallyPoints = new ArrayList<RallyPoint>();
-        totalUnits = new ArrayList<Unit>();
-    }
+	public void addWorker(Worker worker) {
+		workers.add(worker);
+	}
 
-    public void addMelee(Melee melee){
-        melees.add(melee);
-    }
+	public void removeMelee(Melee melee) {
+		melees.remove(melee);
+		totalUnits.remove(melee);
+	}
 
-    public void addRanged(Ranged ranged){
-        ranges.add(ranged);
-    }
+	public void removeRanged(Ranged ranged) {
+		ranges.remove(ranged);
+		totalUnits.remove(ranged);
+	}
 
-    public void addExplorer(Explorer explorer){
-        explorers.add(explorer);
-    }
+	public void removeExplorer(Explorer explorer) {
+		explorers.remove(explorer);
+		totalUnits.remove(explorer);
+	}
 
-    public void addColonist(Colonist colonist){
-        colonists.add(colonist);
-    }
+	public void removeColonist(Colonist colonist) {
+		colonists.remove(colonist);
+		totalUnits.remove(colonist);
+	}
 
-    /*
-    public void addWorker(Worker worker){
-        workers.add(worker);
-    }
-    */
+	public void removeWorker(Worker worker) {
+		workers.remove(worker);
+	}
 
-    public void removeMelee(Melee melee){
-//        for(int i = 0;i<melees.size();i++){
-//            if(melees.get(i).getInstanceId() == melee.getInstanceId()){
-//                melees.remove(i);
-//            }
-//        }
-    }
+	public void addArmy(Army army) {
+		armies.add(army);
+	}
 
-    public void removeRanged(Ranged ranged){
-//        for(int i = 0;i<ranges.size();i++){
-//            if(ranges.get(i).getInstanceId() == ranges.getInstanceId()){
-//                ranges.remove(i);
-//            }
-//        }
-    }
+	public void addRallyPoint(RallyPoint rallyPoint) {
+		rallyPoints.add(rallyPoint);
+	}
 
-    public void removeExplorer(Explorer explorer){
-//        for(int i = 0;i<explorers.size();i++){
-//            if(explorers.get(i).getInstanceId() == explorer.getInstanceId()){
-//                explorers.remove(i);
-//            }
-//        }
-    }
+	public void removeArmy(Army army) {
+		armies.set(army.getInstanceId(), null);
+	}
 
-    public void removeColonist(Colonist colonist){
-//        for(int i = 0;i<colonists.size();i++){
-//            if(colonists.get(i).getInstanceId() == colonist.getInstanceId()){
-//                colonists.remove(i);
-//            }
-//        }
-    }
-/*
-    public void remvoeWorker(Worker worker){
-        for(int i = 0;i<melees.size();i++){
-            if(workers.get(i).getInstanceId() == worker.getInstanceId()){
-                workers.remove(i);
-            }
-        }
-    }
-*/
-    /*
-    public void addArmy(Army army){
-        armies.add(army);
-    }
+	public ArrayList<Melee> getMelees() {
+		return melees;
+	}
 
-    public void addRallyPoint(RallyPoint rallyPoint){
-        rallyPoint.add(rallyPoint);
-    }
-    */
-    /*
-    public void removeArmy(Army army){
-        armies.set(army.getInstanceId(), null);
-    }*/
+	public ArrayList<Ranged> getRanges() {
+		return ranges;
+	}
 
-    public ArrayList<Melee> getMelees() {
-        return melees;
-    }
+	public ArrayList<Explorer> getExplorers() {
+		return explorers;
+	}
 
-    public ArrayList<Ranged> getRanges() {
-        return ranges;
-    }
+	public ArrayList<Colonist> getColonists() {
+		return colonists;
+	}
 
-    public ArrayList<Explorer> getExplorers() {
-        return explorers;
-    }
+	public ArrayList<Worker> getWorkers() {
+		return workers;
+	}
 
-    public ArrayList<Colonist> getColonists() {
-        return colonists;
-    }
+	public void addCapitol(Capitol capitol) {
+		structures.add(capitol);
+	}
 
-    public ArrayList<Unit> getAllUnit() {
-        return totalUnits;
-    }
-    /*
-    public ArrayList<Worker> getWorkers(){
-        return workers;
-    }*/
+	public void addFarm(Farm farm) {
+		structures.add(farm);
+	}
 
-    public void addCapitol(Capitol capitol){
-        structures.add(capitol);
-    }
+	public void addFort(Fort fort) {
+		structures.add(fort);
+	}
 
-    public void addFarm(Farm farm){
-        structures.add(farm);
-    }
+	public void addMine(Mine mine) {
+		structures.add(mine);
+	}
 
-    public void addFort(Fort fort){
-        structures.add(fort);
-    }
+	public void addObservationTower(ObservationTower tower) {
+		structures.add(tower);
+	}
 
-    public void addMine(Mine mine){
-        structures.add(mine);
-    }
+	public void addPowerPlant(PowerPlant powerPlant) {
+		structures.add(powerPlant);
+	}
 
-    public void addObservationTower(ObservationTower tower){
-        structures.add(tower);
-    }
+	public void addUniversity(University university) {
+		structures.add(university);
+	}
 
-    public void addPowerPlant(PowerPlant powerPlant){
-        structures.add(powerPlant);
-    }
+	public void removeCapitol(Capitol capitol) {
+		structures.remove(capitol);
+	}
 
-    public void addUniversity(University university){
-        structures.add(university);
-    }
+	public void removeFarm(Farm farm) {
+		structures.remove(farm);
+	}
 
-    public void removeCapitol(Capitol capitol){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == capitol.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void removeFort(Fort fort) {
+		structures.remove(fort);
+	}
 
-    public void removeFarm(Farm farm){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == farm.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void removeMine(Mine mine) {
+		structures.remove(mine);
+	}
 
-    public void removeFort(Fort fort){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == fort.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void removeObservationTower(ObservationTower tower) {
+		structures.remove(tower);
+	}
 
-    public void removeMine(Mine mine){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == mine.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void removePowerPlant(PowerPlant powerPlant) {
+		structures.remove(powerPlant);
+	}
 
-    public void removeObservationTower(ObservationTower tower){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == tower.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void removeUniversity(University university) {
+		structures.remove(university);
+	}
 
-    public void removePowerPlant(PowerPlant powerPlant){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == powerPlant.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public void initializeSimpleTiles(Tile[][] tiles) {
+		simpleTiles = new SimpleTile[tiles.length][tiles[0].length];
+		for (int i = 0; i < simpleTiles.length; i++) {
+			for (int j = 0; j < simpleTiles[i].length; j++) {
+				simpleTiles[i][j] = new SimpleTile(tiles[i][j]);
+			}
+		}
+	}
 
-    public void removeUniversity(University university){
-        for(int i = 0;i<structures.size();i++){
-            if(structures.get(i).getInstanceId() == university.getInstanceId()){
-                structures.remove(i);
-            }
-        }
-    }
+	public ArrayList<RallyPoint> getRallyPoints() {
+		return rallyPoints;
+	}
+
+	public ArrayList<Structure> getStructures() {
+		return structures;
+	}
+
+	public ArrayList<Unit> getUnits() {
+		return totalUnits;
+	}
+
+	public ArrayList<Army> getArmies() {
+		return armies;
+	}
+
+	public Resource getNutrients() {
+		return nutrients;
+	}
+
+	public Resource getPower() {
+		return power;
+	}
+
+	public Resource getMetal() {
+		return metal;
+	}
+
+	public void updateSimpleTiles(Tile[][] tiles) {
+		simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);
+	}
+
+	public SimpleTile[][] getSimpleTiles() {
+		return simpleTiles;
+	}
 }

@@ -1,8 +1,8 @@
 package game.entities;
 
-import game.entities.units.Unit;
-
 import java.util.ArrayList;
+
+import game.entities.units.Unit;
 
 public class Reinforcement {
     private ArrayList<Unit> reinforcements;

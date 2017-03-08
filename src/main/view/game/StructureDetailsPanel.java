@@ -2,10 +2,12 @@ package view.game;
 
 import java.awt.Point;
 
+import game.mode.Mode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
@@ -17,17 +19,19 @@ public class StructureDetailsPanel extends DetailsPanel {
     private static final int OFFSET = 80;
 	private static final int SPACING = 230;
 
-    public StructureDetailsPanel(AssetManager assets, ViewEnum viewEnum) {
-    	super(assets, viewEnum);
+    public StructureDetailsPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum viewEnum) {
+    	super(gameModelAdapter, assets, viewEnum);
     	ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
     }
 
-    public void draw(GraphicsContext gc, Point screenDimensions) {
-        drawBar(gc, screenDimensions);
-        gc.setEffect(ds);
-        drawText(gc, screenDimensions.y);
-        gc.setEffect(null);
+    public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE) {
+	    	drawBar(g, screenDimensions);
+	        g.setEffect(ds);
+	        drawText(g, screenDimensions.y);
+	        g.setEffect(null);
+    	}
     }
 
     private void drawText(GraphicsContext g, int height) {

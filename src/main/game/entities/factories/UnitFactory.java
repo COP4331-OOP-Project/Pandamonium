@@ -3,22 +3,23 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
+import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.IdManager.IdManager;
 import game.entities.IdManager.exceptions.IdLimitExceededException;
 import game.entities.factories.exceptions.ColonistLimitExceededException;
-import game.entities.factories.exceptions.*;
+import game.entities.factories.exceptions.ExplorerLimitExceededException;
+import game.entities.factories.exceptions.MeleeLimitExceededException;
+import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.Unit;
-import game.entities.units.UnitType;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
-import game.entities.EntityId;
 
 public class UnitFactory {
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
@@ -35,12 +36,13 @@ public class UnitFactory {
       private int newExplorerId;
 
     public UnitFactory(){
+    	colonistIdManager = new IdManager(0, 10);
         this.unitStatistics = new HashMap<>();
         try {
-            this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(UnitType.COLONIST));
-            this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(UnitType.EXPLORER));
-            this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(UnitType.MELEE));
-            this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(UnitType.RANGED));
+            this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));
+            this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(EntitySubtypeEnum.EXPLORER));
+            this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(EntitySubtypeEnum.MELEE));
+            this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(EntitySubtypeEnum.RANGE));
         }catch(UnitNotFoundException e){ System.out.println(e.getMessage()); }
     }
   

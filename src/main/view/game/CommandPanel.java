@@ -2,6 +2,8 @@ package view.game;
 
 import java.awt.Point;
 
+import game.commands.CommandEnum;
+import game.mode.Mode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -11,6 +13,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
@@ -36,10 +39,11 @@ public class CommandPanel extends Panel{
 	private ToggleButton commandMove = new ToggleButton();
 	private HoverPanel hoverPanel;
 	
-	public CommandPanel(Group root, AssetManager assets, ViewEnum view) {
-		super(assets, view);
+	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
+		super(gameModelAdapter, assets, view);
+		setIsVisible(false);
 		this.root = root;
-		hoverPanel = new HoverPanel(assets, view);
+		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
 		setUpToggleButton(commandBuild, getAssets().getImage("COMMAND_BUILD"));
 		setUpToggleButton(commandHeal, getAssets().getImage("COMMAND_HEAL"));
 		setUpToggleButton(commandAttack, getAssets().getImage("COMMAND_ATTACK"));
@@ -62,37 +66,33 @@ public class CommandPanel extends Panel{
         });
 	}
 
-	@Override
-	public void draw(GraphicsContext gc, Point screenDimensions) {
+	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
-        drawCommandPanel(gc);
+        drawCommandPanel(g);
 	}
 
     private void drawCommandPanel(GraphicsContext g) {
-    	/*
-    	if (game.getCurrentMode() == ModeEnum.RALLY_POINT) {
+    	if (getAdapter().getCurrentMode() == Mode.RALLY_POINT) {
     		yDistance = COMMAND_Y_RP;
     	} else {
     		yDistance = COMMAND_Y_NORMAL;
     	}
 		g.drawImage(getAssets().getImage("GUI_COMMAND_PANEL"), 0, yDistance);
     	drawAllToggleButtons(g);
-    	*/
     }
-    /*
+
     private void drawAllToggleButtons(GraphicsContext g) {
-    	drawToggleButton(g, commandBuild, 0, yDistance, CommandEnum.MAKE, game.getCurrentCommand());
-        drawToggleButton(g, commandHeal, ICON_WIDTH, yDistance, CommandEnum.HEAL, game.getCurrentCommand());
-    	drawToggleButton(g, commandAttack, ICON_WIDTH * 2, yDistance, CommandEnum.ATTACK, game.getCurrentCommand());
-    	drawToggleButton(g, commandDefend, 0, yDistance + ICON_WIDTH, CommandEnum.DEFEND, game.getCurrentCommand());
-    	drawToggleButton(g, commandPowerUp, ICON_WIDTH, yDistance + ICON_WIDTH, CommandEnum.POWER_UP, game.getCurrentCommand());
-    	drawToggleButton(g, commandPowerDown, ICON_WIDTH * 2, yDistance + ICON_WIDTH, CommandEnum.POWER_DOWN, game.getCurrentCommand());
-    	drawToggleButton(g, cancelQueue, 0, yDistance + ICON_WIDTH * 2, CommandEnum.CANCEL_COMMAND_QUEUE, game.getCurrentCommand());
-    	drawToggleButton(g, commandDecommission, ICON_WIDTH, yDistance + ICON_WIDTH * 2, CommandEnum.DECOMISSION, game.getCurrentCommand());
-    	drawToggleButton(g, commandMove, ICON_WIDTH * 2, yDistance + ICON_WIDTH * 2, CommandEnum.MOVE, game.getCurrentCommand());
+    	drawToggleButton(g, commandBuild, 0, yDistance, CommandEnum.MAKE);
+        drawToggleButton(g, commandHeal, ICON_WIDTH, yDistance, CommandEnum.HEAL);
+    	drawToggleButton(g, commandAttack, ICON_WIDTH * 2, yDistance, CommandEnum.ATTACK);
+    	drawToggleButton(g, commandDefend, 0, yDistance + ICON_WIDTH, CommandEnum.DEFEND);
+    	drawToggleButton(g, commandPowerUp, ICON_WIDTH, yDistance + ICON_WIDTH, CommandEnum.POWER_UP);
+    	drawToggleButton(g, commandPowerDown, ICON_WIDTH * 2, yDistance + ICON_WIDTH, CommandEnum.POWER_DOWN);
+    	drawToggleButton(g, cancelQueue, 0, yDistance + ICON_WIDTH * 2, CommandEnum.CANCEL_QUEUE);
+    	drawToggleButton(g, commandDecommission, ICON_WIDTH, yDistance + ICON_WIDTH * 2, CommandEnum.DECOMMISSION);
+    	drawToggleButton(g, commandMove, ICON_WIDTH * 2, yDistance + ICON_WIDTH * 2, CommandEnum.MOVE);
 }
-*/
-/*
+
 	private void drawHovered(GraphicsContext g, CommandEnum selected) {
 		switch(selected) {
 			case MAKE:
@@ -113,10 +113,7 @@ public class CommandPanel extends Panel{
 			case POWER_DOWN:
 				hoverPanel.drawText(g, new Point(190, yDistance), "Power Down");
 				break;
-			case CANCEL_COMMAND_QUEUE:
-				hoverPanel.drawText(g, new Point(190, yDistance), "Cancel Commands");
-				break;
-			case DECOMISSION:
+			case DECOMMISSION:
 				hoverPanel.drawText(g, new Point(190, yDistance), "Decommission");
 				break;
 			case MOVE:
@@ -125,25 +122,22 @@ public class CommandPanel extends Panel{
 		}
 	}
 
-	private void drawToggleButton(GraphicsContext g, ToggleButton commandBuild, int x, int y, CommandEnum selected, Enum current) {
-		if (current == selected) {
-			commandBuild.getStyleClass().setAll("commandButtonSelected");
-			drawHovered(g, selected);
-		} else {
+	private void drawToggleButton(GraphicsContext g, ToggleButton commandBuild, int x, int y, CommandEnum selected) {
+		//if (current == selected) {
+		//	commandBuild.getStyleClass().setAll("commandButtonSelected");
+		//	drawHovered(g, selected);
+		//} else {
 			commandBuild.getStyleClass().setAll("commandButton");
-		}
+		//}
 		commandBuild.setTranslateX(x + SPACING);
 		commandBuild.setTranslateY(y + SPACING);
 	}
-	*/
-	@Override
+
 	public void hideGUIElements() {
 		root.getChildren().remove(commandToggleButtons);
 	}
 
-	@Override
 	public void showGUIElements() {
 		root.getChildren().add(commandToggleButtons);
 	}
-
 }

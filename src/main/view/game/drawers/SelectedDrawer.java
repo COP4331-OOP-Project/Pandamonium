@@ -1,12 +1,18 @@
 package view.game.drawers;
 
+import view.GameModelAdapter;
+import view.assets.AssetManager;
 import view.game.GamePanel;
 
 public class SelectedDrawer {
-    GamePanel gamePanel;
-
-    public SelectedDrawer(GamePanel gamePanel) {
+    private GamePanel gamePanel;
+    private GameModelAdapter gameModelAdapter;
+    private AssetManager assets;
+    
+    public SelectedDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assets) {
         this.gamePanel = gamePanel;
+        this.gameModelAdapter = gameModelAdapter;
+        this.assets = assets;
     }
 /*
     public void drawSelectedItemOutline() {

@@ -18,6 +18,19 @@
     -fx-padding: 5 10 5 10;
 }
 
+.buttonRed {
+     -fx-background-color:
+         #1b263b,
+     linear-gradient(#26313b, #263446);
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-font-family: "Nuku Nuku";
+    -fx-text-fill: linear-gradient(red, #d0d0d0);
+    -fx-font-size: 22px;
+    -fx-padding: 1 4 1 4;
+}
+
 .buttonSelected {
      -fx-background-color:
          #1b263b,
@@ -31,9 +44,16 @@
     -fx-padding: 5 10 5 10;
 }
 
-.hover {
-	-fx-background-color: 
-     	#090a0c;
+.combo-box {
+     -fx-font-family: "Nuku Nuku";
+     -fx-font-size: 15px;
+     -fx-background-color: 
+     	#090a0c,
+     	linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+     	linear-gradient(#20262b, #191d22),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
 }
 
 #button {
@@ -41,9 +61,11 @@
 }
 
 #button:hover {
-     linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	 -fx-background-color: 
+	 	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
 
 #button:pressed {
@@ -54,6 +76,20 @@
     -fx-padding: 6 12 6 12;
 }
 
+#controlButton {
+   .button;
+   -fx-padding: 1 4 1 4;
+}
+
+
+#controlButton:pressed {
+	-fx-background-color: 
+     	#1b263b,
+     	linear-gradient(#26313b, #263446);
+    -fx-font-size: 21px;
+    -fx-padding: 1 4 1 4;
+}
+
 .commandButton {
      -fx-background-color: 
      	#090a0c,
@@ -61,6 +97,34 @@
      linear-gradient(#20262b, #191d22),
      radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
     -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-padding: 2 2 2 2;
+}
+
+.sideBarButton {
+     -fx-background-color: 
+     	#090a0c,
+     linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+     linear-gradient(#20262b, #191d22),
+     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-padding: 2 2 2 2;
+}
+
+.sideBarButton:hover {
+	-fx-background-color:
+     	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+}
+
+.sideBarButton:pressed {
+     -fx-background-color:
+     	#1b263b,
+     	linear-gradient(#26313b, #263446);
+	-fx-background-radius: 5,4,3,5;
     -fx-background-insets: 0,1,2,0;
     -fx-padding: 2 2 2 2;
 }
@@ -75,19 +139,24 @@
 }
 
 .commandButton:hover {
-     linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	-fx-background-color:
+     	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
+
 #mainMenuButton {
     .button;
     -fx-font-size: 60px;
 }
 
 #mainMenuButton:hover {
-	 linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
-     linear-gradient(#2b3d4d, #212a35),
-     radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+	-fx-background-color:
+	 	#010712,
+     	linear-gradient(#38424b 0%, #2d3d4e 20%, #28313d 100%),
+     	linear-gradient(#2b3d4d, #212a35),
+     	radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
 }
 
 #mainMenuButton:pressed {

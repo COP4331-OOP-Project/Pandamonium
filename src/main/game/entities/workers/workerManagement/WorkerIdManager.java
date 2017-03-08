@@ -1,5 +1,7 @@
 package game.entities.workers.workerManagement;
 
+import java.util.ArrayList;
+
 import game.entities.EntityId;
 import game.entities.IdManager.IdManager;
 import game.entities.IdManager.exceptions.IdDoesNotExistException;
@@ -10,8 +12,6 @@ import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
-
-import java.util.ArrayList;
 
 public class WorkerIdManager {
 

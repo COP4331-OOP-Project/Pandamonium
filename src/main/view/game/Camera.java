@@ -10,7 +10,8 @@ public class Camera {
 	private static final double MIN_SCALE = 0.4; //Min amount to be zoomed in
 	private static final double MAX_SCALE = 1.0; //Max amount to be zoomed in
 	
-    private CameraCenterer panelCenterer;
+    private CameraCenterer centerer = new CameraCenterer(this);
+    private Point screenDimensions;
     private Point offset = new Point(180, -2350);
     
     //These values are used when dragging the Camera.
@@ -24,8 +25,8 @@ public class Camera {
 	Point mouseZoomStart = new Point(0,0);
 
 	
-    public Camera() {
-        this.panelCenterer = new CameraCenterer(this);
+    public Camera(Point screenDimensions) {
+    	this.screenDimensions = screenDimensions;
     }
     
     /**
@@ -33,14 +34,18 @@ public class Camera {
      * must be handled every tick, such as checking the centering
      * and zooming.
      */
-	public void reAlign(Point selected, Point screenDimensions) {
+	public void centerToSelected(Point selected, Point screenDimensions) {
+		this.screenDimensions = screenDimensions;
+        if (selected.x != 0 && selected.y != 0) {
+            centerer.centerOnTile(selected);
+        }
+	}
+	
+	public void adjustZoom(Point screenDimensions) {
+		this.screenDimensions = screenDimensions;
         checkZooming();
         if (!zooming) {
-        	panelCenterer.recenter(screenDimensions.x, screenDimensions.y);
-        }
-
-        if (selected.x != 0 && selected.y != 0) {
-            panelCenterer.centerOnTile(selected);
+        	centerer.recenter(screenDimensions.x, screenDimensions.y);
         }
 	}
     
@@ -77,12 +82,17 @@ public class Camera {
     	return p;
     }
     
+    public Point getPixelLocation(Point tile) {
+    	return new Point((int)(0.75f * scale * HEX_W * tile.x),
+        				 (int)(HEX_H * scale * (tile.x * 0.5f + tile.y)));
+    }
+    
     public Point getTileCenter(Point tile) {
     	return new Point ((getPixelLocation(tile).x + TILE_SIZE / 2),
     					  (getPixelLocation(tile).y + TILE_SIZE / 2));
     }
     
-	public void zoom(double deltaY, Point screenDimensions) {
+	public void zoom(double deltaY) {
 		Point p = new Point((int)screenDimensions.x/2, (int)screenDimensions.y/2);
 		zoomCounter = 0;
 		if (!zooming) {
@@ -92,12 +102,12 @@ public class Camera {
 		if (deltaY > 0) {
 			if (scale < MAX_SCALE) {
 				scale += SCALE_AMOUNT;
-				panelCenterer.quickCenter(mouseZoomStart);
+				centerer.quickCenter(mouseZoomStart);
 			}
 		} else {
 			if (scale > MIN_SCALE) {
 				scale -= SCALE_AMOUNT;
-				panelCenterer.quickCenter(mouseZoomStart);
+				centerer.quickCenter(mouseZoomStart);
 			}
 		}
 	}
@@ -110,8 +120,9 @@ public class Camera {
 	public void continueDragging(double x, double y) {
 		double diffX = dragX - x;
 		double diffY = dragY - y;
-		setOffset(new Point(getOffset().x - (int)diffX,
-				(getOffset().y - (int)diffY)));
+		Point newPosition = new Point(getOffset().x - (int)diffX,
+				(getOffset().y - (int)diffY));
+		setOffset(newPosition);
 		dragX = x;
 		dragY = y;
 	}
@@ -143,13 +154,8 @@ public class Camera {
     		if (zoomCounter > 40) {
     			zoomCounter = -1;
     			zooming = false;
-    			panelCenterer.stopCentering();
+    			centerer.stopCentering();
     		}
     	}
 	}
-    
-    private Point getPixelLocation(Point tile) {
-    	return new Point((int)(0.75f * scale * HEX_W * tile.x),
-        				 (int)(HEX_H * scale * (tile.x * 0.5f + tile.y)));
-    }
 }

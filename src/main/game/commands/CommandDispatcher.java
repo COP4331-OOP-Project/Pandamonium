@@ -1,9 +1,9 @@
 package game.commands;
 
 import game.Player;
+import game.entities.Entity;
 import game.entities.iAttacker;
 import game.entities.iDefender;
-import game.entities.Entity;
 import game.entities.iHealer;
 import game.gameboard.Tile;
 
