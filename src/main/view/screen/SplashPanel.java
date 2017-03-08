@@ -17,7 +17,7 @@ import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 
-public class SplashPanel extends Panel{
+public class SplashPanel extends Panel {
 	PanelManager panelManager;
 	Group root;
 	Media splash = getAssets().getSplash();
@@ -25,28 +25,29 @@ public class SplashPanel extends Panel{
 	MediaPlayer player = new MediaPlayer(splash);
 	MediaView view = new MediaView(player);
 	private boolean splashStarted = false;
-	
-	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager, AssetManager assets,
-			ViewEnum viewEnum) {
+
+	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager,
+			AssetManager assets, ViewEnum viewEnum) {
 		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
 		checkSkipped();
 		this.panelManager = panelManager;
-	    view.fitWidthProperty().bind(Bindings.selectDouble(view.sceneProperty(), "width"));
-	    view.fitHeightProperty().bind(Bindings.selectDouble(view.sceneProperty(), "height"));
-	    view.setPreserveRatio(true);
-	    video.getChildren().add(view);
+		view.fitWidthProperty().bind(Bindings.selectDouble(view.sceneProperty(), "width"));
+		view.fitHeightProperty().bind(Bindings.selectDouble(view.sceneProperty(), "height"));
+		view.setPreserveRatio(true);
+		video.getChildren().add(view);
 	}
 
 	private void checkSkipped() {
-		root.setOnMouseReleased(new EventHandler<MouseEvent>() { //Click to Skip
+		root.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to
+																	// skip
 			public void handle(MouseEvent event) {
 				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
 					player.stop();
-	                panelManager.setMode(ViewEnum.MAIN_MENU); //Skip if key pressed
+					panelManager.setMode(ViewEnum.MAIN_MENU);
 				}
-            }
-        });
+			}
+		});
 
 	}
 
