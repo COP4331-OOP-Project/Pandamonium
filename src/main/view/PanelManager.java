@@ -29,7 +29,6 @@ public class PanelManager {
 	private ViewEnum currentViewMode = ViewEnum.MAIN_MENU;
 	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
-	private AssetManager assets;
 	private CivilizationPanel civilizationPanel;
 	private SideBarPanel sideBarPanel;
 	private CommandPanel commandPanel;
@@ -53,7 +52,6 @@ public class PanelManager {
 	public PanelManager(GameModelAdapter gameModelAdapter, AssetManager assets, Group group, GraphicsContext g, Camera camera) {
 		this.gameModelAdapter = gameModelAdapter;
 		this.g = g;
-		this.assets = assets;
 		musicManager = new MusicManager(assets, group);
 		panels = new ArrayList<Panel>();
 		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
@@ -78,7 +76,7 @@ public class PanelManager {
 		panels.add(unitDetailsPanel);
 		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitOverviewPanel);
-		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
+		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
 		panels.add(techOverviewPanel);
 		toggleBarPanel = new ToggleBarPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_GAME);
 		panels.add(toggleBarPanel);

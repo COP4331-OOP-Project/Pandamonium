@@ -194,6 +194,9 @@ public class Assets {
         loadItem("UNCHECKED", "assets/images/icon/unChecked.png");
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
         loadItem("HEALTH_BAR_FILL", "assets/images/health/healthBarFilling.png");
+        loadItem("RESEARCHED", "assets/images/techTree/researched.png");
+        loadItem("RESEARCHING", "assets/images/techTree/researching.png");
+        loadItem("TECHNOLOGY", "assets/images/techTree/technology.png");
     }
 
     private void loadItem(String name, String path) {
