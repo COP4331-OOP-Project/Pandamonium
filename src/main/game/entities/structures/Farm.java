@@ -2,30 +2,46 @@ package game.entities.structures;
 
 import game.entities.EntityId;
 import game.entities.stats.StructureStats;
+import game.entities.workers.workerTypes.FoodGatherer;
 import game.gameboard.Location;
 
+import java.util.*;
+
 public class Farm extends Structure {
-    //private ArrayList<worker> workers;
-    //private ArrayList<worker> farmer;
+    private Queue<FoodGatherer> unassigned;
+    private Queue<FoodGatherer> farmer;
 
     public Farm(StructureStats stats, Location location , EntityId entityId ){
         super(stats, location, entityId);
+        unassigned=new LinkedList<>();
+        farmer=new LinkedList<>();
     }
 
-    public void assignToFarmer(){
-
+    public void assignToFarmer(Location location){
+        unassigned.peek().setLocation(location);
+        farmer.add(unassigned.poll());
     }
 
-    public void unassignFarmer(){
-
+    public void unassignFarmer(Location location){
+        Iterator<FoodGatherer> iterator = farmer.iterator();
+        FoodGatherer holder;
+        while(iterator.hasNext()){
+            holder=iterator.next();
+            if(location.equals(holder.getLocation())) {
+                holder.setLocation(location);
+                unassigned.add(holder);
+                iterator.remove();
+                return;
+            }
+        }
     }
 
-    public void addWorker(){
-
+    public void addWorker(FoodGatherer worker){
+        unassigned.add(worker);
     }
 
     public void removeWorker(){
-
+        unassigned.remove();
     }
 
     /*public Resource harvest(){
