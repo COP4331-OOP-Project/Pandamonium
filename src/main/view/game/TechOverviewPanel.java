@@ -28,11 +28,13 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		scrollPane.toFront();
 		techGraphics.clearRect(0, 0, screenDimensions.x, screenDimensions.y);
-		scrollPane.setMaxWidth(screenDimensions.x - 259);
+		scrollPane.setMaxWidth(screenDimensions.x - 148);
 		scrollPane.setMaxHeight(screenDimensions.y - 147);
-		scrollPane.setTranslateX(185);
+		scrollPane.setTranslateX(74);
 		scrollPane.setTranslateY(50);
+		g.fillText("Technology Overview", 100, 100);
 		canvas.setWidth(3000);
 		canvas.setHeight(screenDimensions.y - 147);
         drawPanelBox(g, screenDimensions);
