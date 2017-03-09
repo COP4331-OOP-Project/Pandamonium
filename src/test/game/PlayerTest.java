@@ -126,10 +126,10 @@ public class PlayerTest {
 
         Assert.assertEquals(player.getMelees().get(0).getEntityId(), melee2Id);
 
-        this.player.addColonist(colonist1);
-        this.player.removeEntity(colonistId);
+        this.player.addRanged(range1);
+        this.player.removeEntity(range1Id);
 
-        Assert.assertEquals(this.player.getColonists().isEmpty(), true);
+        Assert.assertEquals(this.player.getRanges().isEmpty(), true);
     }
 
     @Test //Check add structure
