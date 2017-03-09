@@ -10,9 +10,13 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
+import view.game.drawers.TechnologyViewItem;
 
 public class TechOverviewPanel extends OverviewPanel{
 	ScrollPane scrollPane = new ScrollPane();
+	TechnologyViewItem fertilizer = new TechnologyViewItem(getAssets(), "Fertilizer");
+	TechnologyViewItem wheelbarrow = new TechnologyViewItem(getAssets(), "Wheelbarrow");
+	TechnologyViewItem tent = new TechnologyViewItem(getAssets(), "Tent");
 	GraphicsContext techGraphics;
 	Canvas canvas;
 	Group root;
@@ -37,7 +41,7 @@ public class TechOverviewPanel extends OverviewPanel{
 		g.fillText("Technology Overview", 100, 100);
 		canvas.setWidth(3000);
 		canvas.setHeight(screenDimensions.y - 147);
-        drawPanelBox(g, screenDimensions);
+        fertilizer.draw(techGraphics, new Point (0,0));
 	}
 
 	public void showGUIElements() {
