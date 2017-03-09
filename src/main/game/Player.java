@@ -2,6 +2,10 @@ package game;
 
 import java.util.ArrayList;
 
+import javax.lang.model.UnknownEntityException;
+
+import game.entities.EntityId;
+import game.entities.workers.workerTypes.Worker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -102,40 +106,12 @@ public class Player {
 		workers.add(worker);
 	}
 
-	public void removeMelee(Melee melee) {
-		melees.remove(melee);
-		totalUnits.remove(melee);
-	}
-
-	public void removeRanged(Ranged ranged) {
-		ranges.remove(ranged);
-		totalUnits.remove(ranged);
-	}
-
-	public void removeExplorer(Explorer explorer) {
-		explorers.remove(explorer);
-		totalUnits.remove(explorer);
-	}
-
-	public void removeColonist(Colonist colonist) {
-		colonists.remove(colonist);
-		totalUnits.remove(colonist);
-	}
-
-	public void removeWorker(Worker worker) {
-		workers.remove(worker);
-	}
-
 	public void addArmy(Army army) {
 		armies.add(army);
 	}
 
 	public void addRallyPoint(RallyPoint rallyPoint) {
 		rallyPoints.add(rallyPoint);
-	}
-
-	public void removeArmy(Army army) {
-		armies.set(army.getInstanceId(), null);
 	}
 
 	public ArrayList<Melee> getMelees() {
@@ -186,34 +162,6 @@ public class Player {
 		structures.add(university);
 	}
 
-	public void removeCapitol(Capitol capitol) {
-		structures.remove(capitol);
-	}
-
-	public void removeFarm(Farm farm) {
-		structures.remove(farm);
-	}
-
-	public void removeFort(Fort fort) {
-		structures.remove(fort);
-	}
-
-	public void removeMine(Mine mine) {
-		structures.remove(mine);
-	}
-
-	public void removeObservationTower(ObservationTower tower) {
-		structures.remove(tower);
-	}
-
-	public void removePowerPlant(PowerPlant powerPlant) {
-		structures.remove(powerPlant);
-	}
-
-	public void removeUniversity(University university) {
-		structures.remove(university);
-	}
-
 	public void initializeSimpleTiles(Tile[][] tiles) {
 		simpleTiles = new SimpleTile[tiles.length][tiles[0].length];
 		for (int i = 0; i < simpleTiles.length; i++) {
@@ -257,5 +205,49 @@ public class Player {
 
 	public SimpleTile[][] getSimpleTiles() {
 		return simpleTiles;
+	}
+
+	public void removeEntity(EntityId entityId){
+		for(int i =0;i<melees.size();i++){
+			if(entityId.compareTo(melees.get(i).getEntityId())==1){
+				melees.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0;i<ranges.size();i++){
+			if(entityId.compareTo(ranges.get(i).getEntityId())==1){
+				ranges.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0;i<explorers.size();i++){
+			if(entityId.compareTo(explorers.get(i).getEntityId())==1){
+				explorers.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0;i<colonists.size();i++){
+			if(entityId.compareTo(colonists.get(i).getEntityId())==1){
+				colonists.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0; i<structures.size();i++){
+			if(entityId.compareTo(structures.get(i).getEntityId())==1){
+				structures.remove(i);
+				return;
+			}
+		}
+
+		for(int i = 0;i<workers.size();i++){
+			if(entityId.compareTo(workers.get(i).getId())==1){
+				workers.remove(i);
+				return;
+			}
+		}
 	}
 }

@@ -85,17 +85,21 @@ public class Tile implements iTileAccessors {
 
     public void removeEntity(EntityId entityId) {
         for (int i = 0; i < units.size(); i++) {
-            if (entityId.compareTo(units.get(i).getEntityId())==1)
+            if (entityId.compareTo(units.get(i).getEntityId())==1){
                 units.remove(i);
+                return;
+            }
         }
 
         if (entityId.compareTo(structure.getEntityId())==1){
             this.structure = null;
+            return;
         }
 
 //        for (int i = 0; i<armies.size();i++){
 //            if(entityId.compareTo(armies.get(i).getEntityId()))
 //                armies.remove(i);
+//          return;
 //        }
     }
 
