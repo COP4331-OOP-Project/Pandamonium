@@ -65,6 +65,8 @@ public abstract class Entity {
 
     // Location
     public Location getLocation(){ return location; }                               // Get location of entity
+    public int getLocationX(){return location.getX();}
+    public int getLocationY(){return location.getY();}
     public void setLocation(Location location){ this.location = location; }         // Set location
 
     // Required Accessors
