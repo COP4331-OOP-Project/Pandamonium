@@ -21,19 +21,4 @@ public class Structure extends Entity {
     	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
     
-    public double getCurrentHealth(){
-        return 0;
-    }
-    public Percentage getHealthPercentage(){
-        return null;
-    }
-    public void takeDamage(double damage){
-
-    }
-    public void heal(double healing){
-
-    }
-    public void decommissionEntity(){
-
-    }
 }
