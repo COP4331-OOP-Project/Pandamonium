@@ -3,7 +3,6 @@ package view.game;
 import java.awt.Point;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -75,13 +74,11 @@ public class TechOverviewPanel extends OverviewPanel{
 		scrollPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	 Bounds bounds = scrollPane.getViewportBounds();
-            	    int lowestXPixelShown = -1 * (int)bounds.getMinX() + 1;
-            	    int highestXPixelShown = -1 * (int)bounds.getMinX() + (int)bounds.getMaxX();
-            	int scrollDistance = (int) (scrollPane.getHvalue() * highestXPixelShown - lowestXPixelShown);
-            	//System.out.println("H val: " + scrollPane.getHvalue());
-            	//System.out.println("Width: " + scrollPane.getWidth());
-            	//System.out.println("X: " + event.getX());
+            	int scrollDistance = (int) (scrollPane.getHvalue() * canvas.getWidth());
+            	System.out.println("H val: " + scrollPane.getHvalue());
+            	System.out.println("Width: " + scrollPane.getWidth());
+            	System.out.println("C Width: " + canvas.getWidth());
+            	System.out.println("X: " + event.getX());
                 paneClicked(event.getX() + scrollDistance, event.getY());
             }
         });
