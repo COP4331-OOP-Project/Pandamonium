@@ -189,6 +189,7 @@ public class Assets {
         loadItem("ICON_STRUCTURE", "assets/images/icon/structure.png");
         loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
         loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
+		loadItem("ICON_END_TURN", "assets/images/icon/endTurn.png");
         loadItem("CHECKED", "assets/images/icon/checked.png");
         loadItem("UNCHECKED", "assets/images/icon/unChecked.png");
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");

@@ -25,6 +25,7 @@ public class SideBarPanel extends Panel{
 	Button structureButton = new Button();
 	Button researchButton = new Button();
 	Button settingsButton = new Button();
+	Button endTurnButton = new Button();
 	private Group root;
 	private GameModelAdapter gameModelAdapter;
 	
@@ -68,6 +69,13 @@ public class SideBarPanel extends Panel{
                 //Show in game settings panel
             }
         });
+		setUpButton(endTurnButton, getAssets().getImage("ICON_END_TURN"));
+		endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				gameModelAdapter.endTurn();
+			}
+		});
     }
 	
 	public void setUpButton(Button button, Image image) {
@@ -98,6 +106,8 @@ public class SideBarPanel extends Panel{
 		researchButton.setTranslateY(230);
 		settingsButton.setTranslateX(x);
 		settingsButton.setTranslateY(285);
+		endTurnButton.setTranslateX(x);
+		endTurnButton.setTranslateY(340);
 	}
 
 	private void drawSideBar(GraphicsContext g, Point screenDimensions) {
