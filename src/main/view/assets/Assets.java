@@ -201,6 +201,12 @@ public class Assets {
         loadItem("RESEARCHED", "assets/images/techTree/researched.png");
         loadItem("RESEARCHING", "assets/images/techTree/researching.png");
         loadItem("TECHNOLOGY", "assets/images/techTree/technology.png");
+        loadItem("TECH_CONNECT1", "assets/images/techTree/connector1.png");
+        loadItem("TECH_CONNECT2", "assets/images/techTree/connector2.png");
+        loadItem("TECH_CONNECT3", "assets/images/techTree/connector3.png");
+        loadItem("TECH_CONNECT4", "assets/images/techTree/connector4.png");
+        loadItem("TECH_CONNECT5", "assets/images/techTree/connector5.png");
+        loadItem("TECH_CONNECT6", "assets/images/techTree/connector6.png");
     }
 
     private void loadItem(String name, String path) {

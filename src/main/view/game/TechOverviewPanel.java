@@ -90,10 +90,28 @@ public class TechOverviewPanel extends OverviewPanel{
 		scrollPane.setMaxHeight(488);
 		scrollPane.setTranslateX(74);
 		scrollPane.setTranslateY(50);
-		g.fillText("Technology Overview", 100, 100);
-		canvas.setWidth(2175);
+		canvas.setWidth(2450);
 		canvas.setHeight(screenDimensions.y - 147);
 		drawTechnologies();
+		drawConnectors();
+	}
+
+	private void drawConnectors() {
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 235, 132);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT2"), 235, 289);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 510, 180);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT3"), 785, 119);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1060, 124);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1060, 234);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1060, 344);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1335, 124);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1335, 234);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 1335, 344);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 1610, 235);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT4"), 1610, 125);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT6"), 1885, 180);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 2160, 180);
+		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT5"), 2160, 290);
 	}
 
 	private void drawTechnologies() {
