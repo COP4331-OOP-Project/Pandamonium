@@ -100,4 +100,20 @@ public class SimpleTile{
 	public void setProspected() {
 		resourcesProspected = true;
 	}
+	
+	public Resource getFood() {
+		return food;
+	}
+	
+	public Resource getOre() {
+		return ore;
+	}
+	
+	public Resource getPeat() {
+		return peat;
+	}
+	
+	public boolean getResourcesProspected() {
+		return resourcesProspected;
+	}
 }
