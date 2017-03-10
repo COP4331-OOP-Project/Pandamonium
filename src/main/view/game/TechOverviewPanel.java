@@ -68,17 +68,18 @@ public class TechOverviewPanel extends OverviewPanel{
 		this.root = root;
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		canvas = new Canvas();
+		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
 		techGraphics = canvas.getGraphicsContext2D();
 		scrollPane.setContent(canvas);
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
 	        @Override
 	        public void handle(ScrollEvent event) {
-	            if (event.getDeltaY() != 0) {
-	                event.consume();
+	            if (event.getDeltaY() != 0) { 
+	                event.consume(); //This disables vertical scrolling in the scroll pane
 	            }
 	        }
 	    });
+		 //This sets the style of scrollPane to that specified in the CSS document
 		scrollPane.getStyleClass().setAll("scroll");
 		techGraphics.setFill(Color.WHITE);
 	}
@@ -97,6 +98,7 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	private void drawConnectors() {
+		//These are all those little connector graphics in between the technologies
 		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 235, 132);
 		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT2"), 235, 289);
 		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 510, 180);
