@@ -43,6 +43,10 @@ public class TechnologyViewItem {
 		g.setEffect(null);
 	}
 	
+	public void setIcon(Image icon) {
+		this.icon = icon;
+	}
+	
 	public TechViewEnum getResearched() {
 		return researched;
 	}

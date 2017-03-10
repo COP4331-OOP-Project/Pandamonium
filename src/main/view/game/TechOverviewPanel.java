@@ -93,8 +93,21 @@ public class TechOverviewPanel extends OverviewPanel{
 		scrollPane.setTranslateY(50);
 		canvas.setWidth(2450);
 		canvas.setHeight(screenDimensions.y - 147);
+		checkFoodIcons();
 		drawTechnologies();
 		drawConnectors();
+	}
+
+	private void checkFoodIcons() {
+		if (getAdapter().getPlayer() == 0) {
+			fertilizer.setIcon(getAssets().getImage("ICON_FOOD_HUMAN")); 
+			irrigation.setIcon(getAssets().getImage("ICON_FOOD_HUMAN"));
+			pesticides.setIcon(getAssets().getImage("ICON_FOOD_HUMAN"));
+		} else {
+			fertilizer.setIcon(getAssets().getImage("ICON_FOOD_PANDA")); 
+			irrigation.setIcon(getAssets().getImage("ICON_FOOD_PANDA"));
+			pesticides.setIcon(getAssets().getImage("ICON_FOOD_PANDA"));
+		}
 	}
 
 	private void drawConnectors() {
