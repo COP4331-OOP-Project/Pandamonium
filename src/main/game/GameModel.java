@@ -2,6 +2,12 @@ package game;
 
 import java.util.ArrayList;
 
+import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
+import game.entities.EntityTypeEnum;
+import game.entities.stats.UnitStats;
+import game.entities.units.Colonist;
+import game.entities.units.exceptions.UnitNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,25 +29,50 @@ public class GameModel {
     private boolean gameHasStarted = false;
     
     public void initializeGame() {
-        this.players = new ArrayList<Player>();
-        Player human = new Player(0, HUMAN_STARTING_LOCATION);
-        Player panda = new Player(1, PANDA_STARTING_LOCATION);
-        currentPlayer = human;
-        players.add(human);
-        players.add(panda);
-        gBoard = new Gameboard(players);
-        human.initializeSimpleTiles(gBoard.getTiles());
-        panda.initializeSimpleTiles(gBoard.getTiles());
-        human.updateSimpleTiles(gBoard.getTiles());
-        panda.updateSimpleTiles(gBoard.getTiles());
-        gameHasStarted =  true;
-        startTurn();
+        try {
+            this.players = new ArrayList<Player>();
+            Player human = new Player(0, HUMAN_STARTING_LOCATION);
+            Player panda = new Player(1, PANDA_STARTING_LOCATION);
+            currentPlayer = human;
+            players.add(human);
+            players.add(panda);
+            gBoard = new Gameboard(players);
+            initialUnit(human, panda);
+            human.initializeSimpleTiles(gBoard.getTiles());
+            panda.initializeSimpleTiles(gBoard.getTiles());
+            human.updateSimpleTiles(gBoard.getTiles());
+            panda.updateSimpleTiles(gBoard.getTiles());
+            gameHasStarted = true;
+            startTurn();
+        }catch(GameFailedToStartException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     
     public void updateGame() { //This is called up to 60 times per second
     	if (gameHasStarted) {
     		checkIfGameOver();
     	}
+    }
+
+    public void initialUnit(Player human, Player panda) throws GameFailedToStartException {
+        try {
+            UnitStats colonistStat = new UnitStats(EntitySubtypeEnum.COLONIST);
+            EntityId humanColonistId = new EntityId(0, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 0);
+            EntityId pandaColonistId = new EntityId(1, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 0);
+
+            Colonist humanColnist = new Colonist(colonistStat, HUMAN_STARTING_LOCATION, humanColonistId);
+            Colonist pandaColonist = new Colonist(colonistStat, PANDA_STARTING_LOCATION, pandaColonistId);
+
+            human.addColonist(humanColnist);
+            panda.addColonist(pandaColonist);
+
+            gBoard.addUnitToTile(humanColnist);
+            gBoard.addUnitToTile(pandaColonist);
+        }catch(UnitNotFoundException e){
+            throw new GameFailedToStartException();
+        }
     }
     
     private void checkIfGameOver() {
