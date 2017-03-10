@@ -3,11 +3,13 @@ package view.game;
 import java.awt.Point;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
@@ -70,6 +72,19 @@ public class TechOverviewPanel extends OverviewPanel{
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
 		techGraphics = canvas.getGraphicsContext2D();
 		scrollPane.setContent(canvas);
+		scrollPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	 Bounds bounds = scrollPane.getViewportBounds();
+            	    int lowestXPixelShown = -1 * (int)bounds.getMinX() + 1;
+            	    int highestXPixelShown = -1 * (int)bounds.getMinX() + (int)bounds.getMaxX();
+            	int scrollDistance = (int) (scrollPane.getHvalue() * highestXPixelShown - lowestXPixelShown);
+            	//System.out.println("H val: " + scrollPane.getHvalue());
+            	//System.out.println("Width: " + scrollPane.getWidth());
+            	//System.out.println("X: " + event.getX());
+                paneClicked(event.getX() + scrollDistance, event.getY());
+            }
+        });
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
 	        @Override
 	        public void handle(ScrollEvent event) {
@@ -151,6 +166,11 @@ public class TechOverviewPanel extends OverviewPanel{
         militaryAcademy.draw(techGraphics, new Point(2200, 135));
         nuclearPower.draw(techGraphics, new Point(2200, 245));
 	}
+	
+	private void paneClicked(double x, double y) {
+		System.out.println("X: " + x + " Y: " + y);
+	}
+
 
 	public void showGUIElements() {
 		root.getChildren().add(scrollPane);

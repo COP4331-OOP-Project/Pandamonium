@@ -43,6 +43,17 @@ public class TechViewItem {
 		g.setEffect(null);
 	}
 	
+	public void onClick() {
+		//This functionality below is just a test of clicking on the technology.
+		//This needs to be replaced with actual technology function on clicking
+		//on the technology.
+		if (researched == TechViewEnum.RESEARCHED) {
+			researched = TechViewEnum.RESEARCHING;
+		} else {
+			researched = TechViewEnum.RESEARCHED;
+		}
+	}
+	
 	public void setIcon(Image icon) {
 		this.icon = icon;
 	}
