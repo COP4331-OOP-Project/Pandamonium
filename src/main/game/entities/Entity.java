@@ -38,7 +38,15 @@ public abstract class Entity {
 
     // Command queue management
     public void addCommandToQueue(Command command){ commandQueue.offer(command); }  // Add new command to queue
-    public void doTurn(){ /* TODO: Implement doTurn */ }                            // Iterate turn
+    public void doTurn(){
+        if(commandQueue.peek().getDuration()==0){
+            commandQueue.poll().exec();
+        }
+        else{
+            commandQueue.peek().iterateDuration();
+        }
+        //Yes it violates TDA but for now is the only way to do it based on how the Command class is created
+    }                            // Iterate turn
     public Command nextCommand(){ return commandQueue.poll(); }                     // Next queue for new command or decrement turn count
     public Command peekCommand(){ return commandQueue.peek(); }                     // Peek at next command
     public boolean isQueueEmpty(){ return commandQueue.isEmpty(); }                 // Test is queue is empty
