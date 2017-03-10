@@ -190,6 +190,10 @@ public class Assets {
         loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
         loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
 		loadItem("ICON_END_TURN", "assets/images/icon/endTurn.png");
+        loadItem("WORK_RADIUS", "assets/images/icon/workerRadius.png");
+        loadItem("WORKER_ON_TILE", "assets/images/icon/workerOnTile.png");
+        loadItem("WORKER_TO_SOLDIER", "assets/images/icon/workerToSoldier.png");
+        loadItem("BREED_WORKER", "assets/images/icon/breedWorker.png");
         loadItem("CHECKED", "assets/images/icon/checked.png");
         loadItem("UNCHECKED", "assets/images/icon/unChecked.png");
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
