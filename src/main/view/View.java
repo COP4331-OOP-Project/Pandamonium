@@ -12,7 +12,6 @@ import view.game.Camera;
 
 public class View {
     private AssetManager assets = new AssetManager();
-
     private static final int DEFAULT_SCREEN_WIDTH = 1152;
     private static final int DEFAULT_SCREEN_HEIGHT = 648;
     private Camera camera;

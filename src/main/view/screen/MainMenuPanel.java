@@ -58,8 +58,8 @@ public class MainMenuPanel extends Panel {
 		startGame.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				panelManager.setMode(ViewEnum.MAIN_GAME);
 				getAdapter().startGame();
+				panelManager.setMode(ViewEnum.INTRO);
 			}
 		});
 		mapMaker.setId("mainMenuButton");

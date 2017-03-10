@@ -38,6 +38,10 @@ public class MusicManager {
 	}
 	
 	public void updateMusic(ViewEnum currentViewMode) {
+		if (currentViewMode == ViewEnum.INTRO) {
+			gameMusicPlayer.pause();
+			menuMusicPlayer.pause();
+		}
 		if (currentViewMode == ViewEnum.SETTINGS ||
 			currentViewMode == ViewEnum.MAIN_MENU ||
 			currentViewMode == ViewEnum.MAP_MAKER) {

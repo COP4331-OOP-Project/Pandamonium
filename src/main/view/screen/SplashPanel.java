@@ -3,6 +3,7 @@ package view.screen;
 import java.awt.Point;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +19,8 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class SplashPanel extends Panel {
+	private static final int ASPECT_RATIO_X = 16;
+	private static final int ASPECT_RATIO_Y = 9;
 	PanelManager panelManager;
 	Group root;
 	Media splash = getAssets().getSplash();
@@ -34,13 +37,13 @@ public class SplashPanel extends Panel {
 		this.panelManager = panelManager;
 		view.fitWidthProperty().bind(Bindings.selectDouble(view.sceneProperty(), "width"));
 		view.fitHeightProperty().bind(Bindings.selectDouble(view.sceneProperty(), "height"));
+		System.out.println(view.fitHeightProperty().doubleValue());
 		view.setPreserveRatio(true);
 		video.getChildren().add(view);
 	}
 
 	private void checkSkipped() {
-		root.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to
-																	// skip
+		video.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to skip
 			public void handle(MouseEvent event) {
 				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
 					player.stop();
@@ -52,6 +55,14 @@ public class SplashPanel extends Panel {
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		//Centers Video On Screen
+		if ((double)screenDimensions.y/(double)screenDimensions.x < 
+					(double)ASPECT_RATIO_Y/(double)ASPECT_RATIO_X) {
+			view.setTranslateX((screenDimensions.x - ((ASPECT_RATIO_X * screenDimensions.y)/ASPECT_RATIO_Y))/2);
+		}
+		else {
+			view.setTranslateY((screenDimensions.y - ((ASPECT_RATIO_Y * screenDimensions.x)/ASPECT_RATIO_X))/2); 
+		}
 		if (!splashStarted) {
 			playSplashVideo();
 			splashStarted = true;
