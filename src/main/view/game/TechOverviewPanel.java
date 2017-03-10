@@ -13,51 +13,50 @@ import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
-import view.game.drawers.TechnologyViewItem;
 
 public class TechOverviewPanel extends OverviewPanel{
 	private ScrollPane scrollPane = new ScrollPane();
-	private TechnologyViewItem fertilizer = new TechnologyViewItem(getAssets(), "Fertilizer", 
+	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechnologyViewItem wheelbarrow = new TechnologyViewItem(getAssets(), "Wheelbarrow",
+	private TechViewItem wheelbarrow = new TechViewItem(getAssets(), "Wheelbarrow",
 			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechnologyViewItem tent = new TechnologyViewItem(getAssets(), "Tent", 
+	private TechViewItem tent = new TechViewItem(getAssets(), "Tent", 
 			getAssets().getImage("WORKER_ON_TILE"), "+1");
-	private TechnologyViewItem ironMining = new TechnologyViewItem(getAssets(), "Iron Mining", 
+	private TechViewItem ironMining = new TechViewItem(getAssets(), "Iron Mining", 
 			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechnologyViewItem bed = new TechnologyViewItem(getAssets(), "Bed", 
+	private TechViewItem bed = new TechViewItem(getAssets(), "Bed", 
 			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechnologyViewItem housing = new TechnologyViewItem(getAssets(), "Housing", 
+	private TechViewItem housing = new TechViewItem(getAssets(), "Housing", 
 			getAssets().getImage("WORKER_ON_TILE"), "+2");
-	private TechnologyViewItem draftHorse = new TechnologyViewItem(getAssets(), "Draft Horse",
+	private TechViewItem draftHorse = new TechViewItem(getAssets(), "Draft Horse",
 			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechnologyViewItem irrigation = new TechnologyViewItem(getAssets(), "Irrigation", 
+	private TechViewItem irrigation = new TechViewItem(getAssets(), "Irrigation", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechnologyViewItem steamPower = new TechnologyViewItem(getAssets(), "Steam Power",
+	private TechViewItem steamPower = new TechViewItem(getAssets(), "Steam Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
-	private TechnologyViewItem militia = new TechnologyViewItem(getAssets(), "Militia", 
+	private TechViewItem militia = new TechViewItem(getAssets(), "Militia", 
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechnologyViewItem pesticides = new TechnologyViewItem(getAssets(), "Pesticides", 
+	private TechViewItem pesticides = new TechViewItem(getAssets(), "Pesticides", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechnologyViewItem steelMining = new TechnologyViewItem(getAssets(), "Steel Mining", 
+	private TechViewItem steelMining = new TechViewItem(getAssets(), "Steel Mining", 
 			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechnologyViewItem barracks = new TechnologyViewItem(getAssets(), "Barracks", 
+	private TechViewItem barracks = new TechViewItem(getAssets(), "Barracks", 
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechnologyViewItem beer = new TechnologyViewItem(getAssets(), "Beer", 
+	private TechViewItem beer = new TechViewItem(getAssets(), "Beer", 
 			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechnologyViewItem blastFurnace = new TechnologyViewItem(getAssets(), "Blast Furnace",
+	private TechViewItem blastFurnace = new TechViewItem(getAssets(), "Blast Furnace",
 			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechnologyViewItem roads = new TechnologyViewItem(getAssets(), "Roads",
+	private TechViewItem roads = new TechViewItem(getAssets(), "Roads",
 			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechnologyViewItem vodka = new TechnologyViewItem(getAssets(), "Vodka", 
+	private TechViewItem vodka = new TechViewItem(getAssets(), "Vodka", 
 			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechnologyViewItem urbanPlanning = new TechnologyViewItem(getAssets(), "Urban Planning", 
+	private TechViewItem urbanPlanning = new TechViewItem(getAssets(), "Urban Planning", 
 			getAssets().getImage("WORKER_ON_TILE"), "+2");
-	private TechnologyViewItem windPower = new TechnologyViewItem(getAssets(), "Wind Power",
+	private TechViewItem windPower = new TechViewItem(getAssets(), "Wind Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
-	private TechnologyViewItem militaryAcademy = new TechnologyViewItem(getAssets(), "Military Academy", 
+	private TechViewItem militaryAcademy = new TechViewItem(getAssets(), "Military Academy", 
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechnologyViewItem nuclearPower = new TechnologyViewItem(getAssets(), "Nuclear Power",
+	private TechViewItem nuclearPower = new TechViewItem(getAssets(), "Nuclear Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
 	private GraphicsContext techGraphics;
 	private Canvas canvas;

@@ -1,4 +1,4 @@
-package view.game.drawers;
+package view.game;
 
 import java.awt.Point;
 
@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import view.assets.AssetManager;
 
-public class TechnologyViewItem {
+public class TechViewItem {
 	private TechViewEnum researched = TechViewEnum.UNRESEARCED;
 	private String text;
 	private Image icon;
@@ -18,7 +18,7 @@ public class TechnologyViewItem {
 	private Font font = Font.font(17);
 	private DropShadow ds = new DropShadow();
 	
-	public TechnologyViewItem(AssetManager assets, String text, Image icon, String improvement) {
+	public TechViewItem(AssetManager assets, String text, Image icon, String improvement) {
 		this.assets = assets;
 		this.text = text;
 		this.icon = icon;
