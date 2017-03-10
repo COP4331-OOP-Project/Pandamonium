@@ -68,5 +68,8 @@ public class GameModelAdapter {
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
 	}
-
+	
+	public void endTurn() {
+		gameModel.endTurn();
+	}
 }

@@ -18,7 +18,7 @@ import view.View;
 
 public class GameEngine extends Application {
 	private static final int MIN_WIDTH = 1160;
-    private static final int MIN_HEIGHT = 620;
+    private static final int MIN_HEIGHT = 658;
     private KeyEventController keyEvents;
     private MouseEventController mouseEvents;
 	private View view;

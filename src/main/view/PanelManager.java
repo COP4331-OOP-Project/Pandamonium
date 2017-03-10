@@ -141,4 +141,8 @@ public class PanelManager {
 	public void toggleMiniMap() {
 		miniMapPanel.toggle();
 	}
+
+	public void toggleResources() {
+		gamePanel.toggleResources();
+	}
 }

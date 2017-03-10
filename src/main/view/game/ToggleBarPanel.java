@@ -76,7 +76,7 @@ public class ToggleBarPanel extends Panel{
 		} else {
 			resources.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
 		}
-		//Toggle Resources Here
+		panelManager.toggleResources();
 	}
 	
 	private void toggleStructures() {
