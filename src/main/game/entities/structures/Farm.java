@@ -44,6 +44,18 @@ public class Farm extends Structure {
         unassigned.remove();
     }
 
+    public int getTotalWorkers(){
+        return unassigned.size() + farmer.size();
+    }
+
+    public int getUnassignedWorkers(){
+        return unassigned.size();
+    }
+
+    public int getBusyWorkers(){
+        return farmer.size();
+    }
+
     /*public Resource harvest(){
 
     }*/

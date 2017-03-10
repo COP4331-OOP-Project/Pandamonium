@@ -46,6 +46,17 @@ public class PowerPlant extends Structure {
         unassigned.remove();
     }
 
+    public int getTotalWorkers(){
+        return unassigned.size() + generator.size();
+    }
+
+    public int getUnassignedWorkers(){
+        return unassigned.size();
+    }
+
+    public int getBusyWorkers(){
+        return generator.size();
+    }
     /*public Resource harvest(){
 
     }*/

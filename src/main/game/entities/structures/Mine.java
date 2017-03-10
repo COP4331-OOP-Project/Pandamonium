@@ -46,6 +46,18 @@ public class Mine extends Structure {
         unassigned.remove();
     }
 
+    public int getTotalWorkers(){
+        return unassigned.size() + miner.size();
+    }
+
+    public int getUnassignedWorkers(){
+        return unassigned.size();
+    }
+
+    public int getBusyWorkers(){
+        return miner.size();
+    }
+
     /*public Resource harvest(){
 
     }*/

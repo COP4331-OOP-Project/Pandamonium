@@ -48,6 +48,18 @@ public class Fort extends Structure {
         unassigned.remove();
     }
 
+    public int getTotalWorkers(){
+        return unassigned.size() + unitBuilder.size();
+    }
+
+    public int getUnassignedWorkers(){
+        return unassigned.size();
+    }
+
+    public int getBusyWorkers(){
+        return unitBuilder.size();
+    }
+
     public void combatState(){
         setPowerState(PowerState.COMBAT);
     }

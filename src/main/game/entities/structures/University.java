@@ -46,6 +46,18 @@ public class University extends Structure {
         unassigned.remove();
     }
 
+    public int getTotalWorkers(){
+        return unassigned.size() + researcher.size();
+    }
+
+    public int getUnassignedWorkers(){
+        return unassigned.size();
+    }
+
+    public int getBusyWorkers(){
+        return researcher.size();
+    }
+
     public void research(){
 
     }
