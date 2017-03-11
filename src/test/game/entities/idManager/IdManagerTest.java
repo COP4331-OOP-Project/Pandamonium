@@ -1,9 +1,8 @@
 package game.entities.idManager;
 
-import game.entities.IdManager.exceptions.IdDoesNotExistException;
-import game.entities.IdManager.exceptions.IdLimitExceededException;
-import game.entities.IdManager.IdManager;
-import game.entities.IdManager.exceptions.InvalidIdRangeException;
+import game.entities.Managers.IdManager.exceptions.IdDoesNotExistException;
+import game.entities.Managers.IdManager.exceptions.IdLimitExceededException;
+import game.entities.Managers.IdManager.IdManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

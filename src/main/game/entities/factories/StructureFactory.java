@@ -6,9 +6,9 @@ import java.util.Map;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.IdManager.IdManager;
-import game.entities.IdManager.exceptions.IdDoesNotExistException;
-import game.entities.IdManager.exceptions.IdLimitExceededException;
+import game.entities.Managers.IdManager.IdManager;
+import game.entities.Managers.IdManager.exceptions.IdDoesNotExistException;
+import game.entities.Managers.IdManager.exceptions.IdLimitExceededException;
 import game.entities.factories.exceptions.*;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
@@ -16,8 +16,6 @@ import game.entities.structures.exceptions.StructureNotFoundException;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.management.RuntimeErrorException;
 
 public class StructureFactory {
 
@@ -29,6 +27,7 @@ public class StructureFactory {
     private final static Logger log = LogManager.getLogger(StructureFactory.class);
 
 
+    private int playerId;
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
     private EntityId entityId;
     private IdManager totalStructureCountManager;
@@ -41,7 +40,8 @@ public class StructureFactory {
     private IdManager univManager;
 
 
-    public StructureFactory() {
+    public StructureFactory(int playerId) {
+        this.playerId = playerId;
         this.structureStatistics = new HashMap<>();
         this.totalStructureCountManager = new IdManager(1, MAX_STRUCTURE_COUNT);
         this.capitolManager = new IdManager(MIN_STRUCTURE_ID, MAX_CAPITOLS);
@@ -66,19 +66,20 @@ public class StructureFactory {
         }
     }
 
-    public Structure createStructure(EntitySubtypeEnum structType, Location location, int playerId)
-            throws CapitolLimitExceededException, FarmLimitExceededException, FortLimitExceededException,
-            MineLimitExceededException, ObserveLimitExceededException, PlantLimitExceededException,
-            UniversityLimitExceededException, TotalStructureLimitExceededException, StructureNotFoundException {
-        switch (structType) {
+    public Structure createStructure(EntitySubtypeEnum structureType, int id, Location location)
+            throws  StructureTypeDoesNotExist {
+        switch (structureType) {
             case CAPITOL: {
-                return this.getNewCapitol(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id);
+                return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId);
             }
             case FARM: {
-                return this.getNewFarm(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id);
+                return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId);
             }
             case FORT: {
-                return this.getNewFort(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId);
             }
             case MINE: {
                 return this.getNewMine(location, playerId);

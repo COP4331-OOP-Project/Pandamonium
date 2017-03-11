@@ -1,4 +1,4 @@
-package game.entities.workers.workerStats;
+package game.entities.stats;
 
 import game.resources.Resource;
 

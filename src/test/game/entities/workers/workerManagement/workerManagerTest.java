@@ -1,8 +1,9 @@
 package game.entities.workers.workerManagement;
 
-import game.entities.workers.workerManagement.exceptions.WorkerDoesNotExistException;
-import game.entities.workers.workerManagement.exceptions.WorkerLimitExceededException;
-import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
+import game.entities.Managers.WorkerIdManager;
+import game.entities.Managers.exceptions.WorkerDoesNotExistException;
+import game.entities.Managers.exceptions.WorkerLimitExceededException;
+import game.entities.Managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
