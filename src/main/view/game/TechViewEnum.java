@@ -1,5 +1,5 @@
 package view.game;
 
 public enum TechViewEnum {
-	RESEARCHED, RESEARCHING, UNRESEARCED
+	RESEARCHED, RESEARCHING, UNRESEARCHED
 }

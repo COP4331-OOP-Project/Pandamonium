@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import view.assets.AssetManager;
 
 public class TechViewItem {
-	private TechViewEnum researched = TechViewEnum.UNRESEARCED;
+	private TechViewEnum researched = TechViewEnum.UNRESEARCHED;
 	private String text;
 	private Image icon;
 	private String improvement;
