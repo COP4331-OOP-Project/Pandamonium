@@ -41,8 +41,7 @@ public final class SimpleTileUpdater {
 	}
 
 	private static void setSurroundingVisible(Unit unit, SimpleTile[][] tiles) {
-		int visibility = 1; //This needs to be changed to units actual visibility
-		updateVisiblties(unit.getLocation(), visibility, tiles); 
+		updateVisiblties(unit.getLocation(), unit.getStats().getVisibility(), tiles); 
 	}
 	 
 	private static void updateVisiblties(Location loc, int radius, SimpleTile[][] tiles) {
