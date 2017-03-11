@@ -53,18 +53,9 @@ public class MainMenuPanel extends Panel {
 
 	private void setUpButtons() {
 		startGame.setId("mainMenuButton");
-<<<<<<< HEAD
-		startGame.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				getAdapter().startGame();
-				panelManager.setMode(ViewEnum.INTRO);
-			}
-=======
 		startGame.setOnAction(event -> {
 			panelManager.setMode(ViewEnum.MAIN_GAME);
 			getAdapter().startGame();
->>>>>>> Added Lambda Expressions Everywhere
 		});
 		mapMaker.setId("mainMenuButton");
 		mapMaker.setOnAction(event -> panelManager.setMode(ViewEnum.MAP_MAKER));
