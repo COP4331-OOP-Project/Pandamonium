@@ -20,12 +20,12 @@ import view.assets.AssetManager;
 public class IntroPanel extends Panel {
 	private static final int ASPECT_RATIO_X = 16;
 	private static final int ASPECT_RATIO_Y = 9;
-	PanelManager panelManager;
-	Group root;
-	Media intro = getAssets().getIntro();
-	StackPane video = new StackPane();
-	MediaPlayer player = new MediaPlayer(intro);
-	MediaView view = new MediaView(player);
+	private PanelManager panelManager;
+	private Group root;
+	private Media intro = getAssets().getIntro();
+	private StackPane video = new StackPane();
+	private MediaPlayer videoPlayer = new MediaPlayer(intro);
+	private MediaView view = new MediaView(videoPlayer);
 	private boolean introStarted = false;
 
 	public IntroPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager,
@@ -43,8 +43,8 @@ public class IntroPanel extends Panel {
 	private void checkSkipped() {
 		video.setOnMouseClicked(new EventHandler<MouseEvent>() { // Click to skip
 			public void handle(MouseEvent event) {
-				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
-					player.stop();
+				if (videoPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+					videoPlayer.stop();
 					panelManager.setMode(ViewEnum.MAIN_GAME);
 				}
 			}
@@ -65,15 +65,15 @@ public class IntroPanel extends Panel {
 			playIntroVideo();
 			introStarted = true;
 		} else {
-			if (player.getCurrentTime().toMillis() == 39894) { //Last Milli of Video
-				player.stop();
+			if (videoPlayer.getCurrentTime().toMillis() == 39894) { //Last Milli of Video
+				videoPlayer.stop();
 				panelManager.setMode(ViewEnum.MAIN_GAME);
 			}
 		}
 	}
 
 	private void playIntroVideo() {
-		player.play();
+		videoPlayer.play();
 	}
 
 	public void hideGUIElements() {

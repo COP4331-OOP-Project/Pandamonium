@@ -21,12 +21,12 @@ import view.assets.AssetManager;
 public class SplashPanel extends Panel {
 	private static final int ASPECT_RATIO_X = 16;
 	private static final int ASPECT_RATIO_Y = 9;
-	PanelManager panelManager;
-	Group root;
-	Media splash = getAssets().getSplash();
-	StackPane video = new StackPane();
-	MediaPlayer player = new MediaPlayer(splash);
-	MediaView view = new MediaView(player);
+	private PanelManager panelManager;
+	private Group root;
+	private Media splash = getAssets().getSplash();
+	private StackPane video = new StackPane();
+	private MediaPlayer player = new MediaPlayer(splash);
+	private MediaView view = new MediaView(player);
 	private boolean splashStarted = false;
 
 	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager,
