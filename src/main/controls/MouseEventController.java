@@ -1,7 +1,6 @@
 package controls;
 
 import game.GameModel;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -50,47 +49,12 @@ public class MouseEventController {
 
 	
 	public void handleEvents() {
-		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mouseDragged(event);
-            }
-        });
-    	
-    	scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mousePressed(event);
-            }
-        });
-    	
-    	scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mouseReleased(event);
-            }
-        });
-    	
-    	scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mouseMoved(event);
-            }
-        });
-    	
-    	scene.setOnScroll(new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-               mouseScrolled(event);
-            }
-        });
-    	
-    	scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mouseClicked(event);
-            }
-        });
+		scene.setOnMouseDragged(event -> mouseDragged(event));
+    	scene.setOnMousePressed(event -> mousePressed(event));
+    	scene.setOnMouseReleased(event -> mouseReleased(event));
+    	scene.setOnMouseMoved(event -> mouseMoved(event));
+    	scene.setOnScroll(event -> mouseScrolled(event));
+    	scene.setOnMouseClicked(event -> mouseClicked(event));
 	}
 
 

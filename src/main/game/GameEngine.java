@@ -6,13 +6,11 @@ import game.mode.ModeController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import view.GameModelAdapter;
 import view.View;
 
@@ -34,13 +32,10 @@ public class GameEngine extends Application {
         //stage.setFullScreen(true);
         stage.setMaximized(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                Platform.exit();
-                System.exit(0);
-            }
-        });
+        stage.setOnCloseRequest(t -> {
+		    Platform.exit();
+		    System.exit(0);
+		});
         gameModel = new GameModel();
         controlMode = new ModeController(gameModel);
         gameModelAdapter = new GameModelAdapter(gameModel, controlMode);

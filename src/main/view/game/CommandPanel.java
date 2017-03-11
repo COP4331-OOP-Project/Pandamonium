@@ -4,8 +4,6 @@ import java.awt.Point;
 
 import game.commands.CommandEnum;
 import game.mode.Mode;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ToggleButton;
@@ -59,11 +57,7 @@ public class CommandPanel extends Panel{
 		toggleButton.setGraphic(new ImageView(image));
 		commandToggleButtons.getChildren().add(toggleButton);
 		toggleButton.getStyleClass().setAll("commandButton");
-		toggleButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            }
-        });
+		toggleButton.setOnAction(event -> {});
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {

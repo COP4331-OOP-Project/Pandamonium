@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import game.commands.CommandEnum;
 import game.mode.ModeController;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -187,12 +186,7 @@ public class KeyEventController {
     }
     
     public void handleEvents() {
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                keyReleased(event);
-            }
-        });
+        scene.setOnKeyReleased(event -> keyReleased(event));
     }
 
 	public void togglePlayer() {

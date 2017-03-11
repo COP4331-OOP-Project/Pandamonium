@@ -25,16 +25,8 @@ public class MusicManager {
 		gameMusic = assets.getGameMusic();
 		menuMusicPlayer = new MediaPlayer(menuMusic);
 		gameMusicPlayer = new MediaPlayer(gameMusic);
-		menuMusicPlayer.setOnEndOfMedia(new Runnable() {
-		       public void run() {
-		    	   menuMusicPlayer.seek(Duration.ZERO);
-		         }
-		});
-		gameMusicPlayer.setOnEndOfMedia(new Runnable() {
-		       public void run() {
-		    	   gameMusicPlayer.seek(Duration.ZERO);
-		         }
-		});
+		menuMusicPlayer.setOnEndOfMedia(() -> menuMusicPlayer.seek(Duration.ZERO));
+		gameMusicPlayer.setOnEndOfMedia(() -> gameMusicPlayer.seek(Duration.ZERO));
 	}
 	
 	public void updateMusic(ViewEnum currentViewMode) {

@@ -7,12 +7,10 @@ import org.apache.logging.log4j.Logger;
 
 import game.mode.Mode;
 import game.mode.Submode;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import view.GameModelAdapter;
@@ -61,24 +59,21 @@ public class ControlModePanel extends Panel {
     }
     
     private void checkModeClicked() {
-		root.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-               double x = event.getX();
-               double y = event.getY();
-               if (x > (screenDimensions.x - 503) && y < 45) { //Clicked in Mode Box
-            	   if (x > screenDimensions.x - 503 && x <= screenDimensions.x - 377) { //Click on RP
-            		   getAdapter().setMode(Mode.RALLY_POINT);
-            	   } else if (x > screenDimensions.x - 377 && x <= screenDimensions.x - 251) {//Click on Structure
-            		   getAdapter().setMode(Mode.STRUCTURE);
-            	   } else if (x > screenDimensions.x - 251 && x <= screenDimensions.x - 126) {//Click on Unit
-            		   getAdapter().setMode(Mode.UNIT);
-            	   } else { //Click on Army
-            		   getAdapter().setMode(Mode.ARMY);
-            	   }
-               }
-            }
-        });
+		root.setOnMouseReleased(event -> {
+		   double x = event.getX();
+		   double y = event.getY();
+		   if (x > (screenDimensions.x - 503) && y < 45) { //Clicked in Mode Box
+			   if (x > screenDimensions.x - 503 && x <= screenDimensions.x - 377) { //Click on RP
+				   getAdapter().setMode(Mode.RALLY_POINT);
+			   } else if (x > screenDimensions.x - 377 && x <= screenDimensions.x - 251) {//Click on Structure
+				   getAdapter().setMode(Mode.STRUCTURE);
+			   } else if (x > screenDimensions.x - 251 && x <= screenDimensions.x - 126) {//Click on Unit
+				   getAdapter().setMode(Mode.UNIT);
+			   } else { //Click on Army
+				   getAdapter().setMode(Mode.ARMY);
+			   }
+		   }
+		});
     }
 
 	private void updateModes() {
