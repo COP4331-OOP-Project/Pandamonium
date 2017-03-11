@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
+import game.entities.factories.UnitFactory;
+import game.entities.factories.exceptions.ColonistLimitExceededException;
+import game.entities.factories.exceptions.ExplorerLimitExceededException;
+import game.entities.factories.exceptions.MeleeLimitExceededException;
+import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.exceptions.UnitNotFoundException;
@@ -58,19 +63,18 @@ public class GameModel {
 
     public void initialUnit(Player human, Player panda) throws GameFailedToStartException {
         try {
-            UnitStats colonistStat = new UnitStats(EntitySubtypeEnum.COLONIST);
-            EntityId humanColonistId = new EntityId(0, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 0);
-            EntityId pandaColonistId = new EntityId(1, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 0);
+            UnitFactory unitFactory = new UnitFactory();
 
-            Colonist humanColnist = new Colonist(colonistStat, HUMAN_STARTING_LOCATION, humanColonistId);
-            Colonist pandaColonist = new Colonist(colonistStat, PANDA_STARTING_LOCATION, pandaColonistId);
+            Colonist humanColnist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
+            Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
 
             human.addColonist(humanColnist);
             panda.addColonist(pandaColonist);
 
             gBoard.addUnitToTile(humanColnist);
             gBoard.addUnitToTile(pandaColonist);
-        }catch(UnitNotFoundException e){
+        }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
+                |RangedLimitExceededException e){
             throw new GameFailedToStartException();
         }
     }
