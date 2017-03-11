@@ -22,7 +22,7 @@ public class UnitStats {
                 this.armor = 1;
                 this.speed = 1;
                 this.health = 10;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case EXPLORER:
@@ -32,7 +32,7 @@ public class UnitStats {
                 this.armor = 2;
                 this.speed = 3;
                 this.health = 10;
-                this.influence = 1;
+                this.influence = 2;
                 this.upkeep = .05f;
                 break;
             case MELEE:
@@ -42,7 +42,7 @@ public class UnitStats {
                 this.armor = 5;
                 this.speed = 1;
                 this.health = 10;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .1f;
                 break;
             case RANGE:
@@ -52,7 +52,7 @@ public class UnitStats {
                 this.armor = 3;
                 this.speed = 2;
                 this.health = 10;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .1f;
                 break;
             default:

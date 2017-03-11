@@ -20,7 +20,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case FARM:
@@ -29,7 +29,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case FORT:
@@ -38,7 +38,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 50;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .20f;
                 break;
             case MINE:
@@ -47,7 +47,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case OBSERVE:
@@ -56,7 +56,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case PLANT:
@@ -65,7 +65,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case UNIVERSITY:
@@ -74,7 +74,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
-                this.influence = 0;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             default:
