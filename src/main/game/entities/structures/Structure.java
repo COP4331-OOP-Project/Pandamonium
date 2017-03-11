@@ -17,35 +17,8 @@ public class Structure extends Entity {
         standby();
     }
 
-
-    //TODO wait for command class to finish
-    /**public void doTurn() {
-        if (!CommandQueue.isEmpty()) {
-            if (CommandQueue.peek().getDuration() == 0) {                               // Test if next cmd can fire
-                CommandQueue.poll().exec();                                               // Execute next cmd
-            } else CommandQueue.peek().iterateDuration();
-        }
-
-    }
-     * @return **/
-
     public EntitySubtypeEnum getType() {
     	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
     
-    public double getCurrentHealth(){
-        return 0;
-    }
-    public Percentage getHealthPercentage(){
-        return null;
-    }
-    public void takeDamage(double damage){
-
-    }
-    public void heal(double healing){
-
-    }
-    public void decommissionEntity(){
-
-    }
 }
