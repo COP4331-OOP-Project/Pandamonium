@@ -3,11 +3,8 @@ package view.screen;
 import java.awt.Point;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -42,12 +39,10 @@ public class SplashPanel extends Panel {
 	}
 
 	private void checkSkipped() {
-		video.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to skip
-			public void handle(MouseEvent event) {
-				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
-					player.stop();
-					panelManager.setMode(ViewEnum.MAIN_MENU);
-				}
+		root.setOnMouseReleased(event -> {
+			if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+				player.stop();
+				panelManager.setMode(ViewEnum.MAIN_MENU);
 			}
 		});
 
