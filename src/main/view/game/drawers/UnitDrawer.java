@@ -130,7 +130,8 @@ public class UnitDrawer {
 				drawUnit(p, new Point(68, 115), 0.60, units.get(1), g);
 				drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
 				break;
-			case 13 :
+				//If you have more than 13 units on a tile, it just draws the first 13
+			default: //You can obviously still cycle through the others through
 				drawUnit(p, new Point(128, 15), 0.60, units.get(12), g);
 				drawUnit(p, new Point(98, 15), 0.60, units.get(11), g);
 				drawUnit(p, new Point(68, 15), 0.60, units.get(10), g);
@@ -144,23 +145,6 @@ public class UnitDrawer {
 				drawUnit(p, new Point(98, 115), 0.60, units.get(2), g);
 				drawUnit(p, new Point(68, 115), 0.60, units.get(1), g);
 				drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
-				break;
-			case 14 :
-				drawUnit(p, new Point(128, 25), 0.50, units.get(12), g);
-				drawUnit(p, new Point(98, 25), 0.50, units.get(11), g);
-				drawUnit(p, new Point(68, 25), 0.50, units.get(10), g);
-				drawUnit(p, new Point(38, 25), 0.50, units.get(9), g);
-				drawUnit(p, new Point(140, 65), 0.50, units.get(8), g);
-				drawUnit(p, new Point(110, 65), 0.50, units.get(7), g);
-				drawUnit(p, new Point(80, 65), 0.50, units.get(6), g);
-				drawUnit(p, new Point(50, 65), 0.50, units.get(5), g);
-				drawUnit(p, new Point(20, 65), 0.50, units.get(4), g);
-				drawUnit(p, new Point(128, 105), 0.50, units.get(3), g);
-				drawUnit(p, new Point(98, 105), 0.50, units.get(2), g);
-				drawUnit(p, new Point(68, 105), 0.50, units.get(1), g);
-				drawUnit(p, new Point(38, 105), 0.50, units.get(0), g);
-				break;
-			default:
 				break;
 		}
 	}
