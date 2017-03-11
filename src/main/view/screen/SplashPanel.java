@@ -37,7 +37,6 @@ public class SplashPanel extends Panel {
 		this.panelManager = panelManager;
 		view.fitWidthProperty().bind(Bindings.selectDouble(view.sceneProperty(), "width"));
 		view.fitHeightProperty().bind(Bindings.selectDouble(view.sceneProperty(), "height"));
-		System.out.println(view.fitHeightProperty().doubleValue());
 		view.setPreserveRatio(true);
 		video.getChildren().add(view);
 	}
