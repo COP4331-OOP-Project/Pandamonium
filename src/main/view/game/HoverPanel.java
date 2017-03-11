@@ -20,7 +20,7 @@ public class HoverPanel extends Panel {
 
     public void drawText(GraphicsContext g, Point location, String text) {
         Font oldFont = g.getFont();
-        g.drawImage(getAssets().getImage("GUI_HOVER"), location.x, location.y);
+        g.drawImage(getImage("GUI_HOVER"), location.x, location.y);
         g.setFont(getAssets().getFont(0));
         g.fillText(text, location.x + 10, location.y + 25);
         g.setFont(oldFont);

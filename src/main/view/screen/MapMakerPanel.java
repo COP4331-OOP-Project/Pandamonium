@@ -144,7 +144,7 @@ public class MapMakerPanel extends Panel {
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-		// g.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0,
+		// g.drawImage(getImage("GAME_BACKGROUND"), 0, 0,
 		// screenDimensions.x, screenDimensions.y);
 		this.screenDimensions.x = screenDimensions.x;
 		this.screenDimensions.y = screenDimensions.y;
@@ -159,7 +159,7 @@ public class MapMakerPanel extends Panel {
 	}
 
 	private void drawTopBar(GraphicsContext g) {
-		g.drawImage(getAssets().getImage("GUI_MAP_BAR"), 0, 0);
+		g.drawImage(getImage("GUI_MAP_BAR"), 0, 0);
 		drawCurrentTile(g);
 		g.setFont(getAssets().getFont(2));
 		g.setFill(Color.WHITE);
@@ -172,19 +172,19 @@ public class MapMakerPanel extends Panel {
 		Image img;
 		switch (currentDrawingType) {
 			case 0 :
-				img = getAssets().getImage("TERRAIN_GRASS1");
+				img = getImage("TERRAIN_GRASS1");
 				g.drawImage(img, 175, 0, img.getWidth() / 2.8, img.getHeight() / 2.8 + 2);
 				break;
 			case 1 :
-				img = getAssets().getImage("TERRAIN_SAND");
+				img = getImage("TERRAIN_SAND");
 				g.drawImage(img, 175, 0, img.getWidth() / 2.8, img.getHeight() / 2.8 + 2);
 				break;
 			case 2 :
-				img = getAssets().getImage("TERRAIN_WATER1");
+				img = getImage("TERRAIN_WATER1");
 				g.drawImage(img, 175, 0, img.getWidth() / 2.8, img.getHeight() / 2.8 + 2);
 				break;
 			case 3 :
-				img = getAssets().getImage("TERRAIN_MOUNTAIN1");
+				img = getImage("TERRAIN_MOUNTAIN1");
 				g.drawImage(img, 175, 0, img.getWidth() / 2.8, img.getHeight() / 2.8 + 2);
 				break;
 			case -1 :
@@ -197,22 +197,22 @@ public class MapMakerPanel extends Panel {
 		Image img;
 		switch (type) {
 			case 0 :
-				img = getAssets().getImage("TERRAIN_GRASS1");
+				img = getImage("TERRAIN_GRASS1");
 				g.drawImage(img, camera.offset(p).x, camera.offset(p).y,
 						camera.getScale() * img.getWidth(), camera.getScale() * img.getHeight());
 				break;
 			case 1 :
-				img = getAssets().getImage("TERRAIN_SAND");
+				img = getImage("TERRAIN_SAND");
 				g.drawImage(img, camera.offset(p).x, camera.offset(p).y,
 						camera.getScale() * img.getWidth(), camera.getScale() * img.getHeight());
 				break;
 			case 2 :
-				img = getAssets().getImage("TERRAIN_WATER1");
+				img = getImage("TERRAIN_WATER1");
 				g.drawImage(img, camera.offset(p).x, camera.offset(p).y,
 						camera.getScale() * img.getWidth(), camera.getScale() * img.getHeight());
 				break;
 			case 3 :
-				img = getAssets().getImage("TERRAIN_MOUNTAIN1");
+				img = getImage("TERRAIN_MOUNTAIN1");
 				g.drawImage(img, camera.offset(p).x, camera.offset(p).y,
 						camera.getScale() * img.getWidth(), camera.getScale() * img.getHeight());
 				break;

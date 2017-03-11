@@ -36,28 +36,28 @@ public class ToggleBarPanel extends Panel{
 		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
 		this.panelManager = panelManager;
-		setUpButton(resources, getAssets().getImage("UNCHECKED"));
+		setUpButton(resources, getImage("UNCHECKED"));
 		resources.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             	toggleResources();
             }
         });
-		setUpButton(units, getAssets().getImage("CHECKED"));
+		setUpButton(units, getImage("CHECKED"));
 		units.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 toggleUnits();
             }
         });
-		setUpButton(structures, getAssets().getImage("CHECKED"));
+		setUpButton(structures, getImage("CHECKED"));
 		structures.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 toggleStructures();
             }
         });
-		setUpButton(miniMap, getAssets().getImage("CHECKED"));
+		setUpButton(miniMap, getImage("CHECKED"));
 		miniMap.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -72,9 +72,9 @@ public class ToggleBarPanel extends Panel{
 	private void toggleResources() {
 		resourcesVisible = !resourcesVisible;
 		if (resourcesVisible) {
-			resources.setGraphic(new ImageView(getAssets().getImage("CHECKED")));
+			resources.setGraphic(new ImageView(getImage("CHECKED")));
 		} else {
-			resources.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
+			resources.setGraphic(new ImageView(getImage("UNCHECKED")));
 		}
 		panelManager.toggleResources();
 	}
@@ -82,27 +82,27 @@ public class ToggleBarPanel extends Panel{
 	private void toggleStructures() {
 		structuresVisible = !structuresVisible;
 		if (structuresVisible) {
-			structures.setGraphic(new ImageView(getAssets().getImage("CHECKED")));
+			structures.setGraphic(new ImageView(getImage("CHECKED")));
 		} else {
-			structures.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
+			structures.setGraphic(new ImageView(getImage("UNCHECKED")));
 		}
 	}
 	
 	private void toggleUnits() {
 		unitsVisible = !unitsVisible;
 		if (unitsVisible) {
-			units.setGraphic(new ImageView(getAssets().getImage("CHECKED")));
+			units.setGraphic(new ImageView(getImage("CHECKED")));
 		} else {
-			units.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
+			units.setGraphic(new ImageView(getImage("UNCHECKED")));
 		}
 	}
 	
 	private void toggleMiniMap() {
 		miniMapVisible = !miniMapVisible;
 		if (miniMapVisible) {
-			miniMap.setGraphic(new ImageView(getAssets().getImage("CHECKED")));
+			miniMap.setGraphic(new ImageView(getImage("CHECKED")));
 		} else {
-			miniMap.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
+			miniMap.setGraphic(new ImageView(getImage("UNCHECKED")));
 		}
 		panelManager.toggleMiniMap();
 	}
@@ -115,7 +115,7 @@ public class ToggleBarPanel extends Panel{
 	
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		positionButtons(screenDimensions);
-		Image toggle = getAssets().getImage("GUI_TOGGLE");
+		Image toggle = getImage("GUI_TOGGLE");
 		g.drawImage(toggle, screenDimensions.x - 265, 50);
 		drawText(g, screenDimensions);
 	}

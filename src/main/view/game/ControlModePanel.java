@@ -100,20 +100,20 @@ public class ControlModePanel extends Panel {
     }
 
     private void drawModePanel(GraphicsContext g) {
-    	Image img = getAssets().getImage("GUI_MODE_PANEL");
+    	Image img = getImage("GUI_MODE_PANEL");
         g.drawImage(img, screenDimensions.x - img.getWidth() , MODE_Y);
         switch (mode) {
             case RALLY_POINT:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED1"), screenDimensions.x - img.getWidth() , MODE_Y);
+                g.drawImage(getImage("GUI_MODE_SELECTED1"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
             case STRUCTURE:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED2"), screenDimensions.x - img.getWidth() , MODE_Y);
+                g.drawImage(getImage("GUI_MODE_SELECTED2"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
             case UNIT:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED3"), screenDimensions.x - img.getWidth() , MODE_Y);
+                g.drawImage(getImage("GUI_MODE_SELECTED3"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
             case ARMY:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED4"), screenDimensions.x - img.getWidth() , MODE_Y);
+                g.drawImage(getImage("GUI_MODE_SELECTED4"), screenDimensions.x - img.getWidth() , MODE_Y);
                 break;
             default:
                 log.warn("Invalid Mode to display");
@@ -122,7 +122,7 @@ public class ControlModePanel extends Panel {
 
     private void drawSubmodePanel(GraphicsContext g) {
     	if (getAdapter().getCurrentMode() != Mode.RALLY_POINT)
-    		g.drawImage(getAssets().getImage("GUI_SUBMODE_PANEL"), SUBMODE_X, SUBMODE_Y);
+    		g.drawImage(getImage("GUI_SUBMODE_PANEL"), SUBMODE_X, SUBMODE_Y);
     }
 
 	public void hideGUIElements() {

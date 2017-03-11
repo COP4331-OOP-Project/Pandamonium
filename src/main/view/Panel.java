@@ -3,6 +3,7 @@ package view;
 import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import view.assets.AssetManager;
 
 public abstract class Panel {
@@ -49,6 +50,10 @@ public abstract class Panel {
     
     public AssetManager getAssets() {
     	return assets;
+    }
+    
+    public Image getImage(String string) {
+    	return assets.getImage(string);
     }
     
     public GameModelAdapter getAdapter() {

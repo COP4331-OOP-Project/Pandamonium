@@ -15,8 +15,8 @@ public abstract class OverviewPanel extends Panel {
 	}
 
 	public void drawPanelBox(GraphicsContext g, Point screenDimensions) {
-        g.drawImage(getAssets().getImage("DETAILS_PANEL"),
-                185, 50, screenDimensions.x - 259, screenDimensions.y - 147);
+        g.drawImage(getImage("DETAILS_PANEL"),
+                screenDimensions.x / 2 - 400, screenDimensions.y / 2 - 300);
     }
 	
 	public void hideIfVisible() {

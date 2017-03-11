@@ -42,30 +42,30 @@ public class MiniMapPanel extends Panel {
 
 	private void drawSmallStructure(Point tileLoc, int ownerID, GraphicsContext g) {
         if (ownerID == 0) {
-            g.drawImage(getAssets().getImage("BASE_HUMAN_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+            g.drawImage(getImage("BASE_HUMAN_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 
         } else {
-            g.drawImage(getAssets().getImage("BASE_PANDA_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+            g.drawImage(getImage("BASE_PANDA_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
         }
     }
 
     private void drawSmallUnit(Point tileLoc, int ownerID, GraphicsContext g) {
         if (ownerID == 0) {
-            g.drawImage(getAssets().getImage("UNIT_HUMAN_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+            g.drawImage(getImage("UNIT_HUMAN_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 
         } else {
-            g.drawImage(getAssets().getImage("UNIT_PANDA_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
+            g.drawImage(getImage("UNIT_PANDA_MM"), offsetMini(tileLoc).x, offsetMini(tileLoc).y);
         }
     }
 
 
     private void drawBackground(GraphicsContext g) {
-        g.drawImage(getAssets().getImage("GUI_MINI_MAP_BACKGROUND"), screenDimensions.x - DISTANCE_FROM_RIGHT - 27
+        g.drawImage(getImage("GUI_MINI_MAP_BACKGROUND"), screenDimensions.x - DISTANCE_FROM_RIGHT - 27
                 , screenDimensions.y - DISTANCE_FROM_BOTTOM + 182);
 	}
     
     private void drawBorder(GraphicsContext g) {
-        g.drawImage(getAssets().getImage("GUI_MINI_MAP_BORDER"), screenDimensions.x - DISTANCE_FROM_RIGHT - 27
+        g.drawImage(getImage("GUI_MINI_MAP_BORDER"), screenDimensions.x - DISTANCE_FROM_RIGHT - 27
                 , screenDimensions.y - DISTANCE_FROM_BOTTOM + 182);
 
     }
@@ -74,19 +74,19 @@ public class MiniMapPanel extends Panel {
     	if (visibility == TileVisibilityEnum.VISIBLE || visibility == TileVisibilityEnum.SEMI_VISIBLE) {
 	        switch (tileType) {
 	            case GRASS:
-	                g.drawImage(getAssets().getImage("GRASS_MINI"),
+	                g.drawImage(getImage("GRASS_MINI"),
 	                        offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 	                break;
 	            case SAND:
-	                g.drawImage(getAssets().getImage("SAND_MINI"),
+	                g.drawImage(getImage("SAND_MINI"),
 	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 	                break;
 	            case WATER:
-	                g.drawImage(getAssets().getImage("WATER_MINI"),
+	                g.drawImage(getImage("WATER_MINI"),
 	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 	                break;
 	            case MOUNTAIN:
-	                g.drawImage(getAssets().getImage("MOUNTAIN_MINI"),
+	                g.drawImage(getImage("MOUNTAIN_MINI"),
 	                		offsetMini(tileLoc).x, offsetMini(tileLoc).y);
 	                break;
 	            case NON_TILE:
@@ -95,7 +95,7 @@ public class MiniMapPanel extends Panel {
 	                log.warn("Invalid tile type on minimap: " + tileType);
 	        }
     	} else if (visibility == TileVisibilityEnum.INVISIBLE) {
-    		g.drawImage(getAssets().getImage("CLOUDS_MINI"),
+    		g.drawImage(getImage("CLOUDS_MINI"),
                     offsetMini(tileLoc).x, offsetMini(tileLoc).y);
     	}
     }

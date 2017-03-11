@@ -46,23 +46,23 @@ public class MakeDetailsPanel extends Panel{
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
         this.screenDimensions = screenDimensions;
         updateType();
-        g.drawImage(getAssets().getImage("GUI_MODE_PANEL"), PANEL_DISTANCE_FROM_LEFT
+        g.drawImage(getImage("GUI_MODE_PANEL"), PANEL_DISTANCE_FROM_LEFT
                 , screenDimensions.y / 2 - PANEL_DISTANCE - PANEL_HEIGHT);
         switch (mode) {
             case 0:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED1"), PANEL_DISTANCE_FROM_LEFT
+                g.drawImage(getImage("GUI_MODE_SELECTED1"), PANEL_DISTANCE_FROM_LEFT
                         , screenDimensions.y / 2 - PANEL_DISTANCE - PANEL_HEIGHT);
                 break;
             case 1:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED2"), PANEL_DISTANCE_FROM_LEFT
+                g.drawImage(getImage("GUI_MODE_SELECTED2"), PANEL_DISTANCE_FROM_LEFT
                         , screenDimensions.y / 2 - PANEL_DISTANCE - PANEL_HEIGHT);
                 break;
             case 2:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED3"), PANEL_DISTANCE_FROM_LEFT
+                g.drawImage(getImage("GUI_MODE_SELECTED3"), PANEL_DISTANCE_FROM_LEFT
                         , screenDimensions.y / 2 - PANEL_DISTANCE - PANEL_HEIGHT);
                 break;
             case 3:
-                g.drawImage(getAssets().getImage("GUI_MODE_SELECTED4"), PANEL_DISTANCE_FROM_LEFT
+                g.drawImage(getImage("GUI_MODE_SELECTED4"), PANEL_DISTANCE_FROM_LEFT
                         , screenDimensions.y / 2 - PANEL_DISTANCE - PANEL_HEIGHT);
                 break;
             default:

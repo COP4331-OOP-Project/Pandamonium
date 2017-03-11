@@ -224,7 +224,7 @@ public class SettingsPanel extends Panel {
 		
 		@Override
 		public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-			g.drawImage(getAssets().getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
+			g.drawImage(getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
 			this.screenDimensions.x = screenDimensions.x;
 			this.screenDimensions.y = screenDimensions.y;
 			drawTopBar(g);
@@ -285,7 +285,7 @@ public class SettingsPanel extends Panel {
 		}
 
 		private void drawTopBar(GraphicsContext g) {
-		      g.drawImage(getAssets().getImage("GUI_MAP_BAR"), 0, 0);
+		      g.drawImage(getImage("GUI_MAP_BAR"), 0, 0);
 		      g.setFont(getAssets().getFont(2));
 		      g.setFill(Color.WHITE);
 		      g.setEffect(ds);
