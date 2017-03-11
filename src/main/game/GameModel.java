@@ -24,6 +24,7 @@ public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
 	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
     private final static Logger log = LogManager.getLogger(GameModel.class);
+    private UnitFactory unitFactory;
     private Player currentPlayer;
     private Gameboard gBoard;
     private ArrayList<Player> players;
@@ -63,7 +64,7 @@ public class GameModel {
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
         try {
-            UnitFactory unitFactory = new UnitFactory();
+            unitFactory = new UnitFactory();
 
             Colonist humanColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
             Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
