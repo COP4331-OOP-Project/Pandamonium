@@ -2,13 +2,11 @@ package view.game;
 
 import java.awt.Point;
 
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
@@ -73,20 +71,12 @@ public class TechOverviewPanel extends OverviewPanel{
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
 		techGraphics = canvas.getGraphicsContext2D();
 		scrollPane.setContent(canvas);
-		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                paneClicked(event.getX(), event.getY());
-            }
-        });
-		scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
-	        @Override
-	        public void handle(ScrollEvent event) {
-	            if (event.getDeltaY() != 0) { 
-	                event.consume(); //This disables vertical scrolling in the scroll pane
-	            }
-	        }
-	    });
+		canvas.setOnMouseClicked(event -> paneClicked(event.getX(), event.getY()));
+		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
+		    if (event.getDeltaY() != 0) { 
+		        event.consume(); //This disables vertical scrolling in the scroll pane
+		    }
+		});
 		 //This sets the style of scrollPane to that specified in the CSS document
 		scrollPane.getStyleClass().setAll("scroll");
 		techGraphics.setFill(Color.WHITE);
