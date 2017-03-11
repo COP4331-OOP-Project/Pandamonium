@@ -190,10 +190,23 @@ public class Assets {
         loadItem("ICON_RESEARCH", "assets/images/icon/research.png");
         loadItem("ICON_SETTINGS", "assets/images/icon/settings.png");
 		loadItem("ICON_END_TURN", "assets/images/icon/endTurn.png");
+        loadItem("WORK_RADIUS", "assets/images/icon/workerRadius.png");
+        loadItem("WORKER_ON_TILE", "assets/images/icon/workerOnTile.png");
+        loadItem("WORKER_TO_SOLDIER", "assets/images/icon/workerToSoldier.png");
+        loadItem("BREED_WORKER", "assets/images/icon/breedWorker.png");
         loadItem("CHECKED", "assets/images/icon/checked.png");
         loadItem("UNCHECKED", "assets/images/icon/unChecked.png");
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
         loadItem("HEALTH_BAR_FILL", "assets/images/health/healthBarFilling.png");
+        loadItem("RESEARCHED", "assets/images/techTree/researched.png");
+        loadItem("RESEARCHING", "assets/images/techTree/researching.png");
+        loadItem("TECHNOLOGY", "assets/images/techTree/technology.png");
+        loadItem("TECH_CONNECT1", "assets/images/techTree/connector1.png");
+        loadItem("TECH_CONNECT2", "assets/images/techTree/connector2.png");
+        loadItem("TECH_CONNECT3", "assets/images/techTree/connector3.png");
+        loadItem("TECH_CONNECT4", "assets/images/techTree/connector4.png");
+        loadItem("TECH_CONNECT5", "assets/images/techTree/connector5.png");
+        loadItem("TECH_CONNECT6", "assets/images/techTree/connector6.png");
     }
 
     private void loadItem(String name, String path) {
