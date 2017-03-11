@@ -10,6 +10,7 @@ public class UnitStats {
     private int armor;
     private int speed;
     private int health;
+    private int influence;
     private float upkeep;
 
     public UnitStats(EntitySubtypeEnum unit) throws UnitNotFoundException {
@@ -21,6 +22,7 @@ public class UnitStats {
                 this.armor = 1;
                 this.speed = 1;
                 this.health = 10;
+                this.influence = 1;
                 this.upkeep = .05f;
                 break;
             case EXPLORER:
@@ -30,6 +32,7 @@ public class UnitStats {
                 this.armor = 2;
                 this.speed = 3;
                 this.health = 10;
+                this.influence = 2;
                 this.upkeep = .05f;
                 break;
             case MELEE:
@@ -39,6 +42,7 @@ public class UnitStats {
                 this.armor = 5;
                 this.speed = 1;
                 this.health = 10;
+                this.influence = 1;
                 this.upkeep = .1f;
                 break;
             case RANGE:
@@ -48,6 +52,7 @@ public class UnitStats {
                 this.armor = 3;
                 this.speed = 2;
                 this.health = 10;
+                this.influence = 1;
                 this.upkeep = .1f;
                 break;
             default:
@@ -62,6 +67,7 @@ public class UnitStats {
     public int getArmor() { return armor; }
     public int getSpeed() { return speed; }
     public int getHealth() { return health; }
+    public int getInfluence() { return influence; }
     public float getUpkeep() { return upkeep; }
 
     /* Mutators */
@@ -71,5 +77,6 @@ public class UnitStats {
     public void setArmor(int armor) { this.armor = armor; }
     public void setSpeed(int speed) { this.speed = speed; }
     public void setHealth(int health) { this.health = health; }
+    public void setInfluence(int influence) { this.influence = influence; }
     public void setUpkeep(float upkeep) { this.upkeep = upkeep; }
 }

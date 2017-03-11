@@ -37,6 +37,9 @@ public class UnitFactory {
 
     public UnitFactory(){
     	colonistIdManager = new IdManager(0, 10);
+    	meleeIdManager = new IdManager(0, 10);
+    	explorerIdManager = new IdManager(0, 10);
+    	rangedIdManager = new IdManager(0, 10);
         this.unitStatistics = new HashMap<>();
         try {
             this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));

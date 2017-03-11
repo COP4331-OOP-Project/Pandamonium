@@ -21,4 +21,8 @@ public class Structure extends Entity {
     	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
     
+    public StructureStats getStats() {
+    	return stats;
+    }
+    
 }

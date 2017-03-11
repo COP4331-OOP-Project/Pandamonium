@@ -147,4 +147,12 @@ public class PanelManager {
 	public void toggleResources() {
 		gamePanel.toggleResources();
 	}
+	
+	public void toggleUnits() {
+		gamePanel.toggleUnits();
+	}
+	
+	public void toggleStructures() {
+		gamePanel.toggleStructures();
+	}
 }
