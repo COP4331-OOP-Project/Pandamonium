@@ -59,6 +59,8 @@ public class MusicManager {
 					gameMusicStarted = true;
 				}
 				break;
+			default :
+				break;
 		} 
 		playMusic();
 	}
