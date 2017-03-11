@@ -15,8 +15,6 @@ public class TileDrawer {
     Animation grassAnimation;
     Animation waterAnimation;
     Animation mountainAnimation;
-    Animation fogAnimation;
-    
     public TileDrawer(GamePanel gamePanel, AssetManager assetManager) {
         this.gamePanel = gamePanel;
         grassAnimation = new Animation(new Image[] {  assetManager.getImage("TERRAIN_GRASS1"),
@@ -31,16 +29,9 @@ public class TileDrawer {
         mountainAnimation = new Animation(new Image[] { assetManager.getImage("TERRAIN_MOUNTAIN1"),
 														assetManager.getImage("TERRAIN_MOUNTAIN2"), 
 														assetManager.getImage("TERRAIN_MOUNTAIN3")}, 25);
-        fogAnimation = new Animation(new Image[] { assetManager.getImage("TILE_FOG1"),
-														assetManager.getImage("TILE_FOG2"), 
-														assetManager.getImage("TILE_FOG3")}, 100);
-
     }
 
-    public void drawTile(Point p, TerrainEnum type, TileVisibilityEnum visibility) {
-    	if (visibility == TileVisibilityEnum.INVISIBLE) {
-    		gamePanel.drawAnimatedTileElement(p, fogAnimation);
-    	} else {
+    public void drawTile(Point p, TerrainEnum type) {
             switch (type) {
             case GRASS:
             	gamePanel.drawAnimatedTileElement(p, grassAnimation);
@@ -57,10 +48,6 @@ public class TileDrawer {
             case NON_TILE:
                 break;
             }
-    		if (visibility == TileVisibilityEnum.SEMI_VISIBLE) {
-    			gamePanel.drawStaticTileElement(p, "TILE_SEMI_VISIBLE");
-    		}
-    	}
     }
 
     protected void drawMovingTiles() {

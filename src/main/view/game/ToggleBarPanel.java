@@ -86,6 +86,7 @@ public class ToggleBarPanel extends Panel{
 		} else {
 			structures.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
 		}
+		panelManager.toggleStructures();
 	}
 	
 	private void toggleUnits() {
@@ -95,6 +96,7 @@ public class ToggleBarPanel extends Panel{
 		} else {
 			units.setGraphic(new ImageView(getAssets().getImage("UNCHECKED")));
 		}
+		panelManager.toggleUnits();
 	}
 	
 	private void toggleMiniMap() {

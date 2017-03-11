@@ -17,6 +17,7 @@ import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
 import view.game.drawers.ArmyDrawer;
+import view.game.drawers.CoveringDrawer;
 import view.game.drawers.ResourceDrawer;
 import view.game.drawers.SelectedDrawer;
 import view.game.drawers.StructureDrawer;
@@ -28,6 +29,7 @@ public class GamePanel extends Panel {
     private Camera camera;
     private long currentPulse;
     private TileDrawer tileDrawer;
+    private CoveringDrawer coveringDrawer;
     private UnitDrawer unitDrawer;
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
@@ -38,6 +40,8 @@ public class GamePanel extends Panel {
 	private AssetManager assets;
 	private ViewEnum view;
 	private boolean resourcesVisible = false;
+	private boolean unitsVisible = true;
+	private boolean structuresVisible = true;
 
     public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
@@ -46,11 +50,12 @@ public class GamePanel extends Panel {
     	this.view = view;
         screenDimensions = new Point();
         tileDrawer = new TileDrawer(this, assets);
-        unitDrawer = new UnitDrawer(this, gameModelAdapter, assets);
+        unitDrawer = new UnitDrawer(assets, camera);
         armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
         structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
         selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
         resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
+        coveringDrawer = new CoveringDrawer(this, assets);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
@@ -74,39 +79,22 @@ public class GamePanel extends Panel {
         for (int i = 0; i < currentTiles.length; i++) {
             for (int j = 0; j < currentTiles[i].length; j++) {
                 SimpleTile tile = currentTiles[i][j];
-                if (tile.getTileType() != TerrainEnum.NON_TILE) {
-	                Point p = new Point(i, j);
-	
+                Point p = new Point(i, j);
+                if (tile.getTileType() != TerrainEnum.NON_TILE && tile.getVisibility() != TileVisibilityEnum.INVISIBLE) {
 	                //Draw Tiles
-	                tileDrawer.drawTile(p, tile.getTileType(), tile.getVisibility());
-	                if (tile.getVisibility() != TileVisibilityEnum.INVISIBLE && resourcesVisible) {
-	                	resourceDrawer.drawResources(tile, p, g);
+	                tileDrawer.drawTile(p, tile.getTileType());
+	                if (unitsVisible && tile.getUnitCount() > 0) {
+	                    unitDrawer.drawUnits(p, tile.getUnits(), g);
 	                }
-	                if (tile.getUnitCount() > 0) {
-	                    for (Unit unit : tile.getUnits()) {
-	                    	unitDrawer.drawUnit(p, unit.getEntityId(), unit.getType());
-	                    }
-	                }
-	           
-	                if (tile.getStructure() != null) {
+	                if (structuresVisible && tile.getStructure() != null) {
 	                    Structure structure = tile.getStructure();
 	                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
 	                }
-	                /*
-	                //Draw Armies
-	                if (tile.containsArmy) {
-	                    for (Army army : tile.getArmies()) {
-	                        armyDrawer.drawArmy(p, army.getOwnerID(),
-	                                army.getRotation(), army.getAllUnits().size());
-	                    }
-	                } else if (tile.containsArmy && tile.getUnits().size() > 0) {
-	                    // this is so wrong but might work for demo
-	                    armyDrawer.drawArmy(p,
-	                            tile.getUnits().get(0).getOwnerID(), 0, tile.getUnits().size()); // lol
+	                if (resourcesVisible) {
+	                	resourceDrawer.drawResources(tile, p, g);
 	                }
-	                
-	            */
-                }
+                } 
+                coveringDrawer.drawCovering(p, tile.getTileType(), tile.getVisibility());
             }
          }   
     }
@@ -153,6 +141,14 @@ public class GamePanel extends Panel {
 
     public void toggleResources() {
     	resourcesVisible = !resourcesVisible;
+    }
+    
+    public void toggleUnits() {
+    	unitsVisible = !unitsVisible;
+    }
+    
+    public void toggleStructures() {
+    	structuresVisible = !structuresVisible;
     }
     
 	public void hideGUIElements() {

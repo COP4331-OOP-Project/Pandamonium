@@ -118,10 +118,11 @@ public class Assets {
         loadItem("UNIT_GIANT_PANDA", "assets/images/units/giantPanda.png");
         loadItem("UNIT_HUMAN_MM", "assets/images/gui/miniMap/human.png");
         loadItem("UNIT_PANDA_MM", "assets/images/gui/miniMap/panda.png");
-        loadItem("UNIT_MELEE", "assets/images/units/decal/Melee.png");
-        loadItem("UNIT_RANGED", "assets/images/units/decal/Ranged.png");
-        loadItem("UNIT_EXPLORER", "assets/images/units/decal/Explorer.png");
-        loadItem("UNIT_COLONIST", "assets/images/units/decal/Colonist.png");
+        loadItem("DECAL_MELEE", "assets/images/units/decal/melee.png");
+        loadItem("DECAL_RANGED", "assets/images/units/decal/ranged.png");
+        loadItem("DECAL_EXPLORER", "assets/images/units/decal/explorer.png");
+        loadItem("DECAL_COLONIST_HUMAN", "assets/images/units/decal/colonistHuman.png");
+        loadItem("DECAL_COLONIST_PANDA", "assets/images/units/decal/colonistPanda.png");
         loadItem("BASE_SELECTED", "assets/images/structure/baseSelected.png");
         loadItem("BASE_HUMAN", "assets/images/structure/baseHuman.png");
         loadItem("BASE_PANDA", "assets/images/structure/basePanda.png");
