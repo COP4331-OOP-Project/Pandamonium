@@ -16,6 +16,8 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class TechOverviewPanel extends OverviewPanel{
+	private static final int PANE_WIDTH = 219;
+	private static final int PANE_HEIGHT = 80;
 	private ScrollPane scrollPane = new ScrollPane();
 	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
@@ -71,15 +73,10 @@ public class TechOverviewPanel extends OverviewPanel{
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
 		techGraphics = canvas.getGraphicsContext2D();
 		scrollPane.setContent(canvas);
-		scrollPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            	int scrollDistance = (int) (scrollPane.getHvalue() * canvas.getWidth());
-            	System.out.println("H val: " + scrollPane.getHvalue());
-            	System.out.println("Width: " + scrollPane.getWidth());
-            	System.out.println("C Width: " + canvas.getWidth());
-            	System.out.println("X: " + event.getX());
-                paneClicked(event.getX() + scrollDistance, event.getY());
+                paneClicked(event.getX(), event.getY());
             }
         });
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
@@ -165,9 +162,57 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 	
 	private void paneClicked(double x, double y) {
-		System.out.println("X: " + x + " Y: " + y);
+		if (pointInPane(14, 87, x, y)) {
+			fertilizer.onClick();
+		} else if (pointInPane(14, 197, x, y)) {
+			wheelbarrow.onClick();
+		} else if (pointInPane(14, 307, x, y)) {
+			tent.onClick();
+		} else if (pointInPane(14, 197, x, y)) {
+			wheelbarrow.onClick();
+		} else if (pointInPane(289, 142, x, y)) {
+			ironMining.onClick();
+		} else if (pointInPane(289, 252, x, y)) {
+			bed.onClick();
+		} else if (pointInPane(564, 197, x, y)) {
+			housing.onClick();
+		} else if (pointInPane(839, 87, x, y)) {
+			draftHorse.onClick();
+		}else if (pointInPane(839, 197, x, y)) {
+			irrigation.onClick();
+		}else if (pointInPane(839, 307, x, y)) {
+			steamPower.onClick();
+		}else if (pointInPane(1114, 87, x, y)) {
+			militia.onClick();
+		}else if (pointInPane(1114, 197, x, y)) {
+			pesticides.onClick();
+		}else if (pointInPane(1114, 307, x, y)) {
+			steelMining.onClick();
+		}else if (pointInPane(1389, 87, x, y)) {
+			barracks.onClick();
+		}else if (pointInPane(1389, 197, x, y)) {
+			beer.onClick();
+		}else if (pointInPane(1389, 307, x, y)) {
+			blastFurnace.onClick();
+		}else if (pointInPane(1664, 142, x, y)) {
+			roads.onClick();
+		}else if (pointInPane(1664, 252, x, y)) {
+			vodka.onClick();
+		}else if (pointInPane(1939, 142, x, y)) {
+			urbanPlanning.onClick();
+		}else if (pointInPane(1939, 252, x, y)) {
+			windPower.onClick();
+		}else if (pointInPane(2214, 142, x, y)) {
+			militaryAcademy.onClick();
+		}else if (pointInPane(2214, 252, x, y)) {
+			nuclearPower.onClick();
+		}
 	}
-
+	
+	private boolean pointInPane(int paneX, int paneY, double clickX, double clickY) {
+		return ((clickX >= paneX && clickX <= paneX + PANE_WIDTH) && 
+				(clickY >= paneY && clickY <= paneY + PANE_HEIGHT));
+	}
 
 	public void showGUIElements() {
 		root.getChildren().add(scrollPane);
