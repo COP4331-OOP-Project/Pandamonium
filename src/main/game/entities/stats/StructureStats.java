@@ -9,6 +9,7 @@ public class StructureStats {
     private int armor;          // Amount of damage absorbed when attacked/defended against
     private int health;         // Amount of hit points
     private int prodRate;       // Efficiency rate (per worker) of task completion
+    private int influence;
     private float upkeep;       // Resources required to keep structure at full health
 
     public StructureStats(EntitySubtypeEnum struct) throws StructureNotFoundException {
@@ -19,6 +20,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             case FARM:
@@ -27,6 +29,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             case FORT:
@@ -35,6 +38,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 50;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .20f;
                 break;
             case MINE:
@@ -43,6 +47,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             case OBSERVE:
@@ -51,6 +56,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             case PLANT:
@@ -59,6 +65,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             case UNIVERSITY:
@@ -67,6 +74,7 @@ public class StructureStats {
                 this.armor = 20;
                 this.health = 20;
                 this.prodRate = 1;
+                this.influence = 0;
                 this.upkeep = .05f;
                 break;
             default:
@@ -80,6 +88,7 @@ public class StructureStats {
     public int getArmor() { return armor; }
     public int getHealth() { return health; }
     public int getProdRate() { return prodRate; }
+    public int getInfluence() { return influence; }
     public float getUpkeep() { return upkeep; }
 
     /* Mutators */
@@ -88,5 +97,6 @@ public class StructureStats {
     public void setArmor(int armor) { this.armor = armor; }
     public void setHealth(int health) { this.health = health; }
     public void setProdRate(int prodRate) { this.prodRate = prodRate; }
+    public void setInfluence(int influence) { this.influence = influence; }
     public void setUpkeep(float upkeep) { this.upkeep = upkeep; }
 }

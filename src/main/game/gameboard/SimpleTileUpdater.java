@@ -35,13 +35,11 @@ public final class SimpleTileUpdater {
 
 
 	private static void setSurroundingVisible(Structure structure, SimpleTile[][] tiles) {
-		ObservationTower tower = (ObservationTower) structure;
-		int visibility = 1; //This needs to be changed to units actual visibility
-		updateVisiblties(tower.getLocation(), visibility, tiles); 
+		updateVisiblties(structure.getLocation(), structure.getStats().getInfluence(), tiles); 
 	}
 
 	private static void setSurroundingVisible(Unit unit, SimpleTile[][] tiles) {
-		updateVisiblties(unit.getLocation(), unit.getStats().getVisibility(), tiles); 
+		updateVisiblties(unit.getLocation(), unit.getStats().getInfluence(), tiles); 
 	}
 	 
 	private static void updateVisiblties(Location loc, int radius, SimpleTile[][] tiles) {
