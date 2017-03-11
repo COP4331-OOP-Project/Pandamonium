@@ -44,15 +44,15 @@ public class CommandPanel extends Panel{
 		setIsVisible(false);
 		this.root = root;
 		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
-		setUpToggleButton(commandBuild, getAssets().getImage("COMMAND_BUILD"));
-		setUpToggleButton(commandHeal, getAssets().getImage("COMMAND_HEAL"));
-		setUpToggleButton(commandAttack, getAssets().getImage("COMMAND_ATTACK"));
-		setUpToggleButton(commandDefend, getAssets().getImage("COMMAND_DEFEND"));
-		setUpToggleButton(commandPowerUp, getAssets().getImage("COMMAND_POWER_UP"));
-		setUpToggleButton(commandPowerDown, getAssets().getImage("COMMAND_POWER_DOWN"));
-		setUpToggleButton(cancelQueue, getAssets().getImage("COMMAND_CANCEL_QUEUE"));
-		setUpToggleButton(commandDecommission, getAssets().getImage("COMMAND_DECOMMISSION"));
-		setUpToggleButton(commandMove, getAssets().getImage("COMMAND_MOVE"));
+		setUpToggleButton(commandBuild, getImage("COMMAND_BUILD"));
+		setUpToggleButton(commandHeal, getImage("COMMAND_HEAL"));
+		setUpToggleButton(commandAttack, getImage("COMMAND_ATTACK"));
+		setUpToggleButton(commandDefend, getImage("COMMAND_DEFEND"));
+		setUpToggleButton(commandPowerUp, getImage("COMMAND_POWER_UP"));
+		setUpToggleButton(commandPowerDown, getImage("COMMAND_POWER_DOWN"));
+		setUpToggleButton(cancelQueue, getImage("COMMAND_CANCEL_QUEUE"));
+		setUpToggleButton(commandDecommission, getImage("COMMAND_DECOMMISSION"));
+		setUpToggleButton(commandMove, getImage("COMMAND_MOVE"));
 	}
 	
 	public void setUpToggleButton(ToggleButton toggleButton, Image image) {
@@ -77,7 +77,7 @@ public class CommandPanel extends Panel{
     	} else {
     		yDistance = COMMAND_Y_NORMAL;
     	}
-		g.drawImage(getAssets().getImage("GUI_COMMAND_PANEL"), 0, yDistance);
+		g.drawImage(getImage("GUI_COMMAND_PANEL"), 0, yDistance);
     	drawAllToggleButtons(g);
     }
 

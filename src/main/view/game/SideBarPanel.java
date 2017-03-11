@@ -18,8 +18,8 @@ import view.assets.AssetManager;
 
 public class SideBarPanel extends Panel{
 	private AnchorPane sideBarButtons = new AnchorPane();
-	ImageView humanUnit = new ImageView(getAssets().getImage("ICON_HUMAN_HEAD"));
-	ImageView pandaUnit = new ImageView(getAssets().getImage("ICON_PANDA_HEAD"));
+	ImageView humanUnit = new ImageView(getImage("ICON_HUMAN_HEAD"));
+	ImageView pandaUnit = new ImageView(getImage("ICON_PANDA_HEAD"));
 	Button visibilityButton = new Button();
 	Button unitButton = new Button();
 	Button structureButton = new Button();
@@ -34,42 +34,42 @@ public class SideBarPanel extends Panel{
     	super(gameModelAdapter, assets, view);
     	this.root = root;
     	this.gameModelAdapter = gameModelAdapter;
-    	setUpButton(visibilityButton, getAssets().getImage("ICON_VISIBILITY"));
+    	setUpButton(visibilityButton, getImage("ICON_VISIBILITY"));
     	visibilityButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 panelManager.toggleToggler();
             }
         });
-    	setUpButton(unitButton, getAssets().getImage("ICON_HUMAN_HEAD"));
+    	setUpButton(unitButton, getImage("ICON_HUMAN_HEAD"));
     	unitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 panelManager.toggleUnitOverview();
             }
         });
-    	setUpButton(structureButton, getAssets().getImage("ICON_STRUCTURE"));
+    	setUpButton(structureButton, getImage("ICON_STRUCTURE"));
     	structureButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 panelManager.toggleStructureOverview();
             }
         });
-    	setUpButton(researchButton, getAssets().getImage("ICON_RESEARCH"));
+    	setUpButton(researchButton, getImage("ICON_RESEARCH"));
     	researchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 panelManager.toggleTechOverview();
             }
         });
-    	setUpButton(settingsButton, getAssets().getImage("ICON_SETTINGS"));
+    	setUpButton(settingsButton, getImage("ICON_SETTINGS"));
     	settingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Show in game settings panel
             }
         });
-		setUpButton(endTurnButton, getAssets().getImage("ICON_END_TURN"));
+		setUpButton(endTurnButton, getImage("ICON_END_TURN"));
 		endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -111,7 +111,7 @@ public class SideBarPanel extends Panel{
 	}
 
 	private void drawSideBar(GraphicsContext g, Point screenDimensions) {
-		g.drawImage(getAssets().getImage("GUI_SIDE"), screenDimensions.x - getAssets().getImageWidth("GUI_SIDE"), 50);
+		g.drawImage(getImage("GUI_SIDE"), screenDimensions.x - getAssets().getImageWidth("GUI_SIDE"), 50);
 	}
 
 	public void hideGUIElements() {
