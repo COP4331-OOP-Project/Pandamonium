@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import game.gameboard.MapLoader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -65,72 +63,48 @@ public class MapMakerPanel extends Panel {
 		loadMapButton.setTranslateX(230);
 		loadMapButton.setTranslateY(7);
 		loadMapButton.setId("button");
-		loadMapButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				loadMap();
-			}
-		});
+		loadMapButton.setOnAction(event -> loadMap());
 		saveMapButton.setTranslateX(340);
 		saveMapButton.setTranslateY(7);
 		saveMapButton.setId("button");
-		saveMapButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				saveMap();
-			}
-		});
+		saveMapButton.setOnAction(event -> saveMap());
 
 		exitToMenuButton.setTranslateX(450);
 		exitToMenuButton.setTranslateY(7);
 		exitToMenuButton.setId("button");
-		exitToMenuButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				panelManager.setMode(ViewEnum.MAIN_MENU);
-			}
-		});
+		exitToMenuButton.setOnAction(event -> panelManager.setMode(ViewEnum.MAIN_MENU));
 		brushSize1.getStyleClass().setAll("buttonSelected");
 		brushSize1.setTranslateX(660);
 		brushSize1.setTranslateY(7);
-		brushSize1.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				brushSize = 1;
-				brushSize1.getStyleClass().setAll("buttonSelected");
-				brushSize2.getStyleClass().setAll("button");
-				brushSize3.getStyleClass().setAll("button");
-				brushSize2.setSelected(false);
-				brushSize3.setSelected(false);
-			}
+		brushSize1.setOnAction(event -> {
+			brushSize = 1;
+			brushSize1.getStyleClass().setAll("buttonSelected");
+			brushSize2.getStyleClass().setAll("button");
+			brushSize3.getStyleClass().setAll("button");
+			brushSize2.setSelected(false);
+			brushSize3.setSelected(false);
 		});
 		brushSize2.getStyleClass().setAll("button");
 		brushSize2.setTranslateX(693);
 		brushSize2.setTranslateY(7);
-		brushSize2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				brushSize = 2;
-				brushSize2.getStyleClass().setAll("buttonSelected");
-				brushSize1.getStyleClass().setAll("button");
-				brushSize3.getStyleClass().setAll("button");
-				brushSize1.setSelected(false);
-				brushSize3.setSelected(false);
-			}
+		brushSize2.setOnAction(event -> {
+			brushSize = 2;
+			brushSize2.getStyleClass().setAll("buttonSelected");
+			brushSize1.getStyleClass().setAll("button");
+			brushSize3.getStyleClass().setAll("button");
+			brushSize1.setSelected(false);
+			brushSize3.setSelected(false);
 		});
 		brushSize3.getStyleClass().setAll("button");
 		brushSize3.setTranslateX(730);
 		brushSize3.setTranslateY(7);
-		brushSize3.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				brushSize = 3;
-				brushSize3.getStyleClass().setAll("buttonSelected");
-				brushSize1.getStyleClass().setAll("button");
-				brushSize2.getStyleClass().setAll("button");
-				brushSize1.setSelected(false);
-				brushSize2.setSelected(false);
-			}
+		brushSize3.setOnAction(event -> {
+			brushSize = 3;
+			brushSize3.getStyleClass().setAll("buttonSelected");
+			brushSize1.getStyleClass().setAll("button");
+			brushSize2.getStyleClass().setAll("button");
+			brushSize1.setSelected(false);
+			brushSize2.setSelected(false);
 		});
 		mapStuff.getChildren().add(loadMapButton);
 		mapStuff.getChildren().add(saveMapButton);

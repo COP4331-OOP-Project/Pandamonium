@@ -2,8 +2,6 @@ package view.game;
 
 import java.awt.Point;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -36,34 +34,14 @@ public class ToggleBarPanel extends Panel{
 		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
 		this.panelManager = panelManager;
-		setUpButton(resources, getImage("UNCHECKED"));
-		resources.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	toggleResources();
-            }
-        });
-		setUpButton(units, getImage("CHECKED"));
-		units.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                toggleUnits();
-            }
-        });
-		setUpButton(structures, getImage("CHECKED"));
-		structures.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                toggleStructures();
-            }
-        });
-		setUpButton(miniMap, getImage("CHECKED"));
-		miniMap.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                toggleMiniMap();
-            }
-        });
+		setUpButton(resources, getAssets().getImage("UNCHECKED"));
+		resources.setOnAction(event -> toggleResources());
+		setUpButton(units, getAssets().getImage("CHECKED"));
+		units.setOnAction(event -> toggleUnits());
+		setUpButton(structures, getAssets().getImage("CHECKED"));
+		structures.setOnAction(event -> toggleStructures());
+		setUpButton(miniMap, getAssets().getImage("CHECKED"));
+		miniMap.setOnAction(event -> toggleMiniMap());
 		ds.setOffsetY(2.0f);
     	ds.setColor(Color.color(0, 0, 0));
 		toggle();

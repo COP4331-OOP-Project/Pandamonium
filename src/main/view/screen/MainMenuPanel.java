@@ -3,8 +3,6 @@ package view.screen;
 import java.awt.Point;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -55,34 +53,16 @@ public class MainMenuPanel extends Panel {
 
 	private void setUpButtons() {
 		startGame.setId("mainMenuButton");
-		startGame.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				getAdapter().startGame();
-				panelManager.setMode(ViewEnum.INTRO);
-			}
+		startGame.setOnAction(event -> {
+			panelManager.setMode(ViewEnum.MAIN_GAME);
+			getAdapter().startGame();
 		});
 		mapMaker.setId("mainMenuButton");
-		mapMaker.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				panelManager.setMode(ViewEnum.MAP_MAKER);
-			}
-		});
+		mapMaker.setOnAction(event -> panelManager.setMode(ViewEnum.MAP_MAKER));
 		settings.setId("mainMenuButton");
-		settings.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				panelManager.setMode(ViewEnum.SETTINGS);
-			}
-		});
+		settings.setOnAction(event -> panelManager.setMode(ViewEnum.SETTINGS));
 		exitGame.setId("mainMenuButton");
-		exitGame.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Platform.exit();
-			}
-		});
+		exitGame.setOnAction(event -> Platform.exit());
 		mainMenuElements.getChildren().add(startGame);
 		mainMenuElements.getChildren().add(mapMaker);
 		mainMenuElements.getChildren().add(settings);

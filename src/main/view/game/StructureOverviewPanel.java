@@ -15,7 +15,6 @@ public class StructureOverviewPanel extends OverviewPanel {
 		setIsVisible(false);
 	}
 
-	@Override
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		drawPanelBox(g, screenDimensions);
 		Font oldFont = g.getFont();

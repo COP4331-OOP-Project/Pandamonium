@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -19,7 +17,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -64,69 +61,47 @@ public class SettingsPanel extends Panel {
 
 		private void setUpButtons() {
 			setupButton(loadButton, 555, 7);
-			loadButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	                loadControls();
-	            }
-	        });
+			loadButton.setOnAction(event -> loadControls());
 			setupButton(saveButton, 630, 7);
-			saveButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	                saveControlsFileChoose();
-	            }
-	        });
+			saveButton.setOnAction(event -> saveControlsFileChoose());
 			setupButton(exitToMenuButton, 705, 7);
-			exitToMenuButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	updateControlDisplay();
-	    			saveFile(new File(PANDA_DAT_LOCATION), pandaControls);
-	    			saveFile(new File(HUMAN_DAT_LOCATION), humanControls);
-	                panelManager.setMode(ViewEnum.MAIN_MENU);
-	            }
-	        });
+			exitToMenuButton.setOnAction(event -> {
+				updateControlDisplay();
+				saveFile(new File(PANDA_DAT_LOCATION), pandaControls);
+				saveFile(new File(HUMAN_DAT_LOCATION), humanControls);
+			    panelManager.setMode(ViewEnum.MAIN_MENU);
+			});
 			setupToggleButton(general, 165, 7, "buttonSelected");
-	        general.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	currentMode = SettingsEnum.GENERAL;
-	                general.getStyleClass().setAll("buttonSelected");
-	                humanControlsButton.getStyleClass().setAll("button");
-	                pandaControlsButton.getStyleClass().setAll("button");
-	                humanControlsButton.setSelected(false);
-	                pandaControlsButton.setSelected(false);
-	            }
-	        });
+	        general.setOnAction(event -> {
+				currentMode = SettingsEnum.GENERAL;
+			    general.getStyleClass().setAll("buttonSelected");
+			    humanControlsButton.getStyleClass().setAll("button");
+			    pandaControlsButton.getStyleClass().setAll("button");
+			    humanControlsButton.setSelected(false);
+			    pandaControlsButton.setSelected(false);
+			});
 	        setupToggleButton(humanControlsButton, 270, 7, "button");
-	        humanControlsButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	saveCurrentSelections();
-	            	currentMode = SettingsEnum.HUMAN;
-	            	updateControlDisplay();
-	                humanControlsButton.getStyleClass().setAll("buttonSelected");
-	                general.getStyleClass().setAll("button");
-	                pandaControlsButton.getStyleClass().setAll("button");
-	                general.setSelected(false);
-	                pandaControlsButton.setSelected(false);
-	            }
-	        });
+	        humanControlsButton.setOnAction(event -> {
+				saveCurrentSelections();
+				currentMode = SettingsEnum.HUMAN;
+				updateControlDisplay();
+			    humanControlsButton.getStyleClass().setAll("buttonSelected");
+			    general.getStyleClass().setAll("button");
+			    pandaControlsButton.getStyleClass().setAll("button");
+			    general.setSelected(false);
+			    pandaControlsButton.setSelected(false);
+			});
 	        setupToggleButton(pandaControlsButton, 357, 7, "button");
-	        pandaControlsButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	            	saveCurrentSelections();
-	            	currentMode = SettingsEnum.PANDA;
-	            	updateControlDisplay();
-	                pandaControlsButton.getStyleClass().setAll("buttonSelected");
-	                general.getStyleClass().setAll("button");
-	                humanControlsButton.getStyleClass().setAll("button");
-	                general.setSelected(false);
-	                humanControlsButton.setSelected(false);
-	            }
-	        });
+	        pandaControlsButton.setOnAction(event -> {
+				saveCurrentSelections();
+				currentMode = SettingsEnum.PANDA;
+				updateControlDisplay();
+			    pandaControlsButton.getStyleClass().setAll("buttonSelected");
+			    general.getStyleClass().setAll("button");
+			    humanControlsButton.getStyleClass().setAll("button");
+			    general.setSelected(false);
+			    humanControlsButton.setSelected(false);
+			});
 			settings.getChildren().add(loadButton);
 			settings.getChildren().add(saveButton);
 			settings.getChildren().add(exitToMenuButton);
@@ -156,43 +131,37 @@ public class SettingsPanel extends Panel {
 				controlButton.setTranslateY(87 + SPACING * (i + 1));
 				controlButton.setId("controlButton");
 				settings.getChildren().add(controlButton);
-				controlButton.setOnAction(new EventHandler<ActionEvent>() {
-		            @Override
-		            public void handle(ActionEvent event) {
-		            	if (!waitingForPress) {
-			            	for (int i = 0; i < controlButtons.size(); i++) {
-			            		if (controlButtons.get(i) == controlButton) {
-			            			controlButtons.get(i).getStyleClass().add("buttonRed");
-			            			controlButtons.get(i).setText("Press Any Key");
-			            			waitingForPress = true;
-			            			controlWaiting = i;
-			            		}
-			            	}
-			            }
-		            }
-		        });
+				controlButton.setOnAction(event -> {
+					if (!waitingForPress) {
+				    	for (int i1 = 0; i1 < controlButtons.size(); i1++) {
+				    		if (controlButtons.get(i1) == controlButton) {
+				    			controlButtons.get(i1).getStyleClass().add("buttonRed");
+				    			controlButtons.get(i1).setText("Press Any Key");
+				    			waitingForPress = true;
+				    			controlWaiting = i1;
+				    		}
+				    	}
+				    }
+				});
 				handleKeyPressWaiting();
 				controlButtons.add(controlButton);
 			}
 		}
 
 		private void handleKeyPressWaiting() {
-			root.setOnKeyReleased(new EventHandler<KeyEvent>() {
-			    @Override
-			    public void handle(KeyEvent event) {
-			    	if (waitingForPress) {
-			        	KeyCode key = event.getCode();
-			            String pressed = key.toString();
-			            controlButtons.get(controlWaiting).getStyleClass().remove("buttonRed");
-						if (currentMode == SettingsEnum.HUMAN) {
-							humanControls[controlWaiting + 1][1] = pressed;
-						} else {
-							pandaControls[controlWaiting + 1][1] = pressed;
-						}
-						controlButtons.get(controlWaiting).setText(pressed);
-						waitingForPress = false;
-			    	} 
-			    }
+			root.setOnKeyReleased(event -> {
+				if (waitingForPress) {
+			    	KeyCode key = event.getCode();
+			        String pressed = key.toString();
+			        controlButtons.get(controlWaiting).getStyleClass().remove("buttonRed");
+					if (currentMode == SettingsEnum.HUMAN) {
+						humanControls[controlWaiting + 1][1] = pressed;
+					} else {
+						pandaControls[controlWaiting + 1][1] = pressed;
+					}
+					controlButtons.get(controlWaiting).setText(pressed);
+					waitingForPress = false;
+				} 
 			});
 		} 
 
@@ -222,7 +191,6 @@ public class SettingsPanel extends Panel {
 			settings.getChildren().add(modeModifier);
 		}
 		
-		@Override
 		public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 			g.drawImage(getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
 			this.screenDimensions.x = screenDimensions.x;

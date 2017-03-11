@@ -2,8 +2,6 @@ package view.game;
 
 import java.awt.Point;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -34,48 +32,18 @@ public class SideBarPanel extends Panel{
     	super(gameModelAdapter, assets, view);
     	this.root = root;
     	this.gameModelAdapter = gameModelAdapter;
-    	setUpButton(visibilityButton, getImage("ICON_VISIBILITY"));
-    	visibilityButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                panelManager.toggleToggler();
-            }
-        });
-    	setUpButton(unitButton, getImage("ICON_HUMAN_HEAD"));
-    	unitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                panelManager.toggleUnitOverview();
-            }
-        });
-    	setUpButton(structureButton, getImage("ICON_STRUCTURE"));
-    	structureButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                panelManager.toggleStructureOverview();
-            }
-        });
-    	setUpButton(researchButton, getImage("ICON_RESEARCH"));
-    	researchButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                panelManager.toggleTechOverview();
-            }
-        });
-    	setUpButton(settingsButton, getImage("ICON_SETTINGS"));
-    	settingsButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //Show in game settings panel
-            }
-        });
-		setUpButton(endTurnButton, getImage("ICON_END_TURN"));
-		endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				gameModelAdapter.endTurn();
-			}
-		});
+    	setUpButton(visibilityButton, getAssets().getImage("ICON_VISIBILITY"));
+    	visibilityButton.setOnAction(event -> panelManager.toggleToggler());
+    	setUpButton(unitButton, getAssets().getImage("ICON_HUMAN_HEAD"));
+    	unitButton.setOnAction(event -> panelManager.toggleUnitOverview());
+    	setUpButton(structureButton, getAssets().getImage("ICON_STRUCTURE"));
+    	structureButton.setOnAction(event -> panelManager.toggleStructureOverview());
+    	setUpButton(researchButton, getAssets().getImage("ICON_RESEARCH"));
+    	researchButton.setOnAction(event -> panelManager.toggleTechOverview());
+    	setUpButton(settingsButton, getAssets().getImage("ICON_SETTINGS"));
+    	settingsButton.setOnAction(event -> {});
+		setUpButton(endTurnButton, getAssets().getImage("ICON_END_TURN"));
+		endTurnButton.setOnAction(event -> gameModelAdapter.endTurn());
     }
 	
 	public void setUpButton(Button button, Image image) {

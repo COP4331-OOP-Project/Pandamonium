@@ -26,15 +26,12 @@ public class HoverPanel extends Panel {
         g.setFont(oldFont);
     }
 
-    @Override
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
     }
 
-    @Override
     public void hideGUIElements() {
     }
 
-    @Override
     public void showGUIElements() {
     }
 }

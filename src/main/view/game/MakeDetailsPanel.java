@@ -82,14 +82,10 @@ public class MakeDetailsPanel extends Panel{
         g.fillText(makeList[type][3], PANEL_DISTANCE_FROM_LEFT + TEXT_OFFSET, screenDimensions.y / 2 - PANEL_DISTANCE - TEXT_LOCATION + 3 * TEXT_SPACING);
     }
 
-	@Override
 	public void hideGUIElements() {
-		// TODO Auto-generated method stub
 	}
 
-	@Override
 	public void showGUIElements() {
-		// TODO Auto-generated method stub
 	}
 
 }
