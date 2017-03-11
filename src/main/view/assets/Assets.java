@@ -17,9 +17,12 @@ public class Assets {
     private final static Logger log = LogManager.getLogger(Assets.class);
     private static final Assets INSTANCE = new Assets(); //This is the one instance of resources (singleton)
     private static final String FONT = "assets/fonts/nuku.ttf";
-    private static final String SPLASH_SCREEN = "assets/video/Intro.mp4";
+    private static final String SPLASH_SCREEN = "assets/video/splash.mp4";
     private File splashFile;
     private Media splashScreen;
+    private static final String INTRO_SCREEN = "assets/video/intro.mp4";
+    private File introFile;
+    private Media introScreen;
     private static final String MENU_MUSIC = "assets/music/MainMenu.mp3";
     private File menuMusicFile;
     private Media menuMusic;
@@ -44,6 +47,8 @@ public class Assets {
     public void loadResources() {
     	splashFile = new File(SPLASH_SCREEN);
 		splashScreen = new Media(splashFile.toURI().toString());
+		introFile = new File(INTRO_SCREEN);
+		introScreen = new Media(introFile.toURI().toString());
 		menuMusicFile = new File(MENU_MUSIC);
 		menuMusic = new Media(menuMusicFile.toURI().toString());
 		gameMusicFile = new File(GAME_MUSIC);
@@ -245,6 +250,10 @@ public class Assets {
     
     public Media getSplash() {
     	return splashScreen;
+    }
+    
+    public Media getIntro() {
+    	return introScreen;
     }
     
     public Media getMenuMusic() {

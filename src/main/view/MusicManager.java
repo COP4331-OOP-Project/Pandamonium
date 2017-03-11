@@ -38,26 +38,30 @@ public class MusicManager {
 	}
 	
 	public void updateMusic(ViewEnum currentViewMode) {
-		if (currentViewMode == ViewEnum.SETTINGS ||
-			currentViewMode == ViewEnum.MAIN_MENU ||
-			currentViewMode == ViewEnum.MAP_MAKER) {
-			if (!menuMusicPlaying) {
-				menuMusicPlaying = true;
-				gameMusicPlaying = false;
-				menuMusicStarted = true;
-			}
-		} else {
-			menuMusicPlaying = false;
-		}
-		if (currentViewMode == ViewEnum.MAIN_GAME) {
-			if (!gameMusicPlaying) {
-				gameMusicPlaying = true;
-				menuMusicPlaying = false;
-				gameMusicStarted = true;
-			}
-		} else {
-			gameMusicPlaying = false;
-		}
+		switch (currentViewMode) {
+			case INTRO :
+				gameMusicPlayer.pause();
+				menuMusicPlayer.pause();
+				break;
+			case SETTINGS :
+			case MAIN_MENU :
+			case MAP_MAKER :
+				if (!menuMusicPlaying) {
+					menuMusicPlaying = true;
+					gameMusicPlaying = false;
+					menuMusicStarted = true;
+				}
+				break;
+			case MAIN_GAME :
+				if (!gameMusicPlaying) {
+					gameMusicPlaying = true;
+					menuMusicPlaying = false;
+					gameMusicStarted = true;
+				}
+				break;
+			default :
+				break;
+		} 
 		playMusic();
 	}
 

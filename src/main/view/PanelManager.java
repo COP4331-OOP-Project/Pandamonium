@@ -20,13 +20,14 @@ import view.game.TechOverviewPanel;
 import view.game.ToggleBarPanel;
 import view.game.UnitDetailsPanel;
 import view.game.UnitOverviewPanel;
+import view.screen.IntroPanel;
 import view.screen.MainMenuPanel;
 import view.screen.MapMakerPanel;
 import view.screen.SettingsPanel;
 import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentViewMode = ViewEnum.MAIN_MENU;
+	private ViewEnum currentViewMode = ViewEnum.SPLASH;
 	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
 	private CivilizationPanel civilizationPanel;
@@ -44,6 +45,7 @@ public class PanelManager {
 	private StructureDetailsPanel structureDetailsPanel;
 	private MainMenuPanel mainMenuPanel;
 	private SplashPanel splashPanel;
+	private IntroPanel introPanel;
 	private MapMakerPanel mapMakerPanel;
 	private SettingsPanel settingsPanel;
 	private GraphicsContext g;
@@ -82,6 +84,8 @@ public class PanelManager {
 		panels.add(toggleBarPanel);
 		splashPanel = new SplashPanel(gameModelAdapter, group, this, assets, ViewEnum.SPLASH);
 		panels.add(splashPanel);
+		introPanel = new IntroPanel(gameModelAdapter, group, this, assets, ViewEnum.INTRO);
+		panels.add(introPanel);
 		mainMenuPanel = new MainMenuPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_MENU);
 		panels.add(mainMenuPanel);
 		mapMakerPanel = new MapMakerPanel(gameModelAdapter, group, this, assets, ViewEnum.MAP_MAKER);

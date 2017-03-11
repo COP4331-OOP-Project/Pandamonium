@@ -3,6 +3,7 @@ package view.screen;
 import java.awt.Point;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,12 +19,14 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class SplashPanel extends Panel {
-	PanelManager panelManager;
-	Group root;
-	Media splash = getAssets().getSplash();
-	StackPane video = new StackPane();
-	MediaPlayer player = new MediaPlayer(splash);
-	MediaView view = new MediaView(player);
+	private static final int ASPECT_RATIO_X = 16;
+	private static final int ASPECT_RATIO_Y = 9;
+	private PanelManager panelManager;
+	private Group root;
+	private Media splash = getAssets().getSplash();
+	private StackPane video = new StackPane();
+	private MediaPlayer player = new MediaPlayer(splash);
+	private MediaView view = new MediaView(player);
 	private boolean splashStarted = false;
 
 	public SplashPanel(GameModelAdapter gameModelAdapter, Group root, PanelManager panelManager,
@@ -39,8 +42,7 @@ public class SplashPanel extends Panel {
 	}
 
 	private void checkSkipped() {
-		root.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to
-																	// skip
+		video.setOnMouseReleased(new EventHandler<MouseEvent>() { // Click to skip
 			public void handle(MouseEvent event) {
 				if (player.getStatus() == MediaPlayer.Status.PLAYING) {
 					player.stop();
@@ -52,6 +54,14 @@ public class SplashPanel extends Panel {
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		//Centers Video On Screen
+		if ((double)screenDimensions.y/(double)screenDimensions.x < 
+					(double)ASPECT_RATIO_Y/(double)ASPECT_RATIO_X) {
+			view.setTranslateX((screenDimensions.x - ((ASPECT_RATIO_X * screenDimensions.y)/ASPECT_RATIO_Y))/2);
+		}
+		else {
+			view.setTranslateY((screenDimensions.y - ((ASPECT_RATIO_Y * screenDimensions.x)/ASPECT_RATIO_X))/2); 
+		}
 		if (!splashStarted) {
 			playSplashVideo();
 			splashStarted = true;

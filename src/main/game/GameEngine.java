@@ -32,7 +32,7 @@ public class GameEngine extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
         //stage.setFullScreen(true);
-        //stage.setMaximized(true);
+        stage.setMaximized(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
