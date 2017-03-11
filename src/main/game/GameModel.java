@@ -42,7 +42,7 @@ public class GameModel {
             players.add(human);
             players.add(panda);
             gBoard = new Gameboard(players);
-            initialUnit(human, panda);
+            initialUnits(human, panda);
             human.initializeSimpleTiles(gBoard.getTiles());
             panda.initializeSimpleTiles(gBoard.getTiles());
             human.updateSimpleTiles(gBoard.getTiles());
@@ -61,17 +61,17 @@ public class GameModel {
     	}
     }
 
-    public void initialUnit(Player human, Player panda) throws GameFailedToStartException {
+    public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
         try {
             UnitFactory unitFactory = new UnitFactory();
 
-            Colonist humanColnist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
+            Colonist humanColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
             Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
 
-            human.addColonist(humanColnist);
+            human.addColonist(humanColonist);
             panda.addColonist(pandaColonist);
 
-            gBoard.addUnitToTile(humanColnist);
+            gBoard.addUnitToTile(humanColonist);
             gBoard.addUnitToTile(pandaColonist);
         }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
                 |RangedLimitExceededException e){
