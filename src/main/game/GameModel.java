@@ -2,6 +2,17 @@ package game;
 
 import java.util.ArrayList;
 
+import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
+import game.entities.EntityTypeEnum;
+import game.entities.factories.UnitFactory;
+import game.entities.factories.exceptions.ColonistLimitExceededException;
+import game.entities.factories.exceptions.ExplorerLimitExceededException;
+import game.entities.factories.exceptions.MeleeLimitExceededException;
+import game.entities.factories.exceptions.RangedLimitExceededException;
+import game.entities.stats.UnitStats;
+import game.entities.units.Colonist;
+import game.entities.units.exceptions.UnitNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +24,7 @@ public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
 	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
     private final static Logger log = LogManager.getLogger(GameModel.class);
+    private UnitFactory unitFactory;
     private Player currentPlayer;
     private Gameboard gBoard;
     private ArrayList<Player> players;
@@ -23,25 +35,49 @@ public class GameModel {
     private boolean gameHasStarted = false;
     
     public void initializeGame() {
-        this.players = new ArrayList<Player>();
-        Player human = new Player(0, HUMAN_STARTING_LOCATION);
-        Player panda = new Player(1, PANDA_STARTING_LOCATION);
-        currentPlayer = human;
-        players.add(human);
-        players.add(panda);
-        gBoard = new Gameboard(players);
-        human.initializeSimpleTiles(gBoard.getTiles());
-        panda.initializeSimpleTiles(gBoard.getTiles());
-        human.updateSimpleTiles(gBoard.getTiles());
-        panda.updateSimpleTiles(gBoard.getTiles());
-        gameHasStarted =  true;
-        startTurn();
+        try {
+            this.players = new ArrayList<Player>();
+            Player human = new Player(0, HUMAN_STARTING_LOCATION);
+            Player panda = new Player(1, PANDA_STARTING_LOCATION);
+            currentPlayer = human;
+            players.add(human);
+            players.add(panda);
+            gBoard = new Gameboard(players);
+            initialUnits(human, panda);
+            human.initializeSimpleTiles(gBoard.getTiles());
+            panda.initializeSimpleTiles(gBoard.getTiles());
+            human.updateSimpleTiles(gBoard.getTiles());
+            panda.updateSimpleTiles(gBoard.getTiles());
+            gameHasStarted = true;
+            startTurn();
+        }catch(GameFailedToStartException e){
+            System.out.println(e.getMessage());
+        }
+
     }
     
     public void updateGame() { //This is called up to 60 times per second
     	if (gameHasStarted) {
     		checkIfGameOver();
     	}
+    }
+
+    public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
+        try {
+            unitFactory = new UnitFactory();
+
+            Colonist humanColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
+            Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
+
+            human.addColonist(humanColonist);
+            panda.addColonist(pandaColonist);
+
+            gBoard.addUnitToTile(humanColonist);
+            gBoard.addUnitToTile(pandaColonist);
+        }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
+                |RangedLimitExceededException e){
+            throw new GameFailedToStartException();
+        }
     }
     
     private void checkIfGameOver() {
