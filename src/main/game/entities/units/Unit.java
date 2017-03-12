@@ -10,8 +10,6 @@ import game.entities.iMoveable;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
-// TODO: Fix damage taking to account for defense
-
 public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;
     protected int orientation;
