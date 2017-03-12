@@ -2,6 +2,7 @@ package game.gameboard;
 
 import java.util.ArrayList;
 
+import game.entities.BattleGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +15,7 @@ import game.resources.ResourceTypeEnum;
 public class SimpleTile{
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
-    private ArrayList<Army> armies;
+    private ArrayList<BattleGroup> battleGroups;
     private ArrayList<RallyPoint> rallyPoints;
     private Structure structure;
     private Resource food;
@@ -29,7 +30,7 @@ public class SimpleTile{
     		visibility = TileVisibilityEnum.NON_TILE;
     	Terrain = tile.getTileType();
 		units = tile.getUnits();
-		armies = tile.getArmies();
+		battleGroups = tile.getBattleGroups();
 		rallyPoints = tile.getRallyPoints();
 		structure = tile.getStructure();
 		food = tile.getResource(ResourceTypeEnum.FOOD);
@@ -40,7 +41,7 @@ public class SimpleTile{
     public void updateTile(Tile tile) {
     	if (visibility == TileVisibilityEnum.VISIBLE) {
     		units = tile.getUnits();
-    		armies = tile.getArmies();
+    		battleGroups = tile.getBattleGroups();
     		rallyPoints = tile.getRallyPoints();
     		structure = tile.getStructure();
     		food = tile.getResource(ResourceTypeEnum.FOOD);
@@ -49,8 +50,8 @@ public class SimpleTile{
     	}
     }
     
-    public ArrayList<Army> getArmies() {
-    	return armies;
+    public ArrayList<BattleGroup> getBattleGroup() {
+    	return battleGroups;
     }
     
     public ArrayList<RallyPoint> getRallyPoints() {

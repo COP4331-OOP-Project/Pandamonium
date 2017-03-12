@@ -1,5 +1,6 @@
 package game.entities;
 
+import game.entities.units.Unit;
 import game.gameboard.Location;
 
 public class Army extends Entity{
@@ -9,7 +10,7 @@ public class Army extends Entity{
 
     public Army(EntityId entityId, RallyPoint rp){
         super(rp.getLocation(), entityId);
-        battleGroup = new BattleGroup(rp.getLocation());
+        battleGroup = new BattleGroup(rp.getLocation(), entityId);
         reinforcement = new Reinforcement();
         rallyPoint=rp;
     }
@@ -19,9 +20,12 @@ public class Army extends Entity{
         setLocation(loc);
     }
 
-    //TODO find way to update battlegroup and reinforcements
+    //TODO find a way to delete tiles reference to unit that is added to battlegroup. VISITOR?
     public void updateArmy(){
-
+        while(reinforcement.onLocation(battleGroup.getLocation())){
+            Unit unitToAdd = reinforcement.getOnLocationUnit(battleGroup.getLocation());
+            battleGroup.addUnit(unitToAdd);
+        }
     }
 
     public double getCurrentHealth(){
