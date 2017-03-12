@@ -24,7 +24,6 @@ public class UnitIdManager {
 
     // Static limits on unit counts
     private static final Integer MAX_UNIT_COUNT = 25;
-    private static final Integer MAX_OF_STRUCTURE_TYPE = 10;
     private static final Integer MIN_UNIT_ID = 1;
     private static final Integer MAX_OF_UNIT_TYPE = 10;
 
