@@ -60,6 +60,5 @@ public abstract class Structure extends Entity {
     public void increaseEfficiency(Percentage increasePercentage) {
         this.stats.increaseEfficiency(increasePercentage);
     }
-
     
 }
