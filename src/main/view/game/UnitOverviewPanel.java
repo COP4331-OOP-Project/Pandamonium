@@ -1,18 +1,18 @@
 package view.game;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
+import game.entities.stats.UnitStats;
 import game.entities.units.Unit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.control.TableColumn;
@@ -25,21 +25,19 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 public class UnitOverviewPanel extends OverviewPanel{
-	private static final int PANE_WIDTH = 219;
-	private static final int PANE_HEIGHT = 80;
-	private final TableView unitTable = new TableView();
-	private TableColumn unitTypeColumn = new TableColumn("Type");
-	private TableColumn healthColumn = new TableColumn("Health");
-	private TableColumn attackColumn = new TableColumn("Attack");
-	private TableColumn defenseColumn = new TableColumn("Defense");
-	private TableColumn armorColumn = new TableColumn("Armor");
-	private TableColumn upkeepColumn = new TableColumn("Upkeep");
-	private TableColumn addToArmyColumn = new TableColumn("Army");
-	private final VBox unitBox = new VBox();
+	private TableView<UnitItem> unitTable = new TableView<>();
+	private Label label = new Label("Unit Overview");
+	private TableColumn<UnitItem, String> unitTypeColumn = new TableColumn<>("Type");
+	private TableColumn<UnitItem, String> healthColumn = new TableColumn<>("Health");
+	private TableColumn<UnitItem, String> attackColumn = new TableColumn<>("Attack");
+	private TableColumn<UnitItem, String> defenseColumn = new TableColumn<>("Defense");
+	private TableColumn<UnitItem, String> armorColumn = new TableColumn<>("Armor");
+	private TableColumn<UnitItem, String> upkeepColumn = new TableColumn<>("Upkeep");
+	private TableColumn<UnitItem, String> addToArmyColumn = new TableColumn<>("Army");
+	private ObservableList<UnitItem> unitList = FXCollections.observableArrayList();
+	private VBox unitBox = new VBox();
 	private DropShadow ds = new DropShadow();
 	private ScrollPane scrollPane = new ScrollPane();
-	private GraphicsContext overviewGraphics;
-	private Canvas canvas;
 	private Group root;
 	
 	public UnitOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root) {
@@ -47,51 +45,89 @@ public class UnitOverviewPanel extends OverviewPanel{
 		this.root = root;
 		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setContent(unitBox);
+		scrollPane.getStyleClass().setAll("scroll");
+		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
+		    if (event.getDeltaX() != 0) { 
+		        event.consume(); //This disables horizontal scrolling in the scroll pane
+		    }
+		});
 		ds.setOffsetY(3.0);
 		ds.setRadius(3);
 		ds.setColor(Color.color(0, 0, 0));
-		final Label label = new Label("Unit Overview");
 		label.setTextFill(Color.WHITE);
-        label.setFont(getAssets().getFont(3));
+        label.setFont(getAssets().getFont(2));
         label.setEffect(ds);
-		final TextField unitType = new TextField();
-		final TextField health = new TextField();
-		final TextField attack = new TextField();
-		final TextField defense = new TextField();
-		final TextField armor = new TextField();
-		final TextField upkeep = new TextField();
-		final TextField addToArmy = new TextField();
+		setUpTable();
+		setUpColumns();
+	}
+
+	private void setUpTable() {
+		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
+		    if (event.getDeltaY() != 0) { 
+		        event.consume(); //This disables vertical scrolling in the actual table
+		    }
+		});
+		unitTable.setEditable(false);
+		unitTable.getStyleClass().addAll("tableViewStyle");
+		unitTable.setItems(unitList);
+		unitBox.setSpacing(5);
+        unitBox.setPadding(new Insets(10, 0, 0, 10));
+        unitBox.getChildren().addAll(label, unitTable);
+	}
+
+	private void setUpColumns() {
+		unitTable.getColumns().add(unitTypeColumn);
+		unitTable.getColumns().add(healthColumn);
+		unitTable.getColumns().add(attackColumn);
+		unitTable.getColumns().add(defenseColumn);
+		unitTable.getColumns().add(armorColumn);
+		unitTable.getColumns().add(upkeepColumn);
+		unitTable.getColumns().add(addToArmyColumn);
+
 		unitTypeColumn.setResizable(false);
-		healthColumn.setResizable(false);
 		attackColumn.setResizable(false);
+		healthColumn.setResizable(false);
 		defenseColumn.setResizable(false);
 		armorColumn.setResizable(false);
 		upkeepColumn.setResizable(false);
 		addToArmyColumn.setResizable(false);
-		unitTable.setEditable(false);
-		unitTable.getColumns().addAll(unitTypeColumn, healthColumn, attackColumn, defenseColumn, 
-				armorColumn, upkeepColumn, addToArmyColumn);
-		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
-		overviewGraphics = canvas.getGraphicsContext2D();
-		scrollPane.setContent(unitBox);
-		canvas.setOnMouseClicked(event -> paneClicked(event.getX(), event.getY()));
-		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
-		    if (event.getDeltaX() != 0) { 
-		        event.consume(); //This disables vertical scrolling in the scroll pane
-		    }
-		});
-		unitTable.getStyleClass().addAll("tableViewStyle");
-		unitBox.setSpacing(5);
-        unitBox.setPadding(new Insets(10, 0, 0, 10));
-        unitBox.getChildren().addAll(label, unitTable);
-		 //This sets the style of scrollPane to that specified in the CSS document
-		scrollPane.getStyleClass().setAll("scroll");
-		overviewGraphics.setFill(Color.WHITE);
+		
+		unitTypeColumn.setCellValueFactory(unitList -> unitList.getValue().unitTypeProp);
+		attackColumn.setCellValueFactory(unitList -> unitList.getValue().attackProp);
+		healthColumn.setCellValueFactory(unitList -> unitList.getValue().healthProp);
+		defenseColumn.setCellValueFactory(unitList -> unitList.getValue().defenseProp);
+		armorColumn.setCellValueFactory(unitList -> unitList.getValue().armorProp);
+		upkeepColumn.setCellValueFactory(unitList -> unitList.getValue().upkeepProp);
+		addToArmyColumn.setCellValueFactory(unitList -> unitList.getValue().armyProp);
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-		ObservableList<UnitItem> unitList = FXCollections.observableArrayList();
-		for (Unit unit : getAdapter().getCurrentUnits()) {
+		scrollPane.toFront();
+		updatePositions(screenDimensions);
+		updateUnits();
+	}
+
+	private void updatePositions(Point screenDimensions) {
+		scrollPane.setMaxWidth(screenDimensions.x - 148);
+		unitTable.setPrefWidth(screenDimensions.x - 148);
+		scrollPane.setMaxHeight(488);
+		scrollPane.setTranslateX(74);
+		scrollPane.setTranslateY(50);
+		unitTypeColumn.setPrefWidth(unitTable.getWidth()/7);
+		healthColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+		attackColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+		defenseColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+		armorColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+		upkeepColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+		addToArmyColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
+	}
+
+	private void updateUnits() {
+		ArrayList<Unit> units = getAdapter().getCurrentUnits();
+        unitTable.setPrefHeight(45 + (units.size() * 35));
+		unitList.clear();
+		for (Unit unit : units) {
 			String unitType = "";
 			switch (unit.getType()) {
 			case EXPLORER:
@@ -107,35 +143,13 @@ public class UnitOverviewPanel extends OverviewPanel{
 				unitType = "Ranged";
 				break;
 			default:
-				break;
+					break;
+				}
+				UnitStats stats = unit.getStats();
+				//Have no way to get attack or army status right now, leaving at -999 until later
+				unitList.add(new UnitItem(unitType, stats.getHealth(), -999, stats.getDefPow(),
+						stats.getArmor(), (int)stats.getUpkeep(), -999));
 			}
-			unitList.clear();
-			unitList.add(new UnitItem(unitType, 1, 1, 1, 1, 1));
-		}
-		unitTypeColumn.setPrefWidth(unitTable.getWidth()/7);
-		healthColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		attackColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		defenseColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		armorColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		upkeepColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		addToArmyColumn.setPrefWidth(unitTable.getWidth()/7 - 13);
-		scrollPane.toFront();
-		overviewGraphics.clearRect(0, 0, 2500, screenDimensions.y);
-		scrollPane.setMaxWidth(screenDimensions.x - 148);
-		scrollPane.setMaxHeight(488);
-		scrollPane.setTranslateX(74);
-		scrollPane.setTranslateY(50);
-		unitTable.setPrefWidth(screenDimensions.x - 148);
-		canvas.setHeight(3000);
-	}
-	
-	private void paneClicked(double x, double y) {
-		//if (pointInPane(14, 87, x, y))
-	}
-	
-	private boolean pointInPane(int paneX, int paneY, double clickX, double clickY) {
-		return ((clickX >= paneX && clickX <= paneX + PANE_WIDTH) && 
-				(clickY >= paneY && clickY <= paneY + PANE_HEIGHT));
 	}
 
 	public void showGUIElements() {
@@ -147,20 +161,50 @@ public class UnitOverviewPanel extends OverviewPanel{
 	}
 	
 	class UnitItem {
-		private SimpleStringProperty unitTypeProp;
-		private SimpleStringProperty  healthProp;
-		private SimpleStringProperty  defenseProp;
-		private SimpleStringProperty  armorProp;
-		private SimpleStringProperty  upkeepProp;
-		private SimpleStringProperty  armyProp;
+		private final SimpleStringProperty unitTypeProp;
+		private final SimpleStringProperty attackProp;
+		private final SimpleStringProperty  healthProp;
+		private final SimpleStringProperty  defenseProp;
+		private final SimpleStringProperty  armorProp;
+		private final SimpleStringProperty  upkeepProp;
+		private final SimpleStringProperty  armyProp;
 		
-		public UnitItem(String unitType, int health, int defense, int armor, int upkeep, int army) {
-			this.unitTypeProp = new SimpleStringProperty(unitType);
-			this.healthProp = new SimpleStringProperty(health + "");
-			this.defenseProp = new SimpleStringProperty(defense + "");
-			this.armorProp = new SimpleStringProperty(armor + "");
-			this.upkeepProp = new SimpleStringProperty(upkeep + "");
-			this.armyProp = new SimpleStringProperty(army + "");
+		public UnitItem(String unitType, int health, int attack, int defense, int armor, int upkeep, int army) {
+			unitTypeProp = new SimpleStringProperty(unitType);
+			healthProp = new SimpleStringProperty(health + "");
+			attackProp = new SimpleStringProperty(attack + "");
+			defenseProp = new SimpleStringProperty(defense + "");
+			armorProp = new SimpleStringProperty(armor + "");
+			upkeepProp = new SimpleStringProperty(upkeep + "");
+			armyProp = new SimpleStringProperty(army + "");
+		}
+		
+		public String getAttack() {
+			return attackProp.get();
+		}
+		
+		public String getUnitType() {
+			return unitTypeProp.get();
+		}
+		
+		public String getHealth() {
+			return healthProp.get();
+		}
+		
+		public String getDefense() {
+			return defenseProp.get();
+		}
+		
+		public String getArmor() {
+			return armorProp.get();
+		}
+		
+		public String getUpkeep() {
+			return upkeepProp.get();
+		}
+		
+		public String getArmy() {
+			return armyProp.get();
 		}
 	}
 }
