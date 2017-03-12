@@ -4,7 +4,7 @@ import game.entities.BattleGroup;
 import game.entities.managers.MovementManager;
 import game.gameboard.Location;
 
-public class AddArmyVisitor {
+public class AddArmyVisitor implements iMovementManageVisitor {
     private BattleGroup battleGroup;
     private Location location;
 

@@ -9,6 +9,8 @@ import game.entities.iDefender;
 import game.entities.iMoveable;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
+import game.visitors.AddUnitVisitor;
+import game.visitors.RemoveEntityVisitor;
 
 // TODO: Fix damage taking to account for defense
 
@@ -41,6 +43,10 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     @Override
     public void setLocation(Location location){
         setOrientation(direction(location));
+        AddUnitVisitor addUnit = new AddUnitVisitor(this, this.location);
+        movementManager.accept(addUnit);
+        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), this.location);
+        movementManager.accept(removeEntityVisitor);
         this.location=location;
     }
 
