@@ -24,5 +24,14 @@ public abstract class Structure extends Entity {
     public StructureStats getStats() {
     	return stats;
     }
-    
+
+    /* Stat-adjusted damage taking*/
+    @Override
+    public void takeDamage(double damage){
+        int armor = stats.getArmor();
+        double damageX = 10/(10+armor);
+        int adjDamage = (int)(damage * damageX);
+        this.health -= adjDamage;
+        this.healthPercent.updateHealthPercentage((double)this.health);
+    }
 }
