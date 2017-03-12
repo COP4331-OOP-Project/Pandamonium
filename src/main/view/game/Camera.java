@@ -36,9 +36,13 @@ public class Camera {
      */
 	public void centerToSelected(Point selected, Point screenDimensions) {
 		this.screenDimensions = screenDimensions;
-        if (selected.x != 0 && selected.y != 0) {
-            centerer.centerOnTile(selected);
+        if (selected != null) {
+            centerer.recenterOnTile(selected);
         }
+	}
+	
+	public void centerOnTile(Point point, Point screenDimensions) {
+		centerer.centerOnTile(point);
 	}
 	
 	public void adjustZoom(Point screenDimensions) {

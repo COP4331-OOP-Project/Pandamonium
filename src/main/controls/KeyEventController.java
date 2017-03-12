@@ -106,6 +106,7 @@ public class KeyEventController {
         } else if (key == controlReader.getControl(END_TURN)) {
             log.debug("End turn key pressed");
             controlMode.endTurn();
+            view.endTurn();
             
         } else if (key == controlReader.getControl(UNIT_OVERVIEW)) {
             log.debug("Unit Overview Pressed");

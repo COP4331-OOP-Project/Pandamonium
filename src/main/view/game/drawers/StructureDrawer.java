@@ -5,7 +5,9 @@ import java.awt.Point;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
+import game.entities.structures.Structure;
 import javafx.scene.image.Image;
 import view.Animation;
 import view.GameModelAdapter;
@@ -14,13 +16,14 @@ import view.game.GamePanel;
 
 public class StructureDrawer {
     private final static Logger log = LogManager.getLogger(StructureDrawer.class);
-    GamePanel gamePanel;
-    GameModelAdapter gameModelAdapter;
-    AssetManager assetManager;
-    Animation powerPlantPanda;
-    Animation powerPlantHuman;
-    Animation mineHuman;
-    Animation minePanda;
+    private GamePanel gamePanel;
+    private GameModelAdapter gameModelAdapter;
+    private AssetManager assetManager;
+    private Animation powerPlantPanda;
+    private Animation powerPlantHuman;
+    private Animation mineHuman;
+    private Animation minePanda;
+    private EntityId selectedEntity;
 
     public StructureDrawer(GamePanel gamePanel, GameModelAdapter gameModelAdapter, AssetManager assetManager) {
         this.gamePanel = gamePanel;
@@ -42,8 +45,10 @@ public class StructureDrawer {
 												assetManager.getImage("MINE_PANDA4")}, 30);
     }
 
-    public void drawStructure(Point p, int player, EntitySubtypeEnum type) {
-        switch (type) {
+    public void drawStructure(Point p, Structure structure, EntityId selectedEntity) {
+    	this.selectedEntity = selectedEntity;
+    	int player = structure.getOwnerID();
+        switch (structure.getType()) {
 	        case CAPITOL :
 	        	if (player == 0)
 	        		gamePanel.drawStaticTileElement(p, "BASE_HUMAN");
@@ -88,6 +93,9 @@ public class StructureDrawer {
 	        	break;
 		default:
 			break;
+        }
+        if (structure.getEntityId() == selectedEntity) {
+            gamePanel.drawStaticTileElement(p, "SELECTED_STRUCTURE");
         }
     }
 }

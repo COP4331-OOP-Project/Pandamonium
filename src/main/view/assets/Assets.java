@@ -112,7 +112,6 @@ public class Assets {
         loadItem("SAND_MINI", "assets/images/gui/miniMap/sandmini.png");
         loadItem("WATER_MINI", "assets/images/gui/miniMap/watermini.png");
         loadItem("MOUNTAIN_MINI", "assets/images/gui/miniMap/mountainmini.png");
-        loadItem("UNIT_SELECTED", "assets/images/units/selectedUnit.png");
         loadItem("UNIT_LARGE_HUMAN", "assets/images/units/largeHuman.png");
         loadItem("UNIT_GIANT_HUMAN", "assets/images/units/giantHuman.png");
         loadItem("UNIT_LARGE_HUMAN_HAT", "assets/images/units/largeHumanHat.png");
@@ -128,7 +127,6 @@ public class Assets {
         loadItem("DECAL_EXPLORER", "assets/images/units/decal/explorer.png");
         loadItem("DECAL_COLONIST_HUMAN", "assets/images/units/decal/colonistHuman.png");
         loadItem("DECAL_COLONIST_PANDA", "assets/images/units/decal/colonistPanda.png");
-        loadItem("BASE_SELECTED", "assets/images/structure/baseSelected.png");
         loadItem("BASE_HUMAN", "assets/images/structure/baseHuman.png");
         loadItem("BASE_PANDA", "assets/images/structure/basePanda.png");
         loadItem("POWER_PLANT_HUMAN1", "assets/images/structure/powerPlantHuman1.png");
@@ -213,6 +211,8 @@ public class Assets {
         loadItem("TECH_CONNECT4", "assets/images/techTree/connector4.png");
         loadItem("TECH_CONNECT5", "assets/images/techTree/connector5.png");
         loadItem("TECH_CONNECT6", "assets/images/techTree/connector6.png");
+        loadItem("SELECTED_UNIT", "assets/images/tileCovering/selectedUnit.png");
+        loadItem("SELECTED_STRUCTURE", "assets/images/tileCovering/selectedStructure.png");
     }
 
     private void loadItem(String name, String path) {

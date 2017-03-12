@@ -52,15 +52,20 @@ public class SelectedStructureManager {
 				selectedElement = 0;
 			} 
 			int startingElement = selectedElement;
+			if (forward) {
+				iterateForward();
+			} else {
+				iterateBackward();
+			}
 			while(selectedElement != startingElement) {
+				selectedStructure = structures.get(selectedElement);
+				if (submodeFromStructure(selectedStructure) == controlMode.getGameSubmode()) {
+					break;
+				}
 				if (forward) {
 					iterateForward();
 				} else {
 					iterateBackward();
-				}
-				selectedStructure = structures.get(selectedElement);
-				if (submodeFromStructure(selectedStructure) == controlMode.getGameSubmode()) {
-					break;
 				}
 			}
 			selectedStructure = structures.get(selectedElement);
@@ -78,13 +83,16 @@ public class SelectedStructureManager {
 	}
 
 	private void iterateForward() {
-		selectedElement = selectedElement + 1 % structures.size();
+		selectedElement++;
+		if (selectedElement >= structures.size()) {
+			selectedElement = 0;
+		}
 	}
 	
 	private void iterateBackward() {
 		selectedElement--;
-		if (selectedElement == -1) {
-			selectedElement = structures.size();
+		if (selectedElement < 0) {
+			selectedElement = structures.size() - 1;
 		}
 	}
 	
