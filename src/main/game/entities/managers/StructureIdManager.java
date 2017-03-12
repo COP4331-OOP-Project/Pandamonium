@@ -31,8 +31,8 @@ public class StructureIdManager {
     private IdManager powerPlantIdManager;
     private IdManager universityIdManager;
 
-    StructureIdManager(int playerId) {
-        this.structureFactory = new StructureFactory(playerId);
+    StructureIdManager(StructureFactory structureFactory) {
+        this.structureFactory = structureFactory;
 
         this.allStructuresIdManager = new IdManager(MIN_STRUCTURE_ID, MAX_STRUCTURE_COUNT);
         this.capitolIdManager = new IdManager(MIN_STRUCTURE_ID, MAX_CAPITOLS);

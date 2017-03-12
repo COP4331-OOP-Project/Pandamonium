@@ -1,5 +1,7 @@
 package game.resources;
 
+import game.semantics.Percentage;
+
 public class Resource {
 
     private double amount;
@@ -12,6 +14,14 @@ public class Resource {
 
     public double getAmount() {
         return this.amount;
+    }
+
+    public void decreaseAmountByPercentage(Percentage p) {
+        this.amount *= (1 - p.getPercentageValue());
+    }
+
+    public void increaseAmountByPercentage(Percentage p) {
+        this.amount *= (1 + p.getPercentageValue());
     }
 
     public ResourceTypeEnum getResourceType() {

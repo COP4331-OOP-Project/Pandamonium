@@ -3,10 +3,10 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
+import entityResearch.iEntityResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.managers.IdManager.IdManager;
 import game.entities.factories.exceptions.*;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
@@ -15,7 +15,7 @@ import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class StructureFactory {
+public class StructureFactory implements iEntityResearchObserver {
 
     private final static Logger log = LogManager.getLogger(StructureFactory.class);
 

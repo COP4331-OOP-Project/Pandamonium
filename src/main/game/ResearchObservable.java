@@ -1,8 +1,11 @@
 package game;
 
-import java.util.ArrayList;
 
-import game.resources.Resource;
+import game.semantics.Percentage;
+import game.workerResearch.iWorkerResearchObservable;
+import game.workerResearch.iWorkerResearchObserver;
+
+import java.util.ArrayList;
 
 public class ResearchObservable implements iWorkerResearchObservable {
 
@@ -16,15 +19,15 @@ public class ResearchObservable implements iWorkerResearchObservable {
         this.observers.add(observer);
     }
 
-    public void changeProductionRate(double productionRate) {
+    public void increaseProductionRateByPercentage(Percentage increasePercentage) {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onProductionRateChanged(productionRate);
+            observer.onProductionRateIncreased(increasePercentage);
         }
     }
 
-    public void changeUpkeep(Resource upkeep) {
+    public void decreaseUpkeepByPercentage(Percentage decreasePercentage) {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onUpkeepChanged(upkeep);
+            observer.onUpkeepDecreased(decreasePercentage);
         }
     }
 }

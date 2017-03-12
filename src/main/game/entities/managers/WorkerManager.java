@@ -8,8 +8,8 @@ import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
-import game.iWorkerResearchObservable;
-import game.iWorkerResearchObserver;
+import game.workerResearch.iWorkerResearchObservable;
+import game.workerResearch.iWorkerResearchObserver;
 import game.semantics.Percentage;
 
 import java.util.ArrayList;
@@ -30,8 +30,10 @@ public class WorkerManager implements iWorkerResearchObservable {
     }
 
 
-    public void addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
-        this.workers.add(this.workerIdManager.createWorker(workerType, location));
+    public Worker addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
+        Worker w = this.workerIdManager.createWorker(workerType, location);
+        this.workers.add(w);
+        return w;
     }
 
     public void removeWorker(EntityId id) throws WorkerDoesNotExistException {

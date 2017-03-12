@@ -1,4 +1,4 @@
-package game;
+package game.workerResearch;
 
 
 import game.semantics.Percentage;

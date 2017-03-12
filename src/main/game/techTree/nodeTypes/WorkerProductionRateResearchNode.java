@@ -1,7 +1,7 @@
 package game.techTree.nodeTypes;
 
-import game.WorkerResearch.WorkerProductionRateResearchVisitor;
-import game.WorkerResearch.iWorkerResearchVisitor;
+import game.workerResearch.WorkerProductionRateResearchVisitor;
+import game.workerResearch.iWorkerResearchVisitor;
 import game.entities.managers.WorkerManager;
 import game.semantics.Percentage;
 
