@@ -1,11 +1,11 @@
 package game.entities;
 
 // Class to contain the percentage value of Entity health
-public class Percentage {
+public class HealthPercentage {
 
     private double healthPercent;         // Saved health percent value of entity
 
-    public Percentage(){ this.healthPercent = 1; }
+    public HealthPercentage(){ this.healthPercent = 1; }
 
     // Get health percentage
     public double getHealthPercent() {

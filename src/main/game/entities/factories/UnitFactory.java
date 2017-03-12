@@ -6,12 +6,7 @@ import java.util.Map;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.managers.IdManager.IdManager;
-import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
-import game.entities.factories.exceptions.ColonistLimitExceededException;
-import game.entities.factories.exceptions.ExplorerLimitExceededException;
-import game.entities.factories.exceptions.MeleeLimitExceededException;
-import game.entities.factories.exceptions.RangedLimitExceededException;
+import game.entities.factories.exceptions.*;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
@@ -20,76 +15,51 @@ import game.entities.units.Ranged;
 import game.entities.units.Unit;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Location;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UnitFactory {
+
+    private final static Logger log = LogManager.getLogger(UnitFactory.class);
+
+    private int playerId;
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
 
-      private EntityId entityId;
-      private IdManager colonistIdManager;
-      private IdManager meleeIdManager;
-      private IdManager rangedIdManager;
-      private IdManager explorerIdManager;
-
-      private int newColonistId;
-      private int newMeleeId;
-      private  int newRangedId;
-      private int newExplorerId;
-
-    public UnitFactory(){
-    	colonistIdManager = new IdManager(0, 10);
-    	meleeIdManager = new IdManager(0, 10);
-    	explorerIdManager = new IdManager(0, 10);
-    	rangedIdManager = new IdManager(0, 10);
+    public UnitFactory(int playerId) {
+        this.playerId = playerId;
         this.unitStatistics = new HashMap<>();
+
         try {
             this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));
             this.unitStatistics.put(EntitySubtypeEnum.EXPLORER, new UnitStats(EntitySubtypeEnum.EXPLORER));
             this.unitStatistics.put(EntitySubtypeEnum.MELEE, new UnitStats(EntitySubtypeEnum.MELEE));
             this.unitStatistics.put(EntitySubtypeEnum.RANGE, new UnitStats(EntitySubtypeEnum.RANGE));
-        }catch(UnitNotFoundException e){ System.out.println(e.getMessage()); }
+        }   catch(UnitNotFoundException e){
+            throw new RuntimeException("Unit factory could not be instantiated: " + e.getLocalizedMessage());
+        }
     }
   
-    public Unit createUnit(EntitySubtypeEnum unit, Location location, int playerId)
-            throws ColonistLimitExceededException, ExplorerLimitExceededException, RangedLimitExceededException,
-                    MeleeLimitExceededException, UnitNotFoundException
-    {
-        switch(unit) {
-            case COLONIST:{
-                try{
-                    newColonistId = this.colonistIdManager.getNewId();
-                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, newColonistId);
-                    return new Colonist(unitStatistics.get(unit), location, entityId);
-                } catch (IdLimitExceededException e) {
-                    throw new ColonistLimitExceededException("Colonist limit is reached, can't add new colonist");
-                }
+    public Unit createUnit(EntitySubtypeEnum unitType, int id, int globalId, Location location)
+            throws UnitTypeDoesNotExistException {
+
+        switch(unitType) {
+            case COLONIST: {
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id, globalId);
+                return new Colonist(unitStatistics.get(unitType), location, entityId);
             }
-            case EXPLORER:{
-                try{
-                    newExplorerId = this.explorerIdManager.getNewId();
-                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, newExplorerId);
-                    return new Explorer(unitStatistics.get(unit),location, entityId);
-                } catch (IdLimitExceededException e){
-                    throw new ExplorerLimitExceededException("Explorer limit is reached, can't add new explorers");
-                }
+            case EXPLORER: {
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id, globalId);
+                return new Explorer(unitStatistics.get(unitType),location, entityId);
             }
-            case MELEE:
-                try{
-                    newMeleeId = this.meleeIdManager.getNewId();
-                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, newMeleeId);
-                    return new Melee(unitStatistics.get(unit), location, entityId);
-                } catch (IdLimitExceededException e){
-                    throw new MeleeLimitExceededException("Melee limit is reached, can't add new melees");
-                }
-            case RANGE:{
-                try{
-                    newRangedId = this.rangedIdManager.getNewId();
-                    entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, newRangedId);
-                    return new Ranged(unitStatistics.get(unit), location, entityId);
-                } catch (IdLimitExceededException e){
-                    throw new RangedLimitExceededException("Ranged limit is reached, can't add new ranges");
-                }
+            case MELEE: {
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id, globalId);
+                return new Melee(unitStatistics.get(unitType), location, entityId);
             }
-            default: throw new UnitNotFoundException();
+            case RANGE: {
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id, globalId);
+                return new Ranged(unitStatistics.get(unitType), location, entityId);
+            }
+            default: throw new UnitTypeDoesNotExistException();
         }
     }
 }

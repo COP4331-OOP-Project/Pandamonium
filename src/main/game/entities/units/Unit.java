@@ -3,7 +3,7 @@ package game.entities.units;
 import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
-import game.entities.Percentage;
+import game.entities.HealthPercentage;
 import game.entities.iAttacker;
 import game.entities.iDefender;
 import game.entities.iMoveable;
@@ -24,7 +24,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         this.location=location;
         this.stats = stats;
         this.health = stats.getHealth();
-        this.healthPercent = new Percentage();
+        this.healthPercent = new HealthPercentage();
         this.orientation = 180;
         AddUnitVisitor addUnit = new AddUnitVisitor(this, this.location);
         movementManager.accept(addUnit);

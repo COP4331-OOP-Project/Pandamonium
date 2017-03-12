@@ -51,6 +51,7 @@ public class GameEngine extends Application {
             	controlMode.update();
                 gameModel.updateGame();
                 view.renderGame();
+
             }
         }.start();
         stage.setMinHeight(MIN_HEIGHT);

@@ -20,8 +20,8 @@ public class WorkerIdManager {
     private WorkerFactory workerFactory;
     private IdManager idManager;
 
-    public WorkerIdManager(int playerId) {
-        this.workerFactory = new WorkerFactory(playerId);
+    public WorkerIdManager(WorkerFactory workerFactory) {
+        this.workerFactory = workerFactory;
         this.idManager = new IdManager(WORKER_ID_MIN, WORKER_ID_MAX);
     }
 

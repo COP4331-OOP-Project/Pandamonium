@@ -5,14 +5,13 @@ import java.util.Queue;
 
 import game.commands.Command;
 import game.entities.managers.MovementManager;
-import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
 public abstract class Entity {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
-    protected Percentage healthPercent;
+    protected HealthPercentage healthPercent;
     private EntityId entityId;
     protected MovementManager movementManager;
 
@@ -26,7 +25,7 @@ public abstract class Entity {
 
     // Health
     public double getCurrentHealth(){ return health; }                              // Return entity health
-    public Percentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
+    public HealthPercentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
     public void takeDamage(double damage){                                          // Take damage to health
         this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
