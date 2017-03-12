@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import game.entities.stats.StructureStats;
 import game.entities.structures.Structure;
+import game.resources.Resource;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -159,8 +160,8 @@ public class StructureOverviewPanel extends OverviewPanel{
 			}
 			StructureStats stats = structure.getStats();
 			//Have no way to get attack or worker count right now, leaving at -999 until later
-			structureList.add(new StructureItem(structureType, stats.getHealth(), -999, stats.getDefPow(),
-					stats.getArmor(), (int)stats.getUpkeep(), -99));
+			structureList.add(new StructureItem(structureType, stats.getHealth(), -999, stats.getDefensiveStrength(),
+					stats.getArmor(), stats.getUpkeep(), -99));
 			}
 	}
 
@@ -181,13 +182,14 @@ public class StructureOverviewPanel extends OverviewPanel{
 		private final SimpleStringProperty  upkeepProp;
 		private final SimpleStringProperty  workerProp;
 		
-		public StructureItem(String structureType, int health, int attack, int defense, int armor, int upkeep, int workers) {
+		public StructureItem(String structureType, int health, int attack, int defense, int armor, ArrayList<Resource> upkeep, int workers) {
 			structureTypeProp = new SimpleStringProperty(structureType);
 			healthProp = new SimpleStringProperty(Integer.toString(health));
 			attackProp = new SimpleStringProperty(Integer.toString(attack));
 			defenseProp = new SimpleStringProperty(Integer.toString(defense));
 			armorProp = new SimpleStringProperty(Integer.toString(armor));
-			upkeepProp = new SimpleStringProperty(Integer.toString(upkeep));
+			// TODO: resources on a structure is an arraylist of Resource's
+			upkeepProp = new SimpleStringProperty(Double.toString(upkeep.get(0).getAmount())); // fix meh
 			workerProp = new SimpleStringProperty(Integer.toString(workers));
 		}
 		

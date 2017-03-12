@@ -12,6 +12,7 @@ public abstract class Entity {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
+
     protected Percentage healthPercent;
     private EntityId entityId;
     protected MovementManager movementManager;
@@ -26,7 +27,7 @@ public abstract class Entity {
 
     // Health
     public double getCurrentHealth(){ return health; }                              // Return entity health
-    public Percentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
+    public HealthPercentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
     public void takeDamage(double damage){                                          // Take damage to health
         this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
