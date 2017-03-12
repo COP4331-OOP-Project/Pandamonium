@@ -1,12 +1,12 @@
-package game.entities.Managers;
+package game.entities.managers;
 
 import java.util.ArrayList;
 
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
-import game.entities.Managers.exceptions.WorkerDoesNotExistException;
-import game.entities.Managers.exceptions.WorkerLimitExceededException;
-import game.entities.Managers.exceptions.WorkerTypeDoesNotExist;
+import game.entities.managers.exceptions.WorkerDoesNotExistException;
+import game.entities.managers.exceptions.WorkerLimitExceededException;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;

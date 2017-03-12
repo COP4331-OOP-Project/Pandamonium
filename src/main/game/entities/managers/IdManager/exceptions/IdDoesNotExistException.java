@@ -1,4 +1,4 @@
-package game.entities.Managers.IdManager.exceptions;
+package game.entities.managers.IdManager.exceptions;
 
 public class IdDoesNotExistException extends Exception {
 

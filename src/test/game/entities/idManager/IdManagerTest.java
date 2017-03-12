@@ -1,15 +1,12 @@
 package game.entities.idManager;
 
-import game.entities.Managers.IdManager.exceptions.IdDoesNotExistException;
-import game.entities.Managers.IdManager.exceptions.IdLimitExceededException;
-import game.entities.Managers.IdManager.IdManager;
+import game.entities.managers.IdManager.exceptions.IdDoesNotExistException;
+import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
+import game.entities.managers.IdManager.IdManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by gavin on 2/23/17.
- */
 public class IdManagerTest {
 
     private int MIN_ID = 0;

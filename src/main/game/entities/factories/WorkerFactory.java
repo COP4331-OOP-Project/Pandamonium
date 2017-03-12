@@ -6,7 +6,7 @@ import java.util.Map;
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
-import game.entities.Managers.exceptions.WorkerTypeDoesNotExist;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.WorkerStats;
 import game.entities.workers.workerTypes.FoodGatherer;
 import game.entities.workers.workerTypes.MetalGenerator;

@@ -6,9 +6,7 @@ import java.util.Map;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.Managers.IdManager.IdManager;
-import game.entities.Managers.IdManager.exceptions.IdDoesNotExistException;
-import game.entities.Managers.IdManager.exceptions.IdLimitExceededException;
+import game.entities.managers.IdManager.IdManager;
 import game.entities.factories.exceptions.*;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
@@ -82,198 +80,24 @@ public class StructureFactory {
                 return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId);
             }
             case MINE: {
-                return this.getNewMine(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id);
+                return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId);
             }
             case OBSERVE: {
-                return this.getNewObservationTower(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id);
+                return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId);
             }
             case PLANT: {
-                return this.getNewPowerPlant(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id);
+                return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId);
             }
             case UNIVERSITY: {
-                return this.getNewUniversity(location, playerId);
+                entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId);
             }
             default:
-                throw new StructureNotFoundException();
+                throw new StructureTypeDoesNotExist();
         }
     }
-
-
-    private Capitol getNewCapitol(Location location, int playerId)
-            throws CapitolLimitExceededException, TotalStructureLimitExceededException {
-
-        int newCapitolId;
-        try {
-            newCapitolId = this.capitolManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new CapitolLimitExceededException("Capitol limit is reached, can't add new capitol.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.capitolManager.removeId(newCapitolId);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover capitol id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new capitol, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, newCapitolId);
-        return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId);
-    }
-
-    private Farm getNewFarm(Location location, int playerId)
-            throws FarmLimitExceededException, TotalStructureLimitExceededException {
-
-        int newFarmId;
-        try {
-            newFarmId = this.farmManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new FarmLimitExceededException("Farm limit is reached, can't add new farm.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.farmManager.removeId(newFarmId);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover farm id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new farm, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, newFarmId);
-        return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId);
-    }
-
-    private Fort getNewFort(Location location, int playerId)
-            throws FortLimitExceededException, TotalStructureLimitExceededException {
-
-        int newFortId;
-        try {
-            newFortId = this.fortManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new FortLimitExceededException("Fort limit is reached, can't add new fort.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.fortManager.removeId(newFortId);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover fort id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new fort, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, newFortId);
-        return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId);
-    }
-
-
-    private Mine getNewMine(Location location, int playerId)
-            throws MineLimitExceededException, TotalStructureLimitExceededException {
-
-        int newMineId;
-        try {
-            newMineId = this.mineManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new MineLimitExceededException("Mine limit is reached, can't add new mine.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.mineManager.removeId(newMineId);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover mine id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new mine, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, newMineId);
-        return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId);
-    }
-
-    private ObservationTower getNewObservationTower(Location location, int playerId)
-            throws ObserveLimitExceededException, TotalStructureLimitExceededException {
-
-        int newObserveLimit;
-        try {
-            newObserveLimit = this.observeManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new ObserveLimitExceededException("Observation tower limit is reached, can't add new observation tower.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.observeManager.removeId(newObserveLimit);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover observation tower id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new observation tower, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, newObserveLimit);
-        return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId);
-    }
-
-    private PowerPlant getNewPowerPlant(Location location, int playerId)
-            throws PlantLimitExceededException, TotalStructureLimitExceededException {
-
-        int newPowerPlantId;
-        try {
-            newPowerPlantId = this.plantManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new PlantLimitExceededException("Power plant limit is reached, can't add new power plant.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.plantManager.removeId(newPowerPlantId);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover power plant id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new power plant, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, newPowerPlantId);
-        return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId);
-    }
-
-    private University getNewUniversity(Location location, int playerId)
-            throws UniversityLimitExceededException, TotalStructureLimitExceededException {
-
-        int newUniversityid;
-        try {
-            newUniversityid = this.univManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            throw new UniversityLimitExceededException("University limit is reached, can't add new power plant.");
-        }
-
-        try {
-            this.totalStructureCountManager.getNewId();
-        } catch (IdLimitExceededException e) {
-            try {
-                this.univManager.removeId(newUniversityid);
-            } catch (IdDoesNotExistException ex) {
-                log.warn("Tried to recover university id but it was not yet taken.");
-            }
-            throw new TotalStructureLimitExceededException("Can't add new university, total structure limit has been reached.");
-        }
-
-        entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, newUniversityid);
-        return new University(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId);
-    }
-
 
 }

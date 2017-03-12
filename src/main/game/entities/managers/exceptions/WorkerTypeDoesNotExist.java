@@ -1,4 +1,4 @@
-package game.entities.Managers.exceptions;
+package game.entities.managers.exceptions;
 
 public class WorkerTypeDoesNotExist extends Exception {
 
