@@ -1,8 +1,9 @@
 package game;
 
-import game.resources.Resource;
+
+import game.semantics.Percentage;
 
 public interface iWorkerResearchObserver {
-    void onProductionRateChanged(double productionRate);
-    void onUpkeepChanged(Resource upkeep);
+    void onProductionRateIncreased(Percentage productionRateIncrease);
+    void onUpkeepDecreased(Percentage upkeepDecrease);
 }

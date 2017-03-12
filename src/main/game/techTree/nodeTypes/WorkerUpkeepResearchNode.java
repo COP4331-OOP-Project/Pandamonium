@@ -1,9 +1,9 @@
 package game.techTree.nodeTypes;
 
-import game.entities.workers.workerManagement.WorkerManager;
-import game.visitors.WorkerResearch.WorkerUpkeepResearchVisitor;
-import game.visitors.WorkerResearch.iWorkerResearchVisitor;
-import semantics.Percentage;
+import game.WorkerResearch.WorkerUpkeepResearchVisitor;
+import game.WorkerResearch.iWorkerResearchVisitor;
+import game.entities.managers.WorkerManager;
+import game.semantics.Percentage;
 
 public class WorkerUpkeepResearchNode extends TechTreeNode {
 
