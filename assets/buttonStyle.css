@@ -140,6 +140,12 @@
     -fx-padding: 2 2 2 2;
 }
 
+.tableViewStyle {
+     -fx-background-color: 
+     	#342f55,
+     	linear-gradient(#586370, #4b535c);
+}
+
 .sideBarButton {
      -fx-background-color: 
      	#090a0c,

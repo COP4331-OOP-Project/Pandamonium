@@ -74,14 +74,6 @@ public class Player {
 		rallyPoints = new ArrayList<RallyPoint>();
 		totalUnits = new ArrayList<Unit>();
 		this.playerId = playerId;
-		try {
-			addColonist(
-					(Colonist) unitFactory.createUnit(EntitySubtypeEnum.COLONIST, loc, playerId));
-		} catch (ColonistLimitExceededException | ExplorerLimitExceededException
-				| RangedLimitExceededException | MeleeLimitExceededException
-				| UnitNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void addMelee(Melee melee) {

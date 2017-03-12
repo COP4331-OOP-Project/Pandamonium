@@ -72,11 +72,11 @@ public class PanelManager {
 		panels.add(miniMapPanel);
 		structureDetailsPanel = new StructureDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(structureDetailsPanel);
-		structureOverviewPanel = new StructureOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
+		structureOverviewPanel = new StructureOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
 		panels.add(structureOverviewPanel);
 		unitDetailsPanel = new UnitDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(unitDetailsPanel);
-		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
+		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
 		panels.add(unitOverviewPanel);
 		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
 		panels.add(techOverviewPanel);

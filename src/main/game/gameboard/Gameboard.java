@@ -3,6 +3,7 @@ package game.gameboard;
 import java.io.File;
 import java.util.ArrayList;
 
+import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,5 +54,9 @@ public class Gameboard {
 
     public void addUnitToTile(Unit unit){
 	    board[unit.getLocationX()][unit.getLocationY()].addUnit(unit);
+    }
+    
+    public void addStructureToTile(Structure structure){
+	    board[structure.getLocationX()][structure.getLocationY()].addStructure(structure);
     }
 }
