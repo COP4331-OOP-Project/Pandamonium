@@ -3,7 +3,7 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
-import entityResearch.iEntityResearchObserver;
+import entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -12,10 +12,11 @@ import game.entities.stats.StructureStats;
 import game.entities.structures.*;
 import game.entities.structures.exceptions.StructureNotFoundException;
 import game.gameboard.Location;
+import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class StructureFactory implements iEntityResearchObserver {
+public class StructureFactory implements iStructureResearchObserver {
 
     private final static Logger log = LogManager.getLogger(StructureFactory.class);
 
@@ -74,6 +75,48 @@ public class StructureFactory implements iEntityResearchObserver {
             default:
                 throw new StructureTypeDoesNotExist();
         }
+    }
+
+    public void onVisibilityRadiusIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseVisibilityRadius(increaseAmount);
+    }
+
+    public void onAttackStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseAttackStrength(increaseAmount);
+    }
+
+    public void onDefenseStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseDefenseStrength(increaseAmount);
+    }
+
+    public void onArmorStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseArmorStrength(increaseAmount);
+    }
+
+    public void onHealthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseHealth(increaseAmount);
+    }
+
+    public void onEfficiencyIncreased(EntitySubtypeEnum subtype, Percentage increasePercentage) throws StructureTypeDoesNotExist {
+        StructureStats stats = this.structureStatistics.get(subtype);
+        if (stats == null) throw new StructureTypeDoesNotExist();
+
+        stats.increaseEfficiency(increasePercentage);
     }
 
 }

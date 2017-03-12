@@ -1,24 +1,21 @@
 package game.entities.managers;
 
-import entityResearch.iEntityResearchObservable;
-import entityResearch.iEntityResearchObserver;
+import entityResearch.iStructureResearchObservable;
+import entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.StructureFactory;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.factories.exceptions.StructureTypeLimitExceededException;
 import game.entities.factories.exceptions.TotalStructureLimitExceededException;
-import game.entities.managers.IdManager.IdManager;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.structures.*;
-import game.entities.structures.exceptions.StructureNotFoundException;
-import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
 import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class StructureManager implements iEntityResearchObservable {
+public class StructureManager implements iStructureResearchObservable {
 
     private ArrayList<Capitol> capitols;
     private ArrayList<Farm> farms;
@@ -28,7 +25,7 @@ public class StructureManager implements iEntityResearchObservable {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
-    private ArrayList<iEntityResearchObserver> observers;
+    private ArrayList<iStructureResearchObserver> observers;
 
     private StructureIdManager structureIdManager;
 
@@ -86,7 +83,7 @@ public class StructureManager implements iEntityResearchObservable {
         allStructures.addAll(getUniversities());
         return allStructures;
     }
-    
+
     public void addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
         switch (structureType) {
             case CAPITOL:
@@ -183,50 +180,40 @@ public class StructureManager implements iEntityResearchObservable {
         if (!removed) throw new StructureDoesNotExistException("Could not find structure with entityId " + entityId);
     }
 
-    public void attach(iEntityResearchObserver observer) {
+    public void attach(iStructureResearchObserver observer) {
         this.observers.add(observer);
     }
 
     public void increaseVisibilityRadius(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
-        switch (subtype) {
-            case CAPITOL:
-                this.upgradeVisbilityRadius(this.capitols, increaseAmount);
-                break;
-            case FARM:
-                this.upgradeVisbilityRadius(this.farms, increaseAmount);
-                break;
-            case FORT:
-                this.upgradeVisbilityRadius(this.forts, increaseAmount);
-                break;
-            case MINE:
-                this.upgradeVisbilityRadius(this.mines, increaseAmount);
-                break;
-            case OBSERVE:
-                this.upgradeVisbilityRadius(this.observationTowers, increaseAmount);
-                break;
-            case PLANT:
-                this.upgradeVisbilityRadius(this.powerPlants, increaseAmount);
-                break;
-            case UNIVERSITY:
-                this.upgradeVisbilityRadius(this.universities, increaseAmount);
-                break;
-            case default:
-                throw new StructureType
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onVisibilityRadiusIncreased(subtype, increaseAmount);
         }
     }
-
-    private void upgradeVisbilityRadius(ArrayList<? extends Structure> structures, int increaseAmount) {
-        for (Structure s : structures) {
-            s.increaseVisibilityRadius(increaseAmount);
+    public void increaseAttackStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onAttackStrengthIncreased(subtype, increaseAmount);
         }
     }
-
-    public void increaseAttackStrength(int increaseAmount);
-    public void increaseDefenseStrength(int increaseAmount);
-    public void increaseArmorStrength(int increaseAmount);
-    public void increaseMovementRate(int increaseAmount);
-    public void increaseHealth(int increaseAmount);
-    public void increaseEfficiency(Percentage increasePercentage);
+    public void increaseDefensiveStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onDefenseStrengthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseArmorStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onArmorStrengthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseHealth(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onHealthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseEfficiency(EntitySubtypeEnum subtype, Percentage increasePercentage) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onEfficiencyIncreased(subtype, increasePercentage);
+        }
+    }
 
 
 }
