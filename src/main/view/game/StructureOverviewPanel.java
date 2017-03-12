@@ -27,7 +27,7 @@ import view.assets.AssetManager;
 
 public class StructureOverviewPanel extends OverviewPanel{
 	private TableView<StructureItem> structureTable = new TableView<>();
-	private Label label = new Label("structure Overview");
+	private Label label = new Label("Structure Overview");
 	private TableColumn<StructureItem, String> structureTypeColumn = new TableColumn<>("Type");
 	private TableColumn<StructureItem, String> healthColumn = new TableColumn<>("Health");
 	private TableColumn<StructureItem, String> attackColumn = new TableColumn<>("Attack");

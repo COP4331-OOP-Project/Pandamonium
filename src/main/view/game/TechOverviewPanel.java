@@ -2,12 +2,18 @@ package view.game;
 
 import java.awt.Point;
 
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.ViewEnum;
@@ -16,6 +22,8 @@ import view.assets.AssetManager;
 public class TechOverviewPanel extends OverviewPanel{
 	private static final int PANE_WIDTH = 219;
 	private static final int PANE_HEIGHT = 80;
+	private Label label = new Label("Technology Overview");
+	private StackPane techBox = new StackPane();
 	private ScrollPane scrollPane = new ScrollPane();
 	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
@@ -59,6 +67,7 @@ public class TechOverviewPanel extends OverviewPanel{
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
 	private TechViewItem nuclearPower = new TechViewItem(getAssets(), "Nuclear Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
+	private DropShadow ds = new DropShadow();
 	private GraphicsContext techGraphics;
 	private Canvas canvas;
 	private Group root;
@@ -70,7 +79,12 @@ public class TechOverviewPanel extends OverviewPanel{
 		scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
 		techGraphics = canvas.getGraphicsContext2D();
-		scrollPane.setContent(canvas);
+		label.setTextFill(Color.WHITE);
+        label.setFont(getAssets().getFont(2));
+        label.setEffect(ds);
+		techBox.getChildren().add(canvas);
+		techBox.getChildren().add(label);
+		scrollPane.setContent(techBox);
 		canvas.setOnMouseClicked(event -> paneClicked(event.getX(), event.getY()));
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
 		    if (event.getDeltaY() != 0) { 
@@ -91,6 +105,8 @@ public class TechOverviewPanel extends OverviewPanel{
 		scrollPane.setTranslateY(50);
 		canvas.setWidth(2450);
 		canvas.setHeight(screenDimensions.y - 147);
+		label.setTranslateX(-900);
+		label.setTranslateY(-200);
 		checkFoodIcons();
 		drawTechnologies();
 		drawConnectors();
