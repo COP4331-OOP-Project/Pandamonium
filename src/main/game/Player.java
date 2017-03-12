@@ -91,18 +91,16 @@ public class Player {
 	}
 
 	// Add entity of designated type, subtype @ given location
-	public void addEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, Location location)
+	public Entity addEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, Location location)
 		throws EntityTypeDoesNotExistException, UnitTypeDoesNotExistException, UnitTypeLimitExceededException,
 				StructureTypeDoesNotExist, StructureTypeLimitExceededException, TotalUnitLimitExceededException,
 				TotalStructureLimitExceededException {
 
 		switch (type) {
 			case UNIT:
-				this.unitManager.addUnit(subtype, location);
-				break;
+				return this.unitManager.addUnit(subtype, location);
 			case STRUCTURE:
-				this.structureManager.addStructure(subtype, location);
-				break;
+				return this.structureManager.addStructure(subtype, location);
 			default:
 				throw new EntityTypeDoesNotExistException("Entity of type " + type + " does not exist.");
 		}
@@ -110,11 +108,11 @@ public class Player {
 	}
 
 	// Add worker of designated subtype @ given location
-	public void addEntity(EntityTypeEnum type, WorkerTypeEnum subtype, Location location)
+	public Worker addEntity(EntityTypeEnum type, WorkerTypeEnum subtype, Location location)
 			throws EntityTypeDoesNotExistException, WorkerLimitExceededException, WorkerTypeDoesNotExist {
 
 		if (type == EntityTypeEnum.WORKER) {
-			this.workerManager.addWorker(subtype, location);
+			return this.workerManager.addWorker(subtype, location);
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
 
 	}

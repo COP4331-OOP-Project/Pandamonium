@@ -34,22 +34,30 @@ public class UnitManager {
     }
 
     // Add unit based on type at designated location
-    public void addUnit(EntitySubtypeEnum unitType, Location location)
+    public Unit addUnit(EntitySubtypeEnum unitType, Location location)
             throws UnitTypeLimitExceededException, TotalUnitLimitExceededException, UnitTypeDoesNotExistException {
 
         switch (unitType) {
-            case COLONIST:
-                this.colonists.add(this.unitIdManager.createColonist(location));
-                break;
-            case EXPLORER:
-                this.explorers.add(this.unitIdManager.createExplorer(location));
-                break;
-            case MELEE:
-                this.melees.add(this.unitIdManager.createMelee(location));
-                break;
-            case RANGE:
-                this.ranges.add(this.unitIdManager.createRanged(location));
-                break;
+            case COLONIST: {
+                Colonist c = this.unitIdManager.createColonist(location);
+                this.colonists.add(c);
+                return c;
+            }
+            case EXPLORER: {
+                Explorer e = this.unitIdManager.createExplorer(location);
+                this.explorers.add(e);
+                return e;
+            }
+            case MELEE: {
+                Melee m = this.unitIdManager.createMelee(location);
+                this.melees.add(m);
+                return m;
+            }
+            case RANGE: {
+                Ranged r = this.unitIdManager.createRanged(location);
+                this.ranges.add(r);
+                return r;
+            }
             default:
                 throw new UnitTypeDoesNotExistException("Unit type " + unitType + " does not exist.");
 

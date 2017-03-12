@@ -3,7 +3,6 @@ package game.entities;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import game.entities.stats.UnitStats;
 import game.entities.units.BattleGroupUnit;
 import game.entities.units.Unit;
 import game.gameboard.Location;

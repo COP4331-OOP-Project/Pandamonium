@@ -84,29 +84,43 @@ public class StructureManager implements iStructureResearchObservable {
         return allStructures;
     }
 
-    public void addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
+    public Structure addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
         switch (structureType) {
-            case CAPITOL:
-                this.capitols.add(this.structureIdManager.createCapitol(location));
-                break;
-            case FARM:
-                this.farms.add(this.structureIdManager.createFarm(location));
-                break;
-            case FORT:
-                this.forts.add(this.structureIdManager.createFort(location));
-                break;
-            case MINE:
-                this.mines.add(this.structureIdManager.createMine(location));
-                break;
-            case OBSERVE:
-                this.observationTowers.add(this.structureIdManager.createObservationTower(location));
-                break;
-            case PLANT:
-                this.powerPlants.add(this.structureIdManager.createPowerPlant(location));
-                break;
-            case UNIVERSITY:
-                this.universities.add(this.structureIdManager.createUniversity(location));
-                break;
+            case CAPITOL: {
+                Capitol c = this.structureIdManager.createCapitol(location);
+                this.capitols.add(c);
+                return c;
+            }
+            case FARM: {
+                Farm f = this.structureIdManager.createFarm(location);
+                this.farms.add(f);
+                return f;
+            }
+            case FORT: {
+                Fort f = this.structureIdManager.createFort(location);
+                this.forts.add(f);
+                return f;
+            }
+            case MINE: {
+                Mine m = this.structureIdManager.createMine(location);
+                this.mines.add(m);
+                return m;
+            }
+            case OBSERVE: {
+                ObservationTower o = this.structureIdManager.createObservationTower(location);
+                this.observationTowers.add(o);
+                return o;
+            }
+            case PLANT: {
+                PowerPlant p = this.structureIdManager.createPowerPlant(location);
+                this.powerPlants.add(p);
+                return p;
+            }
+            case UNIVERSITY: {
+                University u = this.structureIdManager.createUniversity(location);
+                this.universities.add(u);
+                return u;
+            }
             default:
                 throw new StructureTypeDoesNotExist();
         }
