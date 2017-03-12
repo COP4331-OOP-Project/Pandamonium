@@ -31,7 +31,7 @@ public class Army extends Entity{
     public double getCurrentHealth(){
         return 0;
     }
-    public Percentage getHealthPercentage(){
+    public HealthPercentage getHealthPercentage(){
         return null;
     }
     public void takeDamage(double damage){
