@@ -77,17 +77,6 @@ public class Player {
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
-
-		// Initialize player's unit
-		try {
-			this.unitManager.addUnit(EntitySubtypeEnum.COLONIST, loc);
-		} catch (UnitTypeDoesNotExistException e1) {
-			e1.getLocalizedMessage();
-		} catch (UnitTypeLimitExceededException e2) {
-			e2.getLocalizedMessage();
-		} catch (TotalUnitLimitExceededException e3) {
-			e3.getLocalizedMessage();
-		}
 	}
 
 	// Add entity of designated type, subtype @ given location
