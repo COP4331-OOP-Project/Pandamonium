@@ -49,6 +49,7 @@ public class IntroPanel extends Panel {
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		System.out.println(videoPlayer.getCurrentTime().toMillis());
 		//Centers Video On Screen
 		if ((double)screenDimensions.y/(double)screenDimensions.x < 
 				(double)ASPECT_RATIO_Y/(double)ASPECT_RATIO_X) {
@@ -62,8 +63,8 @@ public class IntroPanel extends Panel {
 			introStarted = true;
 		} else {
 			if (videoPlayer.getCurrentTime().toMillis() == 39894) { //Last Milli of Video
-				videoPlayer.stop();
-				panelManager.setMode(ViewEnum.MAIN_GAME);
+				//videoPlayer.stop();
+				//panelManager.setMode(ViewEnum.MAIN_GAME);
 			}
 		}
 	}
