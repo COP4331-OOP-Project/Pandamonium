@@ -19,6 +19,7 @@ public class UnitDrawer {
     private static final int TILE_SIZE = 130;
     private AssetManager assets;
     private Camera camera;
+    private EntityId selectedEntity;
     
     public UnitDrawer(AssetManager assets, Camera camera) {
         this.assets = assets;
@@ -26,7 +27,8 @@ public class UnitDrawer {
     }
     
 
-	public void drawUnits(Point p, ArrayList<Unit> units, GraphicsContext g) {
+	public void drawUnits(Point p, ArrayList<Unit> units, GraphicsContext g, EntityId selectedEntity) {
+		this.selectedEntity = selectedEntity;
 		switch (units.size()) {
 			case 1 :
 				drawUnit(p, new Point(36, 32), 1, units.get(0), g);
@@ -179,7 +181,10 @@ public class UnitDrawer {
 				break;
 			default :
 				break;
-		}	
+		}
+		if (selectedEntity != null && entityId.compareTo(selectedEntity) == 1) {
+			drawItem(p, offset, "SELECTED_UNIT",scale, g);
+		}
 	}
 	
     public void drawItem(Point p, Point offset, String image, double scale, GraphicsContext g) {

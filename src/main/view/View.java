@@ -79,6 +79,6 @@ public class View {
 	}
 
 	public void centerOnCurrentTypeInstance() {
-		
+		panelManager.centerOnSelected();
 	}
 }

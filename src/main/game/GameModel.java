@@ -12,6 +12,7 @@ import game.entities.factories.exceptions.MeleeLimitExceededException;
 import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
+import game.entities.units.Explorer;
 import game.entities.units.exceptions.UnitNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,6 +75,22 @@ public class GameModel {
 
             gBoard.addUnitToTile(humanColonist);
             gBoard.addUnitToTile(pandaColonist);
+            
+            Colonist h1 = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
+            human.addColonist(h1);
+            gBoard.addUnitToTile(humanColonist);
+            
+            for (int i = 0; i < 8; i++) {
+            	Colonist h2 = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
+                human.addColonist(h2);
+                gBoard.addUnitToTile(h2);
+            }
+            
+            for (int i = 0; i < 8; i++) {
+            	Explorer h2 = (Explorer)unitFactory.createUnit(EntitySubtypeEnum.EXPLORER,HUMAN_STARTING_LOCATION, 0);
+                human.addExplorer(h2);
+                gBoard.addUnitToTile(h2);
+            }
         }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
                 |RangedLimitExceededException e){
             throw new GameFailedToStartException();

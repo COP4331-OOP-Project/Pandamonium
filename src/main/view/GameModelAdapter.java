@@ -6,6 +6,10 @@ import game.GameModel;
 import game.entities.EntityId;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
+
+import java.awt.Point;
+
+import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
@@ -79,6 +83,18 @@ public class GameModelAdapter {
 	
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
+	}
+	
+	public Point getSelectedPoint() {
+		if (controlMode.getSelectedLocation() != null) {
+			return locationToPoint(controlMode.getSelectedLocation());
+		} else {
+			return null;
+		}
+	}
+	
+	public Point locationToPoint(Location location) {
+		return new Point(location.getX(), location.getY());
 	}
 	
 	public void endTurn() {

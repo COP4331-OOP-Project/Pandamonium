@@ -155,4 +155,8 @@ public class PanelManager {
 	public void toggleStructures() {
 		gamePanel.toggleStructures();
 	}
+
+	public void centerOnSelected() {
+		gamePanel.centerOnSelected();
+	}
 }

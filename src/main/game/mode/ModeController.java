@@ -5,6 +5,7 @@ import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
 import game.entities.EntityId;
+import game.gameboard.Location;
 
 public class ModeController {
 	private Mode currentMode = Mode.RALLY_POINT;
@@ -119,6 +120,10 @@ public class ModeController {
 
 	public EntityId getSelectedEntity() {
 		return selectedManager.getSelectedEntity();
+	}
+	
+	public Location getSelectedLocation() {
+		return selectedManager.getSelectedLocation();
 	}
 	
 	public void setKeyEventController(KeyEventController event) {
