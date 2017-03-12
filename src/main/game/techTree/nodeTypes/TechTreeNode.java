@@ -10,18 +10,18 @@ public abstract class TechTreeNode {
     private List<TechTreeNode> children;
     private String name;
     private String description;
-    private boolean isResearchCompleted;
+    private TechNodeImageEnum imageEnum;
 
-    TechTreeNode(String name, String description) {
+    TechTreeNode(String name, String description, TechNodeImageEnum imageEnum) {
         this.name = name;
         this.description = description;
-        this.isResearchCompleted = false;
+        this.imageEnum = imageEnum;
     }
 
-    TechTreeNode(String name, String description, TechTreeNode... parents) {
+    TechTreeNode(String name, String description, TechNodeImageEnum imageEnum, TechTreeNode... parents) {
         this.name = name;
         this.description = description;
-        this.isResearchCompleted = false;
+        this.imageEnum = imageEnum;
         this.parents = new ArrayList<>();
         this.children = new ArrayList<>();
         Collections.addAll(this.parents, parents);
@@ -43,6 +43,14 @@ public abstract class TechTreeNode {
         this.description = description;
     }
 
+    public TechNodeImageEnum getImageEnum() {
+        return imageEnum;
+    }
+
+    public void setImageEnum(TechNodeImageEnum imageEnum) {
+        this.imageEnum = imageEnum;
+    }
+
     public List<TechTreeNode> getChildren() {
         return children;
     }
@@ -62,4 +70,5 @@ public abstract class TechTreeNode {
     public abstract boolean isResearchCompleted();
 
     public abstract void doResearch();
+
 }

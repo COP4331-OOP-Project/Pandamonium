@@ -9,11 +9,8 @@ import game.entities.EntityTypeEnum;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.WorkerStats;
 import game.entities.workers.workerTypes.FoodGatherer;
-import game.entities.workers.workerTypes.MetalGenerator;
-import game.entities.workers.workerTypes.NutrientGenerator;
 import game.entities.workers.workerTypes.OreGatherer;
 import game.entities.workers.workerTypes.PeatGatherer;
-import game.entities.workers.workerTypes.PowerGenerator;
 import game.entities.workers.workerTypes.ResearchGenerator;
 import game.entities.workers.workerTypes.SoldierGenerator;
 import game.entities.workers.workerTypes.Worker;
@@ -35,9 +32,6 @@ public class WorkerFactory implements iWorkerResearchObserver {
         this.workerProductionStatistics.put(WorkerTypeEnum.FOOD_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.FOOD)));
         this.workerProductionStatistics.put(WorkerTypeEnum.ORE_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.ORE)));
         this.workerProductionStatistics.put(WorkerTypeEnum.PEAT_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.PEAT)));
-        this.workerProductionStatistics.put(WorkerTypeEnum.NUTRIENT_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.NUTRIENTS)));
-        this.workerProductionStatistics.put(WorkerTypeEnum.METAL_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.METAL)));
-        this.workerProductionStatistics.put(WorkerTypeEnum.POWER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.POWER)));
         this.workerProductionStatistics.put(WorkerTypeEnum.WORKER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.WORKER_POINTS)));
         this.workerProductionStatistics.put(WorkerTypeEnum.RESEARCH_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.RESEARCH_POINTS)));
         this.workerProductionStatistics.put(WorkerTypeEnum.SOLDIER_GENERATOR, new WorkerStats(1, new Resource(1, ResourceTypeEnum.SOLDIER_POINTS)));
@@ -53,12 +47,6 @@ public class WorkerFactory implements iWorkerResearchObserver {
                 return new OreGatherer(entityId, workerProductionStatistics.get(workerType), location);
             case PEAT_GATHERER:
                 return new PeatGatherer(entityId, workerProductionStatistics.get(workerType), location);
-            case NUTRIENT_GENERATOR:
-                return new NutrientGenerator(entityId, workerProductionStatistics.get(workerType), location);
-            case METAL_GENERATOR:
-                return new MetalGenerator(entityId, workerProductionStatistics.get(workerType), location);
-            case POWER_GENERATOR:
-                return new PowerGenerator(entityId, workerProductionStatistics.get(workerType), location);
             case WORKER_GENERATOR:
                 return new WorkerGenerator(entityId, workerProductionStatistics.get(workerType), location);
             case RESEARCH_GENERATOR:
