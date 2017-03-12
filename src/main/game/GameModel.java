@@ -5,19 +5,13 @@ import java.util.ArrayList;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.factories.StructureFactory;
 import game.entities.factories.UnitFactory;
 import game.entities.factories.exceptions.ColonistLimitExceededException;
 import game.entities.factories.exceptions.ExplorerLimitExceededException;
 import game.entities.factories.exceptions.MeleeLimitExceededException;
 import game.entities.factories.exceptions.RangedLimitExceededException;
-import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.stats.UnitStats;
-import game.entities.structures.Mine;
-import game.entities.structures.ObservationTower;
 import game.entities.units.Colonist;
-import game.entities.units.Explorer;
-import game.entities.units.Melee;
 import game.entities.units.exceptions.UnitNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +25,6 @@ public class GameModel {
 	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
     private final static Logger log = LogManager.getLogger(GameModel.class);
     private UnitFactory unitFactory;
-    private StructureFactory structureFactory;
     private Player currentPlayer;
     private Gameboard gBoard;
     private ArrayList<Player> players;
@@ -72,27 +65,14 @@ public class GameModel {
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
         try {
             unitFactory = new UnitFactory();
-            structureFactory = new StructureFactory(0);
 
             Colonist humanColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
             Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
 
             human.addColonist(humanColonist);
             panda.addColonist(pandaColonist);
-
-            gBoard.addUnitToTile(humanColonist);
-            gBoard.addUnitToTile(pandaColonist);
-            
-            ObservationTower tower = (ObservationTower)structureFactory.createStructure(EntitySubtypeEnum.OBSERVE,0, new Location(HUMAN_STARTING_LOCATION.getX() - 1, HUMAN_STARTING_LOCATION.getY() - 1));
-            human.addObservationTower(tower);
-            gBoard.addStructureToTile(tower);
-            
-            Mine mine = (Mine)structureFactory.createStructure(EntitySubtypeEnum.MINE,0, new Location(HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
-            human.addMine(mine);
-            gBoard.addStructureToTile(mine);
-            
         }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
-                |RangedLimitExceededException | StructureTypeDoesNotExist e){
+                |RangedLimitExceededException e){
             throw new GameFailedToStartException();
         }
     }
