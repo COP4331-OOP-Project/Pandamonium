@@ -57,6 +57,6 @@ public class Gameboard {
     }
     
     public void addStructureToTile(Structure structure){
-	    board[structure.getLocationX()][structure.getLocationY()].addStructure(structure);;
+	    board[structure.getLocationX()][structure.getLocationY()].addStructure(structure);
     }
 }
