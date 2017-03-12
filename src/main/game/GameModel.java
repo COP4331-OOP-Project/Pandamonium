@@ -71,6 +71,9 @@ public class GameModel {
 
             human.addColonist(humanColonist);
             panda.addColonist(pandaColonist);
+
+            gBoard.addUnitToTile(humanColonist);
+            gBoard.addUnitToTile(pandaColonist);
         }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
                 |RangedLimitExceededException e){
             throw new GameFailedToStartException();
