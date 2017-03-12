@@ -1,4 +1,4 @@
-package game.WorkerResearch;
+package game.workerResearch;
 
 import game.entities.managers.WorkerManager;
 

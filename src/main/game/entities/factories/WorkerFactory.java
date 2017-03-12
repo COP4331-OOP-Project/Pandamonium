@@ -3,7 +3,7 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
-import game.iWorkerResearchObserver;
+import game.workerResearch.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
@@ -22,6 +22,7 @@ import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
+import game.semantics.Percentage;
 
 public class WorkerFactory implements iWorkerResearchObserver {
 
@@ -69,19 +70,19 @@ public class WorkerFactory implements iWorkerResearchObserver {
         }
     }
 
-    public void onProductionRateChanged(double productionRate) {
+    public void onProductionRateIncreased(Percentage productionRateIncrease) {
         for (Object o : this.workerProductionStatistics.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             WorkerStats workerStats = (WorkerStats) pair.getValue();
-            workerStats.setProductionRate(productionRate);
+            workerStats.increaseProductionRate(productionRateIncrease);
         }
     }
 
-    public void onUpkeepChanged(Resource upkeep) {
+    public void onUpkeepDecreased(Percentage upkeepDecrease) {
         for (Object o : this.workerProductionStatistics.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             WorkerStats workerStats = (WorkerStats) pair.getValue();
-            workerStats.setUpkeep(upkeep);
+            workerStats.decreaseUpkeep(upkeepDecrease);
         }
     }
 

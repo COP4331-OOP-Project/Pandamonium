@@ -24,5 +24,9 @@ public abstract class Structure extends Entity {
     public StructureStats getStats() {
     	return stats;
     }
+
+    public void increaseVisibilityRadius(int increaseAmount) {
+        this.stats.increaseVisibilityRadius(increaseAmount);
+    }
     
 }

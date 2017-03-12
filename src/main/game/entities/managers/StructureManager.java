@@ -1,7 +1,10 @@
 package game.entities.managers;
 
+import entityResearch.iEntityResearchObservable;
+import entityResearch.iEntityResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
+import game.entities.factories.StructureFactory;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.factories.exceptions.StructureTypeLimitExceededException;
 import game.entities.factories.exceptions.TotalStructureLimitExceededException;
@@ -11,10 +14,11 @@ import game.entities.structures.*;
 import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
+import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class StructureManager {
+public class StructureManager implements iEntityResearchObservable {
 
     private ArrayList<Capitol> capitols;
     private ArrayList<Farm> farms;
@@ -24,10 +28,11 @@ public class StructureManager {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
+    private ArrayList<iEntityResearchObserver> observers;
+
     private StructureIdManager structureIdManager;
 
     public StructureManager(int playerId) {
-        this.structureIdManager = new StructureIdManager(playerId);
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
         this.forts = new ArrayList<>();
@@ -35,8 +40,53 @@ public class StructureManager {
         this.observationTowers = new ArrayList<>();
         this.powerPlants = new ArrayList<>();
         this.universities = new ArrayList<>();
+        this.observers = new ArrayList<>();
+
+        StructureFactory structureFactory = new StructureFactory(playerId);
+        this.attach(structureFactory);
+        this.structureIdManager = new StructureIdManager(structureFactory);
     }
 
+    public ArrayList<Capitol> getCapitols() {
+        return this.capitols;
+    }
+
+    public ArrayList<Farm> getFarms() {
+        return this.farms;
+    }
+
+    public ArrayList<Fort> getForts() {
+        return this.forts;
+    }
+
+    public ArrayList<Mine> getMines() {
+        return this.mines;
+    }
+
+    public ArrayList<ObservationTower> getObservationTowers() {
+        return this.observationTowers;
+    }
+
+    public ArrayList<PowerPlant> getPowerPlants() {
+        return this.powerPlants;
+    }
+
+    public ArrayList<University> getUniversities() {
+        return this.universities;
+    }
+
+    public ArrayList<Structure> getTotalStructures() {
+        ArrayList<Structure> allStructures = new ArrayList<>();
+        allStructures.addAll(getCapitols());
+        allStructures.addAll(getFarms());
+        allStructures.addAll(getForts());
+        allStructures.addAll(getMines());
+        allStructures.addAll(getObservationTowers());
+        allStructures.addAll(getPowerPlants());
+        allStructures.addAll(getUniversities());
+        return allStructures;
+    }
+    
     public void addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
         switch (structureType) {
             case CAPITOL:
@@ -132,4 +182,51 @@ public class StructureManager {
 
         if (!removed) throw new StructureDoesNotExistException("Could not find structure with entityId " + entityId);
     }
+
+    public void attach(iEntityResearchObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void increaseVisibilityRadius(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        switch (subtype) {
+            case CAPITOL:
+                this.upgradeVisbilityRadius(this.capitols, increaseAmount);
+                break;
+            case FARM:
+                this.upgradeVisbilityRadius(this.farms, increaseAmount);
+                break;
+            case FORT:
+                this.upgradeVisbilityRadius(this.forts, increaseAmount);
+                break;
+            case MINE:
+                this.upgradeVisbilityRadius(this.mines, increaseAmount);
+                break;
+            case OBSERVE:
+                this.upgradeVisbilityRadius(this.observationTowers, increaseAmount);
+                break;
+            case PLANT:
+                this.upgradeVisbilityRadius(this.powerPlants, increaseAmount);
+                break;
+            case UNIVERSITY:
+                this.upgradeVisbilityRadius(this.universities, increaseAmount);
+                break;
+            case default:
+                throw new StructureType
+        }
+    }
+
+    private void upgradeVisbilityRadius(ArrayList<? extends Structure> structures, int increaseAmount) {
+        for (Structure s : structures) {
+            s.increaseVisibilityRadius(increaseAmount);
+        }
+    }
+
+    public void increaseAttackStrength(int increaseAmount);
+    public void increaseDefenseStrength(int increaseAmount);
+    public void increaseArmorStrength(int increaseAmount);
+    public void increaseMovementRate(int increaseAmount);
+    public void increaseHealth(int increaseAmount);
+    public void increaseEfficiency(Percentage increasePercentage);
+
+
 }
