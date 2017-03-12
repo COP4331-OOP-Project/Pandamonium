@@ -7,7 +7,7 @@ import game.entities.Percentage;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
 
-public class Structure extends Entity {
+public abstract class Structure extends Entity {
     protected StructureStats stats;
     public Structure(StructureStats stats, Location location , EntityId entityId ){
         super(location, entityId);

@@ -1,7 +1,11 @@
 package view;
 
+import java.util.ArrayList;
+
 import game.GameModel;
 import game.entities.EntityId;
+import game.entities.structures.Structure;
+import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
@@ -65,6 +69,14 @@ public class GameModelAdapter {
 		return (int) gameModel.getCurrentPlayer().getPower().getAmount();
 	}
 
+	public ArrayList<Unit> getCurrentUnits() {
+		return gameModel.getCurrentPlayer().getUnits();
+	}
+	
+	public ArrayList<Structure> getStructures() {
+		return gameModel.getCurrentPlayer().getStructures();
+	}
+	
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
 	}

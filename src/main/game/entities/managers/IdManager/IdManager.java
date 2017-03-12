@@ -1,13 +1,10 @@
-package game.entities.IdManager;
+package game.entities.managers.IdManager;
 
 import java.util.TreeSet;
 
-import game.entities.IdManager.exceptions.IdDoesNotExistException;
-import game.entities.IdManager.exceptions.IdLimitExceededException;
+import game.entities.managers.IdManager.exceptions.IdDoesNotExistException;
+import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
 
-/**
- * Created by gavin on 2/22/17.
- */
 public class IdManager {
 
     private TreeSet<Integer> usedIds;

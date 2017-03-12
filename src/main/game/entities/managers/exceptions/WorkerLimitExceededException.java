@@ -1,4 +1,4 @@
-package game.entities.workers.workerManagement.exceptions;
+package game.entities.managers.exceptions;
 
 public class WorkerLimitExceededException extends Exception {
 

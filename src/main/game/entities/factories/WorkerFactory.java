@@ -1,4 +1,4 @@
-package game.entities.workers.workerManagement;
+package game.entities.factories;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import game.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
-import game.entities.workers.workerManagement.exceptions.WorkerTypeDoesNotExist;
-import game.entities.workers.workerStats.WorkerStats;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
+import game.entities.stats.WorkerStats;
 import game.entities.workers.workerTypes.FoodGatherer;
 import game.entities.workers.workerTypes.MetalGenerator;
 import game.entities.workers.workerTypes.NutrientGenerator;
