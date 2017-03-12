@@ -17,7 +17,6 @@ public class Army extends Entity{
 
     public void moveRallyPoint(Location loc){
         rallyPoint.setLocation(loc);
-        setLocation(loc);
     }
 
     //TODO find a way to delete tiles reference to unit that is added to battlegroup. VISITOR?
@@ -26,6 +25,7 @@ public class Army extends Entity{
             Unit unitToAdd = reinforcement.getOnLocationUnit(battleGroup.getLocation());
             battleGroup.addUnit(unitToAdd);
         }
+        setLocation(battleGroup.getLocation());
     }
 
     public double getCurrentHealth(){
