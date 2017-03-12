@@ -12,7 +12,7 @@ import game.gameboard.Location;
 
 // TODO: Fix damage taking to account for defense
 
-public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
+public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;
     protected int orientation;
 
@@ -22,7 +22,7 @@ public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new Percentage();
-        this.orientation = 1;
+        this.orientation = 180;
         standby();
     }
 
@@ -38,6 +38,34 @@ public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     public void setStats(UnitStats stats) { this.stats = stats; }
     public void setOrientation(int orientation) { this.orientation = orientation; }
 
+    @Override
+    public void setLocation(Location location){
+        setOrientation(direction(location));
+        this.location=location;
+    }
+
+    public int direction(Location location){
+        if(location.equals(new Location(this.location.getX(), this.location.getY()-1))){
+            return 0;
+        }
+        else if(location.equals(new Location(this.location.getX()+1, this.location.getY()-1))){
+            return 45;
+        }
+        else if(location.equals(new Location(this.location.getX()+1, this.location.getY()))){
+            return 135;
+        }
+        else if(location.equals(new Location(this.location.getX(), this.location.getY()+1))){
+            return 180;
+        }
+        else if(location.equals(new Location(this.location.getX()-1, this.location.getY()+1))){
+            return 225;
+        }
+        else if(location.equals(new Location(this.location.getX()-1, this.location.getY()))){
+            return 315;
+        }
+        //Default set their orientation to 0
+        return 180;
+    }
     /* iAttacker */
     public double getDamage(){ return (double)stats.getOffPow(); }
     public int getRange(){ return stats.getRange(); }
