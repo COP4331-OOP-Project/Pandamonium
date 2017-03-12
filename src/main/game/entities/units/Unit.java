@@ -12,7 +12,7 @@ import game.gameboard.Location;
 
 // TODO: Fix damage taking to account for defense
 
-public class Unit extends Entity implements iAttacker, iDefender, iMoveable {
+public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;
     protected int orientation;
 
