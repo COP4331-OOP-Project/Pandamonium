@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import game.entities.stats.UnitStats;
 import game.entities.units.BattleGroupUnit;
+import game.entities.units.Unit;
 import game.gameboard.Location;
 
 public class BattleGroup implements iAttacker{
@@ -20,9 +21,9 @@ public class BattleGroup implements iAttacker{
         entityId=id;
     }
 
-    public void addUnit(UnitStats unitStats, EntityId entityId){
+    public void addUnit(Unit unit){
         //TODO whatever calls this needs to also destroy tile reference to unit
-        bgUnits.add(new BattleGroupUnit(unitStats, entityId));
+        bgUnits.add(new BattleGroupUnit(unit.getStats(), unit.getEntityId()));
     }
 
     public double getDamage(){

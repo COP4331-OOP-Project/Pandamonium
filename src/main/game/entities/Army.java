@@ -24,7 +24,7 @@ public class Army extends Entity{
     public void updateArmy(){
         while(reinforcement.onLocation(battleGroup.getLocation())){
             Unit unitToAdd = reinforcement.getOnLocationUnit(battleGroup.getLocation());
-            battleGroup.addUnit(unitToAdd.getStats(), unitToAdd.getEntityId());
+            battleGroup.addUnit(unitToAdd);
         }
     }
 
