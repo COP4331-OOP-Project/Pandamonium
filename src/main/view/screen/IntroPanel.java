@@ -61,7 +61,7 @@ public class IntroPanel extends Panel {
 			playIntroVideo();
 			introStarted = true;
 		} else {
-			if (videoPlayer.getCurrentTime().toMillis() == 39894) { //Last Milli of Video
+			if (videoPlayer.getCurrentTime().toMillis() == 39574) { //Last Milli of Video
 				videoPlayer.stop();
 				panelManager.setMode(ViewEnum.MAIN_GAME);
 			}
