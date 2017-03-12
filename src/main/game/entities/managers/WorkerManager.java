@@ -60,8 +60,13 @@ public class WorkerManager implements iWorkerResearchObservable {
         return null;
     }
 
+
     public void attach(iWorkerResearchObserver observer) {
         this.observers.add(observer);
+    }
+
+    public ArrayList<Worker> getWorkers() {
+        return this.workers;
     }
 
     public void increaseProductionRateByPercentage(Percentage productionRateIncrease) {
