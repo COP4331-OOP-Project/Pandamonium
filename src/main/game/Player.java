@@ -5,20 +5,20 @@ import java.util.ArrayList;
 
 import javax.lang.model.UnknownEntityException;
 
-import game.entities.EntityId;
+import game.entities.*;
+import game.entities.factories.EntityTypeDoesNotExistException;
+import game.entities.factories.exceptions.*;
+import game.entities.managers.StructureManager;
+import game.entities.managers.UnitManager;
+import game.entities.managers.WorkerManager;
+import game.entities.managers.exceptions.*;
 import game.entities.workers.workerTypes.Worker;
 
+import game.entities.workers.workerTypes.WorkerTypeEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.entities.Army;
-import game.entities.EntitySubtypeEnum;
-import game.entities.RallyPoint;
 import game.entities.factories.UnitFactory;
-import game.entities.factories.exceptions.ColonistLimitExceededException;
-import game.entities.factories.exceptions.ExplorerLimitExceededException;
-import game.entities.factories.exceptions.MeleeLimitExceededException;
-import game.entities.factories.exceptions.RangedLimitExceededException;
 import game.entities.structures.Capitol;
 import game.entities.structures.Farm;
 import game.entities.structures.Fort;
@@ -42,6 +42,8 @@ import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 
 public class Player {
+
+	// Logger
 	private final static Logger log = LogManager.getLogger(Player.class);
 
 	// Player ID of this player
@@ -49,63 +51,74 @@ public class Player {
 
 	// ArrayLists of this player's instances
 	private ArrayList<Army> armies;
-	private ArrayList<Melee> melees;
-	private ArrayList<Ranged> ranges;
-	private ArrayList<Explorer> explorers;
-	private ArrayList<Colonist> colonists;
-	private ArrayList<Worker> workers;
-	private ArrayList<Structure> structures;
 	private ArrayList<RallyPoint> rallyPoints;
-	private ArrayList<Unit> totalUnits;
-	private int totalUnitCount;
+
+	// Managers
+	private WorkerManager workerManager;
+	private UnitManager unitManager;
+	private StructureManager structureManager;
+
+	// Player visibility board
 	private SimpleTile[][] simpleTiles;
+
+	// Player resource counts
 	private Resource nutrients = new Resource(0, ResourceTypeEnum.NUTRIENTS);
 	private Resource power = new Resource(0, ResourceTypeEnum.POWER);
 	private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
-	private UnitFactory unitFactory = new UnitFactory();
+
+	// Constructor
 	public Player(int playerId, Location loc) {
-		armies = new ArrayList<Army>();
-		melees = new ArrayList<Melee>();
-		ranges = new ArrayList<Ranged>();
-		explorers = new ArrayList<Explorer>();
-		colonists = new ArrayList<Colonist>();
-		workers = new ArrayList<Worker>();
-		structures = new ArrayList<Structure>();
-		rallyPoints = new ArrayList<RallyPoint>();
-		totalUnits = new ArrayList<Unit>();
-		this.playerId = playerId;
+
+		this.playerId = playerId;	// Set player id
+
+		// Setup managers for entities, workers
+		this.workerManager = new WorkerManager(playerId);
+		this.unitManager = new UnitManager(playerId);
+		this.structureManager = new StructureManager(playerId);
+
+		this.armies = new ArrayList<Army>();
+		this.rallyPoints = new ArrayList<RallyPoint>();
+
+		// Initialize player's unit
 		try {
-			addColonist(
-					(Colonist) unitFactory.createUnit(EntitySubtypeEnum.COLONIST, loc, playerId));
-		} catch (ColonistLimitExceededException | ExplorerLimitExceededException
-				| RangedLimitExceededException | MeleeLimitExceededException
-				| UnitNotFoundException e) {
-			e.printStackTrace();
+			this.unitManager.addUnit(EntitySubtypeEnum.COLONIST, loc);
+		} catch (UnitTypeDoesNotExistException e1) {
+			e1.getLocalizedMessage();
+		} catch (UnitTypeLimitExceededException e2) {
+			e2.getLocalizedMessage();
+		} catch (TotalUnitLimitExceededException e3) {
+			e3.getLocalizedMessage();
 		}
+
 	}
 
-	public void addMelee(Melee melee) {
-		melees.add(melee);
-		totalUnits.add(melee);
+	// Add entity of designated type, subtype @ given location
+	public void addEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, Location location)
+		throws EntityTypeDoesNotExistException, UnitTypeDoesNotExistException, UnitTypeLimitExceededException,
+				StructureTypeDoesNotExist, StructureTypeLimitExceededException, TotalUnitLimitExceededException,
+				TotalStructureLimitExceededException {
+
+		switch (type) {
+			case UNIT:
+				this.unitManager.addUnit(subtype, location);
+				break;
+			case STRUCTURE:
+				this.structureManager.addStructure(subtype, location);
+				break;
+			default:
+				throw new EntityTypeDoesNotExistException("Entity of type " + type + " does not exist.");
+		}
+
 	}
 
-	public void addRanged(Ranged ranged) {
-		ranges.add(ranged);
-		totalUnits.add(ranged);
-	}
+	// Add worker of designated subtype @ given location
+	public void addEntity(EntityTypeEnum type, WorkerTypeEnum subtype, Location location)
+			throws EntityTypeDoesNotExistException, WorkerLimitExceededException, WorkerTypeDoesNotExist {
 
-	public void addExplorer(Explorer explorer) {
-		explorers.add(explorer);
-		totalUnits.add(explorer);
-	}
+		if (type == EntityTypeEnum.WORKER) {
+			this.workerManager.addWorker(subtype, location);
+		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
 
-	public void addColonist(Colonist colonist) {
-		colonists.add(colonist);
-		totalUnits.add(colonist);
-	}
-
-	public void addWorker(Worker worker) {
-		workers.add(worker);
 	}
 
 	public void addArmy(Army army) {
@@ -116,54 +129,77 @@ public class Player {
 		rallyPoints.add(rallyPoint);
 	}
 
-	public ArrayList<Melee> getMelees() {
-		return melees;
-	}
-
-	public ArrayList<Ranged> getRanges() {
-		return ranges;
-	}
-
-	public ArrayList<Explorer> getExplorers() {
-		return explorers;
-	}
-
+	// Get all colonists
 	public ArrayList<Colonist> getColonists() {
-		return colonists;
+		return this.unitManager.getColonists();
 	}
 
+	// Get all explorers
+	public ArrayList<Explorer> getExplorers() {
+		return this.unitManager.getExplorers();
+	}
+
+	// Get all melees
+	public ArrayList<Melee> getMelees() {
+		return this.unitManager.getMelees();
+	}
+
+	// Get all ranges
+	public ArrayList<Ranged> getRanges() {
+		return this.unitManager.getRanges();
+	}
+
+	// Get all units
+	public ArrayList<Unit> getUnits() {
+		return this.unitManager.getTotalUnits();
+	}
+
+	// Get all capitols
+	public ArrayList<Capitol> getCapitols() {
+		return this.structureManager.getCapitols();
+	}
+
+	// Get all farms
+	public ArrayList<Farm> getFarms() {
+		return this.structureManager.getFarms();
+	}
+
+	// Get all forts
+	public ArrayList<Fort> getForts() {
+		return this.structureManager.getForts();
+	}
+
+	// Get all mines
+	public ArrayList<Mine> getMines() {
+		return this.structureManager.getMines();
+	}
+
+	// Get all observationTowers
+	public ArrayList<ObservationTower> getObservationTowers() {
+		return this.structureManager.getObservationTowers();
+	}
+
+	// Get all powerPlants
+	public ArrayList<PowerPlant> getPowerPlant() {
+		return this.structureManager.getPowerPlants();
+	}
+
+	// Get all universities
+	public ArrayList<University> getUniversities() {
+		return this.structureManager.getUniversities();
+	}
+
+	// Get all structures
+	public ArrayList<Structure> getStructures() {
+		return this.structureManager.getTotalStructures();
+	}
+
+	// Get all workers
 	public ArrayList<Worker> getWorkers() {
-		return workers;
+		return this.workerManager.getWorkers();
 	}
 
-	public void addCapitol(Capitol capitol) {
-		structures.add(capitol);
-	}
-
-	public void addFarm(Farm farm) {
-		structures.add(farm);
-	}
-
-	public void addFort(Fort fort) {
-		structures.add(fort);
-	}
-
-	public void addMine(Mine mine) {
-		structures.add(mine);
-	}
-
-	public void addObservationTower(ObservationTower tower) {
-		structures.add(tower);
-	}
-
-	public void addPowerPlant(PowerPlant powerPlant) {
-		structures.add(powerPlant);
-	}
-
-	public void addUniversity(University university) {
-		structures.add(university);
-	}
-
+	// Create simple tiles
 	public void initializeSimpleTiles(Tile[][] tiles) {
 		simpleTiles = new SimpleTile[tiles.length][tiles[0].length];
 		for (int i = 0; i < simpleTiles.length; i++) {
@@ -175,14 +211,6 @@ public class Player {
 
 	public ArrayList<RallyPoint> getRallyPoints() {
 		return rallyPoints;
-	}
-
-	public ArrayList<Structure> getStructures() {
-		return structures;
-	}
-
-	public ArrayList<Unit> getUnits() {
-		return totalUnits;
 	}
 
 	public ArrayList<Army> getArmies() {
@@ -209,54 +237,33 @@ public class Player {
 		return simpleTiles;
 	}
 
-	public void removeEntity(EntityId entityId){
-		for(int i =0;i<melees.size();i++){
-			if(entityId.compareTo(melees.get(i).getEntityId())==1){
-				melees.remove(i);
-				return;
-			}
+	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId)
+		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,
+				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException {
+
+		switch (type) {
+			case UNIT:
+				this.unitManager.removeUnit(subtype, entityId);
+				break;
+			case STRUCTURE:
+				this.structureManager.removeStructure(subtype,entityId);
+				break;
+			case WORKER:
+				this.workerManager.removeWorker(entityId);
+				break;
+//			case ARMY:
+//				this.armyManager.removeArmy(entityId);
+			default:
 		}
 
-		for(int i = 0;i<ranges.size();i++){
-			if(entityId.compareTo(ranges.get(i).getEntityId())==1){
-				ranges.remove(i);
-				return;
-			}
-		}
-
-		for(int i = 0;i<explorers.size();i++){
-			if(entityId.compareTo(explorers.get(i).getEntityId())==1){
-				explorers.remove(i);
-				return;
-			}
-		}
-
-		for(int i = 0;i<colonists.size();i++){
-			if(entityId.compareTo(colonists.get(i).getEntityId())==1){
-				colonists.remove(i);
-				return;
-			}
-		}
-
-		for(int i = 0; i<structures.size();i++){
-			if(entityId.compareTo(structures.get(i).getEntityId())==1){
-				structures.remove(i);
-				return;
-			}
-		}
-
-		for(int i = 0;i<workers.size();i++){
-			if(entityId.compareTo(workers.get(i).getId())==1){
-				workers.remove(i);
-				return;
-			}
-		}
-
-		for(int i = 0; i<armies.size(); i++){
+		for(int i = 0; i < armies.size(); i++) {
 			if(entityId.compareTo(armies.get(i).getEntityId())==1){
 				armies.remove(i);
 				return;
 			}
 		}
+
+		throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
+
 	}
 }
