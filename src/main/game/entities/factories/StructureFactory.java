@@ -41,35 +41,35 @@ public class StructureFactory implements iStructureResearchObserver {
         }
     }
 
-    public Structure createStructure(EntitySubtypeEnum structureType, int id, Location location)
+    public Structure createStructure(EntitySubtypeEnum structureType, int id, int globalId, Location location)
             throws  StructureTypeDoesNotExist {
         switch (structureType) {
             case CAPITOL: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id, globalId);
                 return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId);
             }
             case FARM: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id, globalId);
                 return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId);
             }
             case FORT: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id, globalId);
                 return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId);
             }
             case MINE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
                 return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId);
             }
             case OBSERVE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id, globalId);
                 return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId);
             }
             case PLANT: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id, globalId);
                 return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId);
             }
             case UNIVERSITY: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
                 return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId);
             }
             default:

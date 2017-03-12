@@ -55,7 +55,8 @@ public class UnitIdManager {
     Colonist createColonist(Location location)
         throws UnitTypeLimitExceededException, TotalUnitLimitExceededException {
 
-        Integer newColonistId;  // New id
+        Integer newColonistId;          // New id
+        Integer newColonistGlobalId;   // New Global Id
 
         // Get new colonist id, assign to unit
         try {
@@ -66,7 +67,7 @@ public class UnitIdManager {
 
         // Check if we have exceeded total unit count
         try {
-            this.allUnitIdManager.getNewId();
+            newColonistGlobalId = this.allUnitIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.colonistIdManager.removeId(newColonistId);
@@ -78,7 +79,7 @@ public class UnitIdManager {
 
         // Create new colonist
         try {
-            return (Colonist) this.unitFactory.createUnit(EntitySubtypeEnum.COLONIST, newColonistId, location);
+            return (Colonist) this.unitFactory.createUnit(EntitySubtypeEnum.COLONIST, newColonistId, newColonistGlobalId, location);
         } catch (UnitTypeDoesNotExistException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -88,6 +89,7 @@ public class UnitIdManager {
     void removeColonist(EntityId entityId) throws UnitDoesNotExistException {
         try {
             this.colonistIdManager.removeId(entityId.getInstanceId());
+            this.allUnitIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new UnitDoesNotExistException("Colonist " + entityId.getInstanceId() + " does not exist as an id.");
         }
@@ -96,7 +98,8 @@ public class UnitIdManager {
     Explorer createExplorer(Location location)
         throws UnitTypeLimitExceededException, TotalUnitLimitExceededException {
 
-            Integer newExplorerId;  // New id
+            Integer newExplorerId;        // New id
+            Integer newExplorerGlobalId;  // New global id
 
             // Get new explorer id, assign to unit
             try {
@@ -107,7 +110,7 @@ public class UnitIdManager {
 
             // Check if we have exceeded total unit count
             try {
-                this.allUnitIdManager.getNewId();
+                newExplorerGlobalId = this.allUnitIdManager.getNewId();
             } catch (IdLimitExceededException e) {
                 try {
                     this.explorerIdManager.removeId(newExplorerId);
@@ -119,7 +122,7 @@ public class UnitIdManager {
 
             // Create new colonist
             try {
-                return (Explorer) this.unitFactory.createUnit(EntitySubtypeEnum.EXPLORER, newExplorerId, location);
+                return (Explorer) this.unitFactory.createUnit(EntitySubtypeEnum.EXPLORER, newExplorerId, newExplorerGlobalId, location);
             } catch (UnitTypeDoesNotExistException e) {
                 throw new RuntimeException(e.getLocalizedMessage());
             }
@@ -128,6 +131,7 @@ public class UnitIdManager {
     void removeExplorer(EntityId entityId) throws UnitDoesNotExistException {
         try {
             this.explorerIdManager.removeId(entityId.getInstanceId());
+            this.allUnitIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new UnitDoesNotExistException("Explorer " + entityId.getInstanceId() + " does not exist as an id.");
         }
@@ -136,7 +140,8 @@ public class UnitIdManager {
     Melee createMelee(Location location)
             throws UnitTypeLimitExceededException, TotalUnitLimitExceededException {
 
-        Integer newMeleeId;  // New id
+        Integer newMeleeId;         // New id
+        Integer newMeleeGlobalId;   // New global id
 
         // Get new explorer id, assign to unit
         try {
@@ -147,7 +152,7 @@ public class UnitIdManager {
 
         // Check if we have exceeded total unit count
         try {
-            this.allUnitIdManager.getNewId();
+            newMeleeGlobalId = this.allUnitIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.meleeIdManager.removeId(newMeleeId);
@@ -159,7 +164,7 @@ public class UnitIdManager {
 
         // Create new colonist
         try {
-            return (Melee) this.unitFactory.createUnit(EntitySubtypeEnum.MELEE, newMeleeId, location);
+            return (Melee) this.unitFactory.createUnit(EntitySubtypeEnum.MELEE, newMeleeId, newMeleeGlobalId, location);
         } catch (UnitTypeDoesNotExistException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -168,6 +173,7 @@ public class UnitIdManager {
     void removeMelee(EntityId entityId) throws UnitDoesNotExistException {
         try {
             this.meleeIdManager.removeId(entityId.getInstanceId());
+            this.allUnitIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new UnitDoesNotExistException("Melee " + entityId.getInstanceId() + " does not exist as an id.");
         }
@@ -176,7 +182,8 @@ public class UnitIdManager {
     Ranged createRanged(Location location)
             throws UnitTypeLimitExceededException, TotalUnitLimitExceededException {
 
-        Integer newRangedId;  // New id
+        Integer newRangedId;            // New id
+        Integer newRangedGlobalId;      // New global id
 
         // Get new explorer id, assign to unit
         try {
@@ -187,7 +194,7 @@ public class UnitIdManager {
 
         // Check if we have exceeded total unit count
         try {
-            this.allUnitIdManager.getNewId();
+            newRangedGlobalId = this.allUnitIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.rangedIdManager.removeId(newRangedId);
@@ -199,7 +206,7 @@ public class UnitIdManager {
 
         // Create new colonist
         try {
-            return (Ranged) this.unitFactory.createUnit(EntitySubtypeEnum.RANGE, newRangedId, location);
+            return (Ranged) this.unitFactory.createUnit(EntitySubtypeEnum.RANGE, newRangedId, newRangedGlobalId, location);
         } catch (UnitTypeDoesNotExistException e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -208,6 +215,7 @@ public class UnitIdManager {
     void removeRanged(EntityId entityId) throws UnitDoesNotExistException {
         try {
             this.rangedIdManager.removeId(entityId.getInstanceId());
+            this.allUnitIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new UnitDoesNotExistException("Ranged " + entityId.getInstanceId() + " does not exist as an id.");
         }

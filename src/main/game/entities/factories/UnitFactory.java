@@ -39,24 +39,24 @@ public class UnitFactory {
         }
     }
   
-    public Unit createUnit(EntitySubtypeEnum unitType, int id, Location location)
+    public Unit createUnit(EntitySubtypeEnum unitType, int id, int globalId, Location location)
             throws UnitTypeDoesNotExistException {
 
         switch(unitType) {
             case COLONIST: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id, globalId);
                 return new Colonist(unitStatistics.get(unitType), location, entityId);
             }
             case EXPLORER: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id, globalId);
                 return new Explorer(unitStatistics.get(unitType),location, entityId);
             }
             case MELEE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id, globalId);
                 return new Melee(unitStatistics.get(unitType), location, entityId);
             }
             case RANGE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id);
+                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id, globalId);
                 return new Ranged(unitStatistics.get(unitType), location, entityId);
             }
             default: throw new UnitTypeDoesNotExistException();

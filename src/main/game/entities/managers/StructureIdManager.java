@@ -48,6 +48,8 @@ public class StructureIdManager {
             throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newCapitolId;
+        int newCapitolGlobalId;
+
         try {
             newCapitolId = this.capitolIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -55,7 +57,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newCapitolGlobalId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.capitolIdManager.removeId(newCapitolId);
@@ -66,7 +68,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (Capitol) this.structureFactory.createStructure(EntitySubtypeEnum.CAPITOL, newCapitolId, location);
+            return (Capitol) this.structureFactory.createStructure(EntitySubtypeEnum.CAPITOL, newCapitolId, newCapitolGlobalId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -75,6 +77,7 @@ public class StructureIdManager {
     void removeCapitol(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.capitolIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -84,6 +87,8 @@ public class StructureIdManager {
             throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newFarmId;
+        int newFarmGlobalId;
+
         try {
             newFarmId = this.farmIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -91,7 +96,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newFarmGlobalId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.farmIdManager.removeId(newFarmId);
@@ -102,7 +107,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (Farm) this.structureFactory.createStructure(EntitySubtypeEnum.FARM, newFarmId, location);
+            return (Farm) this.structureFactory.createStructure(EntitySubtypeEnum.FARM, newFarmId, newFarmGlobalId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -111,6 +116,7 @@ public class StructureIdManager {
     void removeFarm(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.farmIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -120,6 +126,8 @@ public class StructureIdManager {
         throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newFortId;
+        int newGlobalFortId;
+
         try {
             newFortId = this.fortIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -127,7 +135,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newGlobalFortId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.fortIdManager.removeId(newFortId);
@@ -138,7 +146,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (Fort) this.structureFactory.createStructure(EntitySubtypeEnum.FORT, newFortId, location);
+            return (Fort) this.structureFactory.createStructure(EntitySubtypeEnum.FORT, newFortId, newGlobalFortId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -147,6 +155,7 @@ public class StructureIdManager {
     void removeFort(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.fortIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -156,6 +165,8 @@ public class StructureIdManager {
             throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newMineId;
+        int newGlobalMineId;
+
         try {
             newMineId = this.mineIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -163,7 +174,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newGlobalMineId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.mineIdManager.removeId(newMineId);
@@ -174,7 +185,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (Mine) this.structureFactory.createStructure(EntitySubtypeEnum.MINE, newMineId, location);
+            return (Mine) this.structureFactory.createStructure(EntitySubtypeEnum.MINE, newMineId, newGlobalMineId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -183,6 +194,7 @@ public class StructureIdManager {
     void removeMine(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.mineIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -193,6 +205,8 @@ public class StructureIdManager {
 
 
         int newObservationTowerId;
+        int newObservationTowerGlobalId;
+
         try {
             newObservationTowerId = this.observationTowerIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -200,7 +214,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newObservationTowerGlobalId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.observationTowerIdManager.removeId(newObservationTowerId);
@@ -211,7 +225,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (ObservationTower) this.structureFactory.createStructure(EntitySubtypeEnum.OBSERVE, newObservationTowerId, location);
+            return (ObservationTower) this.structureFactory.createStructure(EntitySubtypeEnum.OBSERVE, newObservationTowerId, newObservationTowerGlobalId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -220,6 +234,7 @@ public class StructureIdManager {
     void removeObservationTower(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.observationTowerIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -229,6 +244,8 @@ public class StructureIdManager {
             throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newPlantId;
+        int newGlobalPlantId;
+
         try {
             newPlantId = this.powerPlantIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -236,7 +253,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newGlobalPlantId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.powerPlantIdManager.removeId(newPlantId);
@@ -247,7 +264,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (PowerPlant) this.structureFactory.createStructure(EntitySubtypeEnum.PLANT, newPlantId, location);
+            return (PowerPlant) this.structureFactory.createStructure(EntitySubtypeEnum.PLANT, newPlantId, newGlobalPlantId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -256,6 +273,7 @@ public class StructureIdManager {
     void removePowerPlant(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.powerPlantIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }
@@ -265,6 +283,8 @@ public class StructureIdManager {
             throws StructureTypeLimitExceededException, TotalStructureLimitExceededException {
 
         int newUniversityId;
+        int newGlobalUniversityId;
+
         try {
             newUniversityId = this.universityIdManager.getNewId();
         } catch (IdLimitExceededException e) {
@@ -272,7 +292,7 @@ public class StructureIdManager {
         }
 
         try {
-            this.allStructuresIdManager.getNewId();
+            newGlobalUniversityId = this.allStructuresIdManager.getNewId();
         } catch (IdLimitExceededException e) {
             try {
                 this.powerPlantIdManager.removeId(newUniversityId);
@@ -283,7 +303,7 @@ public class StructureIdManager {
         }
 
         try {
-            return (University) this.structureFactory.createStructure(EntitySubtypeEnum.UNIVERSITY, newUniversityId, location);
+            return (University) this.structureFactory.createStructure(EntitySubtypeEnum.UNIVERSITY, newUniversityId, newGlobalUniversityId, location);
         } catch (StructureTypeDoesNotExist e) {
             throw new RuntimeException(e.getLocalizedMessage());
         }
@@ -292,6 +312,7 @@ public class StructureIdManager {
     void removeUniversity(EntityId entityId) throws StructureDoesNotExistException {
         try {
             this.universityIdManager.removeId(entityId.getInstanceId());
+            this.allStructuresIdManager.removeId(entityId.getGlobalTypeId());
         } catch (IdDoesNotExistException e) {
             throw new StructureDoesNotExistException();
         }

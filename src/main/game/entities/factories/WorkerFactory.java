@@ -45,7 +45,7 @@ public class WorkerFactory implements iWorkerResearchObserver {
     }
 
     public Worker createWorker(WorkerTypeEnum workerType, int id, Location location) throws WorkerTypeDoesNotExist {
-        EntityId entityId = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id);
+        EntityId entityId = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id, id);
         switch(workerType) {
             case FOOD_GATHERER:
                 return new FoodGatherer(entityId, workerProductionStatistics.get(workerType), location);
