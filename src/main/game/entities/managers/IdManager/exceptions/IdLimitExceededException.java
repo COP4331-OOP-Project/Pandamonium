@@ -1,4 +1,4 @@
-package game.entities.IdManager.exceptions;
+package game.entities.managers.IdManager.exceptions;
 
 public class IdLimitExceededException extends Exception {
 
