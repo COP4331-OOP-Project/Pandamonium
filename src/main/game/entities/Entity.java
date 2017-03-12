@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import game.commands.Command;
 import game.entities.managers.MovementManager;
-import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
 public abstract class Entity {

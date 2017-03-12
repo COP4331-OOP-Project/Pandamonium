@@ -6,8 +6,10 @@ import game.entities.EntitySubtypeEnum;
 import game.entities.HealthPercentage;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
+import game.visitors.AddStructureVisitor;
 import game.semantics.Percentage;
 import game.visitors.AddStructureVisitor;
+
 
 public abstract class Structure extends Entity {
     protected StructureStats stats;
@@ -24,12 +26,16 @@ public abstract class Structure extends Entity {
         standby();
     }
 
+    public Location getLocation(){return location;}
+    public int getLocationX(){return location.getX();}
+    public int getLocationY(){return location.getY();}
+
     public EntitySubtypeEnum getType() {
-    	return (EntitySubtypeEnum) getEntityId().getSubTypeId();
+        return (EntitySubtypeEnum) getEntityId().getSubTypeId();
     }
-    
+
     public StructureStats getStats() {
-    	return stats;
+        return stats;
     }
     
     public void increaseVisibilityRadius(int increaseAmount) {
@@ -55,9 +61,5 @@ public abstract class Structure extends Entity {
     public void increaseEfficiency(Percentage increasePercentage) {
         this.stats.increaseEfficiency(increasePercentage);
     }
-
-    public Location getLocation(){return location;}
-    public int getLocationX(){return location.getX();}
-    public int getLocationY(){return location.getY();}
     
 }
