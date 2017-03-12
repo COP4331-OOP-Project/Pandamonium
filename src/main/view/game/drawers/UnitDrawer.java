@@ -146,7 +146,17 @@ public class UnitDrawer {
 				drawUnit(p, new Point(128, 115), 0.60, units.get(3), g);
 				drawUnit(p, new Point(98, 115), 0.60, units.get(2), g);
 				drawUnit(p, new Point(68, 115), 0.60, units.get(1), g);
-				drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
+				int invisibleUnitSelected = -1;
+				for (int i = 12; i < units.size(); i++) {
+					if (units.get(i).getEntityId() == selectedEntity) {
+						invisibleUnitSelected = i;
+					}
+				}
+				if (invisibleUnitSelected != -1) {
+					drawUnit(p, new Point(38, 115), 0.60, units.get(invisibleUnitSelected), g);
+				} else {
+					drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
+				}
 				break;
 		}
 	}

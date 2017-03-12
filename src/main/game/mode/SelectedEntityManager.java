@@ -12,12 +12,9 @@ public class SelectedEntityManager {
 	private EntityId selectedEntity;
 	private Location selectedLocation;
 	private ModeController controlMode;
-	private GameModel gameModel;
 
-	public SelectedEntityManager(GameModel gameModel,
-			ModeController controlMode) {
+	public SelectedEntityManager(GameModel gameModel, ModeController controlMode) {
 		this.controlMode = controlMode;
-		this.gameModel = gameModel;
 		rallyManager = new SelectedRallyPointManager(gameModel, controlMode);
 		structureManager = new SelectedStructureManager(gameModel, controlMode);
 		unitManager = new SelectedUnitManager(gameModel, controlMode);

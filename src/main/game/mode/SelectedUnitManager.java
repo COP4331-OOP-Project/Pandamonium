@@ -53,16 +53,21 @@ public class SelectedUnitManager {
 				selectedElement = 0;
 			}
 			int startingElement = selectedElement;
+			if (forward) {
+				iterateForward();
+			} else {
+				iterateBackward();
+			}
 			while (selectedElement != startingElement) {
-				if (forward) {
-					iterateForward();
-				} else {
-					iterateBackward();
-				}
 				selectedUnit = units.get(selectedElement);
 				if (submodeFromUnit(selectedUnit) == controlMode
 						.getGameSubmode()) {
 					break;
+				}
+				if (forward) {
+					iterateForward();
+				} else {
+					iterateBackward();
 				}
 			}
 			selectedUnit = units.get(selectedElement);
@@ -95,13 +100,16 @@ public class SelectedUnitManager {
 	}
 
 	private void iterateForward() {
-		selectedElement = selectedElement + 1 % units.size();
+		selectedElement++;
+		if (selectedElement >= units.size()) {
+			selectedElement = 0;
+		}
 	}
 
 	private void iterateBackward() {
 		selectedElement--;
-		if (selectedElement == -1) {
-			selectedElement = units.size();
+		if (selectedElement < 0) {
+			selectedElement = units.size() - 1;
 		}
 	}
 

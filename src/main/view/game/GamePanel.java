@@ -88,7 +88,7 @@ public class GamePanel extends Panel {
 	                }
 	                if (structuresVisible && tile.getStructure() != null) {
 	                    Structure structure = tile.getStructure();
-	                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
+	                    structureDrawer.drawStructure(p, structure, selectedEntity);
 	                }
 	                if (resourcesVisible) {
 	                	resourceDrawer.drawResources(tile, p, g);
