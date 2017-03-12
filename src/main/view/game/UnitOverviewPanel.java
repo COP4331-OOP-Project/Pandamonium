@@ -68,6 +68,7 @@ public class UnitOverviewPanel extends OverviewPanel{
 		        event.consume(); //This disables vertical scrolling in the actual table
 		    }
 		});
+		unitTable.setPlaceholder(new Label("You have no units"));
 		unitTable.setEditable(false);
 		unitTable.getStyleClass().addAll("tableViewStyle");
 		unitTable.setItems(unitList);
@@ -143,12 +144,13 @@ public class UnitOverviewPanel extends OverviewPanel{
 				unitType = "Ranged";
 				break;
 			default:
-					break;
+				unitType = "Mystery Unit";
+				break;
 				}
-				UnitStats stats = unit.getStats();
-				//Have no way to get attack or army status right now, leaving at -999 until later
-				unitList.add(new UnitItem(unitType, stats.getHealth(), -999, stats.getDefPow(),
-						stats.getArmor(), (int)stats.getUpkeep(), -999));
+			UnitStats stats = unit.getStats();
+			//Have no way to get attack or army status right now, leaving at -999 until later
+			unitList.add(new UnitItem(unitType, stats.getHealth(), -999, stats.getDefPow(),
+					stats.getArmor(), (int)stats.getUpkeep(), -999));
 			}
 	}
 
@@ -171,12 +173,12 @@ public class UnitOverviewPanel extends OverviewPanel{
 		
 		public UnitItem(String unitType, int health, int attack, int defense, int armor, int upkeep, int army) {
 			unitTypeProp = new SimpleStringProperty(unitType);
-			healthProp = new SimpleStringProperty(health + "");
-			attackProp = new SimpleStringProperty(attack + "");
-			defenseProp = new SimpleStringProperty(defense + "");
-			armorProp = new SimpleStringProperty(armor + "");
-			upkeepProp = new SimpleStringProperty(upkeep + "");
-			armyProp = new SimpleStringProperty(army + "");
+			healthProp = new SimpleStringProperty(Integer.toString(health));
+			attackProp = new SimpleStringProperty(Integer.toString(attack));
+			defenseProp = new SimpleStringProperty(Integer.toString(defense));
+			armorProp = new SimpleStringProperty(Integer.toString(armor));
+			upkeepProp = new SimpleStringProperty(Integer.toString(upkeep));
+			armyProp = new SimpleStringProperty(Integer.toString(army));
 		}
 		
 		public String getAttack() {

@@ -68,6 +68,8 @@ public class StructureOverviewPanel extends OverviewPanel{
 		        event.consume(); //This disables vertical scrolling in the actual table
 		    }
 		});
+		structureTable.setPlaceholder(new Label("You have no structures"));
+
 		structureTable.setEditable(false);
 		structureTable.getStyleClass().addAll("tableViewStyle");
 		structureTable.setItems(structureList);
@@ -152,6 +154,7 @@ public class StructureOverviewPanel extends OverviewPanel{
 				structureType = "University";
 				break;
 			default:
+				structureType = "Mystery Structure";
 				break;
 			}
 			StructureStats stats = structure.getStats();
@@ -180,12 +183,12 @@ public class StructureOverviewPanel extends OverviewPanel{
 		
 		public StructureItem(String structureType, int health, int attack, int defense, int armor, int upkeep, int workers) {
 			structureTypeProp = new SimpleStringProperty(structureType);
-			healthProp = new SimpleStringProperty(health + "");
-			attackProp = new SimpleStringProperty(attack + "");
-			defenseProp = new SimpleStringProperty(defense + "");
-			armorProp = new SimpleStringProperty(armor + "");
-			upkeepProp = new SimpleStringProperty(upkeep + "");
-			workerProp = new SimpleStringProperty(workers + "");
+			healthProp = new SimpleStringProperty(Integer.toString(health));
+			attackProp = new SimpleStringProperty(Integer.toString(attack));
+			defenseProp = new SimpleStringProperty(Integer.toString(defense));
+			armorProp = new SimpleStringProperty(Integer.toString(armor));
+			upkeepProp = new SimpleStringProperty(Integer.toString(upkeep));
+			workerProp = new SimpleStringProperty(Integer.toString(workers));
 		}
 		
 		public String getAttack() {
