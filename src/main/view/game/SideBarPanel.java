@@ -43,7 +43,10 @@ public class SideBarPanel extends Panel{
     	setUpButton(settingsButton, getAssets().getImage("ICON_SETTINGS"));
     	settingsButton.setOnAction(event -> {});
 		setUpButton(endTurnButton, getAssets().getImage("ICON_END_TURN"));
-		endTurnButton.setOnAction(event -> gameModelAdapter.endTurn());
+		endTurnButton.setOnAction(event -> {
+		gameModelAdapter.endTurn();
+		panelManager.endTurn();
+		});
     }
 	
 	public void setUpButton(Button button, Image image) {

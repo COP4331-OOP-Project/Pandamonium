@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.GameModel;
 import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 
@@ -95,6 +96,20 @@ public class GameModelAdapter {
 	
 	public Point locationToPoint(Location location) {
 		return new Point(location.getX(), location.getY());
+	}
+	
+	public Point getTurnStartPoint() {
+		for (Structure structure : getStructures()) {
+			if (structure.getType() == EntitySubtypeEnum.CAPITOL) {
+				return new Point(structure.getLocationX(), structure.getLocationY());
+			}
+		}
+		for (Unit unit : getCurrentUnits()) {
+			if (unit.getType() == EntitySubtypeEnum.COLONIST) {
+				return new Point(unit.getLocationX(), unit.getLocationY());
+			}
+		}
+		return new Point(0,0);
 	}
 	
 	public void endTurn() {

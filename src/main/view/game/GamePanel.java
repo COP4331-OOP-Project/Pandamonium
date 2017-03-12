@@ -74,6 +74,11 @@ public class GamePanel extends Panel {
         //tileDrawer.drawMovingTiles();
     }
 
+
+	public void endTurn() {
+		camera.centerOnTile(getAdapter().getTurnStartPoint(), screenDimensions);
+	}
+    
 	private void drawAllItems() {
 		SimpleTile[][] currentTiles = getAdapter().getCurrentTiles();
         for (int i = 0; i < currentTiles.length; i++) {
@@ -161,5 +166,4 @@ public class GamePanel extends Panel {
 
 	public void showGUIElements() {
 	}
-
 }

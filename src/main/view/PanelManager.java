@@ -159,4 +159,8 @@ public class PanelManager {
 	public void centerOnSelected() {
 		gamePanel.centerOnSelected();
 	}
+
+	public void endTurn() {
+		gamePanel.endTurn();
+	}
 }

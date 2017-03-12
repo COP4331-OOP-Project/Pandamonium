@@ -81,4 +81,8 @@ public class View {
 	public void centerOnCurrentTypeInstance() {
 		panelManager.centerOnSelected();
 	}
+
+	public void endTurn() {
+		panelManager.endTurn();
+	}
 }
