@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import game.commands.Command;
+import game.entities.managers.MovementManager;
 import game.gameboard.Location;
 import game.visitors.iTileActionVisitor;
 
@@ -14,8 +15,9 @@ public abstract class Entity {
     protected Percentage healthPercent;
     protected Location location;
     private EntityId entityId;
+    protected MovementManager movementManager;
 
-
+    //TODO Get gameboard into constructor to create movementManager
     public Entity(Location location, EntityId entityId){
         this.commandQueue = new LinkedList<>();
         this.location = location;
@@ -73,5 +75,6 @@ public abstract class Entity {
     public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
     public EntityId getEntityId(){ return entityId; }                               // Get entity id
     public int getInstanceId(){ return entityId.getInstanceId(); }                  // Get entity's instance id
+    public MovementManager getMovementManager(){return movementManager;}
 
 }

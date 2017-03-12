@@ -4,7 +4,7 @@ import game.entities.EntityId;
 import game.entities.managers.MovementManager;
 import game.gameboard.Location;
 
-public class RemoveEntityVisitor {
+public class RemoveEntityVisitor implements iMovementManageVisitor {
     private EntityId entityId;
     private Location location;
 

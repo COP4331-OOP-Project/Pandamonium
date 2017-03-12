@@ -4,7 +4,7 @@ import game.entities.RallyPoint;
 import game.entities.managers.MovementManager;
 import game.gameboard.Location;
 
-public class AddRallyPointVisitor {
+public class AddRallyPointVisitor implements iMovementManageVisitor {
     private RallyPoint rallyPoint;
     private Location location;
 
