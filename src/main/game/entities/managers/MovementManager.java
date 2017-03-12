@@ -38,5 +38,4 @@ public class MovementManager {
         v.visitMoveManage(this);
     }
 
-
 }
