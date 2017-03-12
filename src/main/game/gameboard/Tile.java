@@ -1,8 +1,10 @@
 package game.gameboard;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
+import game.entities.BattleGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,8 +32,8 @@ public class Tile implements iTileAccessors {
     public Resource peat;
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
-    private ArrayList<Army> armies;
     private ArrayList<RallyPoint> rallyPoints;
+    private ArrayList<BattleGroup> battleGroups;
     private Structure structure;
     private Location location;
     private Random resourceValueGenerator = new Random();
@@ -99,23 +101,41 @@ public class Tile implements iTileAccessors {
     public TerrainEnum getTileType() { return Terrain;}
 
     public void removeEntity(EntityId entityId) {
-        for (int i = 0; i < units.size(); i++) {
-            if (entityId.compareTo(units.get(i).getEntityId())==1){
-                units.remove(i);
+        //Units
+        Iterator<Unit> unitIterator = units.iterator();
+        while (unitIterator.hasNext()) {
+            Unit uholder = unitIterator.next();
+            if (entityId.compareTo(uholder.getEntityId())==1){
+                unitIterator.remove();
                 return;
             }
         }
 
+        //Structure
         if (entityId.compareTo(structure.getEntityId())==1){
             this.structure = null;
             return;
         }
 
-//        for (int i = 0; i<armies.size();i++){
-//            if(entityId.compareTo(armies.get(i).getEntityId()))
-//                armies.remove(i);
-//          return;
-//        }
+        //BattleGroup
+        Iterator<BattleGroup> bgIterator = battleGroups.iterator();
+        while (bgIterator.hasNext()) {
+            BattleGroup bgholder = bgIterator.next();
+            if (entityId.compareTo(bgholder.getEntityId())==1){
+                bgIterator.remove();
+                return;
+            }
+        }
+
+        //Rallypoint
+        Iterator<RallyPoint> rpIterator = rallyPoints.iterator();
+        while (rpIterator.hasNext()) {
+            RallyPoint rpholder = rpIterator.next();
+            if (entityId.compareTo(rpholder.getEntityId())==1){
+                rpIterator.remove();
+                return;
+            }
+        }
     }
 
     public boolean containsStructure(){
@@ -136,9 +156,7 @@ public class Tile implements iTileAccessors {
         // for (iEntity e : Entities) { e.accept(v) }
     }
     
-    public ArrayList<Army> getArmies() {
-    	return armies;
-    }
+    public ArrayList<BattleGroup> getBattleGroups(){return  battleGroups;}
     
     public ArrayList<RallyPoint> getRallyPoints() {
     	return rallyPoints;
