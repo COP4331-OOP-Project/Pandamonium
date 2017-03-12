@@ -27,9 +27,14 @@ public class IdManagerTest {
         IdManager idM = new IdManager(2, 1);
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void invalidIdRangeEquals() throws IllegalArgumentException {
-        IdManager idM = new IdManager(5, 5);
+    @Test
+    public void invalidIdRangeEquals() {
+        try {
+            IdManager idM = new IdManager(5, 5);
+        } catch (IllegalArgumentException e) {
+            Assert.fail();
+        }
+
     }
 
     @Test
