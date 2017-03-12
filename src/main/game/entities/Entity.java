@@ -13,14 +13,12 @@ public abstract class Entity {
     protected Queue<Command> commandQueue;
     protected int health;
     protected Percentage healthPercent;
-    protected Location location;
     private EntityId entityId;
     protected MovementManager movementManager;
 
-    //TODO Get gameboard into constructor to create movementManager
-    public Entity(Location location, EntityId entityId){
+    //TODO Get movementManager into constructor
+    public Entity(EntityId entityId){
         this.commandQueue = new LinkedList<>();
-        this.location = location;
         this.entityId = entityId;
     }
 
@@ -64,12 +62,6 @@ public abstract class Entity {
 
     // Decommission
     public void decommissionEntity(){ /* TODO: Implement decommissionEntity */ }    // Destroy entity
-
-    // Location
-    public Location getLocation(){ return location; }                               // Get location of entity
-    public int getLocationX(){return location.getX();}
-    public int getLocationY(){return location.getY();}
-    public void setLocation(Location location){ this.location = location; }         // Set location
 
     // Required Accessors
     public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
