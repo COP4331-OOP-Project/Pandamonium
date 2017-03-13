@@ -229,5 +229,19 @@ public class StructureManager implements iStructureResearchObservable {
         }
     }
 
+    // Update worker radius for all observers
+    public void increaseWorkerRadius(int increaseAmount) {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onWorkerRadiusIncreased(increaseAmount);
+        }
+    }
+
+    // Update worker density for all observers
+    public void increaseWorkerDensity(int increaseAmount) {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onWorkerDensityIncreased(increaseAmount);
+        }
+    }
+
 
 }

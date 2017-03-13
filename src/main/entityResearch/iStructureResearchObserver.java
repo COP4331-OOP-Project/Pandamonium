@@ -12,4 +12,7 @@ public interface iStructureResearchObserver {
     void onArmorStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist;
     void onHealthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist;
     void onEfficiencyIncreased(EntitySubtypeEnum subtype, Percentage increasePercentage) throws StructureTypeDoesNotExist;
+    void onWorkerRadiusIncreased(int increaseAmount);
+    void onWorkerDensityIncreased(int increaseAmount);
+
 }

@@ -119,4 +119,22 @@ public class StructureFactory implements iStructureResearchObserver {
         stats.increaseEfficiency(increasePercentage);
     }
 
+    // Update worker density of all structures
+    public void onWorkerDensityIncreased(int increaseAmount) {
+        for (Object o : this.structureStatistics.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            StructureStats stats = (StructureStats) pair.getValue();
+            stats.increaseWorkerDensity(increaseAmount);
+        }
+    }
+
+    // Update worker radius of all structures
+    public void onWorkerRadiusIncreased(int increaseAmount) {
+        for (Object o : this.structureStatistics.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            StructureStats stats = (StructureStats) pair.getValue();
+            stats.increaseWorkerRadius(increaseAmount);
+        }
+    }
+
 }
