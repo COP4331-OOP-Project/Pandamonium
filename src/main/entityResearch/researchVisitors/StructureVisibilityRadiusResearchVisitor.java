@@ -1,5 +1,6 @@
-package entityResearch;
+package entityResearch.researchVisitors;
 
+import entityResearch.iStructureResearchVisitor;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.StructureManager;

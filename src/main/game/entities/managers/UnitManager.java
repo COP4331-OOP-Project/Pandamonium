@@ -1,5 +1,7 @@
 package game.entities.managers;
 
+import entityResearch.iUnitResearchObservable;
+import entityResearch.iUnitResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.TotalUnitLimitExceededException;
@@ -8,15 +10,18 @@ import game.entities.factories.exceptions.UnitTypeLimitExceededException;
 import game.entities.managers.exceptions.UnitDoesNotExistException;
 import game.entities.units.*;
 import game.gameboard.Location;
+import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class UnitManager {
+public class UnitManager implements iUnitResearchObservable {
 
     private ArrayList<Melee> melees;
     private ArrayList<Ranged> ranges;
     private ArrayList<Explorer> explorers;
     private ArrayList<Colonist> colonists;
+
+    private ArrayList<iUnitResearchObserver> observers;
 
     private UnitIdManager unitIdManager;
 
@@ -159,22 +164,58 @@ public class UnitManager {
 
     }
 
-    // Update unit attack strength
-    public void onUnitAttackDamageChanged(EntitySubtypeEnum type, double atkStrength) {}
+    // Attach new unit observer
+    public void attach(iUnitResearchObserver observer) {
+        this.observers.add(observer);
+    }
 
-    // Update unit defense strength
-    public void onUnitDefenseStrengthChanged(EntitySubtypeEnum type, double defStrength) {}
+    // Update to increase unit subtype visibility range
+    public void increaseVisibilityRadius(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onVisibilityRadiusIncreased(subtype, increaseAmount);
+        }
+    }
 
-    // Update unit armor
-    public void onUnitArmorChanged(EntitySubtypeEnum type, double armor) {}
+    // // Update to increase unit subtype attack strength
+    public void increaseAttackStrength(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onAttackStrengthIncreased(subtype, increaseAmount);
+        }
+    }
 
-    // Update unit movement
-    public void onUnitMovementChanged(EntitySubtypeEnum type, double movement) {}
+    // Update to increase unit subtype defensive strength
+    public void increaseDefensiveStrength(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onDefenseStrengthIncreased(subtype, increaseAmount);
+        }
+    }
 
-    // Update unit health
-    public void onUnitHealthChanged(EntitySubtypeEnum type, double health) {}
+    // Update to increase unit subtype armor
+    public void increaseArmorStrength(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onArmorStrengthIncreased(subtype, increaseAmount);
+        }
+    }
 
-    // Update unit upkeep efficiency
-    public void onUnitUpkeepEfficiency(EntitySubtypeEnum type, double upkeep) {}
+    // Update to increase unit subtype health value
+    public void increaseHealth(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onHealthIncreased(subtype, increaseAmount);
+        }
+    }
+
+    // Update to increase unit subtype efficiency
+    public void increaseEfficiency(EntitySubtypeEnum subtype, Percentage increasePercentage) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onEfficiencyIncreased(subtype, increasePercentage);
+        }
+    }
+
+    // Update to increase unit subtype movement range
+    public void increaseMovementRange(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
+        for (iUnitResearchObserver observer : this.observers) {
+            observer.onMovementRangeIncreased(subtype, increaseAmount);
+        }
+    }
 
 }
