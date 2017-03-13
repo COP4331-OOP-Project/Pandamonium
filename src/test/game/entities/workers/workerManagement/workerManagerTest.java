@@ -1,18 +1,13 @@
 package game.entities.workers.workerManagement;
 
-import game.entities.EntityId;
 import game.entities.factories.WorkerFactory;
 import game.entities.managers.WorkerIdManager;
-import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.WorkerDoesNotExistException;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
-import game.semantics.Percentage;
-import game.semantics.PercentageOutOfRangeException;
-import game.techTree.nodeTypes.WorkerProductionRateResearchNode;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
