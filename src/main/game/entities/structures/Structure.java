@@ -23,7 +23,7 @@ public abstract class Structure extends Entity {
         this.healthPercent = new HealthPercentage();
         this.location=location;
         AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this,this.location);
-        //movementManager.accept(addStructureVisitor);
+        movementManager.accept(addStructureVisitor);
         standby();
     }
 

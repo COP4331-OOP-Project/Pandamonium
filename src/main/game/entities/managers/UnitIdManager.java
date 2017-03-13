@@ -14,6 +14,7 @@ import game.entities.units.Colonist;
 import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,10 +39,10 @@ public class UnitIdManager {
     private IdManager colonistIdManager;
 
     // Constructor
-    public UnitIdManager(int playerId) {
+    public UnitIdManager(int playerId, Gameboard gb) {
 
         // Setup unit factory
-        this.unitFactory = new UnitFactory(playerId);
+        this.unitFactory = new UnitFactory(playerId, gb);
 
         // Setup Id managers
         this.allUnitIdManager = new IdManager(MIN_UNIT_ID, MAX_UNIT_COUNT);

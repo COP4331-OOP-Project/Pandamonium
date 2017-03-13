@@ -36,12 +36,13 @@ public class GameModel {
     public void initializeGame() {
         try {
             this.players = new ArrayList<Player>();
-            Player human = new Player(0, HUMAN_STARTING_LOCATION);
-            Player panda = new Player(1, PANDA_STARTING_LOCATION);
+            gBoard = new Gameboard();
+            Player human = new Player(0, HUMAN_STARTING_LOCATION, gBoard);
+            Player panda = new Player(1, PANDA_STARTING_LOCATION, gBoard);
             currentPlayer = human;
             players.add(human);
             players.add(panda);
-            gBoard = new Gameboard(players);
+            //gBoard = new Gameboard(players);
             initialUnits(human, panda);
             human.initializeSimpleTiles(gBoard.getTiles());
             panda.initializeSimpleTiles(gBoard.getTiles());
@@ -65,9 +66,8 @@ public class GameModel {
         try {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
-            //TODO BE SURE TO DELETE THE 2 lines after once movementmanager is done
-            gBoard.addUnitToTile(unit1, unit1.getLocation());
-            gBoard.addUnitToTile(unit2, unit2.getLocation());
+            //gBoard.addUnitToTile(unit1, unit1.getLocation());
+            //gBoard.addUnitToTile(unit2, unit2.getLocation());
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();

@@ -15,6 +15,7 @@ import game.entities.managers.exceptions.*;
 import game.entities.workers.workerTypes.Worker;
 
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.gameboard.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,10 +35,6 @@ import game.entities.units.Ranged;
 import game.entities.units.Unit;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
-import game.gameboard.Location;
-import game.gameboard.SimpleTile;
-import game.gameboard.SimpleTileUpdater;
-import game.gameboard.Tile;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 
@@ -67,13 +64,13 @@ public class Player {
 	private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
 
 	// Constructor
-	public Player(int playerId, Location loc) {
+	public Player(int playerId, Location loc, Gameboard gb) {
 		this.playerId = playerId;	// Set player id
 
 		// Setup managers for entities, workers
 		this.workerManager = new WorkerManager(playerId);
-		this.unitManager = new UnitManager(playerId);
-		this.structureManager = new StructureManager(playerId);
+		this.unitManager = new UnitManager(playerId, gb);
+		this.structureManager = new StructureManager(playerId, gb);
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
