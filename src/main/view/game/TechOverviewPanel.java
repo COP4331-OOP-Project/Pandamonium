@@ -2,12 +2,21 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.EntitySubtypeEnum;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.ViewEnum;
@@ -16,6 +25,9 @@ import view.assets.AssetManager;
 public class TechOverviewPanel extends OverviewPanel{
 	private static final int PANE_WIDTH = 219;
 	private static final int PANE_HEIGHT = 80;
+	private Label label = new Label("Technology Overview");
+	private TechModeEnum currentMode = TechModeEnum.TECHNOLOGY;
+	private AnchorPane techBox = new AnchorPane();
 	private ScrollPane scrollPane = new ScrollPane();
 	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
@@ -59,6 +71,14 @@ public class TechOverviewPanel extends OverviewPanel{
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
 	private TechViewItem nuclearPower = new TechViewItem(getAssets(), "Nuclear Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
+	private ToggleButton techsToggle = new ToggleButton("Technologies");
+	private ToggleButton improvementsToggle = new ToggleButton("Improvements");
+	private ComboBox<String> universityComboBox;
+	private ObservableList<String> universityList = FXCollections.observableArrayList();
+	private ComboBox<String> upgradableComboBox;
+	private ObservableList<String> upgradableList;
+	private DropShadow ds = new DropShadow();
+	private EntitySubtypeEnum selectedEntity;
 	private GraphicsContext techGraphics;
 	private Canvas canvas;
 	private Group root;
@@ -66,12 +86,105 @@ public class TechOverviewPanel extends OverviewPanel{
 	public TechOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root) {
 		super(gameModelAdapter, assets, view);
 		this.root = root;
-		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-		scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		upgradableList = FXCollections.observableArrayList(
+		        "Colonist",
+		        "Explorer",
+		        "Melee",
+		        "Ranged",
+		        "Capitol",
+		        "Farm",
+		        "Mine",
+		        "Power Plant",
+		        "Fort",
+		        "Observation Tower",
+		        "University"
+		);
+		setUpCanvas();
+		setUpLabel();
+		setUpButtons();
+		setUpUniversityList();
+		setUpUpgradableList();
+		setUpScrollPane();
+		techBox.getChildren().addAll(canvas, label, techsToggle, improvementsToggle, universityComboBox, upgradableComboBox);
+	}
+
+	private void setUpButtons() {
+		techsToggle.getStyleClass().setAll("button");
+		improvementsToggle.getStyleClass().setAll("button");
+		techsToggle.setTranslateX(380);
+		techsToggle.setTranslateY(17);
+		improvementsToggle.setTranslateX(540);
+		improvementsToggle.setTranslateY(17);
+		toggleTech();
+		techsToggle.setOnAction(event -> {
+			toggleTech();
+		});
+        improvementsToggle.setOnAction(event -> {
+			toggleImprovements();
+		});
+	}
+
+	private void toggleImprovements() {
+		currentMode = TechModeEnum.IMPROVEMENTS;
+		improvementsToggle.getStyleClass().setAll("buttonSelected");
+		techsToggle.getStyleClass().setAll("button");
+		improvementsToggle.setSelected(true);
+		techsToggle.setSelected(false);
+	}
+
+	private void toggleTech() {
+		currentMode = TechModeEnum.TECHNOLOGY;
+		techsToggle.getStyleClass().setAll("buttonSelected");
+		improvementsToggle.getStyleClass().setAll("button");
+		techsToggle.setSelected(true);
+		improvementsToggle.setSelected(false);
+	}
+	
+	private void setUpUpgradableList() {
+		upgradableComboBox = new ComboBox<String>(upgradableList);
+		upgradableComboBox.setButtonCell(new ListCell<String>(){
+		        @Override
+		        protected void updateItem(String string, boolean empty) {
+		            super.updateItem(string, empty); 
+		            if(!(empty || string==null)){
+		                setStyle("-fx-text-fill: white");
+		                setText(string);
+		            }
+		       }
+		});
+		upgradableComboBox.setTranslateX(13);
+		upgradableComboBox.setTranslateY(60);
+		upgradableComboBox.getSelectionModel().selectFirst();
+		selectedEntity = EntitySubtypeEnum.COLONIST;
+	}
+	
+	private void setUpUniversityList() {
+		universityComboBox = new ComboBox<String>(universityList);
+		universityComboBox.setButtonCell(new ListCell<String>(){
+		        @Override
+		        protected void updateItem(String string, boolean empty) {
+		            super.updateItem(string, empty); 
+		            if(!(empty || string==null)){
+		                setStyle("-fx-text-fill: white");
+		                setText(string);
+		            }
+		       }
+		});
+		universityComboBox.setTranslateX(700);
+		universityComboBox.setTranslateY(17);
+	}
+
+
+	private void setUpCanvas() {
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
-		techGraphics = canvas.getGraphicsContext2D();
-		scrollPane.setContent(canvas);
 		canvas.setOnMouseClicked(event -> paneClicked(event.getX(), event.getY()));
+		techGraphics = canvas.getGraphicsContext2D();
+		techGraphics.setFill(Color.WHITE);
+	}
+
+	private void setUpScrollPane() {
+		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setContent(techBox);
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
 		    if (event.getDeltaY() != 0) { 
 		        event.consume(); //This disables vertical scrolling in the scroll pane
@@ -79,21 +192,108 @@ public class TechOverviewPanel extends OverviewPanel{
 		});
 		 //This sets the style of scrollPane to that specified in the CSS document
 		scrollPane.getStyleClass().setAll("scroll");
-		techGraphics.setFill(Color.WHITE);
+	}
+	
+	private void setUpLabel() {
+		label.setTextFill(Color.WHITE);
+        label.setFont(getAssets().getFont(2));
+        label.setEffect(ds);
+        label.setTranslateX(10);
+        label.setTranslateY(10);
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-		scrollPane.toFront();
 		techGraphics.clearRect(0, 0, 2500, screenDimensions.y);
-		scrollPane.setMaxWidth(screenDimensions.x - 148);
+		scrollPane.toFront();
 		scrollPane.setMaxHeight(488);
-		scrollPane.setTranslateX(74);
 		scrollPane.setTranslateY(50);
-		canvas.setWidth(2450);
-		canvas.setHeight(screenDimensions.y - 147);
-		checkFoodIcons();
-		drawTechnologies();
-		drawConnectors();
+		switch (currentMode) {
+			case TECHNOLOGY:
+				upgradableComboBox.setVisible(false);
+				scrollPane.setTranslateX(74);
+				scrollPane.setMaxWidth(screenDimensions.x - 148);
+				scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+				canvas.setWidth(2450);
+				canvas.setTranslateY(0);
+				canvas.setHeight(screenDimensions.y - 147);
+				checkFoodIcons();
+				drawTechnologies();
+				drawConnectors();
+				break;
+			case IMPROVEMENTS:
+				upgradableComboBox.setVisible(true);
+				updateSelectedItem();
+				scrollPane.setMaxWidth(screenDimensions.x - 1);
+				scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+				canvas.setWidth(screenDimensions.x  - 148);
+				canvas.setHeight(screenDimensions.y - 147);
+				canvas.setTranslateY(0);
+				drawImprovementText();
+				updateImprovementButtons();
+				break;
+		}
+		
+	}
+
+	private void updateSelectedItem() {
+		String selected = upgradableComboBox.getSelectionModel().getSelectedItem();
+		switch (selected) {
+			case "Colonist":
+				selectedEntity = EntitySubtypeEnum.COLONIST;
+				break;
+			case "Explorer":
+				selectedEntity = EntitySubtypeEnum.EXPLORER;
+				break;
+			case "Melee":
+				selectedEntity = EntitySubtypeEnum.MELEE;
+				break;
+			case "Capitol":
+				selectedEntity = EntitySubtypeEnum.CAPITOL;
+				break;
+			case "Farm":
+				selectedEntity = EntitySubtypeEnum.FARM;
+				break;
+			case "Mine":
+				selectedEntity = EntitySubtypeEnum.MINE;
+				break;
+			case "Power Plant":
+				selectedEntity = EntitySubtypeEnum.PLANT;
+				break;
+			case "Fort":
+				selectedEntity = EntitySubtypeEnum.FORT;
+				break;
+			case "Observation Tower":
+				selectedEntity = EntitySubtypeEnum.OBSERVE;
+				break;
+			case "University":
+				selectedEntity = EntitySubtypeEnum.UNIVERSITY;
+				break;
+		}
+	}
+
+	private void updateImprovementButtons() {
+	}
+
+	private void drawImprovementText() {
+		techGraphics.setEffect(ds);
+		techGraphics.setFont(getAssets().getFont(2));
+		techGraphics.fillText("Visibility Radius", 17, 130);
+		techGraphics.fillText("Attack Strength", 17, 180);
+		techGraphics.fillText("Defense Strength", 17, 230);
+		techGraphics.fillText("Armor Strength", 17, 280);
+		techGraphics.fillText("Health", 17, 330);
+		techGraphics.fillText("Efficiency", 17, 380);
+		switch (selectedEntity) {
+			case EXPLORER:
+			case COLONIST:
+			case MELEE:
+			case RANGE:
+				techGraphics.fillText("Movement Rate", 17, 430);
+				break;
+			default :
+				break;
+		}
+		techGraphics.setEffect(null);
 	}
 
 	private void checkFoodIcons() {
@@ -152,50 +352,52 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 	
 	private void paneClicked(double x, double y) {
-		if (pointInPane(14, 87, x, y)) {
-			fertilizer.onClick();
-		} else if (pointInPane(14, 197, x, y)) {
-			wheelbarrow.onClick();
-		} else if (pointInPane(14, 307, x, y)) {
-			tent.onClick();
-		} else if (pointInPane(14, 197, x, y)) {
-			wheelbarrow.onClick();
-		} else if (pointInPane(289, 142, x, y)) {
-			ironMining.onClick();
-		} else if (pointInPane(289, 252, x, y)) {
-			bed.onClick();
-		} else if (pointInPane(564, 197, x, y)) {
-			housing.onClick();
-		} else if (pointInPane(839, 87, x, y)) {
-			draftHorse.onClick();
-		}else if (pointInPane(839, 197, x, y)) {
-			irrigation.onClick();
-		}else if (pointInPane(839, 307, x, y)) {
-			steamPower.onClick();
-		}else if (pointInPane(1114, 87, x, y)) {
-			militia.onClick();
-		}else if (pointInPane(1114, 197, x, y)) {
-			pesticides.onClick();
-		}else if (pointInPane(1114, 307, x, y)) {
-			steelMining.onClick();
-		}else if (pointInPane(1389, 87, x, y)) {
-			barracks.onClick();
-		}else if (pointInPane(1389, 197, x, y)) {
-			beer.onClick();
-		}else if (pointInPane(1389, 307, x, y)) {
-			blastFurnace.onClick();
-		}else if (pointInPane(1664, 142, x, y)) {
-			roads.onClick();
-		}else if (pointInPane(1664, 252, x, y)) {
-			vodka.onClick();
-		}else if (pointInPane(1939, 142, x, y)) {
-			urbanPlanning.onClick();
-		}else if (pointInPane(1939, 252, x, y)) {
-			windPower.onClick();
-		}else if (pointInPane(2214, 142, x, y)) {
-			militaryAcademy.onClick();
-		}else if (pointInPane(2214, 252, x, y)) {
-			nuclearPower.onClick();
+		if (currentMode == TechModeEnum.TECHNOLOGY) {
+			if (pointInPane(14, 87, x, y)) {
+				fertilizer.onClick();
+			} else if (pointInPane(14, 197, x, y)) {
+				wheelbarrow.onClick();
+			} else if (pointInPane(14, 307, x, y)) {
+				tent.onClick();
+			} else if (pointInPane(14, 197, x, y)) {
+				wheelbarrow.onClick();
+			} else if (pointInPane(289, 142, x, y)) {
+				ironMining.onClick();
+			} else if (pointInPane(289, 252, x, y)) {
+				bed.onClick();
+			} else if (pointInPane(564, 197, x, y)) {
+				housing.onClick();
+			} else if (pointInPane(839, 87, x, y)) {
+				draftHorse.onClick();
+			}else if (pointInPane(839, 197, x, y)) {
+				irrigation.onClick();
+			}else if (pointInPane(839, 307, x, y)) {
+				steamPower.onClick();
+			}else if (pointInPane(1114, 87, x, y)) {
+				militia.onClick();
+			}else if (pointInPane(1114, 197, x, y)) {
+				pesticides.onClick();
+			}else if (pointInPane(1114, 307, x, y)) {
+				steelMining.onClick();
+			}else if (pointInPane(1389, 87, x, y)) {
+				barracks.onClick();
+			}else if (pointInPane(1389, 197, x, y)) {
+				beer.onClick();
+			}else if (pointInPane(1389, 307, x, y)) {
+				blastFurnace.onClick();
+			}else if (pointInPane(1664, 142, x, y)) {
+				roads.onClick();
+			}else if (pointInPane(1664, 252, x, y)) {
+				vodka.onClick();
+			}else if (pointInPane(1939, 142, x, y)) {
+				urbanPlanning.onClick();
+			}else if (pointInPane(1939, 252, x, y)) {
+				windPower.onClick();
+			}else if (pointInPane(2214, 142, x, y)) {
+				militaryAcademy.onClick();
+			}else if (pointInPane(2214, 252, x, y)) {
+				nuclearPower.onClick();
+			}
 		}
 	}
 	
