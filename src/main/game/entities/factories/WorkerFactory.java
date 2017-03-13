@@ -58,20 +58,18 @@ public class WorkerFactory implements iWorkerResearchObserver {
         }
     }
 
-    public void onProductionRateIncreased(Percentage productionRateIncrease) {
-        for (Object o : this.workerProductionStatistics.entrySet()) {
-            Map.Entry pair = (Map.Entry) o;
-            WorkerStats workerStats = (WorkerStats) pair.getValue();
-            workerStats.increaseProductionRate(productionRateIncrease);
-        }
+    public void onProductionRateIncreased(Percentage productionRateIncrease, WorkerTypeEnum workerType) throws WorkerTypeDoesNotExist {
+        WorkerStats workerStats = this.workerProductionStatistics.get(workerType);
+        if (workerStats == null) throw new WorkerTypeDoesNotExist("Worker type " + workerType + " does not exist");
+
+        workerStats.increaseProductionRate(productionRateIncrease);
     }
 
-    public void onUpkeepDecreased(Percentage upkeepDecrease) {
-        for (Object o : this.workerProductionStatistics.entrySet()) {
-            Map.Entry pair = (Map.Entry) o;
-            WorkerStats workerStats = (WorkerStats) pair.getValue();
-            workerStats.decreaseUpkeep(upkeepDecrease);
-        }
+    public void onChangeProductionRateByAmount(int changeAmount, WorkerTypeEnum workerType) throws WorkerTypeDoesNotExist {
+        WorkerStats workerStats = this.workerProductionStatistics.get(workerType);
+        if (workerStats == null) throw new WorkerTypeDoesNotExist("Worker type " + workerType + " does not exist");
+
+        workerStats.addToProductionRate(changeAmount);
     }
 
 }

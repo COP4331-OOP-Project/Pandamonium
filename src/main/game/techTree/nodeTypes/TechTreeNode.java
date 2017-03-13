@@ -16,6 +16,8 @@ public abstract class TechTreeNode {
         this.name = name;
         this.description = description;
         this.imageEnum = imageEnum;
+        this.children = new ArrayList<>();
+        this.parents = new ArrayList<>();
     }
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum, TechTreeNode... parents) {

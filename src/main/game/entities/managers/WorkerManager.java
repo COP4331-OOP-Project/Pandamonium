@@ -8,14 +8,19 @@ import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.techTree.nodeTypes.WorkerDensityResearchNode;
 import game.workerResearch.iWorkerResearchObservable;
 import game.workerResearch.iWorkerResearchObserver;
 import game.semantics.Percentage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerManager implements iWorkerResearchObservable {
+
+    private final static Logger log = LogManager.getLogger(WorkerManager.class);
 
     private ArrayList<Worker> workers;
     private WorkerIdManager workerIdManager;
@@ -69,15 +74,23 @@ public class WorkerManager implements iWorkerResearchObservable {
         return this.workers;
     }
 
-    public void increaseProductionRateByPercentage(Percentage productionRateIncrease) {
+    public void increaseProductionRateByPercentage(Percentage productionRateIncrease, WorkerTypeEnum workerType) {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onProductionRateIncreased(productionRateIncrease);
+            try {
+                observer.onProductionRateIncreased(productionRateIncrease, workerType);
+            } catch (WorkerTypeDoesNotExist e) {
+                log.error("Could not increase production rate because worker type " + workerType + " does not exist");
+            }
         }
     }
 
-    public void decreaseUpkeepByPercentage(Percentage upkeepDecrease) {
+    public void changeProductionRateByAmount(int changeAmount, WorkerTypeEnum workerType) throws WorkerTypeDoesNotExist {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onUpkeepDecreased(upkeepDecrease);
+            try {
+                observer.onChangeProductionRateByAmount(changeAmount, workerType);
+            } catch (WorkerTypeDoesNotExist e) {
+                log.error("Could not increase production rate because worker type " + workerType + " does not exist");
+            }
         }
     }
 
