@@ -23,7 +23,7 @@ public class TechViewItem {
 	private Font font = Font.font(17);
 	private DropShadow ds = new DropShadow();
 	
-	public TechViewItem(AssetManager assets, Image icon, TechTreeNode techNode, GameModelAdapter adapter) {
+	public TechViewItem(AssetManager assets, TechTreeNode techNode, GameModelAdapter adapter) {
 		this.assets = assets;
 		text = techNode.getName();
 		improvement = techNode.getDescription();
