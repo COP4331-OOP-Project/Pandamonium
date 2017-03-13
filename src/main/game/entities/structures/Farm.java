@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.managers.MovementManager;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.FoodGatherer;
 import game.gameboard.Location;
@@ -11,8 +12,8 @@ public class Farm extends Structure {
     private Queue<FoodGatherer> unassigned;
     private Queue<FoodGatherer> farmer;
 
-    public Farm(StructureStats stats, Location location , EntityId entityId ){
-        super(stats, location, entityId);
+    public Farm(StructureStats stats, Location location , EntityId entityId , MovementManager movementManager){
+        super(stats, location, entityId, movementManager);
         unassigned=new LinkedList<>();
         farmer=new LinkedList<>();
     }

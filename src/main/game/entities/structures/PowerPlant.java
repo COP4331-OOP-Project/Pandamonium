@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.managers.MovementManager;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.PeatGatherer;
 import game.gameboard.Location;
@@ -13,8 +14,8 @@ public class PowerPlant extends Structure {
     private Queue<PeatGatherer> unassigned;
     private Queue<PeatGatherer> generator;
 
-    public PowerPlant(StructureStats stats, Location location , EntityId entityId ){
-        super(stats, location, entityId);
+    public PowerPlant(StructureStats stats, Location location , EntityId entityId , MovementManager movementManager){
+        super(stats, location, entityId, movementManager);
         unassigned=new LinkedList<>();
         generator=new LinkedList<>();
     }

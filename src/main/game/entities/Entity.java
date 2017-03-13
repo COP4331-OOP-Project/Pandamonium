@@ -16,9 +16,10 @@ public abstract class Entity {
     protected MovementManager movementManager;
 
     //TODO Get movementManager into constructor
-    public Entity(EntityId entityId){
+    public Entity(EntityId entityId, MovementManager movementManager){
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
+        this.movementManager=movementManager;
     }
 
     public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors

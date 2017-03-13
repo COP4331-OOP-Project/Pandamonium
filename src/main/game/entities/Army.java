@@ -1,5 +1,6 @@
 package game.entities;
 
+import game.entities.managers.MovementManager;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 import game.visitors.AddArmyVisitor;
@@ -12,8 +13,8 @@ public class Army extends Entity{
     private RallyPoint rallyPoint;
 
     //TODO Know when to add battlegroup to tile. Shouldn't show up unless units in battlegroup
-    public Army(EntityId entityId, RallyPoint rp){
-        super(entityId);
+    public Army(EntityId entityId, RallyPoint rp, MovementManager movementManager){
+        super(entityId, movementManager);
         battleGroup = new BattleGroup(rp.getLocation(), entityId);
         reinforcement = new Reinforcement();
         rallyPoint=rp;
