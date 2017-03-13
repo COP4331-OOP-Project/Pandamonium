@@ -2,31 +2,70 @@ package view.game;
 
 import java.awt.Point;
 
+import game.techTree.nodeTypes.TechNodeImageEnum;
+import game.techTree.nodeTypes.TechTreeNode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import view.GameModelAdapter;
 import view.assets.AssetManager;
 
 public class TechViewItem {
 	private TechViewEnum researched = TechViewEnum.UNRESEARCHED;
+	private TechTreeNode techNode;
 	private String text;
 	private Image icon;
 	private String improvement;
 	private AssetManager assets;
+	private GameModelAdapter adapter;
 	private Font font = Font.font(17);
 	private DropShadow ds = new DropShadow();
 	
-	public TechViewItem(AssetManager assets, String text, Image icon, String improvement) {
+	public TechViewItem(AssetManager assets, Image icon, TechTreeNode techNode, GameModelAdapter adapter) {
 		this.assets = assets;
-		this.text = text;
-		this.icon = icon;
-		this.improvement = improvement;
+		text = techNode.getName();
+		improvement = techNode.getDescription();
+		getIcon(techNode.getImageEnum());
     	ds.setOffsetY(2.0);
     	ds.setColor(Color.color(0, 0, 0));
 	}
 	
+	private void getIcon(TechNodeImageEnum imageEnum) {
+		switch (imageEnum) {
+		case FOOD:
+			if (adapter.getPlayer() == 0) {
+				icon = assets.getImage("ICON_FOOD_HUMAN");
+			} else {
+				icon = assets.getImage("ICON_FOOD_PANDA");
+			}
+			break;
+		case WORKER_RADIUS:
+			icon = assets.getImage("WORK_RADIUS");
+			break;
+		case METAL:
+			icon = assets.getImage("ICON_METAL");
+			break;
+		case POWER:
+			icon = assets.getImage("ICON_POWER");
+			break;
+		case BREEDING:
+			icon = assets.getImage("BREED_WORKER");
+			break;
+		case WORKER_DENSITY:
+			icon = assets.getImage("WORKER_ON_TILE");
+			break;
+		case SOLDIER_POINTS:
+			if (adapter.getPlayer() == 0) {
+				icon = assets.getImage("WORKER_TO_SOLDIER_HUMAN");
+			} else {
+				icon = assets.getImage("WORKER_TO_SOLDIER_PANDA");
+			}
+			break;
+		}
+	}
+
 	public void draw(GraphicsContext g, Point p) {
 		g.drawImage(assets.getImage("TECHNOLOGY"), p.x, p.y);
 		if (researched == TechViewEnum.RESEARCHING) {
