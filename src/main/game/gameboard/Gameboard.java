@@ -17,10 +17,10 @@ public class Gameboard {
 	private static final File MAP_FILE = new File("assets/maps/default.map");
     private final static Logger log = LogManager.getLogger(Gameboard.class);
     private Tile[][] board;     // Map for game tiles  // 0 is grass, 1 is sand, 2 is water
-    private ArrayList<Player> players;              // Players for game
+    //private ArrayList<Player> players;              // Players for game
 	
-	public Gameboard(ArrayList<Player> players) {
-        this.players = players;                     // Set players
+	public Gameboard(/*ArrayList<Player> players*/) {
+        //this.players = players;                     // Set players
         setupMap();                                 // Setup board
 	}
     

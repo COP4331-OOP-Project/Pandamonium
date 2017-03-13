@@ -3,6 +3,7 @@ package game.gameboard;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
+import game.entities.managers.MovementManager;
 import game.entities.stats.StructureStats;
 import game.entities.stats.UnitStats;
 import game.entities.structures.Capitol;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 
 public class TileTest {
     int playerId;
+
+    Gameboard gameboard;
+    MovementManager movementManager;
 
     private Tile tileWater;
     private Tile tileSand;
@@ -62,6 +66,9 @@ public class TileTest {
     @Before
     public void setUp() {
         try {
+            gameboard = new Gameboard();
+            movementManager = new MovementManager(gameboard);
+
             playerId = 1;
             meleeStats = new UnitStats(EntitySubtypeEnum.MELEE);
             rangedStats = new UnitStats(EntitySubtypeEnum.RANGE);
@@ -83,14 +90,14 @@ public class TileTest {
             capitolLocation = new Location(12, 16);
             farmLocation = new Location(11, 16);
 
-            melee1 = new Melee(meleeStats, unitLocation, melee1Id);
-            melee2 = new Melee(meleeStats, unitLocation, melee2Id);
-            range1 = new Ranged(rangedStats, unitLocation, range1Id);
-            range2 = new Ranged(rangedStats, unitLocation, range2Id);
-            colonist1 = new Colonist(colonistStats, unitLocation, colonistId);
+            melee1 = new Melee(meleeStats, unitLocation, melee1Id, movementManager);
+            melee2 = new Melee(meleeStats, unitLocation, melee2Id, movementManager);
+            range1 = new Ranged(rangedStats, unitLocation, range1Id, movementManager);
+            range2 = new Ranged(rangedStats, unitLocation, range2Id, movementManager);
+            colonist1 = new Colonist(colonistStats, unitLocation, colonistId, movementManager);
 
-            capitol = new Capitol(capitolStat, capitolLocation, capitolId);
-            farm = new Farm(farmStat, farmLocation, farmId);
+            capitol = new Capitol(capitolStat, capitolLocation, capitolId, movementManager);
+            farm = new Farm(farmStat, farmLocation, farmId, movementManager);
 
             tileWaterLoc = new Location(20, 20);
             tileSandLoc = new Location(20, 21);
@@ -108,6 +115,12 @@ public class TileTest {
         }
     }
 
+    @Test
+    public void TestCorrectLocations(){
+        ArrayList<Unit> unit=gameboard.getTiles()[unitLocation.getX()][unitLocation.getY()].getUnits();
+        Assert.assertEquals(unit.size(), 5);
+    }
+
     @Test //Test ownership of the tile
     public void testOwnerShipOfTile(){
         //If no unit, return -1
@@ -119,10 +132,10 @@ public class TileTest {
         Assert.assertEquals(tileGrass.getOwner(), playerId);
     }
 
-    @Test //Test the enemy blcoker
+    @Test //Test the enemy blocker
     public void invalidAddUnitOnTile(){
         EntityId enemyEntityMeleeId = new EntityId(2, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1, 1);
-        Melee melee3 = new Melee(meleeStats, unitLocation, enemyEntityMeleeId);
+        Melee melee3 = new Melee(meleeStats, unitLocation, enemyEntityMeleeId, movementManager);
 
         tileGrass.addUnit(melee3);
         tileGrass.addUnit(melee1);

@@ -19,7 +19,7 @@ public class Army extends Entity{
         reinforcement = new Reinforcement();
         rallyPoint=rp;
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
-        //movementManager.accept(addRallyPointVisitor);
+        movementManager.accept(addRallyPointVisitor);
         updateArmy();
     }
 

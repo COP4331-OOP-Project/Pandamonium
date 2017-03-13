@@ -9,6 +9,7 @@ import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
 import game.entities.factories.exceptions.UnitTypeLimitExceededException;
 import game.entities.managers.exceptions.UnitDoesNotExistException;
 import game.entities.units.*;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.semantics.Percentage;
 
@@ -26,9 +27,9 @@ public class UnitManager implements iUnitResearchObservable {
     private UnitIdManager unitIdManager;
 
     // Constructor
-    public UnitManager(int playerId) {
+    public UnitManager(int playerId, Gameboard gb) {
 
-        this.unitIdManager = new UnitIdManager(playerId);   // Initialize unit id manager
+        this.unitIdManager = new UnitIdManager(playerId, gb);   // Initialize unit id manager
 
         // Setup unit type collections
         this.melees = new ArrayList<>();
