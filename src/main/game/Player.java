@@ -41,7 +41,7 @@ import game.gameboard.Tile;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 
-public class Player {
+public class Player implements iTurnObservable {
 
 	// Logger
 	private final static Logger log = LogManager.getLogger(Player.class);
@@ -66,6 +66,8 @@ public class Player {
 	private Resource power = new Resource(0, ResourceTypeEnum.POWER);
 	private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
 
+	private ArrayList<iTurnObserver> turnObservers;
+
 	// Constructor
 	public Player(int playerId, Location loc) {
 		this.playerId = playerId;	// Set player id
@@ -77,6 +79,12 @@ public class Player {
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
+
+		this.turnObservers = new ArrayList<>();
+		this.attach(this.workerManager);
+		this.attach(this.unitManager);
+		this.attach(this.structureManager);
+
 	}
 
 	// Add entity of designated type, subtype @ given location
@@ -249,6 +257,14 @@ public class Player {
 		}
 
 		throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
+
+	}
+
+	public void attach(iTurnObserver observer) {
+		this.turnObservers.add(observer);
+	}
+
+	public void endTurn() {
 
 	}
 }
