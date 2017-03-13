@@ -9,24 +9,35 @@ import game.visitors.AddArmyVisitor;
 import game.visitors.AddRallyPointVisitor;
 import game.visitors.RemoveEntityVisitor;
 
-public class Army extends Entity{
-    private BattleGroup battleGroup;
-    private Reinforcement reinforcement;
-    private RallyPoint rallyPoint;
+public class Army extends Entity {
+
+    private BattleGroup battleGroup;        // Battlegroup Units
+    private Reinforcement reinforcement;    // Reinforcement Units
+    private RallyPoint rallyPoint;          // Army's Rally Point
+
+    private Location location;              // Army current location
+
 
     //TODO Know when to add battlegroup to tile. Shouldn't show up unless units in battlegroup
-    public Army(EntityId entityId, RallyPoint rp, PlacementManager placementManager){
-        super(entityId, placementManager);
-        battleGroup = new BattleGroup(rp.getLocation(), entityId);
-        reinforcement = new Reinforcement();
-        rallyPoint=rp;
+    public Army(EntityId id, RallyPoint rp, PlacementManager placementManager){
+
+        super(id, placementManager);
+        this.rallyPoint = rp;               // Set rally point
+        this.location = location;           // Set location
+
+
+        battleGroup = new BattleGroup(rp.getLocation(), id);  // Setup Battlegroup
+        reinforcement = new Reinforcement();                  // Setup Reinforcements
+
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
         placementManager.accept(addRallyPointVisitor);
         updateArmy();
+
         addCommand(CommandEnum.DROP_OFF_WORKER);
         addCommand(CommandEnum.PICK_UP_WORKER);
         addCommand(CommandEnum.BUILD_STRUCTURE);
         addCommand(CommandEnum.DISBAND_ARMY);
+
     }
 
     public void moveRallyPoint(Location loc){
@@ -73,14 +84,12 @@ public class Army extends Entity{
     public HealthPercentage getHealthPercentage(){
         return null;
     }
-    public void takeDamage(double damage){
+    public void takeDamage(double damage) {}
+    public void heal(double healing) {}
+    public void decommissionEntity() {}
 
-    }
-    public void heal(double healing){
-
-    }
-    public void decommissionEntity(){
-
-    }
+    public BattleGroup getBattleGroup() { return battleGroup; }
+    public Reinforcement getReinforcements() { return reinforcement; }
+    public RallyPoint getRallyPoint() { return rallyPoint; }
 
 }

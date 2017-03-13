@@ -6,16 +6,18 @@ import game.commands.CommandEnum;
 import game.commands.iCommandable;
 import game.gameboard.Location;
 
-public class RallyPoint implements iCommandable{
-    private Location location;
-    private EntityId entityId;
-    private Army army;
+public class RallyPoint implements iCommandable {
+
+    private Location location;  // Current rally point location
+    private EntityId entityId;  // Entity ID
     private ArrayList<CommandEnum> commands = new ArrayList<>();
 
-    public RallyPoint(Location loc, EntityId id, Army army){
-        location=loc;
-        entityId=id;
-        this.army=army;
+    // Reference to Army
+
+    // Constructor
+    public RallyPoint(EntityId id, Location location){
+        this.entityId = id;
+        this.location = location;
         commands.add(CommandEnum.MOVE_RALLY_POINT);
     }
 
@@ -34,4 +36,5 @@ public class RallyPoint implements iCommandable{
 	public ArrayList<CommandEnum> getCommands() {
 		return commands;
 	}
+
 }
