@@ -29,9 +29,11 @@ public class GameEngine extends Application {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
-        //stage.setFullScreen(true);
-        stage.setMaximized(true);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        if (!DebugMode.DEBUG_MODE) {
+        	stage.setFullScreen(true);
+            stage.setMaximized(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        }
         stage.setOnCloseRequest(t -> {
 		    Platform.exit();
 		    System.exit(0);
