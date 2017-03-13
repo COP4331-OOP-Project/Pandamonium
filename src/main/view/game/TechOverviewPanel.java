@@ -198,7 +198,6 @@ public class TechOverviewPanel extends OverviewPanel{
 				scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 				canvas.setWidth(2450);
 				canvas.setTranslateY(0);
-				//canvas.setTranslateY(-135);
 				canvas.setHeight(screenDimensions.y - 147);
 				checkFoodIcons();
 				drawTechnologies();
@@ -272,50 +271,52 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 	
 	private void paneClicked(double x, double y) {
-		if (pointInPane(14, 87, x, y)) {
-			fertilizer.onClick();
-		} else if (pointInPane(14, 197, x, y)) {
-			wheelbarrow.onClick();
-		} else if (pointInPane(14, 307, x, y)) {
-			tent.onClick();
-		} else if (pointInPane(14, 197, x, y)) {
-			wheelbarrow.onClick();
-		} else if (pointInPane(289, 142, x, y)) {
-			ironMining.onClick();
-		} else if (pointInPane(289, 252, x, y)) {
-			bed.onClick();
-		} else if (pointInPane(564, 197, x, y)) {
-			housing.onClick();
-		} else if (pointInPane(839, 87, x, y)) {
-			draftHorse.onClick();
-		}else if (pointInPane(839, 197, x, y)) {
-			irrigation.onClick();
-		}else if (pointInPane(839, 307, x, y)) {
-			steamPower.onClick();
-		}else if (pointInPane(1114, 87, x, y)) {
-			militia.onClick();
-		}else if (pointInPane(1114, 197, x, y)) {
-			pesticides.onClick();
-		}else if (pointInPane(1114, 307, x, y)) {
-			steelMining.onClick();
-		}else if (pointInPane(1389, 87, x, y)) {
-			barracks.onClick();
-		}else if (pointInPane(1389, 197, x, y)) {
-			beer.onClick();
-		}else if (pointInPane(1389, 307, x, y)) {
-			blastFurnace.onClick();
-		}else if (pointInPane(1664, 142, x, y)) {
-			roads.onClick();
-		}else if (pointInPane(1664, 252, x, y)) {
-			vodka.onClick();
-		}else if (pointInPane(1939, 142, x, y)) {
-			urbanPlanning.onClick();
-		}else if (pointInPane(1939, 252, x, y)) {
-			windPower.onClick();
-		}else if (pointInPane(2214, 142, x, y)) {
-			militaryAcademy.onClick();
-		}else if (pointInPane(2214, 252, x, y)) {
-			nuclearPower.onClick();
+		if (currentMode == TechModeEnum.TECHNOLOGY) {
+			if (pointInPane(14, 87, x, y)) {
+				fertilizer.onClick();
+			} else if (pointInPane(14, 197, x, y)) {
+				wheelbarrow.onClick();
+			} else if (pointInPane(14, 307, x, y)) {
+				tent.onClick();
+			} else if (pointInPane(14, 197, x, y)) {
+				wheelbarrow.onClick();
+			} else if (pointInPane(289, 142, x, y)) {
+				ironMining.onClick();
+			} else if (pointInPane(289, 252, x, y)) {
+				bed.onClick();
+			} else if (pointInPane(564, 197, x, y)) {
+				housing.onClick();
+			} else if (pointInPane(839, 87, x, y)) {
+				draftHorse.onClick();
+			}else if (pointInPane(839, 197, x, y)) {
+				irrigation.onClick();
+			}else if (pointInPane(839, 307, x, y)) {
+				steamPower.onClick();
+			}else if (pointInPane(1114, 87, x, y)) {
+				militia.onClick();
+			}else if (pointInPane(1114, 197, x, y)) {
+				pesticides.onClick();
+			}else if (pointInPane(1114, 307, x, y)) {
+				steelMining.onClick();
+			}else if (pointInPane(1389, 87, x, y)) {
+				barracks.onClick();
+			}else if (pointInPane(1389, 197, x, y)) {
+				beer.onClick();
+			}else if (pointInPane(1389, 307, x, y)) {
+				blastFurnace.onClick();
+			}else if (pointInPane(1664, 142, x, y)) {
+				roads.onClick();
+			}else if (pointInPane(1664, 252, x, y)) {
+				vodka.onClick();
+			}else if (pointInPane(1939, 142, x, y)) {
+				urbanPlanning.onClick();
+			}else if (pointInPane(1939, 252, x, y)) {
+				windPower.onClick();
+			}else if (pointInPane(2214, 142, x, y)) {
+				militaryAcademy.onClick();
+			}else if (pointInPane(2214, 252, x, y)) {
+				nuclearPower.onClick();
+			}
 		}
 	}
 	
