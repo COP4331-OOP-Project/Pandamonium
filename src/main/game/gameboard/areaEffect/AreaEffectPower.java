@@ -8,9 +8,9 @@ public class AreaEffectPower {
 
     public AreaEffectPower(AreaEffectEnum effect){
         switch (effect){
-            case POISON: power = 5;
-            case HEALING: power = 10;
-            case DEATH: power = -1;
+            case POISON: power = 5;     // Do this.power damage to units on tile
+            case HEALING: power = 10;   // Heal this.power HP to units on tile
+            case DEATH: power = -1;     // Kill all units on tile
         }
     }
 

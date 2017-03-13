@@ -5,7 +5,7 @@ package game.gameboard.areaEffect;
  */
 
 /*
-TODO: Handle effect actions
+TODO: Handle effect actions based on enum and power values
  */
 public class AreaEffect {
     private AreaEffectEnum effect;
