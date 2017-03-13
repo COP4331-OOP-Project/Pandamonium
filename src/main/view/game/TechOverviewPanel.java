@@ -2,6 +2,7 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.EntitySubtypeEnum;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -75,8 +76,9 @@ public class TechOverviewPanel extends OverviewPanel{
 	private ComboBox<String> universityComboBox;
 	private ObservableList<String> universityList = FXCollections.observableArrayList();
 	private ComboBox<String> upgradableComboBox;
-	private ObservableList<String> upgradableList = FXCollections.observableArrayList();
+	private ObservableList<String> upgradableList;
 	private DropShadow ds = new DropShadow();
+	private EntitySubtypeEnum selectedEntity;
 	private GraphicsContext techGraphics;
 	private Canvas canvas;
 	private Group root;
@@ -84,6 +86,19 @@ public class TechOverviewPanel extends OverviewPanel{
 	public TechOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root) {
 		super(gameModelAdapter, assets, view);
 		this.root = root;
+		upgradableList = FXCollections.observableArrayList(
+		        "Colonist",
+		        "Explorer",
+		        "Melee",
+		        "Ranged",
+		        "Capitol",
+		        "Farm",
+		        "Mine",
+		        "Power Plant",
+		        "Fort",
+		        "Observation Tower",
+		        "University"
+		);
 		setUpCanvas();
 		setUpLabel();
 		setUpButtons();
@@ -125,8 +140,8 @@ public class TechOverviewPanel extends OverviewPanel{
 		improvementsToggle.setSelected(false);
 	}
 	
-	private void setUpUniversityList() {
-		upgradableComboBox = new ComboBox<String>(universityList);
+	private void setUpUpgradableList() {
+		upgradableComboBox = new ComboBox<String>(upgradableList);
 		upgradableComboBox.setButtonCell(new ListCell<String>(){
 		        @Override
 		        protected void updateItem(String string, boolean empty) {
@@ -139,10 +154,12 @@ public class TechOverviewPanel extends OverviewPanel{
 		});
 		upgradableComboBox.setTranslateX(13);
 		upgradableComboBox.setTranslateY(60);
+		upgradableComboBox.getSelectionModel().selectFirst();
+		selectedEntity = EntitySubtypeEnum.COLONIST;
 	}
 	
-	private void setUpUpgradableList() {
-		universityComboBox = new ComboBox<String>(upgradableList);
+	private void setUpUniversityList() {
+		universityComboBox = new ComboBox<String>(universityList);
 		universityComboBox.setButtonCell(new ListCell<String>(){
 		        @Override
 		        protected void updateItem(String string, boolean empty) {
@@ -189,11 +206,11 @@ public class TechOverviewPanel extends OverviewPanel{
 		techGraphics.clearRect(0, 0, 2500, screenDimensions.y);
 		scrollPane.toFront();
 		scrollPane.setMaxHeight(488);
-		scrollPane.setTranslateX(74);
 		scrollPane.setTranslateY(50);
 		switch (currentMode) {
 			case TECHNOLOGY:
 				upgradableComboBox.setVisible(false);
+				scrollPane.setTranslateX(74);
 				scrollPane.setMaxWidth(screenDimensions.x - 148);
 				scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 				canvas.setWidth(2450);
@@ -205,14 +222,78 @@ public class TechOverviewPanel extends OverviewPanel{
 				break;
 			case IMPROVEMENTS:
 				upgradableComboBox.setVisible(true);
-				scrollPane.setMaxWidth(screenDimensions.x - 148);
+				updateSelectedItem();
+				scrollPane.setMaxWidth(screenDimensions.x - 1);
 				scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 				canvas.setWidth(screenDimensions.x  - 148);
-				canvas.setTranslateY(-135);
 				canvas.setHeight(screenDimensions.y - 147);
+				canvas.setTranslateY(0);
+				drawImprovementText();
+				updateImprovementButtons();
 				break;
 		}
 		
+	}
+
+	private void updateSelectedItem() {
+		String selected = upgradableComboBox.getSelectionModel().getSelectedItem();
+		switch (selected) {
+			case "Colonist":
+				selectedEntity = EntitySubtypeEnum.COLONIST;
+				break;
+			case "Explorer":
+				selectedEntity = EntitySubtypeEnum.EXPLORER;
+				break;
+			case "Melee":
+				selectedEntity = EntitySubtypeEnum.MELEE;
+				break;
+			case "Capitol":
+				selectedEntity = EntitySubtypeEnum.CAPITOL;
+				break;
+			case "Farm":
+				selectedEntity = EntitySubtypeEnum.FARM;
+				break;
+			case "Mine":
+				selectedEntity = EntitySubtypeEnum.MINE;
+				break;
+			case "Power Plant":
+				selectedEntity = EntitySubtypeEnum.PLANT;
+				break;
+			case "Fort":
+				selectedEntity = EntitySubtypeEnum.FORT;
+				break;
+			case "Observation Tower":
+				selectedEntity = EntitySubtypeEnum.OBSERVE;
+				break;
+			case "University":
+				selectedEntity = EntitySubtypeEnum.UNIVERSITY;
+				break;
+		}
+	}
+
+	private void updateImprovementButtons() {
+	}
+
+	private void drawImprovementText() {
+		techGraphics.setEffect(ds);
+		techGraphics.setFont(getAssets().getFont(2));
+		techGraphics.fillText("Visibility Radius", 17, 130);
+		techGraphics.fillText("Attack Strength", 17, 180);
+		techGraphics.fillText("Defense Strength", 17, 230);
+		techGraphics.fillText("Armor Strength", 17, 280);
+		techGraphics.fillText("Health", 17, 330);
+		techGraphics.fillText("Efficiency", 17, 380);
+		switch (selectedEntity) {
+			case EXPLORER:
+			case COLONIST:
+			case MELEE:
+			case RANGE:
+				techGraphics.fillText("Movement Rate", 17, 430);
+				break;
+			default :
+				break;
+		}
+		techGraphics.setEffect(null);
 	}
 
 	private void checkFoodIcons() {
