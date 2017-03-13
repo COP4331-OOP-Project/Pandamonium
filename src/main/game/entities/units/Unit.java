@@ -27,7 +27,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         this.healthPercent = new HealthPercentage();
         this.orientation = 180;
         AddUnitVisitor addUnit = new AddUnitVisitor(this, this.location);
-        movementManager.accept(addUnit);
+        //movementManager.accept(addUnit);
         standby();
     }
 

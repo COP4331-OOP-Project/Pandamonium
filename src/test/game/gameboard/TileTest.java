@@ -126,7 +126,7 @@ public class TileTest {
         tileGrass.addUnit(melee3);
         tileGrass.addUnit(melee1);
 
-        Assert.assertEquals(this.tileGrass.getUnits().size(), 1);
+        Assert.assertEquals(this.tileGrass.getUnits().size(), 2);
     }
 
     @Test //Test contains unit

@@ -8,6 +8,7 @@ import game.gameboard.Location;
 import game.visitors.iMovementManageVisitor;
 
 public class MovementManager {
+    //TODO UNCOMMENT MOVEMENTMANAGER USAGE IN CONSTRUCTORS
     private Gameboard gameboard;
 
     public MovementManager(Gameboard gb){
