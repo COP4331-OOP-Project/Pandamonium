@@ -23,6 +23,7 @@ public class GameEngine extends Application {
 	private ModeController controlMode;
 	private GameModel gameModel;
 	private GameModelAdapter gameModelAdapter;
+	private int frameCounter = 0;
 	
     @Override
     public void start(Stage stage) {
@@ -50,9 +51,13 @@ public class GameEngine extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
-            	controlMode.update();
-                gameModel.updateGame();
-                view.renderGame();
+            	frameCounter++;
+            	if (frameCounter == 2) { //Limit FPS to 30
+            		frameCounter = 0;
+                	controlMode.update();
+                    gameModel.updateGame();
+                    view.renderGame();
+            	}
 
             }
         }.start();

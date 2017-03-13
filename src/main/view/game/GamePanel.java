@@ -38,6 +38,7 @@ public class GamePanel extends Panel {
     private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
 	private Point screenDimensions;
+	private Point currentTile;
 	private AssetManager assets;
 	private ViewEnum view;
 	private EntityId selectedEntity;
@@ -52,6 +53,7 @@ public class GamePanel extends Panel {
     	this.assets = assets;
     	this.view = view;
         screenDimensions = new Point();
+        currentTile = new Point();
         tileDrawer = new TileDrawer(this, assets);
         unitDrawer = new UnitDrawer(assets, camera);
         armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
@@ -84,22 +86,23 @@ public class GamePanel extends Panel {
         for (int i = 0; i < currentTiles.length; i++) {
             for (int j = 0; j < currentTiles[i].length; j++) {
                 SimpleTile tile = currentTiles[i][j];
-                Point p = new Point(i, j);
+                currentTile.x = i;
+                currentTile.y = j;
                 if (tile.getTileType() != TerrainEnum.NON_TILE && tile.getVisibility() != TileVisibilityEnum.INVISIBLE) {
 	                //Draw Tiles
-	                tileDrawer.drawTile(p, tile.getTileType());
+	                tileDrawer.drawTile(currentTile, tile.getTileType());
 	                if (unitsVisible && tile.getUnitCount() > 0) {
-	                    unitDrawer.drawUnits(p, tile.getUnits(), g, selectedEntity);
+	                    unitDrawer.drawUnits(currentTile, tile.getUnits(), g, selectedEntity);
 	                }
 	                if (structuresVisible && tile.getStructure() != null) {
 	                    Structure structure = tile.getStructure();
-	                    structureDrawer.drawStructure(p, structure, selectedEntity);
+	                    structureDrawer.drawStructure(currentTile, structure, selectedEntity);
 	                }
 	                if (resourcesVisible) {
-	                	resourceDrawer.drawResources(tile, p, g);
+	                	resourceDrawer.drawResources(tile, currentTile, g);
 	                }
                 } 
-                coveringDrawer.drawCovering(p, tile.getTileType(), tile.getVisibility());
+                coveringDrawer.drawCovering(currentTile, tile.getTileType(), tile.getVisibility());
             }
          }   
     }
