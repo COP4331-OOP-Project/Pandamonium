@@ -69,6 +69,7 @@ public class Tile implements iTileAccessors {
 
     public Location getLocation(){return location;}
 
+    //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
         /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
             System.out.println("Good");
