@@ -25,6 +25,10 @@ public class WorkerStats {
         this.productionRate *= (1 + increasePerentage.getPercentageValue());
     }
 
+    public void addToProductionRate(int changeAmount) {
+        this.productionRate += changeAmount;
+    }
+
     public Resource getUpkeep() {
         return this.upkeep;
     }
