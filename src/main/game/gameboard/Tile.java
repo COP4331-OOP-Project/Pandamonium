@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import game.gameboard.areaEffect.AreaEffect;
 import game.entities.BattleGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.entities.Army;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
@@ -20,18 +20,20 @@ import game.visitors.iTileActionVisitor;
 // Tile class for gameboard
 public class Tile implements iTileAccessors {
 	private final static Logger log = LogManager.getLogger(Tile.class);
-    public boolean containsUnit;
-    public boolean containsArmy;
-    public boolean containsRallyPoint;
-    public boolean containsStructure;
-    public Resource food;
-    public Resource ore;
-    public Resource peat;
+    private boolean containsUnit;
+    private boolean containsArmy;
+    private boolean containsRallyPoint;
+    private boolean containsStructure;
+    private boolean containsEffect;
+    private Resource food;
+    private Resource ore;
+    private Resource peat;
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
     private ArrayList<RallyPoint> rallyPoints;
     private ArrayList<BattleGroup> battleGroups;
     private Structure structure;
+    private AreaEffect effect;
     private Location location;
     private Random resourceValueGenerator = new Random();
     private int ownerId;
@@ -48,7 +50,9 @@ public class Tile implements iTileAccessors {
         containsRallyPoint = false;
         containsUnit = false;
         containsArmy = false;
+        containsEffect = false;
         structure = null;
+        effect = null;
         this.location = location;
         this.setOwnerId(-1);
     }
@@ -56,7 +60,6 @@ public class Tile implements iTileAccessors {
     public void setOwnerId(int ownerId){
         this.ownerId = ownerId;
     }
-
     public int getOwner() {
         if(this.units.isEmpty()){
             ownerId = -1;
@@ -76,22 +79,29 @@ public class Tile implements iTileAccessors {
             return;
         }*/
         units.add(unit);
+        if (containsUnit == false) { containsUnit = true; }
         //unit.setLocation(this.location);
     }
-
     public void addStructure(Structure structure){
-        if(containsStructure()==false){
+        if(this.containsStructure == false){
             this.structure = structure;
+            this.containsStructure = true;
         }
     }
-
     public void addBattleGroup(BattleGroup battleGroup){
         battleGroups.add(battleGroup);
     }
-
     public void addRallyPoint(RallyPoint rallyPoint){
         rallyPoints.add(rallyPoint);
+        if (containsRallyPoint == false) { containsRallyPoint = true; }
     }
+    public void addEffect(AreaEffect effect){
+        if (this.containsEffect == false){
+            this.effect = effect;
+            this.containsEffect = true;
+        }
+    }
+
     public ArrayList<Unit> getUnits(){return units;}
 
     //test if terrain is impassable
@@ -139,18 +149,13 @@ public class Tile implements iTileAccessors {
         }
     }
 
-    public boolean containsStructure(){
-        return (structure!=null);
-    }
-
     public boolean containsUnit(){
-        return (!units.isEmpty());
+        return containsUnit;
     }
-
-    public boolean containsArmy(){
-        //check if the tile contains army
-        return false;
-    }
+    public boolean containsArmy() { return containsArmy; }
+    public boolean containsRallyPoint() { return containsRallyPoint; }
+    public boolean containsStructure() { return containsStructure; }
+    public boolean containsEffect() { return containsEffect; }
 
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
@@ -158,15 +163,17 @@ public class Tile implements iTileAccessors {
     }
     
     public ArrayList<BattleGroup> getBattleGroups(){return  battleGroups;}
-    
+
     public ArrayList<RallyPoint> getRallyPoints() {
     	return rallyPoints;
     }
-    
+
     public Structure getStructure() {
     	return structure;
     }
-    
+
+    public AreaEffect getEffect() { return effect; }
+
     public Resource getResource(ResourceTypeEnum resource) {
     	switch (resource) {
     	case FOOD:

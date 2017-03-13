@@ -28,7 +28,7 @@ public class UnitManager implements iUnitResearchObservable {
     // Constructor
     public UnitManager(int playerId) {
 
-        this.unitIdManager = new UnitIdManager(playerId);   // Initialize unit id manager
+        this.unitIdManager = new UnitIdManager(playerId);           // Initialize unit id manager
 
         // Setup unit type collections
         this.melees = new ArrayList<>();
