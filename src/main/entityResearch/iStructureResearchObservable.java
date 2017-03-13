@@ -13,4 +13,7 @@ public interface iStructureResearchObservable {
     void increaseArmorStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist;
     void increaseHealth(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist;
     void increaseEfficiency(EntitySubtypeEnum subtype, Percentage increasePercentage) throws StructureTypeDoesNotExist;
+    void increaseWorkerRadius(int increaseAmount);
+    void increaseWorkerDensity(int increaseAmount);
+
 }

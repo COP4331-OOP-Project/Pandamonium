@@ -11,14 +11,16 @@ import java.util.ArrayList;
 
 public class StructureStats {
     private int attackStrength;         // Damage dealt when attacking [Fort only]
-    private int defensiveStrength;         // Damage dealt when fending off an attack
-    private int armor;          // Amount of damage absorbed when attacked/defended against
-    private int health;         // Amount of hit points
-    private int prodRate;       // Efficiency rate (per worker) of task completion
-    private int influence;
+    private int defensiveStrength;      // Damage dealt when fending off an attack
+    private int armor;                  // Amount of damage absorbed when attacked/defended against
+    private int health;                 // Amount of hit points
+    private int prodRate;               // Efficiency rate (per worker) of task completion
+    private int influence;              // Denotes influence radius to trigger worker retreat
+    private int workerRadius;           // Radius workers can be placed in around struct
+    private int workerDensity;          // Density of workers on tiles
     private ArrayList<Resource> upkeep;       // Resources required to keep structure at full health
-    private int visibilityRadius;
-    private Percentage efficiency;
+    private int visibilityRadius;           // Radius around struct that can be viewed
+    private Percentage efficiency;          // Resource consumption efficiency
 
     public StructureStats(EntitySubtypeEnum struct) throws StructureNotFoundException {
         this.upkeep = new ArrayList<>();
@@ -31,6 +33,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -45,6 +49,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -59,6 +65,8 @@ public class StructureStats {
                 this.health = 50;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -73,6 +81,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -87,6 +97,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -101,6 +113,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -115,6 +129,8 @@ public class StructureStats {
                 this.health = 20;
                 this.prodRate = 1;
                 this.influence = 1;
+                this.workerDensity = 10;
+                this.workerRadius = 1;
                 Resource energyUpkeep = new Resource(1, ResourceTypeEnum.POWER);
                 Resource metalUpkeep = new Resource(1, ResourceTypeEnum.METAL);
                 this.upkeep.add(energyUpkeep);
@@ -135,6 +151,8 @@ public class StructureStats {
     public int getProdRate() { return prodRate; }
     public int getInfluence() { return influence; }
     public int getVisibilityRadius() { return visibilityRadius; }
+    public int getWorkerRadius() { return workerRadius; }
+    public int getWorkerDensity() { return workerDensity; }
     public ArrayList<Resource> getUpkeep() { return upkeep; }
 
     /* Mutators */
@@ -145,13 +163,14 @@ public class StructureStats {
     public void setProdRate(int prodRate) { this.prodRate = prodRate; }
     public void setInfluence(int influence) { this.influence = influence; }
     public void setVisibilityRadius(int visibilityRadius) { this.visibilityRadius = visibilityRadius; }
+    public void setWorkerRadius(int workerRadius) { this.workerRadius = workerRadius; }
+    public void setWorkerDensity(int workerDensity) { this.workerDensity = workerDensity; }
     public void setUpkeep(ArrayList<Resource> upkeep) { this.upkeep = upkeep; }
 
 
     public void increaseVisibilityRadius(int increaseAmount) {
         this.visibilityRadius += increaseAmount;
     }
-
     public void increaseAttackStrength(int increaseAmount) {
         this.attackStrength += increaseAmount;
     }
@@ -161,11 +180,9 @@ public class StructureStats {
     public void increaseArmorStrength(int increaseAmount) {
         this.armor += increaseAmount;
     }
-
     public void increaseHealth(int increaseAmount) {
         this.health += increaseAmount;
     }
-
     public void increaseEfficiency(Percentage increasePercentage) {
         try {
             this.efficiency.add(increasePercentage);
@@ -173,4 +190,12 @@ public class StructureStats {
 
         }
     }
+
+    public void increaseWorkerRadius(int increaseAmount) {
+        this.workerRadius += increaseAmount;
+        this.influence += increaseAmount;
+    }
+
+    public void increaseWorkerDensity(int increaseAmount) { this.workerDensity += increaseAmount; }
+
 }
