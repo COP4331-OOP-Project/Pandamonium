@@ -37,15 +37,11 @@ public class CivilizationPanel extends Panel {
 			g.drawImage(getImage("ICON_FOOD_HUMAN"), 330, 4);
 		else
 			g.drawImage(getImage("ICON_FOOD_PANDA"), 330, 4);
-		g.setEffect(ds);
-		g.fillText("" + getAdapter().getCurrentNutrients(), 366, 30);
-		g.setEffect(null);
 		g.drawImage(getImage("ICON_POWER"), 427, 4);
-		g.setEffect(ds);
-		g.fillText("" + getAdapter().getCurrentPower(), 455, 30);
-		g.setEffect(null);
 		g.drawImage(getImage("ICON_METAL"), 520, 4);
 		g.setEffect(ds);
+		g.fillText("" + getAdapter().getCurrentNutrients(), 366, 30);
+		g.fillText("" + getAdapter().getCurrentPower(), 455, 30);
 		g.fillText("" + getAdapter().getCurrentMetal(), 558, 30);
 		g.setEffect(null);
 	}

@@ -21,6 +21,8 @@ public class MiniMapPanel extends Panel {
     private static final int DISTANCE_FROM_BOTTOM = 427;
     private final static Logger log = LogManager.getLogger(MiniMapPanel.class);
     private Point screenDimensions;
+    private Point currentLocation = new Point();
+    private Point offsetPoint = new Point();
 
     public MiniMapPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view) {
 		super(gameModelAdapter, assets, view);
@@ -32,9 +34,10 @@ public class MiniMapPanel extends Panel {
         SimpleTile[][] tiles = getAdapter().getCurrentTiles();
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-            	Point loc = new Point(i, j);
+            	currentLocation.x = i;
+            	currentLocation.y = j;
             	SimpleTile tile = tiles[i][j];
-                drawSmallTile(g, loc, tile.getTileType(), tile.getVisibility());
+                drawSmallTile(g, currentLocation, tile.getTileType(), tile.getVisibility());
             }
         }
         drawBorder(g);
@@ -101,7 +104,6 @@ public class MiniMapPanel extends Panel {
     }
 
     private Point offsetMini(Point p) {
-        Point offsetPoint = new Point();
         offsetPoint.x = screenDimensions.x + ((int) (((p.x * 0.5f) * HEX_SIZE / 2) + (p.x * 0.5f) * HEX_SIZE)) -
                 DISTANCE_FROM_RIGHT;
         offsetPoint.y = ((int) ((p.y * HEX_HEIGHT) + ((p.x * 0.5f) * HEX_HEIGHT))) + screenDimensions.y -
