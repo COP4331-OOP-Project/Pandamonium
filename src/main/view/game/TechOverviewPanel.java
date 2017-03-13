@@ -2,18 +2,20 @@ package view.game;
 
 import java.awt.Point;
 
-import javafx.geometry.Insets;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.ViewEnum;
@@ -23,7 +25,8 @@ public class TechOverviewPanel extends OverviewPanel{
 	private static final int PANE_WIDTH = 219;
 	private static final int PANE_HEIGHT = 80;
 	private Label label = new Label("Technology Overview");
-	private StackPane techBox = new StackPane();
+	private TechModeEnum currentMode = TechModeEnum.TECHNOLOGY;
+	private AnchorPane techBox = new AnchorPane();
 	private ScrollPane scrollPane = new ScrollPane();
 	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
 			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
@@ -67,6 +70,12 @@ public class TechOverviewPanel extends OverviewPanel{
 			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
 	private TechViewItem nuclearPower = new TechViewItem(getAssets(), "Nuclear Power",
 			getAssets().getImage("ICON_POWER"), "+10%");
+	private ToggleButton techsToggle = new ToggleButton("Technologies");
+	private ToggleButton improvementsToggle = new ToggleButton("Improvements");
+	private ComboBox<String> universityComboBox;
+	private ObservableList<String> universityList = FXCollections.observableArrayList();
+	private ComboBox<String> upgradableComboBox;
+	private ObservableList<String> upgradableList = FXCollections.observableArrayList();
 	private DropShadow ds = new DropShadow();
 	private GraphicsContext techGraphics;
 	private Canvas canvas;
@@ -75,17 +84,90 @@ public class TechOverviewPanel extends OverviewPanel{
 	public TechOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root) {
 		super(gameModelAdapter, assets, view);
 		this.root = root;
-		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-		scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		setUpCanvas();
+		setUpLabel();
+		setUpButtons();
+		setUpUniversityList();
+		setUpUpgradableList();
+		setUpScrollPane();
+		techBox.getChildren().addAll(canvas, label, techsToggle, improvementsToggle, universityComboBox, upgradableComboBox);
+	}
+
+	private void setUpButtons() {
+		techsToggle.getStyleClass().setAll("button");
+		improvementsToggle.getStyleClass().setAll("button");
+		techsToggle.setTranslateX(380);
+		techsToggle.setTranslateY(17);
+		improvementsToggle.setTranslateX(540);
+		improvementsToggle.setTranslateY(17);
+		toggleTech();
+		techsToggle.setOnAction(event -> {
+			toggleTech();
+		});
+        improvementsToggle.setOnAction(event -> {
+			toggleImprovements();
+		});
+	}
+
+	private void toggleImprovements() {
+		currentMode = TechModeEnum.IMPROVEMENTS;
+		improvementsToggle.getStyleClass().setAll("buttonSelected");
+		techsToggle.getStyleClass().setAll("button");
+		improvementsToggle.setSelected(true);
+		techsToggle.setSelected(false);
+	}
+
+	private void toggleTech() {
+		currentMode = TechModeEnum.TECHNOLOGY;
+		techsToggle.getStyleClass().setAll("buttonSelected");
+		improvementsToggle.getStyleClass().setAll("button");
+		techsToggle.setSelected(true);
+		improvementsToggle.setSelected(false);
+	}
+	
+	private void setUpUniversityList() {
+		upgradableComboBox = new ComboBox<String>(universityList);
+		upgradableComboBox.setButtonCell(new ListCell<String>(){
+		        @Override
+		        protected void updateItem(String string, boolean empty) {
+		            super.updateItem(string, empty); 
+		            if(!(empty || string==null)){
+		                setStyle("-fx-text-fill: white");
+		                setText(string);
+		            }
+		       }
+		});
+		upgradableComboBox.setTranslateX(13);
+		upgradableComboBox.setTranslateY(60);
+	}
+	
+	private void setUpUpgradableList() {
+		universityComboBox = new ComboBox<String>(upgradableList);
+		universityComboBox.setButtonCell(new ListCell<String>(){
+		        @Override
+		        protected void updateItem(String string, boolean empty) {
+		            super.updateItem(string, empty); 
+		            if(!(empty || string==null)){
+		                setStyle("-fx-text-fill: white");
+		                setText(string);
+		            }
+		       }
+		});
+		universityComboBox.setTranslateX(700);
+		universityComboBox.setTranslateY(17);
+	}
+
+
+	private void setUpCanvas() {
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
-		techGraphics = canvas.getGraphicsContext2D();
-		label.setTextFill(Color.WHITE);
-        label.setFont(getAssets().getFont(2));
-        label.setEffect(ds);
-		techBox.getChildren().add(canvas);
-		techBox.getChildren().add(label);
-		scrollPane.setContent(techBox);
 		canvas.setOnMouseClicked(event -> paneClicked(event.getX(), event.getY()));
+		techGraphics = canvas.getGraphicsContext2D();
+		techGraphics.setFill(Color.WHITE);
+	}
+
+	private void setUpScrollPane() {
+		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setContent(techBox);
 		scrollPane.addEventFilter(ScrollEvent.SCROLL,event -> {
 		    if (event.getDeltaY() != 0) { 
 		        event.consume(); //This disables vertical scrolling in the scroll pane
@@ -93,23 +175,45 @@ public class TechOverviewPanel extends OverviewPanel{
 		});
 		 //This sets the style of scrollPane to that specified in the CSS document
 		scrollPane.getStyleClass().setAll("scroll");
-		techGraphics.setFill(Color.WHITE);
+	}
+	
+	private void setUpLabel() {
+		label.setTextFill(Color.WHITE);
+        label.setFont(getAssets().getFont(2));
+        label.setEffect(ds);
+        label.setTranslateX(10);
+        label.setTranslateY(10);
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-		scrollPane.toFront();
 		techGraphics.clearRect(0, 0, 2500, screenDimensions.y);
-		scrollPane.setMaxWidth(screenDimensions.x - 148);
+		scrollPane.toFront();
 		scrollPane.setMaxHeight(488);
 		scrollPane.setTranslateX(74);
 		scrollPane.setTranslateY(50);
-		canvas.setWidth(2450);
-		canvas.setHeight(screenDimensions.y - 147);
-		label.setTranslateX(-900);
-		label.setTranslateY(-200);
-		checkFoodIcons();
-		drawTechnologies();
-		drawConnectors();
+		switch (currentMode) {
+			case TECHNOLOGY:
+				upgradableComboBox.setVisible(false);
+				scrollPane.setMaxWidth(screenDimensions.x - 148);
+				scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+				canvas.setWidth(2450);
+				canvas.setTranslateY(0);
+				//canvas.setTranslateY(-135);
+				canvas.setHeight(screenDimensions.y - 147);
+				checkFoodIcons();
+				drawTechnologies();
+				drawConnectors();
+				break;
+			case IMPROVEMENTS:
+				upgradableComboBox.setVisible(true);
+				scrollPane.setMaxWidth(screenDimensions.x - 148);
+				scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+				canvas.setWidth(screenDimensions.x  - 148);
+				canvas.setTranslateY(-135);
+				canvas.setHeight(screenDimensions.y - 147);
+				break;
+		}
+		
 	}
 
 	private void checkFoodIcons() {
