@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 public class UnitIdManager {
 
-    private final static Logger log = LogManager.getLogger(UnitFactory.class);
+    private final static Logger log = LogManager.getLogger(UnitIdManager.class);
 
     // Static limits on unit counts
     private static final Integer MAX_UNIT_COUNT = 25;
