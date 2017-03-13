@@ -15,4 +15,8 @@ public class ResearchGenerator extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.RESEARCH_POINTS);
     }
+
+    public void onTurnEnded() {
+
+    }
 }

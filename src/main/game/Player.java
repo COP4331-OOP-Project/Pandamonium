@@ -265,6 +265,8 @@ public class Player implements iTurnObservable {
 	}
 
 	public void endTurn() {
-
+		for (iTurnObserver observer : this.turnObservers) {
+			observer.onTurnEnded();
+		}
 	}
 }

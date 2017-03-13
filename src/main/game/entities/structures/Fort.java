@@ -69,4 +69,8 @@ public class Fort extends Structure {
         return null;
     }
 
+    public void onTurnEnded() {
+
+    }
+
 }

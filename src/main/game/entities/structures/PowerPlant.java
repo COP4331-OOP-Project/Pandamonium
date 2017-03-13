@@ -61,4 +61,8 @@ public class PowerPlant extends Structure {
 
     }*/
 
+
+    public void onTurnEnded() {
+
+    }
 }
