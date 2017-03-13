@@ -1,9 +1,6 @@
 package game;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import javax.lang.model.UnknownEntityException;
 
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
@@ -18,7 +15,6 @@ import game.entities.workers.workerTypes.WorkerTypeEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.entities.factories.UnitFactory;
 import game.entities.structures.Capitol;
 import game.entities.structures.Farm;
 import game.entities.structures.Fort;
@@ -32,8 +28,6 @@ import game.entities.units.Explorer;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.Unit;
-import game.entities.units.exceptions.UnitNotFoundException;
-import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.gameboard.SimpleTileUpdater;
