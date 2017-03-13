@@ -27,7 +27,7 @@ public abstract class Entity {
     public double getCurrentHealth(){ return health; }                              // Return entity health
     public HealthPercentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
     public void takeDamage(double damage){                                          // Take damage to health
-        this.health -= (int)damage;
+        this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
     }
     public void heal(double healing){                                               // Heal for a given amount

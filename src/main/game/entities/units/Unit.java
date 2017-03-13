@@ -90,7 +90,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public void takeDamage(double damage){
         int armor = stats.getArmor();
         double damageX = 10/(10+armor);
-        int adjDamage = (int)(damage * damageX);
+        double adjDamage = damage * damageX;
         this.health -= adjDamage;
         this.healthPercent.updateHealthPercentage((double)this.health);
     }
