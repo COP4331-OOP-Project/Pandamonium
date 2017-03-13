@@ -7,6 +7,7 @@ import game.entities.HealthPercentage;
 import game.entities.iAttacker;
 import game.entities.iDefender;
 import game.entities.iMoveable;
+import game.entities.managers.MovementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 import game.visitors.AddUnitVisitor;
@@ -19,8 +20,8 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     protected int orientation;
     protected Location location;
 
-    public Unit(UnitStats stats, Location location, EntityId entityId){
-        super(entityId);
+    public Unit(UnitStats stats, Location location, EntityId entityId, MovementManager movementManager){
+        super(entityId,movementManager);
         this.location=location;
         this.stats = stats;
         this.health = stats.getHealth();
