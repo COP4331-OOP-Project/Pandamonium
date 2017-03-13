@@ -2,6 +2,7 @@ package view.screen;
 
 import java.awt.Point;
 
+import game.DebugMode;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -54,8 +55,8 @@ public class MainMenuPanel extends Panel {
 	private void setUpButtons() {
 		startGame.setId("mainMenuButton");
 		startGame.setOnAction(event -> {
-			panelManager.setMode(ViewEnum.INTRO);
 			getAdapter().startGame();
+			panelManager.setMode(ViewEnum.INTRO);
 		});
 		mapMaker.setId("mainMenuButton");
 		mapMaker.setOnAction(event -> panelManager.setMode(ViewEnum.MAP_MAKER));
