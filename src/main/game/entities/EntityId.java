@@ -5,12 +5,14 @@ public class EntityId implements Comparable<EntityId>  {
     private EntityTypeEnum typeId;
     private Enum subTypeId;
     private int instanceId;
+    private int globalTypeId;
 
-    public EntityId(int playerId, EntityTypeEnum typeId, Enum subTypeId, int instanceId){
+    public EntityId(int playerId, EntityTypeEnum typeId, Enum subTypeId, int instanceId, int globalTypeId){
         this.playerId = playerId;
         this.typeId = typeId;
         this.subTypeId = subTypeId;
         this.instanceId = instanceId;
+        this.globalTypeId = globalTypeId;
     }
 
     public int getPlayerId(){
@@ -29,12 +31,15 @@ public class EntityId implements Comparable<EntityId>  {
         return this.instanceId;
     }
 
+    public int getGlobalTypeId() { return this.globalTypeId; }
+
     //If entityId equals, return 1, else return 0;
     public int compareTo(EntityId entityId){
         if(this.playerId == entityId.getPlayerId()
                 &&this.instanceId==entityId.getInstanceId()
                 &&this.subTypeId == entityId.getSubTypeId()
-                &&this.typeId == entityId.getTypeId())
+                &&this.typeId == entityId.getTypeId()
+                &&this.globalTypeId == entityId.getGlobalTypeId())
             return 1;
         else
             return 0;

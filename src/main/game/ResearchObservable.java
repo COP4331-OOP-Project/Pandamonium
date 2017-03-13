@@ -1,10 +1,20 @@
 package game;
 
+
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
+import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.semantics.Percentage;
+import game.techTree.nodeTypes.WorkerDensityResearchNode;
+import game.workerResearch.iWorkerResearchObservable;
+import game.workerResearch.iWorkerResearchObserver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 
-import game.resources.Resource;
-
 public class ResearchObservable implements iWorkerResearchObservable {
+
+    private final static Logger log = LogManager.getLogger(ResearchObservable.class);
 
     private ArrayList<iWorkerResearchObserver> observers;
 
@@ -16,15 +26,23 @@ public class ResearchObservable implements iWorkerResearchObservable {
         this.observers.add(observer);
     }
 
-    public void changeProductionRate(double productionRate) {
+    public void increaseProductionRateByPercentage(Percentage increasePercentage, WorkerTypeEnum workerType) {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onProductionRateChanged(productionRate);
+            try {
+                observer.onProductionRateIncreased(increasePercentage, workerType);
+            } catch (WorkerTypeDoesNotExist e) {
+                log.error("Could not increase production rate because worker type " + workerType + " does not exist.");
+            }
         }
     }
 
-    public void changeUpkeep(Resource upkeep) {
+    public void changeProductionRateByAmount(int changeAmount, WorkerTypeEnum workerType) {
         for (iWorkerResearchObserver observer : this.observers) {
-            observer.onUpkeepChanged(upkeep);
+            try {
+                observer.onChangeProductionRateByAmount(changeAmount, workerType);
+            } catch (WorkerTypeDoesNotExist e) {
+                log.error("Could not increase production rate because worker type " + workerType + " does not exist.");
+            }
         }
     }
 }

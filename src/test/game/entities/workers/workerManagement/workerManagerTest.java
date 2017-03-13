@@ -1,5 +1,6 @@
 package game.entities.workers.workerManagement;
 
+import game.entities.factories.WorkerFactory;
 import game.entities.managers.WorkerIdManager;
 import game.entities.managers.exceptions.WorkerDoesNotExistException;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
@@ -18,8 +19,8 @@ public class workerManagerTest {
 
     @Before
     public void setUp() {
-        
-        this.workerIdManager = new WorkerIdManager(1);
+        WorkerFactory workerFactory = new WorkerFactory(1);
+        this.workerIdManager = new WorkerIdManager(workerFactory);
         this.aLocation = new Location(1,1);
     }
 
@@ -85,4 +86,34 @@ public class workerManagerTest {
             Assert.fail();
         }
     }
+
+
+    /*
+     * TechTree example
+     */
+//    @Test
+//    public void deleteMe() {
+//        WorkerManager workerManager = new WorkerManager(1);
+//        EntityId entityId;
+//
+//        try {
+//            Worker w = workerManager.addWorker(WorkerTypeEnum.FOOD_GATHERER, new Location(1, 1));
+//            entityId = w.getId();
+//            Assert.assertEquals(w.getProductionRate(), 1, 0);
+//        } catch (WorkerLimitExceededException| WorkerTypeDoesNotExist e) {
+//            Assert.fail();
+//            return;
+//        }
+//
+//        try {
+//            WorkerProductionRateResearchNode node = new WorkerProductionRateResearchNode(workerManager, new Percentage(0.05), "name", "description");
+//            node.doResearch();
+//            Assert.assertEquals(workerManager.getWorker(entityId).getProductionRate(), 1.05, 0);
+//
+//        } catch (PercentageOutOfRangeException e) {
+//            Assert.fail();
+//        }
+//
+//
+//    }
 }

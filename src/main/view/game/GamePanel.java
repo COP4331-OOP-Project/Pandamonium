@@ -2,6 +2,7 @@ package view.game;
 
 import java.awt.Point;
 
+import game.entities.EntityId;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
@@ -37,8 +38,11 @@ public class GamePanel extends Panel {
     private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
 	private Point screenDimensions;
+	private Point currentTile;
 	private AssetManager assets;
 	private ViewEnum view;
+	private EntityId selectedEntity;
+	private Point selectedPoint;
 	private boolean resourcesVisible = false;
 	private boolean unitsVisible = true;
 	private boolean structuresVisible = true;
@@ -49,6 +53,7 @@ public class GamePanel extends Panel {
     	this.assets = assets;
     	this.view = view;
         screenDimensions = new Point();
+        currentTile = new Point();
         tileDrawer = new TileDrawer(this, assets);
         unitDrawer = new UnitDrawer(assets, camera);
         armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
@@ -60,41 +65,44 @@ public class GamePanel extends Panel {
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
     	this.currentPulse = currentPulse;
+    	selectedEntity = getAdapter().getSelectedEntity();
+    	selectedPoint = getAdapter().getSelectedPoint();
 		g.drawImage(assets.getImage("GAME_BACKGROUND"), 0, 0, screenDimensions.x, screenDimensions.y);
     	this.screenDimensions = screenDimensions;
         this.g = g;
-        /*
-        Point selected = new Point(game.getCenterCoordinates().getX(),
-				   game.getCenterCoordinates().getY());
-		*/
         camera.adjustZoom(screenDimensions);
-        //camera.centerToSelected(selected, screenDimensions);
+        camera.centerToSelected(selectedPoint, screenDimensions);
         drawAllItems();
-        //selectedDrawer.drawSelectedItemOutline();
         //tileDrawer.drawMovingTiles();
     }
 
+
+	public void endTurn() {
+		camera.centerOnTile(getAdapter().getTurnStartPoint(), screenDimensions);
+	}
+    
 	private void drawAllItems() {
 		SimpleTile[][] currentTiles = getAdapter().getCurrentTiles();
         for (int i = 0; i < currentTiles.length; i++) {
             for (int j = 0; j < currentTiles[i].length; j++) {
                 SimpleTile tile = currentTiles[i][j];
-                Point p = new Point(i, j);
+                currentTile.x = i;
+                currentTile.y = j;
                 if (tile.getTileType() != TerrainEnum.NON_TILE && tile.getVisibility() != TileVisibilityEnum.INVISIBLE) {
 	                //Draw Tiles
-	                tileDrawer.drawTile(p, tile.getTileType());
+	                tileDrawer.drawTile(currentTile, tile.getTileType());
 	                if (unitsVisible && tile.getUnitCount() > 0) {
-	                    unitDrawer.drawUnits(p, tile.getUnits(), g);
+	                    unitDrawer.drawUnits(currentTile, tile.getUnits(), g, selectedEntity);
 	                }
 	                if (structuresVisible && tile.getStructure() != null) {
 	                    Structure structure = tile.getStructure();
-	                    structureDrawer.drawStructure(p, structure.getOwnerID(), structure.getType());
+	                    structureDrawer.drawStructure(currentTile, structure, selectedEntity);
 	                }
 	                if (resourcesVisible) {
-	                	resourceDrawer.drawResources(tile, p, g);
+	                	resourceDrawer.drawResources(tile, currentTile, g);
 	                }
                 } 
-                coveringDrawer.drawCovering(p, tile.getTileType(), tile.getVisibility());
+                coveringDrawer.drawCovering(currentTile, tile.getTileType(), tile.getVisibility());
             }
          }   
     }
@@ -150,6 +158,11 @@ public class GamePanel extends Panel {
     public void toggleStructures() {
     	structuresVisible = !structuresVisible;
     }
+    
+
+	public void centerOnSelected() {
+		camera.centerOnTile(selectedPoint, screenDimensions);
+	}
     
 	public void hideGUIElements() {
 	}

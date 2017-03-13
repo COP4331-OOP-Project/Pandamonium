@@ -24,13 +24,19 @@ public class CameraCenterer {
             continueCentering();
     }
 
-    public void centerOnTile(Point p) {
+    public void recenterOnTile(Point p) {
         if (centeringOffset(p).x != centerTo.x ||
                 centeringOffset(p).y != centerTo.y) {
             centerStart = camera.getOffset();
             centerTo = centeringOffset(p);
             isCentering = true;
         }
+    }
+    
+    public void centerOnTile(Point p) {
+            centerStart = camera.getOffset();
+            centerTo = centeringOffset(p);
+            isCentering = true;
     }
     
 	public void quickCenter(Point tile) {

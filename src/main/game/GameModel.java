@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
+import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.UnitFactory;
-import game.entities.factories.exceptions.ColonistLimitExceededException;
-import game.entities.factories.exceptions.ExplorerLimitExceededException;
-import game.entities.factories.exceptions.MeleeLimitExceededException;
-import game.entities.factories.exceptions.RangedLimitExceededException;
+import game.entities.factories.exceptions.*;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
+import game.entities.units.Unit;
 import game.entities.units.exceptions.UnitNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -64,18 +63,19 @@ public class GameModel {
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
         try {
-            unitFactory = new UnitFactory();
-
-            Colonist humanColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST,HUMAN_STARTING_LOCATION, 0);
-            Colonist pandaColonist = (Colonist)unitFactory.createUnit(EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION,1);
-
-            human.addColonist(humanColonist);
-            panda.addColonist(pandaColonist);
-
-            gBoard.addUnitToTile(humanColonist);
-            gBoard.addUnitToTile(pandaColonist);
-        }catch(UnitNotFoundException |ColonistLimitExceededException |ExplorerLimitExceededException| MeleeLimitExceededException
-                |RangedLimitExceededException e){
+            Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
+            Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
+            //TODO BE SURE TO DELETE THE 2 lines after once movementmanager is done
+            gBoard.addUnitToTile(unit1, unit1.getLocation());
+            gBoard.addUnitToTile(unit2, unit2.getLocation());
+        } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
+            log.error("Error initializing game. " + e.getLocalizedMessage());
+            throw new GameFailedToStartException();
+        } catch (UnitTypeLimitExceededException | StructureTypeLimitExceededException e) {
+            log.error("Error initializing game . " + e.getLocalizedMessage());
+            throw new GameFailedToStartException();
+        } catch (TotalUnitLimitExceededException | TotalStructureLimitExceededException e) {
+            log.error("Error initializing game.  " + e.getLocalizedMessage());
             throw new GameFailedToStartException();
         }
     }

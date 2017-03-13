@@ -11,9 +11,6 @@ import org.apache.logging.log4j.Logger;
 import game.entities.Army;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
-//import game.entities.Army;
-//import game.entities.RallyPoint;
-import com.sun.corba.se.impl.protocol.AddressingDispositionException;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.resources.Resource;
@@ -45,8 +42,8 @@ public class Tile implements iTileAccessors {
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         units = new ArrayList<Unit>();
-        //armies = new ArrayList<Army>();
-        //rallyPoints = new ArrayList<RallyPoint>();
+        battleGroups = new ArrayList<BattleGroup>();
+        rallyPoints = new ArrayList<RallyPoint>();
         containsStructure = false;
         containsRallyPoint = false;
         containsUnit = false;
@@ -72,11 +69,12 @@ public class Tile implements iTileAccessors {
 
     public Location getLocation(){return location;}
 
+    //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
-        if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
+        /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
             System.out.println("Good");
             return;
-        }
+        }*/
         units.add(unit);
         //unit.setLocation(this.location);
     }
@@ -87,10 +85,13 @@ public class Tile implements iTileAccessors {
         }
     }
 
-//    public void addArmy(Army army) {
-//        armies.add(army);
-//    }
+    public void addBattleGroup(BattleGroup battleGroup){
+        battleGroups.add(battleGroup);
+    }
 
+    public void addRallyPoint(RallyPoint rallyPoint){
+        rallyPoints.add(rallyPoint);
+    }
     public ArrayList<Unit> getUnits(){return units;}
 
     //test if terrain is impassable

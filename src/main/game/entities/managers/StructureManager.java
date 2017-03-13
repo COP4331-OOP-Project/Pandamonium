@@ -1,20 +1,21 @@
 package game.entities.managers;
 
+import entityResearch.iStructureResearchObservable;
+import entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
+import game.entities.factories.StructureFactory;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.factories.exceptions.StructureTypeLimitExceededException;
 import game.entities.factories.exceptions.TotalStructureLimitExceededException;
-import game.entities.managers.IdManager.IdManager;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.structures.*;
-import game.entities.structures.exceptions.StructureNotFoundException;
-import game.entities.workers.workerTypes.Worker;
 import game.gameboard.Location;
+import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class StructureManager {
+public class StructureManager implements iStructureResearchObservable {
 
     private ArrayList<Capitol> capitols;
     private ArrayList<Farm> farms;
@@ -24,10 +25,11 @@ public class StructureManager {
     private ArrayList<PowerPlant> powerPlants;
     private ArrayList<University> universities;
 
+    private ArrayList<iStructureResearchObserver> observers;
+
     private StructureIdManager structureIdManager;
 
     public StructureManager(int playerId) {
-        this.structureIdManager = new StructureIdManager(playerId);
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
         this.forts = new ArrayList<>();
@@ -35,31 +37,90 @@ public class StructureManager {
         this.observationTowers = new ArrayList<>();
         this.powerPlants = new ArrayList<>();
         this.universities = new ArrayList<>();
+        this.observers = new ArrayList<>();
+
+        StructureFactory structureFactory = new StructureFactory(playerId);
+        this.attach(structureFactory);
+        this.structureIdManager = new StructureIdManager(structureFactory);
     }
 
-    public void addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
+    public ArrayList<Capitol> getCapitols() {
+        return this.capitols;
+    }
+
+    public ArrayList<Farm> getFarms() {
+        return this.farms;
+    }
+
+    public ArrayList<Fort> getForts() {
+        return this.forts;
+    }
+
+    public ArrayList<Mine> getMines() {
+        return this.mines;
+    }
+
+    public ArrayList<ObservationTower> getObservationTowers() {
+        return this.observationTowers;
+    }
+
+    public ArrayList<PowerPlant> getPowerPlants() {
+        return this.powerPlants;
+    }
+
+    public ArrayList<University> getUniversities() {
+        return this.universities;
+    }
+
+    public ArrayList<Structure> getTotalStructures() {
+        ArrayList<Structure> allStructures = new ArrayList<>();
+        allStructures.addAll(getCapitols());
+        allStructures.addAll(getFarms());
+        allStructures.addAll(getForts());
+        allStructures.addAll(getMines());
+        allStructures.addAll(getObservationTowers());
+        allStructures.addAll(getPowerPlants());
+        allStructures.addAll(getUniversities());
+        return allStructures;
+    }
+
+    public Structure addStructure(EntitySubtypeEnum structureType, Location location) throws StructureTypeLimitExceededException, TotalStructureLimitExceededException, StructureTypeDoesNotExist {
         switch (structureType) {
-            case CAPITOL:
-                this.capitols.add(this.structureIdManager.createCapitol(location));
-                break;
-            case FARM:
-                this.farms.add(this.structureIdManager.createFarm(location));
-                break;
-            case FORT:
-                this.forts.add(this.structureIdManager.createFort(location));
-                break;
-            case MINE:
-                this.mines.add(this.structureIdManager.createMine(location));
-                break;
-            case OBSERVE:
-                this.observationTowers.add(this.structureIdManager.createObservationTower(location));
-                break;
-            case PLANT:
-                this.powerPlants.add(this.structureIdManager.createPowerPlant(location));
-                break;
-            case UNIVERSITY:
-                this.universities.add(this.structureIdManager.createUniversity(location));
-                break;
+            case CAPITOL: {
+                Capitol c = this.structureIdManager.createCapitol(location);
+                this.capitols.add(c);
+                return c;
+            }
+            case FARM: {
+                Farm f = this.structureIdManager.createFarm(location);
+                this.farms.add(f);
+                return f;
+            }
+            case FORT: {
+                Fort f = this.structureIdManager.createFort(location);
+                this.forts.add(f);
+                return f;
+            }
+            case MINE: {
+                Mine m = this.structureIdManager.createMine(location);
+                this.mines.add(m);
+                return m;
+            }
+            case OBSERVE: {
+                ObservationTower o = this.structureIdManager.createObservationTower(location);
+                this.observationTowers.add(o);
+                return o;
+            }
+            case PLANT: {
+                PowerPlant p = this.structureIdManager.createPowerPlant(location);
+                this.powerPlants.add(p);
+                return p;
+            }
+            case UNIVERSITY: {
+                University u = this.structureIdManager.createUniversity(location);
+                this.universities.add(u);
+                return u;
+            }
             default:
                 throw new StructureTypeDoesNotExist();
         }
@@ -132,4 +193,55 @@ public class StructureManager {
 
         if (!removed) throw new StructureDoesNotExistException("Could not find structure with entityId " + entityId);
     }
+
+    public void attach(iStructureResearchObserver observer) {
+        this.observers.add(observer);
+    }
+
+    public void increaseVisibilityRadius(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onVisibilityRadiusIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseAttackStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onAttackStrengthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseDefensiveStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onDefenseStrengthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseArmorStrength(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onArmorStrengthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseHealth(EntitySubtypeEnum subtype, int increaseAmount) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onHealthIncreased(subtype, increaseAmount);
+        }
+    }
+    public void increaseEfficiency(EntitySubtypeEnum subtype, Percentage increasePercentage) throws StructureTypeDoesNotExist {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onEfficiencyIncreased(subtype, increasePercentage);
+        }
+    }
+
+    // Update worker radius for all observers
+    public void increaseWorkerRadius(int increaseAmount) {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onWorkerRadiusIncreased(increaseAmount);
+        }
+    }
+
+    // Update worker density for all observers
+    public void increaseWorkerDensity(int increaseAmount) {
+        for (iStructureResearchObserver observer : this.observers) {
+            observer.onWorkerDensityIncreased(increaseAmount);
+        }
+    }
+
+
 }

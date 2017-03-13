@@ -3,6 +3,8 @@ package game.gameboard;
 import java.io.File;
 import java.util.ArrayList;
 
+import game.entities.BattleGroup;
+import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import org.apache.logging.log4j.LogManager;
@@ -52,11 +54,19 @@ public class Gameboard {
 		return board;
     }
 
-    public void addUnitToTile(Unit unit){
-	    board[unit.getLocationX()][unit.getLocationY()].addUnit(unit);
+    public void addUnitToTile(Unit unit, Location location){
+	    board[location.getX()][location.getY()].addUnit(unit);
     }
     
-    public void addStructureToTile(Structure structure){
-	    board[structure.getLocationX()][structure.getLocationY()].addStructure(structure);
+    public void addStructureToTile(Structure structure, Location location){
+	    board[location.getX()][location.getY()].addStructure(structure);
+    }
+
+    public void addArmyToTile(BattleGroup battleGroup, Location location){
+        board[location.getX()][location.getY()].addBattleGroup(battleGroup);
+    }
+
+    public void addRallyPoinTToTile(RallyPoint rallyPoint, Location location){
+        board[location.getX()][location.getY()].addRallyPoint(rallyPoint);
     }
 }

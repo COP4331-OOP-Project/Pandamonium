@@ -19,6 +19,7 @@ public class UnitDrawer {
     private static final int TILE_SIZE = 130;
     private AssetManager assets;
     private Camera camera;
+    private EntityId selectedEntity;
     
     public UnitDrawer(AssetManager assets, Camera camera) {
         this.assets = assets;
@@ -26,7 +27,8 @@ public class UnitDrawer {
     }
     
 
-	public void drawUnits(Point p, ArrayList<Unit> units, GraphicsContext g) {
+	public void drawUnits(Point p, ArrayList<Unit> units, GraphicsContext g, EntityId selectedEntity) {
+		this.selectedEntity = selectedEntity;
 		switch (units.size()) {
 			case 1 :
 				drawUnit(p, new Point(36, 32), 1, units.get(0), g);
@@ -144,7 +146,17 @@ public class UnitDrawer {
 				drawUnit(p, new Point(128, 115), 0.60, units.get(3), g);
 				drawUnit(p, new Point(98, 115), 0.60, units.get(2), g);
 				drawUnit(p, new Point(68, 115), 0.60, units.get(1), g);
-				drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
+				int invisibleUnitSelected = -1;
+				for (int i = 12; i < units.size(); i++) {
+					if (units.get(i).getEntityId() == selectedEntity) {
+						invisibleUnitSelected = i;
+					}
+				}
+				if (invisibleUnitSelected != -1) {
+					drawUnit(p, new Point(38, 115), 0.60, units.get(invisibleUnitSelected), g);
+				} else {
+					drawUnit(p, new Point(38, 115), 0.60, units.get(0), g);
+				}
 				break;
 		}
 	}
@@ -179,7 +191,10 @@ public class UnitDrawer {
 				break;
 			default :
 				break;
-		}	
+		}
+		if (selectedEntity != null && entityId.compareTo(selectedEntity) == 1) {
+			drawItem(p, offset, "SELECTED_UNIT",scale, g);
+		}
 	}
 	
     public void drawItem(Point p, Point offset, String image, double scale, GraphicsContext g) {

@@ -23,15 +23,18 @@ public class GameEngine extends Application {
 	private ModeController controlMode;
 	private GameModel gameModel;
 	private GameModelAdapter gameModelAdapter;
+	private int frameCounter = 0;
 	
     @Override
     public void start(Stage stage) {
         stage.setTitle("Asian Game");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
-        //stage.setFullScreen(true);
-        stage.setMaximized(true);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        if (!DebugMode.DEBUG_MODE) {
+        	stage.setFullScreen(true);
+            stage.setMaximized(true);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        }
         stage.setOnCloseRequest(t -> {
 		    Platform.exit();
 		    System.exit(0);
@@ -48,9 +51,14 @@ public class GameEngine extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long currentPulse) {
-            	controlMode.update();
-                gameModel.updateGame();
-                view.renderGame();
+            	frameCounter++;
+            	if (frameCounter == 2) { //Limit FPS to 30
+            		frameCounter = 0;
+                	controlMode.update();
+                    gameModel.updateGame();
+                    view.renderGame();
+            	}
+
             }
         }.start();
         stage.setMinHeight(MIN_HEIGHT);

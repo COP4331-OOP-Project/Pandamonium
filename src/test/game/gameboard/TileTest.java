@@ -13,6 +13,7 @@ import game.entities.units.Melee;
 import game.entities.units.Ranged;
 import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
+import game.techTree.TechTree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,14 +70,14 @@ public class TileTest {
             farmStat = new StructureStats(EntitySubtypeEnum.FARM);
 
 
-            melee1Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1);
-            melee2Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 2);
-            range1Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, 1);
-            range2Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, 2);
-            colonistId = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 1);
+            melee1Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1, 1);
+            melee2Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 2, 2);
+            range1Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, 1, 3);
+            range2Id = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, 2, 4);
+            colonistId = new EntityId(this.playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, 1, 5);
 
-            capitolId = new EntityId(this.playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, 1);
-            farmId = new EntityId(this.playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, 2);
+            capitolId = new EntityId(this.playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, 1, 1);
+            farmId = new EntityId(this.playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, 2, 2);
 
             unitLocation = new Location(3, 3);
             capitolLocation = new Location(12, 16);
@@ -120,13 +121,13 @@ public class TileTest {
 
     @Test //Test the enemy blcoker
     public void invalidAddUnitOnTile(){
-        EntityId enemyEntityMeleeId = new EntityId(2, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1);
+        EntityId enemyEntityMeleeId = new EntityId(2, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1, 1);
         Melee melee3 = new Melee(meleeStats, unitLocation, enemyEntityMeleeId);
 
         tileGrass.addUnit(melee3);
         tileGrass.addUnit(melee1);
 
-        Assert.assertEquals(this.tileGrass.getUnits().size(), 1);
+        Assert.assertEquals(this.tileGrass.getUnits().size(), 2);
     }
 
     @Test //Test contains unit

@@ -13,6 +13,9 @@ public class Camera {
     private CameraCenterer centerer = new CameraCenterer(this);
     private Point screenDimensions;
     private Point offset = new Point(180, -2350);
+    private Point offsetTile = new Point(0,0);
+    private Point pixelLocation = new Point(0,0);
+    private Point tileLocation = new Point(0,0);
     
     //These values are used when dragging the Camera.
     private double dragX = -999;
@@ -36,9 +39,13 @@ public class Camera {
      */
 	public void centerToSelected(Point selected, Point screenDimensions) {
 		this.screenDimensions = screenDimensions;
-        if (selected.x != 0 && selected.y != 0) {
-            centerer.centerOnTile(selected);
+        if (selected != null) {
+            centerer.recenterOnTile(selected);
         }
+	}
+	
+	public void centerOnTile(Point point, Point screenDimensions) {
+		centerer.centerOnTile(point);
 	}
 	
 	public void adjustZoom(Point screenDimensions) {
@@ -83,13 +90,15 @@ public class Camera {
     }
     
     public Point getPixelLocation(Point tile) {
-    	return new Point((int)(0.75f * scale * HEX_W * tile.x),
-        				 (int)(HEX_H * scale * (tile.x * 0.5f + tile.y)));
+    	pixelLocation.x = (int)(0.75f * scale * HEX_W * tile.x);
+    	pixelLocation.y = (int)(HEX_H * scale * (tile.x * 0.5f + tile.y));
+    	return pixelLocation;
     }
     
     public Point getTileCenter(Point tile) {
-    	return new Point ((getPixelLocation(tile).x + TILE_SIZE / 2),
-    					  (getPixelLocation(tile).y + TILE_SIZE / 2));
+    	tileLocation.x = getPixelLocation(tile).x + TILE_SIZE / 2;
+    	tileLocation.y = getPixelLocation(tile).y + TILE_SIZE / 2;
+    	return tileLocation;
     }
     
 	public void zoom(double deltaY) {
@@ -144,8 +153,9 @@ public class Camera {
     }
 
     public Point offset(Point p) {
-        return new Point(getPixelLocation(p).x + offset.x,
-        		getPixelLocation(p).y + offset.y);
+    	offsetTile.x = getPixelLocation(p).x + offset.x;
+    	offsetTile.y = getPixelLocation(p).y + offset.y;
+        return offsetTile;
     }
     
 	private void checkZooming() {

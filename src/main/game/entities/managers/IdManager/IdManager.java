@@ -11,7 +11,7 @@ public class IdManager {
     private TreeSet<Integer> freeIds;
 
     public IdManager(int minId, int maxId) {
-        if (maxId <= minId) throw new IllegalArgumentException("MaxId must be larger than MinId");
+        if (maxId < minId) throw new IllegalArgumentException("MaxId must be larger or equal to than MinId");
         this.usedIds = new TreeSet<>();
         this.freeIds = new TreeSet<>();
         for (int i = minId; i <= maxId; i++) {

@@ -1,5 +1,5 @@
 package game.entities;
 
 public enum EntityTypeEnum {
-    UNIT, STRUCTURE, WORKER;
+    UNIT, STRUCTURE, WORKER, ARMY, RALLYPOINT;
 }

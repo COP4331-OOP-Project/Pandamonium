@@ -3,6 +3,7 @@ package view;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import game.DebugMode;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import view.assets.AssetManager;
@@ -27,7 +28,7 @@ import view.screen.SettingsPanel;
 import view.screen.SplashPanel;
 
 public class PanelManager {
-	private ViewEnum currentViewMode = ViewEnum.SPLASH;
+	private ViewEnum currentViewMode;
 	private MusicManager musicManager;
 	private GameModelAdapter gameModelAdapter;
 	private CivilizationPanel civilizationPanel;
@@ -52,6 +53,12 @@ public class PanelManager {
 	private ArrayList<Panel> panels;
 	
 	public PanelManager(GameModelAdapter gameModelAdapter, AssetManager assets, Group group, GraphicsContext g, Camera camera) {
+		if (!DebugMode.DEBUG_MODE) {
+			currentViewMode = ViewEnum.SPLASH;
+		} else {
+			gameModelAdapter.startGame();
+			currentViewMode = ViewEnum.MAIN_GAME;
+		}
 		this.gameModelAdapter = gameModelAdapter;
 		this.g = g;
 		musicManager = new MusicManager(assets, group);
@@ -154,5 +161,13 @@ public class PanelManager {
 	
 	public void toggleStructures() {
 		gamePanel.toggleStructures();
+	}
+
+	public void centerOnSelected() {
+		gamePanel.centerOnSelected();
+	}
+
+	public void endTurn() {
+		gamePanel.endTurn();
 	}
 }

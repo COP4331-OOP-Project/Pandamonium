@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 import game.GameModel;
 import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
+
+import java.awt.Point;
+
+import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
@@ -79,6 +84,32 @@ public class GameModelAdapter {
 	
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
+	}
+	
+	public Point getSelectedPoint() {
+		if (controlMode.getSelectedLocation() != null) {
+			return locationToPoint(controlMode.getSelectedLocation());
+		} else {
+			return null;
+		}
+	}
+	
+	public Point locationToPoint(Location location) {
+		return new Point(location.getX(), location.getY());
+	}
+	
+	public Point getTurnStartPoint() {
+		for (Structure structure : getStructures()) {
+			if (structure.getType() == EntitySubtypeEnum.CAPITOL) {
+				return new Point(structure.getLocationX(), structure.getLocationY());
+			}
+		}
+		for (Unit unit : getCurrentUnits()) {
+			if (unit.getType() == EntitySubtypeEnum.COLONIST) {
+				return new Point(unit.getLocationX(), unit.getLocationY());
+			}
+		}
+		return new Point(0,0);
 	}
 	
 	public void endTurn() {
