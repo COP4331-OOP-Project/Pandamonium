@@ -10,7 +10,7 @@ import game.visitors.iTileActionVisitor;
 public abstract class Entity {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
-    protected int health;
+    protected double health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
     protected MovementManager movementManager;
