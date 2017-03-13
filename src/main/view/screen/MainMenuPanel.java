@@ -76,7 +76,7 @@ public class MainMenuPanel extends Panel {
 		g.setEffect(ds);
 		g.setFont(getAssets().getFont(4));
 		g.setFill(Color.WHITE);
-		g.fillText("Asian Game!", screenDimensions.x / 2 - 240, screenDimensions.y / 4);
+		g.fillText("Pandamonium", screenDimensions.x / 2 - 400, screenDimensions.y / 4);
 		g.setEffect(null);
 		startGame.setTranslateX(screenDimensions.x / 2 - startGame.getWidth() / 2);
 		startGame.setTranslateY(screenDimensions.y / 2 - DISTANCE_UP_FROM_CENTER);

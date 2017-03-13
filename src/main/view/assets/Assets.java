@@ -64,7 +64,7 @@ public class Assets {
             mediumFont = Font.loadFont(new FileInputStream(new File(FONT)), 25);
             largeFont = Font.loadFont(new FileInputStream(new File(FONT)), 37);
             hugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 53);
-            veryHugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 100);
+            veryHugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 150);
         } catch (IOException e) {
             defaultFont = new Font("Lucida Sans", 20);
             smallFont = new Font("Lucida Sans", 18);
