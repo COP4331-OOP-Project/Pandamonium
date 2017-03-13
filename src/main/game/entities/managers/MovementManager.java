@@ -16,19 +16,19 @@ public class MovementManager {
     }
 
     public void addUnit(Unit unit, Location loc){
-        gameboard.getTiles()[loc.getX()][loc.getY()].addUnit(unit);
+        gameboard.addUnitToTile(unit, loc);
     }
 
     public void addStructure(Structure structure, Location loc){
-        gameboard.getTiles()[loc.getX()][loc.getY()].addStructure(structure);
+        gameboard.addStructureToTile(structure,loc);
     }
 
     public void addArmy(BattleGroup battleGroup, Location loc){
-        gameboard.getTiles()[loc.getX()][loc.getY()].addBattleGroup(battleGroup);
+        gameboard.addArmyToTile(battleGroup,loc);
     }
 
     public void addRallyPoint(RallyPoint rallyPoint, Location loc){
-        gameboard.getTiles()[loc.getX()][loc.getY()].addRallyPoint(rallyPoint);
+        gameboard.addRallyPoinTToTile(rallyPoint,loc);
     }
 
     public void remove(EntityId id, Location loc){
