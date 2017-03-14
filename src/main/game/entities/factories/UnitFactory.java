@@ -25,7 +25,7 @@ public class UnitFactory {
     private Player player;
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
     private PlacementManager placementManager;
-    
+
     public UnitFactory(Player player, PlacementManager placementManager) {
 
         this.player = player;
