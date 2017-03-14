@@ -22,8 +22,8 @@ public class TechTreeTest {
 
     private Player human;
     private Player panda;
-    private TechTree humanTechTree;
-    private TechTree pandaTechTree;
+//    private TechTree humanTechTree;
+//    private TechTree pandaTechTree;
 
     private TechTreeNode humanFertilizer;
     private TechTreeNode humanWheelBarrow;
@@ -48,8 +48,8 @@ public class TechTreeTest {
     public void setUp(){
         human = new Player(0, HUMAN_STARTING_LOCATION);
         panda = new Player(1, PANDA_STARTING_LOCATION);
-        humanTechTree = new TechTree(0);
-        pandaTechTree = new TechTree(1);
+//        humanTechTree = new TechTree(0);
+//        pandaTechTree = new TechTree(1);
         try {
             tenPercent = new Percentage(0.1);
         }catch (PercentageOutOfRangeException e){
