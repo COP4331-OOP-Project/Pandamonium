@@ -2,7 +2,7 @@ package game.entities.structures;
 
 import game.entities.EntityId;
 import game.entities.PowerState;
-import game.entities.managers.MovementManager;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.entities.units.Unit;
 import game.entities.workers.workerTypes.SoldierGenerator;
@@ -16,8 +16,8 @@ public class Fort extends Structure {
     private Queue<SoldierGenerator> unassigned;
     private Queue<SoldierGenerator> unitBuilder;
 
-    public Fort(StructureStats stats, Location location , EntityId entityId , MovementManager movementManager){
-        super(stats, location, entityId, movementManager);
+    public Fort(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
+        super(stats, location, entityId, placementManager);
         unassigned=new LinkedList<>();
         unitBuilder=new LinkedList<>();
     }

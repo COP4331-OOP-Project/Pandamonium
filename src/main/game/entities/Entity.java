@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import game.commands.Command;
-import game.entities.managers.MovementManager;
+import game.entities.managers.PlacementManager;
 import game.visitors.iTileActionVisitor;
 
 public abstract class Entity {
@@ -13,13 +13,13 @@ public abstract class Entity {
     protected int health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
-    protected MovementManager movementManager;
+    protected PlacementManager placementManager;
 
     //TODO Get movementManager into constructor
-    public Entity(EntityId entityId, MovementManager movementManager){
+    public Entity(EntityId entityId, PlacementManager povementManager){
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
-        this.movementManager=movementManager;
+        this.placementManager=placementManager;
     }
 
     public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors
@@ -67,6 +67,6 @@ public abstract class Entity {
     public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
     public EntityId getEntityId(){ return entityId; }                               // Get entity id
     public int getInstanceId(){ return entityId.getInstanceId(); }                  // Get entity's instance id
-    public MovementManager getMovementManager(){return movementManager;}
+    public PlacementManager getPlacementManager(){return placementManager;}
 
 }

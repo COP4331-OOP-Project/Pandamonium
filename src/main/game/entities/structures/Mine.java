@@ -1,7 +1,7 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
-import game.entities.managers.MovementManager;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.OreGatherer;
 import game.gameboard.Location;
@@ -14,8 +14,8 @@ public class Mine extends Structure {
     private Queue<OreGatherer> unassigned;
     private Queue<OreGatherer> miner;
 
-    public Mine(StructureStats stats, Location location , EntityId entityId , MovementManager movementManager){
-        super(stats, location, entityId, movementManager);
+    public Mine(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
+        super(stats, location, entityId, placementManager);
         unassigned=new LinkedList<>();
         miner=new LinkedList<>();
     }

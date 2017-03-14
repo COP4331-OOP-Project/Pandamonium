@@ -42,7 +42,6 @@ public class GameModel {
             currentPlayer = human;
             players.add(human);
             players.add(panda);
-            //gBoard = new Gameboard(players);
             initialUnits(human, panda);
             human.initializeSimpleTiles(gBoard.getTiles());
             panda.initializeSimpleTiles(gBoard.getTiles());
@@ -66,8 +65,6 @@ public class GameModel {
         try {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
-            //gBoard.addUnitToTile(unit1, unit1.getLocation());
-            //gBoard.addUnitToTile(unit2, unit2.getLocation());
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();

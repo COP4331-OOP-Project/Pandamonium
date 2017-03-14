@@ -7,7 +7,7 @@ import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.exceptions.*;
-import game.entities.managers.MovementManager;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
@@ -26,12 +26,12 @@ public class UnitFactory {
 
     private int playerId;
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
-    private MovementManager movementManager;
+    private PlacementManager placementManager;
 
     public UnitFactory(int playerId, Gameboard gb) {
         this.playerId = playerId;
         this.unitStatistics = new HashMap<>();
-        this.movementManager = new MovementManager(gb);
+        this.placementManager = new PlacementManager(gb);
 
         try {
             this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));
@@ -49,19 +49,19 @@ public class UnitFactory {
         switch(unitType) {
             case COLONIST: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id, globalId);
-                return new Colonist(unitStatistics.get(unitType), location, entityId, movementManager);
+                return new Colonist(unitStatistics.get(unitType), location, entityId, placementManager);
             }
             case EXPLORER: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id, globalId);
-                return new Explorer(unitStatistics.get(unitType),location, entityId, movementManager);
+                return new Explorer(unitStatistics.get(unitType),location, entityId, placementManager);
             }
             case MELEE: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id, globalId);
-                return new Melee(unitStatistics.get(unitType), location, entityId, movementManager);
+                return new Melee(unitStatistics.get(unitType), location, entityId, placementManager);
             }
             case RANGE: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id, globalId);
-                return new Ranged(unitStatistics.get(unitType), location, entityId, movementManager);
+                return new Ranged(unitStatistics.get(unitType), location, entityId, placementManager);
             }
             default: throw new UnitTypeDoesNotExistException();
         }
