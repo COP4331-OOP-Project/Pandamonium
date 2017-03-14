@@ -164,7 +164,7 @@ public class ModeController {
 	}
 
 	public void execute() {
-		commandManager.execute();
+		commandManager.execute(selectedManager.getSelectedEntity());
 	}
 
 	public void setCommand(CommandEnum command) {
