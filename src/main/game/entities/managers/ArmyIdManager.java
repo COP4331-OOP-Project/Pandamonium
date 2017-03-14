@@ -9,6 +9,7 @@ import game.entities.managers.IdManager.exceptions.IdDoesNotExistException;
 import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
 import game.entities.managers.exceptions.ArmyDoesNotExistException;
 import game.entities.units.Unit;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,9 +29,9 @@ public class ArmyIdManager {
     private IdManager armyIdManager;    // Id manager for army instances
 
     // Constructor
-    public ArmyIdManager(int playerId) {
+    public ArmyIdManager(int playerId,  Gameboard gb) {
 
-        this.armyFactory = new ArmyFactory(playerId);                       // Setup factory
+        this.armyFactory = new ArmyFactory(playerId, gb);                       // Setup factory
         this.armyIdManager = new IdManager(MIN_ARMY_ID, MAX_ARMY_COUNT);    // Setup id manager
 
     }

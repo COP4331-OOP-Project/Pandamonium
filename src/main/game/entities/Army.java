@@ -17,9 +17,7 @@ public class Army extends Entity {
 
     private Location location;              // Army current location
 
-
-    //TODO Know when to add battlegroup to tile. Shouldn't show up unless units in battlegroup
-    public Army(EntityId id, RallyPoint rp, PlacementManager placementManager){
+    public Army(EntityId id, Location location, RallyPoint rp, PlacementManager placementManager){
 
         super(id, placementManager);
         this.rallyPoint = rp;               // Set rally point

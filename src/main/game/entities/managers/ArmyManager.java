@@ -4,6 +4,7 @@ import game.entities.*;
 import game.entities.factories.exceptions.ArmyLimitExceededException;
 import game.entities.managers.exceptions.ArmyDoesNotExistException;
 import game.entities.units.Unit;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,10 +20,10 @@ public class ArmyManager {
     private ArrayList<Army> armies;         // Armies
 
     // Constructor
-    public ArmyManager(int playerId) {
+    public ArmyManager(int playerId, Gameboard gb) {
 
-        this.armyIdManager = new ArmyIdManager(playerId);   // Setup id manager
-        this.armies = new ArrayList<>();                    // Setup armies list
+        this.armyIdManager = new ArmyIdManager(playerId, gb);   // Setup id manager
+        this.armies = new ArrayList<>();                        // Setup armies list
 
     }
 

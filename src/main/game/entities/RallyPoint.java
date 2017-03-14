@@ -12,10 +12,8 @@ public class RallyPoint implements iCommandable {
     private EntityId entityId;  // Entity ID
     private ArrayList<CommandEnum> commands = new ArrayList<>();
 
-    // Reference to Army
-
     // Constructor
-    public RallyPoint(EntityId id, Location location){
+    public RallyPoint(EntityId id, Location location) {
         this.entityId = id;
         this.location = location;
         commands.add(CommandEnum.MOVE_RALLY_POINT);
