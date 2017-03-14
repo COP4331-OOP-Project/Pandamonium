@@ -15,4 +15,8 @@ public class PeatGatherer extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.PEAT);
     }
+
+    public void onTurnEnded() {
+
+    }
 }

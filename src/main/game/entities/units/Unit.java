@@ -9,12 +9,13 @@ import game.entities.iDefender;
 import game.entities.iMoveable;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
+import game.iTurnObserver;
 import game.visitors.AddUnitVisitor;
 import game.visitors.RemoveEntityVisitor;
 
 // TODO: Fix damage taking to account for defense
 
-public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
+public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable, iTurnObserver {
     protected UnitStats stats;
     protected int orientation;
     protected Location location;

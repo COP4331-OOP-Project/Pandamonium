@@ -10,11 +10,13 @@ import game.entities.factories.exceptions.UnitTypeLimitExceededException;
 import game.entities.managers.exceptions.UnitDoesNotExistException;
 import game.entities.units.*;
 import game.gameboard.Location;
+import game.iTurnObservable;
+import game.iTurnObserver;
 import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class UnitManager implements iUnitResearchObservable {
+public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTurnObservable {
 
     private ArrayList<Melee> melees;
     private ArrayList<Ranged> ranges;
@@ -22,6 +24,7 @@ public class UnitManager implements iUnitResearchObservable {
     private ArrayList<Colonist> colonists;
 
     private ArrayList<iUnitResearchObserver> observers;
+    private ArrayList<iTurnObserver> turnObservers;
 
     private UnitIdManager unitIdManager;
 
@@ -35,6 +38,8 @@ public class UnitManager implements iUnitResearchObservable {
         this.ranges = new ArrayList<>();
         this.explorers = new ArrayList<>();
         this.colonists = new ArrayList<>();
+        this.observers = new ArrayList<>();
+        this.turnObservers = new ArrayList<>();
 
     }
 
@@ -46,27 +51,32 @@ public class UnitManager implements iUnitResearchObservable {
             case COLONIST: {
                 Colonist c = this.unitIdManager.createColonist(location);
                 this.colonists.add(c);
+                this.attach(c);
                 return c;
             }
             case EXPLORER: {
                 Explorer e = this.unitIdManager.createExplorer(location);
                 this.explorers.add(e);
+                this.attach(e);
                 return e;
             }
             case MELEE: {
                 Melee m = this.unitIdManager.createMelee(location);
                 this.melees.add(m);
+                this.attach(m);
                 return m;
             }
             case RANGE: {
                 Ranged r = this.unitIdManager.createRanged(location);
                 this.ranges.add(r);
+                this.attach(r);
                 return r;
             }
             default:
                 throw new UnitTypeDoesNotExistException("Unit type " + unitType + " does not exist.");
 
         }
+
 
     }
 
@@ -122,6 +132,7 @@ public class UnitManager implements iUnitResearchObservable {
         for (Unit u : units) {
             if (u.getEntityId() == entityId) {
                 units.remove(u);
+                this.turnObservers.remove(u);
                 removed = true;
                 break;
             }
@@ -215,6 +226,20 @@ public class UnitManager implements iUnitResearchObservable {
     public void increaseMovementRange(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
         for (iUnitResearchObserver observer : this.observers) {
             observer.onMovementRangeIncreased(subtype, increaseAmount);
+        }
+    }
+
+    public void attach(iTurnObserver observer) {
+        this.turnObservers.add(observer);
+    }
+
+    public void onTurnEnded() {
+        this.endTurn();
+    }
+
+    public void endTurn() {
+        for (iTurnObserver observer : this.turnObservers) {
+            observer.onTurnEnded();
         }
     }
 
