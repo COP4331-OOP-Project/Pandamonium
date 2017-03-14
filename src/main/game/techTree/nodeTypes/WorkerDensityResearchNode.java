@@ -37,6 +37,7 @@ public class WorkerDensityResearchNode extends TechTreeNode {
         iStructureResearchVisitor structureResearchVisitor = new StructureWorkerDensityResearchVisitor(this.increaseAmount);
         try {
             structureResearchVisitor.visitStructureManager(this.structureManager);
+            this.isResearchCompleted = true;
         } catch (StructureTypeDoesNotExist e) {
             log.error(e.getLocalizedMessage());
         }

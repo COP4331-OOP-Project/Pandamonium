@@ -42,6 +42,7 @@ public class ProductionRatePercentageResearchNode extends TechTreeNode {
         iWorkerResearchVisitor workerResearchVisitor = new WorkerProductionRateResearchVisitor(this.productionIncreasePercentage);
         try {
             workerResearchVisitor.visitWorkerManager(this.workerManager, this.workerType);
+            this.isResearchCompleted = true;
         } catch (WorkerTypeDoesNotExist e) {
             log.error(e.getLocalizedMessage());
         }
