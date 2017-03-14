@@ -6,6 +6,8 @@ import java.util.Random;
 
 import game.gameboard.areaEffect.AreaEffect;
 import game.entities.BattleGroup;
+import game.gameboard.areaEffect.AreaEffectEnum;
+import game.gameboard.areaEffect.EffectNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,7 +81,7 @@ public class Tile implements iTileAccessors {
             return;
         }*/
         units.add(unit);
-        if (containsUnit == false) { containsUnit = true; }
+        containsUnit = true;
         //unit.setLocation(this.location);
     }
     public void addStructure(Structure structure){
@@ -93,13 +95,14 @@ public class Tile implements iTileAccessors {
     }
     public void addRallyPoint(RallyPoint rallyPoint){
         rallyPoints.add(rallyPoint);
-        if (containsRallyPoint == false) { containsRallyPoint = true; }
+        containsRallyPoint = true;
     }
-    public void addEffect(AreaEffect effect){
-        if (this.containsEffect == false){
-            this.effect = effect;
-            this.containsEffect = true;
-        }
+    public void addEffect(AreaEffectEnum effect) throws EffectNotFoundException {
+        try{
+            if (this.containsEffect == false){
+                this.effect = new AreaEffect(effect);
+                this.containsEffect = true;
+            }
     }
 
     public ArrayList<Unit> getUnits(){return units;}
