@@ -70,9 +70,8 @@ public class CommandManager {
 		commandIterator = possibleCommands.listIterator();
 	}
 	
-	public void executeCommand(CommandEnum command) {
+	public void setCommand(CommandEnum command) {
 		selectedCommand = command;
-		execute();
 	}
 	
 	public CommandEnum getCurrentCommand() {

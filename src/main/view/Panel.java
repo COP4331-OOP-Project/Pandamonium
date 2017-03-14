@@ -6,6 +6,8 @@ import view.assets.AssetManager;
 
 import java.awt.*;
 
+import game.commands.CommandEnum;
+
 public abstract class Panel {
 	private ViewEnum viewEnum;
 	private AssetManager assets;
@@ -38,6 +40,10 @@ public abstract class Panel {
     			hideGUIElements();
     		}
     	}
+    }
+    
+    public void setCommand(CommandEnum command) {
+    	gameModelAdapter.setCommand(command);
     }
     
     public void setIsVisible(boolean isVisible) {

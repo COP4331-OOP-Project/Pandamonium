@@ -111,8 +111,8 @@ public class GameModelAdapter {
 		return new Point(0,0);
 	}
 	
-	public void executeCommand(CommandEnum command) {
-		controlMode.executeCommand(command);
+	public void executeCommand() {
+		controlMode.execute();
 	}
 	
 	public ArrayList<CommandEnum> getCommands() {
@@ -125,5 +125,9 @@ public class GameModelAdapter {
 	
 	public void endTurn() {
 		controlMode.endTurn();
+	}
+
+	public void setCommand(CommandEnum command) {
+		controlMode.setCommand(command);
 	}
 }
