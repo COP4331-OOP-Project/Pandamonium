@@ -36,7 +36,7 @@ public class CommandDispatcher {
 
     // Issue a make command
     public void issueMakeCommand(Entity e, Tile target, String entityCode) {
-        //e.addCommandToQueue(new BuildStructureCommand(e, target, entityCode));
+       // e.addCommandToQueue(new MakeCommand(e, target, entityCode));
     }
 
     // Issue a power down command

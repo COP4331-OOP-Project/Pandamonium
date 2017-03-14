@@ -56,6 +56,7 @@ public class CommandManager {
 	}
 	
 	public void updateSelectedEntity(iCommandable commandableItem) {
+		System.out.println(commandableItem);
 		this.commandableItem = commandableItem;
 		updateCommandList();
 		selectedCommand = possibleCommands.get(0);

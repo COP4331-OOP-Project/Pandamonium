@@ -45,26 +45,26 @@ public class ModeController {
 		currentMode = currentMode.getNext();
 		cycleSubmodeForward();
 		selectedManager.cycle(true);
-		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
+		updateSelectedEntityCommands();
 	}
 	
 	public void cycleModeBackward() {
 		currentMode = currentMode.getPrevious();
 		cycleSubmodeForward();
 		selectedManager.cycle(false);
-		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
+		updateSelectedEntityCommands();
 	}
 
 	public void cycleSubmodeForward() {
 		currentSubmode = currentSubmode.getNext(currentMode);
 		selectedManager.cycle(true);
-		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
+		updateSelectedEntityCommands();
 	}
 
 	public void cycleSubmodeBackward() {
 		currentSubmode = currentSubmode.getPrevious(currentMode);
 		selectedManager.cycle(false);
-		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
+		updateSelectedEntityCommands();
 	}
 	
 	public void cycleCommandForward() {
@@ -85,15 +85,29 @@ public class ModeController {
 
 	public void cycleEntityBackward() {
 		selectedManager.cycle(false);
+		updateSelectedEntityCommands();
 	}
 
 	public void cycleEntityForward() {
 		selectedManager.cycle(true);
+		updateSelectedEntityCommands();
+	}
+	
+	public void updateSelectedEntityCommands() {
+		EntityId selected = selectedManager.getSelectedEntity();
+		if (selected != null) {
+			iCommandable selectedCommandable = commandableFromEntityId(selected);
+			commandManager.updateSelectedEntity(selectedCommandable);
+		}
 	}
 
 	public void endTurn() {
+
+		System.out.println("Got Here 0");
 		gameModel.endTurn();
+		System.out.println("Got Here");
 		commandManager.setPlayer(currentPlayer);
+		System.out.println("Got Here2");
 	}
 	
 	public Mode getGameMode() {
@@ -126,7 +140,6 @@ public class ModeController {
 	}
 	
 	private iCommandable commandableFromEntityId(EntityId entityId) {
-		if (entityId != null) {
 			try {
 				switch (entityId.getTypeId()) {
 					case RALLYPOINT:
@@ -145,8 +158,5 @@ public class ModeController {
 				e.printStackTrace();
 				return null;
 			}
-		} else {
-			return null;
-		}
 	}
 }
