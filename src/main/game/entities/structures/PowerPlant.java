@@ -1,64 +1,33 @@
 package game.entities.structures;
 
+import game.entities.DeathNotifier;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
+import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
+import game.entities.managers.exceptions.WorkerDoesNotExistException;
+import game.entities.managers.exceptions.WorkerLimitExceededException;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.PeatGatherer;
+import game.entities.workers.workerTypes.Worker;
+import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
+import game.visitors.TransferWorkerVisitor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 
-public class PowerPlant extends Structure {
-    private Queue<PeatGatherer> unassigned;
-    private Queue<PeatGatherer> generator;
+public class PowerPlant extends StructureWithWorker {
 
-    public PowerPlant(StructureStats stats, Location location , EntityId entityId ){
-        super(stats, location, entityId);
-        unassigned=new LinkedList<>();
-        generator=new LinkedList<>();
+    public PowerPlant(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
+        super(stats, location, entityId, placementManager, workerManager, notifier);
+        addCommand(CommandEnum.WORKER_GENERATE);
     }
 
-    public void assignToGenerator(Location location){
-        unassigned.peek().setLocation(location);
-        generator.add(unassigned.poll());
+    public void onTurnEnded() {
+
     }
-
-    public void unassignGenerator(Location location){
-        Iterator<PeatGatherer> iterator = generator.iterator();
-        PeatGatherer holder;
-        while(iterator.hasNext()){
-            holder=iterator.next();
-            if(location.equals(holder.getLocation())) {
-                holder.setLocation(location);
-                unassigned.add(holder);
-                iterator.remove();
-                return;
-            }
-        }
-    }
-
-    public void addWorker(PeatGatherer worker){
-        unassigned.add(worker);
-    }
-
-    public void removeWorker(){
-        unassigned.remove();
-    }
-
-    public int getTotalWorkers(){
-        return unassigned.size() + generator.size();
-    }
-
-    public int getUnassignedWorkers(){
-        return unassigned.size();
-    }
-
-    public int getBusyWorkers(){
-        return generator.size();
-    }
-    /*public Resource harvest(){
-
-    }*/
-
 }

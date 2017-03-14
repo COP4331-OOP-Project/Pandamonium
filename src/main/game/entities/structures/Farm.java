@@ -1,62 +1,34 @@
 package game.entities.structures;
 
+import game.entities.DeathNotifier;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
+import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
+import game.entities.managers.exceptions.WorkerDoesNotExistException;
+import game.entities.managers.exceptions.WorkerLimitExceededException;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.FoodGatherer;
+import game.entities.workers.workerTypes.Worker;
+import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
+import game.visitors.TransferWorkerVisitor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Farm extends Structure {
-    private Queue<FoodGatherer> unassigned;
-    private Queue<FoodGatherer> farmer;
 
-    public Farm(StructureStats stats, Location location , EntityId entityId ){
-        super(stats, location, entityId);
-        unassigned=new LinkedList<>();
-        farmer=new LinkedList<>();
+public class Farm extends StructureWithWorker {
+
+    public Farm(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
+        super(stats, location, entityId, placementManager, workerManager, notifier);
+        addCommand(CommandEnum.WORKER_FARM);
     }
 
-    public void assignToFarmer(Location location){
-        unassigned.peek().setLocation(location);
-        farmer.add(unassigned.poll());
+    public void onTurnEnded() {
+
     }
-
-    public void unassignFarmer(Location location){
-        Iterator<FoodGatherer> iterator = farmer.iterator();
-        FoodGatherer holder;
-        while(iterator.hasNext()){
-            holder=iterator.next();
-            if(location.equals(holder.getLocation())) {
-                holder.setLocation(location);
-                unassigned.add(holder);
-                iterator.remove();
-                return;
-            }
-        }
-    }
-
-    public void addWorker(FoodGatherer worker){
-        unassigned.add(worker);
-    }
-
-    public void removeWorker(){
-        unassigned.remove();
-    }
-
-    public int getTotalWorkers(){
-        return unassigned.size() + farmer.size();
-    }
-
-    public int getUnassignedWorkers(){
-        return unassigned.size();
-    }
-
-    public int getBusyWorkers(){
-        return farmer.size();
-    }
-
-    /*public Resource harvest(){
-
-    }*/
 }
