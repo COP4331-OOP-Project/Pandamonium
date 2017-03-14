@@ -11,6 +11,7 @@ public abstract class TechTreeNode {
     private String name;
     private String description;
     private TechNodeImageEnum imageEnum;
+    private int productionRequirement;
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum) {
         this.name = name;
@@ -18,6 +19,7 @@ public abstract class TechTreeNode {
         this.imageEnum = imageEnum;
         this.children = new ArrayList<>();
         this.parents = new ArrayList<>();
+        this.productionRequirement = 5;
     }
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum, TechTreeNode... parents) {
@@ -27,6 +29,7 @@ public abstract class TechTreeNode {
         this.parents = new ArrayList<>();
         this.children = new ArrayList<>();
         Collections.addAll(this.parents, parents);
+        this.productionRequirement = 5;
     }
 
     public String getName() {
@@ -67,6 +70,21 @@ public abstract class TechTreeNode {
 
     public void addParent(TechTreeNode node) {
         this.parents.add(node);
+    }
+
+    public boolean canCompleteResearch() {
+        boolean parentsCompleted = true;
+        for (TechTreeNode node : this.parents) {
+            if (!node.isResearchCompleted()) {
+                parentsCompleted = false;
+                break;
+            }
+        }
+        return !this.isResearchCompleted() && parentsCompleted;
+    }
+
+    public int getProductionRequirement() {
+        return this.productionRequirement;
     }
 
     public abstract boolean isResearchCompleted();
