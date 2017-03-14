@@ -60,4 +60,8 @@ public class Farm extends Structure {
     /*public Resource harvest(){
 
     }*/
+
+    public void onTurnEnded() {
+
+    }
 }

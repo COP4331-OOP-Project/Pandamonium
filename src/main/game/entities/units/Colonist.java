@@ -7,4 +7,8 @@ import game.gameboard.Location;
 
 public class Colonist extends Unit{
     public Colonist(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager){ super(stats, location, entityId, placementManager); }
+
+    public void onTurnEnded() {
+
+    }
 }

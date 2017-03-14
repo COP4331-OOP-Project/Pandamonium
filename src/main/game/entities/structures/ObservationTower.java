@@ -8,4 +8,7 @@ import game.gameboard.Location;
 public class ObservationTower extends Structure {
     public ObservationTower(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){ super(stats, location, entityId, placementManager); }
 
+    public void onTurnEnded() {
+
+    }
 }

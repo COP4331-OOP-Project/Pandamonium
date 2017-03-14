@@ -15,4 +15,8 @@ public class SoldierGenerator extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.SOLDIER_POINTS);
     }
+
+    public void onTurnEnded() {
+
+    }
 }

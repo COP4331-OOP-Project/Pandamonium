@@ -15,4 +15,8 @@ public class WorkerGenerator extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.WORKER_POINTS);
     }
+
+    public void onTurnEnded() {
+
+    }
 }

@@ -63,4 +63,8 @@ public class Mine extends Structure {
 
     }*/
 
+    public void onTurnEnded() {
+
+    }
+
 }

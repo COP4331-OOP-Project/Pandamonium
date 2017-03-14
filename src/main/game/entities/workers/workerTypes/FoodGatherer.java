@@ -15,4 +15,8 @@ public class FoodGatherer extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.FOOD);
     }
+
+    public void onTurnEnded() {
+
+    }
 }

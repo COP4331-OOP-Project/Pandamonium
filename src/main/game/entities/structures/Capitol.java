@@ -59,4 +59,8 @@ public class Capitol extends Structure {
     /*public Resource harvest(){
 
     }*/
+
+    public void onTurnEnded() {
+
+    }
 }

@@ -8,6 +8,8 @@ import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.iTurnObservable;
+import game.iTurnObserver;
 import game.techTree.nodeTypes.WorkerDensityResearchNode;
 import game.workerResearch.iWorkerResearchObservable;
 import game.workerResearch.iWorkerResearchObserver;
@@ -18,16 +20,18 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkerManager implements iWorkerResearchObservable {
+public class WorkerManager implements iWorkerResearchObservable, iTurnObserver, iTurnObservable {
 
     private final static Logger log = LogManager.getLogger(WorkerManager.class);
 
     private ArrayList<Worker> workers;
     private WorkerIdManager workerIdManager;
     private List<iWorkerResearchObserver> observers;
+    private ArrayList<iTurnObserver> turnObservers;
 
     public WorkerManager(int playerId) {
         this.observers = new ArrayList<>();
+        this.turnObservers = new ArrayList<>();
         WorkerFactory workerFactory = new WorkerFactory(playerId);
         this.attach(workerFactory);
         this.workerIdManager = new WorkerIdManager(workerFactory);
@@ -38,6 +42,7 @@ public class WorkerManager implements iWorkerResearchObservable {
     public Worker addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
         Worker w = this.workerIdManager.createWorker(workerType, location);
         this.workers.add(w);
+        this.turnObservers.add(w);
         return w;
     }
 
@@ -46,6 +51,7 @@ public class WorkerManager implements iWorkerResearchObservable {
         for (Worker w : this.workers) {
             if (w.getId() == id) {
                 this.workers.remove(w);
+                this.turnObservers.remove(w);
                 removed = true;
             }
         }
@@ -92,6 +98,20 @@ public class WorkerManager implements iWorkerResearchObservable {
                 log.error("Could not increase production rate because worker type " + workerType + " does not exist");
             }
         }
+    }
+
+    public void attach(iTurnObserver observer) {
+        this.turnObservers.add(observer);
+    }
+
+    public void endTurn() {
+        for (iTurnObserver observer : this.turnObservers) {
+            observer.onTurnEnded();
+        }
+    }
+
+    public void onTurnEnded() {
+        this.endTurn();
     }
 
 

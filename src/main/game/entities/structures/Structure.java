@@ -7,11 +7,12 @@ import game.entities.HealthPercentage;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
+import game.iTurnObserver;
 import game.visitors.AddStructureVisitor;
 import game.semantics.Percentage;
 
 
-public abstract class Structure extends Entity {
+public abstract class Structure extends Entity implements iTurnObserver {
     protected StructureStats stats;
     protected Location location;
 

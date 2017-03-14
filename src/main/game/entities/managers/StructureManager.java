@@ -12,11 +12,13 @@ import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.structures.*;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
+import game.iTurnObservable;
+import game.iTurnObserver;
 import game.semantics.Percentage;
 
 import java.util.ArrayList;
 
-public class StructureManager implements iStructureResearchObservable {
+public class StructureManager implements iStructureResearchObservable, iTurnObservable, iTurnObserver {
 
     private ArrayList<Capitol> capitols;
     private ArrayList<Farm> farms;
@@ -27,6 +29,7 @@ public class StructureManager implements iStructureResearchObservable {
     private ArrayList<University> universities;
 
     private ArrayList<iStructureResearchObserver> observers;
+    private ArrayList<iTurnObserver> turnObservers;
 
     private StructureIdManager structureIdManager;
 
@@ -39,6 +42,7 @@ public class StructureManager implements iStructureResearchObservable {
         this.powerPlants = new ArrayList<>();
         this.universities = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.turnObservers = new ArrayList<>();
 
         StructureFactory structureFactory = new StructureFactory(playerId, gb);
         this.attach(structureFactory);
@@ -90,36 +94,43 @@ public class StructureManager implements iStructureResearchObservable {
             case CAPITOL: {
                 Capitol c = this.structureIdManager.createCapitol(location);
                 this.capitols.add(c);
+                this.attach(c);
                 return c;
             }
             case FARM: {
                 Farm f = this.structureIdManager.createFarm(location);
                 this.farms.add(f);
+                this.attach(f);
                 return f;
             }
             case FORT: {
                 Fort f = this.structureIdManager.createFort(location);
                 this.forts.add(f);
+                this.attach(f);
                 return f;
             }
             case MINE: {
                 Mine m = this.structureIdManager.createMine(location);
                 this.mines.add(m);
+                this.attach(m);
                 return m;
             }
             case OBSERVE: {
                 ObservationTower o = this.structureIdManager.createObservationTower(location);
                 this.observationTowers.add(o);
+                this.attach(o);
                 return o;
             }
             case PLANT: {
                 PowerPlant p = this.structureIdManager.createPowerPlant(location);
                 this.powerPlants.add(p);
+                this.attach(p);
                 return p;
             }
             case UNIVERSITY: {
                 University u = this.structureIdManager.createUniversity(location);
                 this.universities.add(u);
+                this.attach(u);
                 return u;
             }
             default:
@@ -187,6 +198,7 @@ public class StructureManager implements iStructureResearchObservable {
         for (Structure s : structures) {
             if (s.getEntityId() == entityId) {
                 structures.remove(s);
+                this.turnObservers.remove(s);
                 removed = true;
                 break;
             }
@@ -241,6 +253,20 @@ public class StructureManager implements iStructureResearchObservable {
     public void increaseWorkerDensity(int increaseAmount) {
         for (iStructureResearchObserver observer : this.observers) {
             observer.onWorkerDensityIncreased(increaseAmount);
+        }
+    }
+
+    public void attach(iTurnObserver observer) {
+        this.turnObservers.add(observer);
+    }
+
+    public void onTurnEnded() {
+        this.endTurn();
+    }
+
+    public void endTurn() {
+        for (iTurnObserver observer : this.turnObservers) {
+            observer.onTurnEnded();
         }
     }
 

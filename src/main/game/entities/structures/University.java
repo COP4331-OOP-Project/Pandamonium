@@ -63,4 +63,7 @@ public class University extends Structure {
 
     }
 
+    public void onTurnEnded() {
+
+    }
 }

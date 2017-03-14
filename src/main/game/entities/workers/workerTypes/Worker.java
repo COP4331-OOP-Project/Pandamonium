@@ -3,9 +3,10 @@ package game.entities.workers.workerTypes;
 import game.entities.EntityId;
 import game.entities.stats.WorkerStats;
 import game.gameboard.Location;
+import game.iTurnObserver;
 import game.resources.Resource;
 
-public abstract class Worker {
+public abstract class Worker implements iTurnObserver {
     private Location location;
     private EntityId id;
     private WorkerTypeEnum workerType;

@@ -15,4 +15,8 @@ public class OreGatherer extends Worker {
     public Resource doProduction() {
         return new Resource(this.getProductionRate(), ResourceTypeEnum.ORE);
     }
+
+    public void onTurnEnded() {
+
+    }
 }
