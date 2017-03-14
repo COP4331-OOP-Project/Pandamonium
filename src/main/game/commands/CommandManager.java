@@ -78,5 +78,8 @@ public class CommandManager {
 	public CommandEnum getCurrentCommand() {
 		return selectedCommand;
 	}
-
+	
+	public ArrayList<CommandEnum> getPossibleCommands() {
+		return possibleCommands;
+	}
 }

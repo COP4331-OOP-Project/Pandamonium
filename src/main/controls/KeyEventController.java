@@ -91,7 +91,7 @@ public class KeyEventController {
             
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select key pressed");
-            controlMode.executeCommand();
+            controlMode.execute();
             
         } else if (key == controlReader.getControl(CENTER)) {
         	log.debug("Center key pressed");
@@ -142,7 +142,7 @@ public class KeyEventController {
         	controlMode.addMoveToList(315);
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select Item Pressed");
-            controlMode.executeCommand();
+            controlMode.execute();
             gettingMoves = false;
         } else {
             log.info("Invalid command");

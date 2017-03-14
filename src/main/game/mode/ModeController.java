@@ -1,5 +1,7 @@
 package game.mode;
 
+import java.util.ArrayList;
+
 import controls.KeyEventController;
 import game.GameModel;
 import game.Player;
@@ -75,8 +77,16 @@ public class ModeController {
 		commandManager.cycleBackward();
 	}
 	
-	public void executeCommand() {
-		commandManager.execute();
+	public void executeCommand(CommandEnum command) {
+		commandManager.executeCommand(command);
+	}
+	
+	public ArrayList<CommandEnum> getCommands() {
+		return commandManager.getPossibleCommands();
+	}
+	
+	public CommandEnum getSelectedCommand() {
+		return commandManager.getCurrentCommand();
 	}
 
 	public void addMoveToList(int degrees) {
@@ -155,5 +165,9 @@ public class ModeController {
 				e.printStackTrace();
 				return null;
 			}
+	}
+
+	public void execute() {
+		commandManager.execute();
 	}
 }

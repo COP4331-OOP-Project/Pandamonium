@@ -84,7 +84,7 @@ public class GameModelAdapter {
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
 	}
-	
+
 	public Point getSelectedPoint() {
 		if (controlMode.getSelectedLocation() != null) {
 			return locationToPoint(controlMode.getSelectedLocation());
@@ -112,7 +112,15 @@ public class GameModelAdapter {
 	}
 	
 	public void executeCommand(CommandEnum command) {
-		
+		controlMode.executeCommand(command);
+	}
+	
+	public ArrayList<CommandEnum> getCommands() {
+		return controlMode.getCommands();
+	}
+	
+	public CommandEnum getSelectedCommand() {
+		return controlMode.getSelectedCommand();
 	}
 	
 	public void endTurn() {
