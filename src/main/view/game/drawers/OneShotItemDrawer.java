@@ -6,23 +6,23 @@ import view.game.GamePanel;
 
 import java.awt.*;
 
-public class AreaEffectDrawer {
+public class OneShotItemDrawer {
     private GamePanel gamePanel;
 
-    public AreaEffectDrawer(GamePanel gamePanel, AssetManager assetManager) {
+    public OneShotItemDrawer(GamePanel gamePanel, AssetManager assetManager) {
         this.gamePanel = gamePanel;
     }
 
-    public void drawAreaEffect(Point p, AreaEffectDecalEnum areaEffectDecalEnum) {
+    public void drawOneShotItem(Point p, AreaEffectDecalEnum areaEffectDecalEnum) {
         switch (areaEffectDecalEnum) {
             case DAMAGE:
-                gamePanel.drawStaticTileElement(p, "AOE_LOSE");
+                gamePanel.drawStaticTileElement(p, "ITEM_LOSE");
                 break;
             case HEAL:
-                gamePanel.drawStaticTileElement(p, "AOE_HEAL");
+                gamePanel.drawStaticTileElement(p, "ITEM_HEAL");
                 break;
             case INSTANT_DEATH:
-                gamePanel.drawStaticTileElement(p, "AOE_DIE");
+                gamePanel.drawStaticTileElement(p, "ITEM_DIE");
                 break;
         }
     }

@@ -10,9 +10,9 @@ import java.awt.*;
 
 public class TileDrawer {
     private GamePanel gamePanel;
-    Animation grassAnimation;
-    Animation waterAnimation;
-    Animation mountainAnimation;
+    private Animation grassAnimation;
+    private Animation waterAnimation;
+    private Animation mountainAnimation;
     public TileDrawer(GamePanel gamePanel, AssetManager assetManager) {
         this.gamePanel = gamePanel;
         grassAnimation = new Animation(new Image[] {  assetManager.getImage("TERRAIN_GRASS1"),

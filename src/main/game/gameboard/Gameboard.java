@@ -5,6 +5,8 @@ import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.areaEffects.*;
+import game.gameboard.oneShotItem.OneShotItem;
+import game.gameboard.oneShotItem.OneShotItemAlreadyPresentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,15 +32,15 @@ public class Gameboard {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 Location l = new Location(i, j);
                 if (map[i][j] == -1)
-                    board[i][j] = new Tile(TerrainEnum.NON_TILE, l, null);
+                    board[i][j] = new Tile(TerrainEnum.NON_TILE, l);
                 if (map[i][j] == 0)
-                    board[i][j] = new Tile(TerrainEnum.GRASS, l, null);
+                    board[i][j] = new Tile(TerrainEnum.GRASS, l);
                 if (map[i][j] == 1)
-                    board[i][j] = new Tile(TerrainEnum.SAND, l, null);
+                    board[i][j] = new Tile(TerrainEnum.SAND, l);
                 if (map[i][j] == 2)
-                    board[i][j] = new Tile(TerrainEnum.WATER, l, null);
+                    board[i][j] = new Tile(TerrainEnum.WATER, l);
                 if (map[i][j] == 3) {
-                    board[i][j] = new Tile(TerrainEnum.MOUNTAIN, l, null);
+                    board[i][j] = new Tile(TerrainEnum.MOUNTAIN, l);
                 }
             }
         }
@@ -70,8 +72,12 @@ public class Gameboard {
         board[location.getX()][location.getY()].addRallyPoint(rallyPoint);
     }
 
-    public void addAreaEffectToTile(AreaEffect areaEffect, Location location) throws AreaEffectAlreadyPresentException {
+    public void addAreaEffectToTile(AreaEffect areaEffect, Location location) throws AreaEffectAlreadyPresentException, OneShotItemAlreadyPresentException {
         board[location.getX()][location.getY()].addAreaEffect(areaEffect);
+    }
+
+    public void addOneShotItemToTile(OneShotItem oneShotItem, Location location) throws AreaEffectAlreadyPresentException, OneShotItemAlreadyPresentException {
+        board[location.getX()][location.getY()].addOneShotItem(oneShotItem);
     }
 
     private void addSeeminglyRandomAreaEffects() {
@@ -87,8 +93,11 @@ public class Gameboard {
 
         AreaEffect instantDeathEffect = new InstantDeathAreaEffect();
 
+        OneShotItem oneShotItem = new OneShotItem(instantDeathEffect);
 
-        addAreaEffectLogException(this.board[6][30], lowDamageEffect);
+
+//        addAreaEffectLogException(this.board[6][30], lowDamageEffect);
+        addOneShotItemLogException(this.board[5][29], oneShotItem);
         //TODO: add some area effects
     }
 
@@ -99,6 +108,21 @@ public class Gameboard {
             t.addAreaEffect(areaEffect);
         } catch (AreaEffectAlreadyPresentException e) {
             log.warn("Tried to add area effect to tile that already contains one on map initialization.");
+        } catch (OneShotItemAlreadyPresentException e) {
+            log.warn("Tried to add area effect to tile that already contains a one shot item on map initialization.");
+        }
+    }
+
+
+    private void addOneShotItemLogException(Tile t, OneShotItem oneShotItem) {
+        if (t.isImpassable()) return;
+
+        try {
+            t.addOneShotItem(oneShotItem);
+        } catch (AreaEffectAlreadyPresentException e) {
+            log.warn("Tried to add one shot item to tile that already contains an area effect on map initialization.");
+        } catch (OneShotItemAlreadyPresentException e) {
+            log.warn("Tried to add one shot item to tile that already contains one on map initialization.");
         }
     }
 }

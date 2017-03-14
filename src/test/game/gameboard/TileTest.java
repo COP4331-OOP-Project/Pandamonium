@@ -106,10 +106,10 @@ public class TileTest {
             tileGrassLoc = new Location(20, 22);
             tileMountainLoc = new Location(19, 20);
 
-            tileWater = new Tile(TerrainEnum.WATER, tileWaterLoc, null);
-            tileSand = new Tile(TerrainEnum.SAND, tileSandLoc, null);
-            tileGrass = new Tile(TerrainEnum.GRASS, tileGrassLoc, null);
-            tileMountain = new Tile(TerrainEnum.MOUNTAIN, tileMountainLoc, null);
+            tileWater = new Tile(TerrainEnum.WATER, tileWaterLoc);
+            tileSand = new Tile(TerrainEnum.SAND, tileSandLoc);
+            tileGrass = new Tile(TerrainEnum.GRASS, tileGrassLoc);
+            tileMountain = new Tile(TerrainEnum.MOUNTAIN, tileMountainLoc);
         } catch (UnitNotFoundException e) {
             Assert.fail();
         } catch (StructureNotFoundException e) {

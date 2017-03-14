@@ -11,7 +11,7 @@ import java.awt.*;
 public class HealthBarDrawer {
 	private final static Logger log = LogManager.getLogger(HealthBarDrawer.class);
 	private AssetManager assets;
-	ColorAdjust colorAdjust = new ColorAdjust();
+	private ColorAdjust colorAdjust = new ColorAdjust();
 
 	public HealthBarDrawer(AssetManager assets) {
 		this.assets = assets;

@@ -5,6 +5,7 @@ import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.areaEffects.AreaEffect;
+import game.gameboard.oneShotItem.OneShotItem;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +25,7 @@ public class SimpleTile{
     private TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
     private final static Logger log = LogManager.getLogger(SimpleTile.class);
     private AreaEffect areaEffect;
+    private OneShotItem oneShotItem;
 
     public SimpleTile(Tile tile) {
     	if (tile.getTileType() == TerrainEnum.NON_TILE)
@@ -37,6 +39,7 @@ public class SimpleTile{
 		ore = tile.getResource(ResourceTypeEnum.ORE);
 		peat = tile.getResource(ResourceTypeEnum.PEAT);
 		areaEffect = tile.getAreaEffect();
+		oneShotItem = tile.getOneShotItem();
     }
 
     public void updateTile(Tile tile) {
@@ -49,6 +52,7 @@ public class SimpleTile{
     		ore = tile.getResource(ResourceTypeEnum.ORE);
     		peat = tile.getResource(ResourceTypeEnum.PEAT);
     		areaEffect = tile.getAreaEffect();
+    		oneShotItem = tile.getOneShotItem();
     	}
     }
     
@@ -117,6 +121,8 @@ public class SimpleTile{
 	}
 
 	public AreaEffect getAreaEffect() { return areaEffect; }
+
+	public OneShotItem getOneShotItem() { return oneShotItem; }
 	
 	public boolean getResourcesProspected() {
 		return resourcesProspected;
