@@ -11,7 +11,7 @@ public class UnitStats {
     private int speed;
     private int health;
     private int influence;
-    private float upkeep;
+    private int upkeep;
 
     public UnitStats(EntitySubtypeEnum unit) throws UnitNotFoundException {
         switch (unit) {
@@ -23,7 +23,7 @@ public class UnitStats {
                 this.speed = 1;
                 this.health = 10;
                 this.influence = 1;
-                this.upkeep = .05f;
+                this.upkeep = 1;
                 break;
             case EXPLORER:
                 this.offPow = 2;
@@ -33,7 +33,7 @@ public class UnitStats {
                 this.speed = 3;
                 this.health = 10;
                 this.influence = 2;
-                this.upkeep = .05f;
+                this.upkeep = 1;
                 break;
             case MELEE:
                 this.offPow = 7;
@@ -43,7 +43,7 @@ public class UnitStats {
                 this.speed = 1;
                 this.health = 30;
                 this.influence = 1;
-                this.upkeep = .1f;
+                this.upkeep = 1;
                 break;
             case RANGE:
                 this.offPow = 5;
@@ -53,7 +53,7 @@ public class UnitStats {
                 this.speed = 2;
                 this.health = 30;
                 this.influence = 1;
-                this.upkeep = .1f;
+                this.upkeep = 1;
                 break;
             default:
                 throw new UnitNotFoundException();
@@ -68,7 +68,7 @@ public class UnitStats {
     public int getSpeed() { return speed; }
     public int getHealth() { return health; }
     public int getInfluence() { return influence; }
-    public float getUpkeep() { return upkeep; }
+    public int getUpkeep() { return upkeep; }
 
     /* Mutators */
     public void setOffPow(int offPow) { this.offPow = offPow; }
@@ -78,5 +78,5 @@ public class UnitStats {
     public void setSpeed(int speed) { this.speed = speed; }
     public void setHealth(int health) { this.health = health; }
     public void setInfluence(int influence) { this.influence = influence; }
-    public void setUpkeep(float upkeep) { this.upkeep = upkeep; }
+    public void setUpkeep(int upkeep) { this.upkeep = upkeep; }
 }
