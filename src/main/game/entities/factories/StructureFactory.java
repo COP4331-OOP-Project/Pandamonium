@@ -30,11 +30,11 @@ public class StructureFactory implements iStructureResearchObserver {
     private PlacementManager placementManager;
     private WorkerManager workerManager;
 
-    public StructureFactory(Player player, Gameboard gb, WorkerManager workerManager) {
+    public StructureFactory(Player player, PlacementManager placementManager, WorkerManager workerManager) {
 
         this.player = player;
         this.structureStatistics = new HashMap<>();
-        this.placementManager = new PlacementManager(gb);
+        this.placementManager = placementManager;
         this.workerManager=workerManager;
 
         try {
@@ -94,7 +94,7 @@ public class StructureFactory implements iStructureResearchObserver {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
                 return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location,
-                                    entityId, placementManager,workerManager, notifier);
+                                    entityId, placementManager, workerManager, notifier);
             }
             default:
                 throw new StructureTypeDoesNotExist();

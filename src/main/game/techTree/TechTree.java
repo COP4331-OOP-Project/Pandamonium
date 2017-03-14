@@ -1,6 +1,8 @@
 package game.techTree;
 
+
 import game.Player;
+import game.entities.managers.PlacementManager;
 import game.entities.managers.StructureManager;
 import game.entities.managers.WorkerManager;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
@@ -18,9 +20,9 @@ public class TechTree {
     private StructureManager structureManager;
     private Percentage tenPercent;
 
-    public TechTree(Player player, Gameboard gb) {
-        this.workerManager = new WorkerManager(player.getPlayerId());
-        this.structureManager = new StructureManager(player, gb, workerManager);
+    public TechTree(Player player, PlacementManager placementManager, WorkerManager workerManager) {
+        this.workerManager = workerManager;
+        this.structureManager = new StructureManager(player, placementManager, workerManager);
         this.rootNodes = new ArrayList<>();
         try {
             this.tenPercent = new Percentage(.1);

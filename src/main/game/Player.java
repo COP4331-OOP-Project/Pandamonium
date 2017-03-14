@@ -3,6 +3,7 @@ package game;
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.*;
+import game.entities.managers.PlacementManager;
 import game.entities.managers.StructureManager;
 import game.entities.managers.UnitManager;
 import game.entities.managers.WorkerManager;
@@ -35,6 +36,7 @@ public class Player implements iTurnObservable {
 	private WorkerManager workerManager;
 	private UnitManager unitManager;
 	private StructureManager structureManager;
+	private PlacementManager placementManager;
 
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
@@ -52,8 +54,9 @@ public class Player implements iTurnObservable {
 
 		// Setup managers for entities, workers
 		this.workerManager = new WorkerManager(playerId);
-		this.unitManager = new UnitManager(this, gb);
-		this.structureManager = new StructureManager(this, gb,workerManager);
+		this.placementManager = new PlacementManager(gb);
+		this.unitManager = new UnitManager(this, placementManager);
+		this.structureManager = new StructureManager(this, placementManager, workerManager);
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();

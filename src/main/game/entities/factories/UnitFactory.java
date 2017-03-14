@@ -26,11 +26,11 @@ public class UnitFactory {
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
     private PlacementManager placementManager;
 
-    public UnitFactory(Player player, Gameboard gb) {
+    public UnitFactory(Player player, PlacementManager placementManager) {
 
         this.player = player;
         this.unitStatistics = new HashMap<>();
-        this.placementManager = new PlacementManager(gb);
+        this.placementManager = placementManager;
 
         try {
             this.unitStatistics.put(EntitySubtypeEnum.COLONIST, new UnitStats(EntitySubtypeEnum.COLONIST));
