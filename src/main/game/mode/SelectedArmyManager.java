@@ -1,12 +1,13 @@
 package game.mode;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import game.GameModel;
 import game.Player;
 import game.entities.Army;
 import game.entities.EntityId;
 import game.gameboard.Location;
-
-import java.util.ArrayList;
 
 public class SelectedArmyManager {
 	private GameModel gameModel;
@@ -15,7 +16,7 @@ public class SelectedArmyManager {
 	private Location selectedLocation;
 	private Player currentPlayer;
 	private ArrayList<Army> armies;
-	private int selectedElement = -1;
+	private ListIterator<Army> armyIterator;
 	
 	public SelectedArmyManager(GameModel gameModel, ModeController controlMode) {
 		this.gameModel = gameModel;
@@ -23,18 +24,15 @@ public class SelectedArmyManager {
 	}
 	
 	public void updatePlayer() {
-		currentPlayer  = gameModel.getCurrentPlayer();
+		currentPlayer = gameModel.getCurrentPlayer();
 		armies = currentPlayer.getArmies();
 		if (armies.size() > 0) {
-			selectedArmy = armies.get(0);
-			selectedLocation = selectedArmy.getLocation();
-			selectedElement = 0;
+			armyIterator = armies.listIterator();
 		} else {
+			armyIterator = null;
 			selectedArmy = null;
 			selectedLocation = null;
-			selectedElement = -1;
 		}
-		cycle(true);
 	}
 
 	public EntityId getSelected() {
@@ -48,38 +46,35 @@ public class SelectedArmyManager {
 		return selectedArmy.getLocation();
 	}
 
-	public void cycle(boolean forward) {
+	public void cycleForward() {
 		if (armies.size() > 0) {
-			if (selectedElement == -1) {
-				selectedArmy = armies.get(0);
+			if (armyIterator.hasNext()) {
+				selectedArmy = armyIterator.next();
 				selectedLocation = selectedArmy.getLocation();
-				selectedElement = 0;
 			} else {
-				if (forward) {
-					cycleForward();
-				} else {
-					cycleBackward();
-				}
+				selectedArmy = armies.get(0);
+				armyIterator = armies.listIterator(0);
+				selectedLocation = selectedArmy.getLocation();
 			}
 		} else {
 			selectedArmy = null;
 			selectedLocation = null;
-			selectedElement = -1;
 		}
 	}
 	
-	private void cycleForward() {
-		selectedElement = selectedElement + 1 % armies.size();
-		selectedArmy = armies.get(selectedElement);
-		selectedLocation = selectedArmy.getLocation();
-	}
-	
-	private void cycleBackward() {
-		selectedElement--;
-		if (selectedElement == -1) {
-			selectedElement = armies.size();
+	public void cycleBackward() {
+		if (armies.size() > 0) {
+			if (armyIterator.hasPrevious()) {
+				selectedArmy = armyIterator.previous();
+				selectedLocation = selectedArmy.getLocation();
+			} else {
+				selectedArmy = armies.get(armies.size() - 1);
+				armyIterator = armies.listIterator(armies.size() - 1);
+				selectedLocation = selectedArmy.getLocation();
+			}
+		} else {
+			selectedArmy = null;
+			selectedLocation = null;
 		}
-		selectedArmy = armies.get(selectedElement);
-		selectedLocation = selectedArmy.getLocation();
 	}
 }

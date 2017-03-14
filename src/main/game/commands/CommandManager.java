@@ -26,20 +26,25 @@ public class CommandManager {
 	}
 	
 	public void cycleForward() {
-		if (commandIterator.hasNext()) {
-			selectedCommand = commandIterator.next();
-		} else {
-			selectedCommand = possibleCommands.get(0);
-			commandIterator = possibleCommands.listIterator(0);
+		if (commandableItem != null) {
+			if (commandIterator.hasNext()) {
+				selectedCommand = commandIterator.next();
+			} else {
+				selectedCommand = possibleCommands.get(0);
+				commandIterator = possibleCommands.listIterator(0);
+			}
 		}
+
 	}
 
 	public void cycleBackward() {
-		if (commandIterator.hasPrevious()) {
-			selectedCommand = commandIterator.previous();
-		} else {
-			selectedCommand = possibleCommands.get(possibleCommands.size() - 1);
-			commandIterator = possibleCommands.listIterator(possibleCommands.size() - 1);
+		if (commandableItem != null) {
+			if (commandIterator.hasPrevious()) {
+				selectedCommand = commandIterator.previous();
+			} else {
+				selectedCommand = possibleCommands.get(possibleCommands.size() - 1);
+				commandIterator = possibleCommands.listIterator(possibleCommands.size() - 1);
+			}
 		}
 	}
 
@@ -53,10 +58,12 @@ public class CommandManager {
 	
 	public void setPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+		commandableItem = null;
+		selectedCommand = null;
+		commandIterator = null;
 	}
 	
 	public void updateSelectedEntity(iCommandable commandableItem) {
-		System.out.println(commandableItem);
 		this.commandableItem = commandableItem;
 		updateCommandList();
 		selectedCommand = possibleCommands.get(0);

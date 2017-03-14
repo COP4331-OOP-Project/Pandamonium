@@ -1,12 +1,14 @@
 package game.mode;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import game.GameModel;
 import game.Player;
 import game.entities.EntityId;
 import game.entities.structures.Structure;
+import game.entities.units.Unit;
 import game.gameboard.Location;
-
-import java.util.ArrayList;
 
 public class SelectedStructureManager {
 	private GameModel gameModel;
@@ -15,7 +17,7 @@ public class SelectedStructureManager {
 	private Location selectedLocation;
 	private Player currentPlayer;
 	private ArrayList<Structure> structures;
-	private int selectedElement = -1;
+	private ListIterator<Structure> structureIterator;
 	
 	public SelectedStructureManager(GameModel gameModel, ModeController controlMode) {
 		this.gameModel = gameModel;
@@ -23,16 +25,15 @@ public class SelectedStructureManager {
 	}
 	
 	public void updatePlayer() {
-		currentPlayer  = gameModel.getCurrentPlayer();
+		currentPlayer = gameModel.getCurrentPlayer();
 		structures = currentPlayer.getStructures();
 		if (structures.size() > 0) {
-			cycle(true);
+			structureIterator = structures.listIterator();
 		} else {
+			structureIterator = null;
 			selectedStructure = null;
 			selectedLocation = null;
-			selectedElement = -1;
 		}
-		cycle(true);
 	}
 
 	public EntityId getSelected() {
@@ -46,54 +47,40 @@ public class SelectedStructureManager {
 		return selectedLocation;
 	}
 
-	public void cycle(boolean forward) {
-		if (structures.size() > 0) {
-			if (selectedElement == -1) {
-				selectedElement = 0;
-			} 
-			int startingElement = selectedElement;
-			if (forward) {
-				iterateForward();
+	public void cycleForward() {
+		for (int i = 0; i < structures.size() + 1; i++) {
+			if (structureIterator.hasNext()) {
+				selectedStructure = structureIterator.next();
+				selectedLocation = selectedStructure.getLocation();
 			} else {
-				iterateBackward();
+				selectedStructure = structures.get(0);
+				structureIterator = structures.listIterator(0);
+				selectedLocation = selectedStructure.getLocation();
 			}
-			while(selectedElement != startingElement) {
-				selectedStructure = structures.get(selectedElement);
-				if (submodeFromStructure(selectedStructure) == controlMode.getGameSubmode()) {
-					break;
-				}
-				if (forward) {
-					iterateForward();
-				} else {
-					iterateBackward();
-				}
+			if (submodeFromStructure(selectedStructure) == controlMode.getGameSubmode()) {
+				return;
 			}
-			selectedStructure = structures.get(selectedElement);
-			selectedLocation = selectedStructure.getLocation();
-			if (submodeFromStructure(selectedStructure) != controlMode.getGameSubmode()) {
-				selectedStructure = null;
-				selectedLocation = null;
-				selectedElement = -1;
-			}
-		} else {
-			selectedStructure = null;
-			selectedLocation = null;
-			selectedElement = -1;
 		}
-	}
-
-	private void iterateForward() {
-		selectedElement++;
-		if (selectedElement >= structures.size()) {
-			selectedElement = 0;
-		}
+		selectedStructure = null;
+		selectedLocation = null;
 	}
 	
-	private void iterateBackward() {
-		selectedElement--;
-		if (selectedElement < 0) {
-			selectedElement = structures.size() - 1;
+	public void cycleBackward() {
+		for (int i = 0; i < structures.size() + 1; i++) {
+			if (structureIterator.hasPrevious()) {
+				selectedStructure = structureIterator.previous();
+				selectedLocation = selectedStructure.getLocation();
+			} else {
+				selectedStructure = structures.get(structures.size() - 1);
+				structureIterator = structures.listIterator(structures.size() - 1);
+				selectedLocation = selectedStructure.getLocation();
+			}
+			if (submodeFromStructure(selectedStructure) == controlMode.getGameSubmode()) {
+				return;
+			}
 		}
+		selectedStructure = null;
+		selectedLocation = null;
 	}
 	
 	private Submode submodeFromStructure(Structure structure) {

@@ -36,7 +36,7 @@ public class ModeController {
 			commandManager.setPlayer(currentPlayer);
 			currentMode = Mode.RALLY_POINT;
 			currentSubmode = Submode.RALLY_POINT;
-			selectedManager.newPlayer();
+			selectedManager.togglePlayer();
 			keyEventController.togglePlayer();
 		}
 	}
@@ -103,11 +103,8 @@ public class ModeController {
 
 	public void endTurn() {
 
-		System.out.println("Got Here 0");
 		gameModel.endTurn();
-		System.out.println("Got Here");
 		commandManager.setPlayer(currentPlayer);
-		System.out.println("Got Here2");
 	}
 	
 	public Mode getGameMode() {

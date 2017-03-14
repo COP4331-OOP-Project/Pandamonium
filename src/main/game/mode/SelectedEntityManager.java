@@ -21,7 +21,7 @@ public class SelectedEntityManager {
 		armyManager = new SelectedArmyManager(gameModel, controlMode);
 	}
 
-	public void newPlayer() {
+	public void togglePlayer() {
 		selectedEntityId = null;
 		selectedLocation = null;
 		rallyManager.updatePlayer();
@@ -45,7 +45,7 @@ public class SelectedEntityManager {
 	public void cycle(boolean forward) {
 		switch (controlMode.getGameMode()) {
 			case RALLY_POINT :
-				rallyManager.cycle(forward);
+				rallyManager.cycleForward();
 				if (rallyManager.getSelected() != null) {
 					selectedEntityId = rallyManager.getSelected();
 					selectedLocation = rallyManager.getLocation();
@@ -55,7 +55,7 @@ public class SelectedEntityManager {
 				}
 				break;
 			case STRUCTURE :
-				structureManager.cycle(forward);
+				structureManager.cycleForward();
 				if (structureManager.getSelected() != null) {
 					selectedEntityId = structureManager.getSelected();
 					selectedLocation = structureManager.getLocation();
@@ -65,7 +65,7 @@ public class SelectedEntityManager {
 				}
 				break;
 			case UNIT :
-				unitManager.cycle(forward);
+				unitManager.cycleForward();
 				if (unitManager.getSelected() != null) {
 					selectedEntityId = unitManager.getSelected();
 					selectedLocation = unitManager.getLocation();
@@ -75,7 +75,7 @@ public class SelectedEntityManager {
 				}
 				break;
 			case ARMY :
-				armyManager.cycle(forward);
+				armyManager.cycleForward();
 				if (armyManager.getSelected() != null) {
 					selectedEntityId = armyManager.getSelected();
 					selectedLocation = armyManager.getLocation();

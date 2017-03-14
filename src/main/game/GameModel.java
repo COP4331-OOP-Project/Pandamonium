@@ -64,29 +64,16 @@ public class GameModel {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit3 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
             Unit explorer = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
-
             Unit melee = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY() + 2));
-
             Unit ranged = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, new Location (HUMAN_STARTING_LOCATION.getX() + 4, HUMAN_STARTING_LOCATION.getY() + 4));
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
-            //TODO BE SURE TO DELETE THE 2 lines after once movementmanager is done
-            gBoard.addUnitToTile(explorer, explorer.getLocation());
-            gBoard.addUnitToTile(unit1, unit1.getLocation());
-            gBoard.addUnitToTile(unit3, unit3.getLocation());
-            gBoard.addUnitToTile(melee, melee.getLocation());
-            gBoard.addUnitToTile(ranged, ranged.getLocation());
-            gBoard.addUnitToTile(unit2, unit2.getLocation());
+            
             Structure observationTower = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
             Structure mine = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
             Structure capitol = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, new Location (HUMAN_STARTING_LOCATION.getX() - 1, HUMAN_STARTING_LOCATION.getY()));
             Structure farm1 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() -1));
             Structure farm2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY()));
-            
-            gBoard.addStructureToTile(observationTower, observationTower.getLocation());
-            gBoard.addStructureToTile(mine, mine.getLocation());
-            gBoard.addStructureToTile(capitol, capitol.getLocation());
-            gBoard.addStructureToTile(farm1, farm1.getLocation());
-            gBoard.addStructureToTile(farm2, farm2.getLocation());
+        
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();
