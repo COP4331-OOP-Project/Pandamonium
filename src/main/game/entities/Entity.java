@@ -25,7 +25,14 @@ public abstract class Entity implements iCommandable {
 
     protected PlacementManager placementManager;
     protected DeathNotifier notifer;
-
+    
+    // Constructor
+    public Entity(EntityId entityId, PlacementManager placementManager){
+        this.commandQueue = new LinkedList<>();
+        this.entityId = entityId;
+        this.placementManager = placementManager;
+    }
+    
     // Constructor w/ DN
     public Entity(EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         this.commandQueue = new LinkedList<>();
