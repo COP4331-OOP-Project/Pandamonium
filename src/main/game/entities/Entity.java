@@ -32,7 +32,7 @@ public abstract class Entity implements iCommandable {
         this.entityId = entityId;
         this.placementManager = placementManager;
     }
-    
+
     // Constructor w/ DN
     public Entity(EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         this.commandQueue = new LinkedList<>();
