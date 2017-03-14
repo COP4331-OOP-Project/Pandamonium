@@ -58,7 +58,7 @@ public class CommandDispatcher {
         e.cancelQueuedCommands();
     }
 
-	public void issueFoundCapitolCommand(Colonist c) {
+	public void issueFoundCapitolCommand(Colonist c, Location location) {
 		
 	}
 

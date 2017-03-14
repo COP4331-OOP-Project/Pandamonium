@@ -59,7 +59,8 @@ private CommandDispatcher dispatcher = new CommandDispatcher();
 				case HEAL:
 					break;
 				case FOUND_CAPITOL:
-					dispatcher.issueFoundCapitolCommand((Colonist)entity);
+					Colonist colonist = (Colonist)entity;
+					dispatcher.issueFoundCapitolCommand(colonist, colonist.getLocation());
 					break;
 				case START_PROSPECTING:
 					break;
