@@ -28,10 +28,18 @@ public class PathFindingTest {
                     ---     ---
      */
     public void TestMoving1Step(){
-        endLocation = new Location(6,29);
-        //direction = pathFinder.pathAlgorithm(startLocation, endLocation, playerId);
+        endLocation = new Location(7,26);
+        direction = pathFinder.pathAlgorithm(startLocation, endLocation, playerId);
 
-        //Assert.assertEquals(45, direction);
+        Assert.assertEquals(45, direction);
+    }
+
+    @Test
+    public void TestMoving2Step(){
+        endLocation = new Location(32,11);
+        direction = pathFinder.pathAlgorithm(startLocation, endLocation, playerId);
+
+        Assert.assertEquals(135, direction);
     }
 
 }
