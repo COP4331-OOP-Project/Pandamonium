@@ -11,9 +11,9 @@ public class HealCommand extends Command {
 
     // Constructor
     public HealCommand(iHealer actor, Tile target, int duration) {
+    	super(duration);
         this.actor = actor;         // Set actor
         this.target = target;       // Set target tile
-        super.duration = duration;  // Set duration to execute
     }
 
     // Execute heal in Gameboard funcion

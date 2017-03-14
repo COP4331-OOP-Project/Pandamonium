@@ -7,8 +7,8 @@ public class CancelQueueCommand extends Command {
 	private Entity actor;
 
 	public CancelQueueCommand(Entity actor) {
+		super(0); // No duration
 		this.actor = actor; // Set actor
-		super.duration = 0; // No duration
 	}
 
 	// Execute command

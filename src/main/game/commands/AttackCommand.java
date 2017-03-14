@@ -12,9 +12,9 @@ public class AttackCommand extends Command {
 
     // Constructor
     public AttackCommand(iAttacker actor, Tile target, int duration) {
-        this.actor = actor;                 // Set attacker
+    	super(duration);
+    	this.actor = actor;                 // Set attacker
         this.target = target;               // Set target
-        super.duration = duration;          // Set duration until attack executes
     }
 
     // Create new attack visitor and send it to tile to perform attack

@@ -12,11 +12,10 @@ public class BuildStructureCommand extends Command {
     private EntitySubtypeEnum structure;  //Type of structure to create
 
     // Constructor
-    public BuildStructureCommand(Entity actor, Tile target, EntitySubtypeEnum structure) {
+    public BuildStructureCommand(Entity actor, Tile target, EntitySubtypeEnum structure, int duration) {
+    	super(duration);
         this.actor = actor;             // Set actor
-        this.target = target;           // Set target tile
-        this.structure = structure;
-        super.duration = duration;      //
+        this.target = target;           // Set target tile\
     }
 
     // Execute make from Gameboard function

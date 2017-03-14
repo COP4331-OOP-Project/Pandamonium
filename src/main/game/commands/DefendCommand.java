@@ -10,9 +10,9 @@ public class DefendCommand extends Command {
 
     // Constructor
     public DefendCommand(iDefender actor, int direction, int duration) {
-        this.actor = actor;             // Set actor
+        super(0);
+    	this.actor = actor;             // Set actor
         this.direction = direction;     // Set defending direction
-        super.duration = duration;      // Set duration
     }
 
     // Execute from Gameboard defense function

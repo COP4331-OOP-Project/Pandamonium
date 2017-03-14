@@ -8,9 +8,9 @@ public class AssignWorkerCommand extends Command{
 	private Tile target;
 	
 	public AssignWorkerCommand(Structure actor, Tile target, int duration) {
+		super(duration);
         this.actor = actor;                 // Set attacker
         this.target = target;               // Set target
-        super.duration = duration;          // Set duration until assign worker executes
     }
 	
 	public void exec() {}
