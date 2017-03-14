@@ -24,48 +24,20 @@ import game.visitors.TransferWorkerVisitor;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Fort extends Structure {
+public class Fort extends StructureWithWorker {
     private ArrayList<Worker> unassigned;
     private ArrayList<SoldierGenerator> unitBuilder;
-    private WorkerManager workerManager;
     private UnitManager unitManager;
 
     public Fort(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager, DeathNotifier notifier){
-        super(stats, location, entityId, placementManager, notifier);
+        super(stats, location, entityId, placementManager, workerManager, notifier);
         unassigned=new ArrayList<>();
         unitBuilder=new ArrayList<>();
-        this.workerManager=workerManager;
         addCommand(CommandEnum.ATTACK);
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
         addCommand(CommandEnum.CREATE_SOLDIERS);
         this.unitManager=unitManager;
-    }
-
-    public void assignToUnitBuilder(Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
-        if(!unassigned.isEmpty()){
-            Iterator<Worker> iterator = unassigned.iterator();
-            while(iterator.hasNext()){
-                Worker holder = iterator.next();
-                iterator.remove();
-                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.SOLDIER_GENERATOR, location);
-                unitBuilder.add((SoldierGenerator) workerManager.accept(transferWorkerVisitor));
-                return;
-            }
-        }
-    }
-
-    public void unassignUnitBuilder()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
-        if(!unitBuilder.isEmpty()){
-            Iterator<SoldierGenerator> iterator = unitBuilder.iterator();
-            while(iterator.hasNext()){
-                Worker holder = iterator.next();
-                iterator.remove();
-                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
-                unassigned.add(workerManager.accept(transferWorkerVisitor));
-                return;
-            }
-        }
     }
 
     public int getTotalWorkers(){
