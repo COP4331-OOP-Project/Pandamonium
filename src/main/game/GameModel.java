@@ -1,23 +1,19 @@
 package game;
 
-import java.util.ArrayList;
-
-import game.entities.EntityId;
+import game.commands.MoveCommand;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.UnitFactory;
 import game.entities.factories.exceptions.*;
-import game.entities.stats.UnitStats;
-import game.entities.units.Colonist;
+import game.entities.structures.Structure;
 import game.entities.units.Unit;
-import game.entities.units.exceptions.UnitNotFoundException;
+import game.gameboard.Gameboard;
+import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.commands.MoveCommand;
-import game.gameboard.Gameboard;
-import game.gameboard.Location;
+import java.util.ArrayList;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
@@ -36,12 +32,12 @@ public class GameModel {
     public void initializeGame() {
         try {
             this.players = new ArrayList<Player>();
-            Player human = new Player(0, HUMAN_STARTING_LOCATION);
-            Player panda = new Player(1, PANDA_STARTING_LOCATION);
+            gBoard = new Gameboard();
+            Player human = new Player(0, HUMAN_STARTING_LOCATION, gBoard);
+            Player panda = new Player(1, PANDA_STARTING_LOCATION, gBoard);
             currentPlayer = human;
             players.add(human);
             players.add(panda);
-            gBoard = new Gameboard(players);
             initialUnits(human, panda);
             human.initializeSimpleTiles(gBoard.getTiles());
             panda.initializeSimpleTiles(gBoard.getTiles());
@@ -65,9 +61,20 @@ public class GameModel {
         try {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
-            //TODO BE SURE TO DELETE THE 2 lines after once movementmanager is done
-            gBoard.addUnitToTile(unit1, unit1.getLocation());
-            gBoard.addUnitToTile(unit2, unit2.getLocation());
+            
+
+            Unit unit3 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
+            Unit explorer = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
+            Unit melee = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY() + 2));
+            Unit ranged = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, new Location (HUMAN_STARTING_LOCATION.getX() + 4, HUMAN_STARTING_LOCATION.getY() + 4));
+
+            
+            Structure observationTower = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
+            Structure mine = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
+            Structure capitol = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, new Location (HUMAN_STARTING_LOCATION.getX() - 1, HUMAN_STARTING_LOCATION.getY()));
+            Structure farm1 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() -1));
+            Structure farm2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY()));
+        
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();

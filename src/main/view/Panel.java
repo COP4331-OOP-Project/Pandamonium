@@ -1,10 +1,12 @@
 package view;
 
-import java.awt.Point;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import view.assets.AssetManager;
+
+import java.awt.*;
+
+import game.commands.CommandEnum;
 
 public abstract class Panel {
 	private ViewEnum viewEnum;
@@ -38,6 +40,10 @@ public abstract class Panel {
     			hideGUIElements();
     		}
     	}
+    }
+    
+    public void setCommand(CommandEnum command) {
+    	gameModelAdapter.setCommand(command);
     }
     
     public void setIsVisible(boolean isVisible) {

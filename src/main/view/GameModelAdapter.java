@@ -1,20 +1,19 @@
 package view;
 
-import java.util.ArrayList;
-
 import game.GameModel;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
-
-import java.awt.Point;
-
 import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
 import game.mode.Submode;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameModelAdapter {
 	GameModel gameModel;
@@ -85,7 +84,7 @@ public class GameModelAdapter {
 	public EntityId getSelectedEntity() {
 		return controlMode.getSelectedEntity();
 	}
-	
+
 	public Point getSelectedPoint() {
 		if (controlMode.getSelectedLocation() != null) {
 			return locationToPoint(controlMode.getSelectedLocation());
@@ -112,7 +111,23 @@ public class GameModelAdapter {
 		return new Point(0,0);
 	}
 	
+	public void executeCommand() {
+		controlMode.execute();
+	}
+	
+	public ArrayList<CommandEnum> getCommands() {
+		return controlMode.getCommands();
+	}
+	
+	public CommandEnum getSelectedCommand() {
+		return controlMode.getSelectedCommand();
+	}
+	
 	public void endTurn() {
-		gameModel.endTurn();
+		controlMode.endTurn();
+	}
+
+	public void setCommand(CommandEnum command) {
+		controlMode.setCommand(command);
 	}
 }

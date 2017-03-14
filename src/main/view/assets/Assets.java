@@ -85,7 +85,10 @@ public class Assets {
         loadItem("GUI_HOVER", "assets/images/gui/hover.png");
         loadItem("GUI_MAP_BAR", "assets/images/gui/mapMakerBar.png");
         loadItem("GUI_BOTTOM", "assets/images/gui/bottomBar.png");
-        loadItem("GUI_COMMAND_PANEL", "assets/images/gui/mode/commandPanel.png");
+        loadItem("GUI_COMMAND_PANEL1", "assets/images/gui/mode/commandPanel1.png");
+        loadItem("GUI_COMMAND_PANEL2", "assets/images/gui/mode/commandPanel2.png");
+        loadItem("GUI_COMMAND_PANEL3", "assets/images/gui/mode/commandPanel3.png");
+        loadItem("GUI_COMMAND_PANEL4", "assets/images/gui/mode/commandPanel4.png");
         loadItem("GUI_MINI_MAP_BORDER", "assets/images/gui/miniMap/miniBorder.png");
         loadItem("GUI_MINI_MAP_BACKGROUND", "assets/images/gui/miniMap/minimapBackground.png");
         loadItem("GUI_MODE_PANEL", "assets/images/gui/mode/modePanel.png");

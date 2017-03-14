@@ -16,4 +16,8 @@ public class CommandButton extends ToggleButton{
 	public CommandEnum getCommand() {
 		return command;
 	}
+
+	public void setIcon(Image icon) {
+		this.setGraphic(new ImageView(icon));
+	}
 }
