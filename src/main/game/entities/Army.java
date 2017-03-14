@@ -1,6 +1,8 @@
 package game.entities;
 
 import game.entities.managers.PlacementManager;
+
+import game.commands.CommandEnum;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 import game.visitors.AddArmyVisitor;
@@ -21,6 +23,10 @@ public class Army extends Entity{
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
         placementManager.accept(addRallyPointVisitor);
         updateArmy();
+        addCommand(CommandEnum.DROP_OFF_WORKER);
+        addCommand(CommandEnum.PICK_UP_WORKER);
+        addCommand(CommandEnum.BUILD_STRUCTURE);
+        addCommand(CommandEnum.DISBAND_ARMY);
     }
 
     public void moveRallyPoint(Location loc){

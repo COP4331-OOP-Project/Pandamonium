@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.DeathNotifier;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -20,6 +21,9 @@ public class PowerPlant extends Structure {
         super(stats, location, entityId, placementManager, notifier);
         unassigned=new LinkedList<>();
         generator=new LinkedList<>();
+        addCommand(CommandEnum.ASSIGN_WORKER);
+        addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
+        addCommand(CommandEnum.WORKER_GENERATE);
     }
 
     public void assignToGenerator(Location location){

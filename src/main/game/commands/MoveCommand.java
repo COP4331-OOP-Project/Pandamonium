@@ -14,10 +14,10 @@ public class MoveCommand extends Command {
 
     // Constructor
     public MoveCommand(iMoveable actor, Tile target, int direction, int duration) {
-        this.actor = actor;
+    	super(duration);
+    	this.actor = actor;
         this.target = target;
         this.direction = direction;
-        super.duration = duration;
     }
 
     // Get direction of move

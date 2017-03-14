@@ -18,6 +18,13 @@ import view.game.drawers.*;
 
 import java.awt.*;
 
+import view.game.drawers.ArmyDrawer;
+import view.game.drawers.CoveringDrawer;
+import view.game.drawers.ResourceDrawer;
+import view.game.drawers.StructureDrawer;
+import view.game.drawers.TileDrawer;
+import view.game.drawers.UnitDrawer;
+
 public class GamePanel extends Panel {
     private static final int TILE_PIXEL_SIZE = 130;
     private Camera camera;
@@ -27,7 +34,6 @@ public class GamePanel extends Panel {
     private UnitDrawer unitDrawer;
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
-    private SelectedDrawer selectedDrawer;
     private AreaEffectDrawer areaEffectDrawer;
     private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
@@ -52,7 +58,6 @@ public class GamePanel extends Panel {
         unitDrawer = new UnitDrawer(assets, camera);
         armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
         structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
-        selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
         resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
         coveringDrawer = new CoveringDrawer(this, assets);
         areaEffectDrawer = new AreaEffectDrawer(this, assets);

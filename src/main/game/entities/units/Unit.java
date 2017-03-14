@@ -1,6 +1,17 @@
 package game.entities.units;
 
+
 import game.entities.*;
+
+import game.commands.CommandEnum;
+import game.entities.Entity;
+import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
+import game.entities.HealthPercentage;
+import game.entities.iAttacker;
+import game.entities.iDefender;
+import game.entities.iMoveable;
+
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
@@ -25,6 +36,8 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         AddUnitVisitor addUnit = new AddUnitVisitor(this, this.location);
         placementManager.accept(addUnit);
         standby();
+        addCommand(CommandEnum.MOVE);
+        addCommand(CommandEnum.REINFORCE_ARMY);
     }
 
     public EntitySubtypeEnum getType() { 

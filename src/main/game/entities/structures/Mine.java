@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.DeathNotifier;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -22,6 +23,9 @@ public class Mine extends Structure {
 
         unassigned=new LinkedList<>();
         miner=new LinkedList<>();
+        addCommand(CommandEnum.ASSIGN_WORKER);
+        addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
+        addCommand(CommandEnum.WORKER_MINE);
     }
 
     public void assignToMiner(Location location){

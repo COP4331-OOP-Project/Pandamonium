@@ -3,6 +3,7 @@ package game.gameboard;
 import game.Player;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
+import game.entities.units.Explorer;
 import game.entities.units.Unit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +16,14 @@ public final class SimpleTileUpdater {
 	public static SimpleTile[][] updateTiles(Tile[][] tiles, SimpleTile[][] simpleTiles, Player player) {
 		ArrayList<Structure> playerStructures = player.getStructures();
 		ArrayList<Unit> playerUnits = player.getUnits();
+		for (Unit unit : playerUnits) {
+			if (unit.getType() == EntitySubtypeEnum.EXPLORER) {
+				Explorer explorer = (Explorer)unit;
+				if (explorer.getProspecting()) {
+					simpleTiles[explorer.getLocationX()][explorer.getLocationY()].setProspected();
+				}
+			}
+		}
 		for (int i = 0; i < simpleTiles.length; i++) {
 			for (int j = 0; j < simpleTiles[i].length; j++) {
 				simpleTiles[i][j].setSemiIfVisible();

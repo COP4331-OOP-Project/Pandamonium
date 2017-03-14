@@ -1,37 +1,49 @@
 package game.entities;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import game.commands.Command;
 import game.entities.managers.PlacementManager;
+import game.commands.CommandEnum;
+import game.commands.iCommandable;
 import game.visitors.iTileActionVisitor;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public abstract class Entity {
 
+public abstract class Entity implements iCommandable {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
+
+    private ArrayList<CommandEnum> commands = new ArrayList<>();
+
     protected PlacementManager placementManager;
     protected DeathNotifier notifer;
-
+    
     // Constructor
     public Entity(EntityId entityId, PlacementManager placementManager){
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
         this.placementManager = placementManager;
     }
-
+    
     // Constructor w/ DN
     public Entity(EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
         this.placementManager = placementManager;
         this.notifer = notifier;
+        commands.add(CommandEnum.POWER_DOWN);
+        commands.add(CommandEnum.DECOMMISSION);
+        commands.add(CommandEnum.CANCEL_QUEUE);
     }
-
+    
     public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors
 
     // Health
@@ -66,8 +78,16 @@ public abstract class Entity {
     public void cancelQueuedCommands(){ commandQueue.clear(); }                     // Clear command queue
 
     // State
-    public void powerDown(){ powerState = PowerState.POWERED_DOWN; }                // Set power down state
-    public void powerUp(){ powerState = PowerState.POWERED_UP; }                    // Set power up state
+    public void powerDown(){
+    	addCommand(CommandEnum.POWER_UP);
+    	removeCommand(CommandEnum.POWER_DOWN);
+    	powerState = PowerState.POWERED_DOWN; 
+    	}// Set power down state
+    public void powerUp(){ 
+    	addCommand(CommandEnum.POWER_DOWN);
+    	removeCommand(CommandEnum.POWER_UP);
+    	powerState = PowerState.POWERED_UP; 
+    }                    // Set power up state
     public void combatState(){ powerState = PowerState.COMBAT; }                    // Set combat state on entity
     public void standby(){ powerState = PowerState.STANDBY; }                       // Set standby state on entity
     public PowerState getPowerState(){ return powerState; }                         // Get power state
@@ -82,4 +102,15 @@ public abstract class Entity {
     public int getInstanceId(){ return entityId.getInstanceId(); }                  // Get entity's instance id
     public PlacementManager getPlacementManager(){return placementManager;}
 
+    public void addCommand(CommandEnum command) {
+    	commands.add(command);
+    }
+    
+    public void removeCommand(CommandEnum command) {
+    	commands.remove(command);
+    }
+    
+    public ArrayList<CommandEnum> getCommands() {
+    	return commands;
+    }
 }

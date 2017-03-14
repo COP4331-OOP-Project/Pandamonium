@@ -9,8 +9,8 @@ public class PowerUpCommand extends Command {
 
     // Constructor
     public PowerUpCommand(Entity actor) {
+    	super(0); //No wait for activation
         this.actor = actor;             // Set actor
-        super.duration = 0;             // No wait till activation
     }
 
     // Execute power up from Gameboard function

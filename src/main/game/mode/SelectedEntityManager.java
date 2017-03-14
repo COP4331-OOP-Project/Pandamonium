@@ -9,7 +9,7 @@ public class SelectedEntityManager {
 	private SelectedRallyPointManager rallyManager;
 	private SelectedStructureManager structureManager;
 	private SelectedUnitManager unitManager;
-	private EntityId selectedEntity;
+	private EntityId selectedEntityId;
 	private Location selectedLocation;
 	private ModeController controlMode;
 
@@ -21,8 +21,8 @@ public class SelectedEntityManager {
 		armyManager = new SelectedArmyManager(gameModel, controlMode);
 	}
 
-	public void newPlayer() {
-		selectedEntity = null;
+	public void togglePlayer() {
+		selectedEntityId = null;
 		selectedLocation = null;
 		rallyManager.updatePlayer();
 		structureManager.updatePlayer();
@@ -30,12 +30,12 @@ public class SelectedEntityManager {
 		armyManager.updatePlayer();
 	}
 
-	public void setSelectedEntity(EntityId selectedEntity) {
-		this.selectedEntity = selectedEntity;
+	public void setSelectedEntity(EntityId selectedEntityId) {
+		this.selectedEntityId = selectedEntityId;
 	}
 
 	public EntityId getSelectedEntity() {
-		return selectedEntity;
+		return selectedEntityId;
 	}
 
 	public Location getSelectedLocation() {
@@ -45,42 +45,42 @@ public class SelectedEntityManager {
 	public void cycle(boolean forward) {
 		switch (controlMode.getGameMode()) {
 			case RALLY_POINT :
-				rallyManager.cycle(forward);
+				rallyManager.cycleForward();
 				if (rallyManager.getSelected() != null) {
-					selectedEntity = rallyManager.getSelected();
+					selectedEntityId = rallyManager.getSelected();
 					selectedLocation = rallyManager.getLocation();
 				} else {
-					selectedEntity = null;
+					selectedEntityId = null;
 					selectedLocation = null;
 				}
 				break;
 			case STRUCTURE :
-				structureManager.cycle(forward);
+				structureManager.cycleForward();
 				if (structureManager.getSelected() != null) {
-					selectedEntity = structureManager.getSelected();
+					selectedEntityId = structureManager.getSelected();
 					selectedLocation = structureManager.getLocation();
 				} else {
-					selectedEntity = null;
+					selectedEntityId = null;
 					selectedLocation = null;
 				}
 				break;
 			case UNIT :
-				unitManager.cycle(forward);
+				unitManager.cycleForward();
 				if (unitManager.getSelected() != null) {
-					selectedEntity = unitManager.getSelected();
+					selectedEntityId = unitManager.getSelected();
 					selectedLocation = unitManager.getLocation();
 				} else {
-					selectedEntity = null;
+					selectedEntityId = null;
 					selectedLocation = null;
 				}
 				break;
 			case ARMY :
-				armyManager.cycle(forward);
+				armyManager.cycleForward();
 				if (armyManager.getSelected() != null) {
-					selectedEntity = armyManager.getSelected();
+					selectedEntityId = armyManager.getSelected();
 					selectedLocation = armyManager.getLocation();
 				} else {
-					selectedEntity = null;
+					selectedEntityId = null;
 					selectedLocation = null;
 				}
 				break;

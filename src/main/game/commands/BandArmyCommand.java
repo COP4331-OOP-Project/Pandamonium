@@ -13,7 +13,8 @@ public class BandArmyCommand extends Command {
 
     // Constructor
     public BandArmyCommand(ArrayList<Unit> actors, int duration) {
-        this.actors = actors;           // Set actors to band
+    	super(duration);
+    	this.actors = actors;           // Set actors to band
         super.duration = duration;      // Set duration time to band
     }
 

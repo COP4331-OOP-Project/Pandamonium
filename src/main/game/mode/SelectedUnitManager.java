@@ -1,12 +1,14 @@
 package game.mode;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import game.GameModel;
 import game.Player;
 import game.entities.EntityId;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 
-import java.util.ArrayList;
 
 public class SelectedUnitManager {
 	private GameModel gameModel;
@@ -15,7 +17,7 @@ public class SelectedUnitManager {
 	private Location selectedLocation;
 	private Player currentPlayer;
 	private ArrayList<Unit> units;
-	private int selectedElement = -1;
+	private ListIterator<Unit> unitIterator;
 
 	public SelectedUnitManager(GameModel gameModel,
 			ModeController controlMode) {
@@ -27,13 +29,12 @@ public class SelectedUnitManager {
 		currentPlayer = gameModel.getCurrentPlayer();
 		units = currentPlayer.getUnits();
 		if (units.size() > 0) {
-			cycle(true);
+			unitIterator = units.listIterator();
 		} else {
+			unitIterator = null;
 			selectedUnit = null;
 			selectedLocation = null;
-			selectedElement = -1;
 		}
-		cycle(true);
 	}
 
 	public EntityId getSelected() {
@@ -47,41 +48,40 @@ public class SelectedUnitManager {
 		return selectedLocation;
 	}
 
-	public void cycle(boolean forward) {
-		if (units.size() > 0) {
-			if (selectedElement == -1) {
-				selectedElement = 0;
-			}
-			int startingElement = selectedElement;
-			if (forward) {
-				iterateForward();
+	public void cycleForward() {
+		for (int i = 0; i < units.size() + 1; i++) {
+			if (unitIterator.hasNext()) {
+				selectedUnit = unitIterator.next();
+				selectedLocation = selectedUnit.getLocation();
 			} else {
-				iterateBackward();
+				selectedUnit = units.get(0);
+				unitIterator = units.listIterator(0);
+				selectedLocation = selectedUnit.getLocation();
 			}
-			while (selectedElement != startingElement) {
-				selectedUnit = units.get(selectedElement);
-				if (submodeFromUnit(selectedUnit) == controlMode
-						.getGameSubmode()) {
-					break;
-				}
-				if (forward) {
-					iterateForward();
-				} else {
-					iterateBackward();
-				}
+			if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
+				return;
 			}
-			selectedUnit = units.get(selectedElement);
-			selectedLocation = selectedUnit.getLocation();
-			if (submodeFromUnit(selectedUnit) != controlMode.getGameSubmode()) {
-				selectedUnit = null;
-				selectedLocation = null;
-				selectedElement = -1;
-			}
-		} else {
-			selectedUnit = null;
-			selectedLocation = null;
-			selectedElement = -1;
 		}
+		selectedUnit = null;
+		selectedLocation = null;
+	}
+	
+	public void cycleBackward() {
+		for (int i = 0; i < units.size() + 1; i++) {
+			if (unitIterator.hasPrevious()) {
+				selectedUnit = unitIterator.previous();
+				selectedLocation = selectedUnit.getLocation();
+			} else {
+				selectedUnit = units.get(units.size() - 1);
+				unitIterator = units.listIterator(units.size() - 1);
+				selectedLocation = selectedUnit.getLocation();
+			}
+			if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
+				return;
+			}
+		}
+		selectedUnit = null;
+		selectedLocation = null;
 	}
 
 	private Submode submodeFromUnit(Unit unit) {
@@ -98,19 +98,4 @@ public class SelectedUnitManager {
 				return null;
 		}
 	}
-
-	private void iterateForward() {
-		selectedElement++;
-		if (selectedElement >= units.size()) {
-			selectedElement = 0;
-		}
-	}
-
-	private void iterateBackward() {
-		selectedElement--;
-		if (selectedElement < 0) {
-			selectedElement = units.size() - 1;
-		}
-	}
-
 }

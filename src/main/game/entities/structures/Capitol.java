@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.DeathNotifier;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -13,11 +14,16 @@ public class Capitol extends Structure {
     //private ArrayList<worker> miner;
     //private ArrayList<worker> breeder;
 
+
     public Capitol(StructureStats stats, Location location ,
                    EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
-
         super(stats, location, entityId, placementManager, notifier);
-
+        addCommand(CommandEnum.ASSIGN_WORKER);
+        addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
+        addCommand(CommandEnum.HEAL);
+        addCommand(CommandEnum.WORKER_FARM);
+        addCommand(CommandEnum.WORKER_MINE);
+        addCommand(CommandEnum.WORKER_GENERATE);
     }
 
     public void assignToFarmer(){
