@@ -11,7 +11,6 @@ import game.entities.factories.exceptions.StructureTypeLimitExceededException;
 import game.entities.factories.exceptions.TotalStructureLimitExceededException;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.structures.*;
-import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.iTurnObservable;
 import game.iTurnObserver;
@@ -34,7 +33,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
 
     private StructureIdManager structureIdManager;
 
-    public StructureManager(Player player, Gameboard gb) {
+    public StructureManager(Player player, PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager) {
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
         this.forts = new ArrayList<>();
@@ -44,8 +43,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
         this.universities = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
-
-        StructureFactory structureFactory = new StructureFactory(player, gb);
+        StructureFactory structureFactory = new StructureFactory(player, placementManager, workerManager, unitManager);
         this.attach(structureFactory);
         this.structureIdManager = new StructureIdManager(structureFactory);
     }

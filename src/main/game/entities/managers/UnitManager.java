@@ -31,10 +31,8 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     private UnitIdManager unitIdManager;
 
     // Constructor
-    public UnitManager(Player player, Gameboard gb) {
-
-        this.unitIdManager = new UnitIdManager(player, gb);   // Initialize unit id manager
-
+    public UnitManager(Player player, PlacementManager placementManager) {
+        this.unitIdManager = new UnitIdManager(player, placementManager);   // Initialize unit id manager
         // Setup unit type collections
         this.melees = new ArrayList<>();
         this.ranges = new ArrayList<>();

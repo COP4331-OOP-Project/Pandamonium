@@ -4,55 +4,62 @@ import game.entities.DeathNotifier;
 import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
+import game.entities.managers.exceptions.WorkerDoesNotExistException;
+import game.entities.managers.exceptions.WorkerLimitExceededException;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.OreGatherer;
+import game.entities.workers.workerTypes.Worker;
+import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
+import game.visitors.TransferWorkerVisitor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Mine extends Structure {
-    private Queue<OreGatherer> unassigned;
-    private Queue<OreGatherer> miner;
+    private ArrayList<Worker> unassigned;
+    private ArrayList<OreGatherer> miner;
+    private WorkerManager workerManager;
 
-    public Mine(StructureStats stats, Location location , EntityId entityId,
-                PlacementManager placementManager, DeathNotifier notifier) {
-
+    public Mine(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
         super(stats, location, entityId, placementManager, notifier);
-
-        unassigned=new LinkedList<>();
-        miner=new LinkedList<>();
+        unassigned=new ArrayList<>();
+        miner=new ArrayList<>();
+        this.workerManager=workerManager;
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
         addCommand(CommandEnum.WORKER_MINE);
+
     }
 
-    public void assignToMiner(Location location){
-        unassigned.peek().setLocation(location);
-        miner.add(unassigned.poll());
-    }
-
-    public void unassignMiner(Location location){
-        Iterator<OreGatherer> iterator = miner.iterator();
-        OreGatherer holder;
-        while(iterator.hasNext()){
-            holder=iterator.next();
-            if(location.equals(holder.getLocation())) {
-                holder.setLocation(location);
-                unassigned.add(holder);
+    public void assignToMiner(Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
+            while(iterator.hasNext()){
+                Worker holder = iterator.next();
                 iterator.remove();
+                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.ORE_GATHERER, location);
+                miner.add((OreGatherer) workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }
     }
 
-    public void addWorker(OreGatherer worker){
-        unassigned.add(worker);
-    }
-
-    public void removeWorker(){
-        unassigned.remove();
+    public void unassignMiner()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
+            while(iterator.hasNext()){
+                Worker holder = iterator.next();
+                iterator.remove();
+                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.ORE_GATHERER, location);
+                miner.add((OreGatherer) workerManager.accept(transferWorkerVisitor));
+                return;
+            }
+        }
     }
 
     public int getTotalWorkers(){
@@ -67,9 +74,14 @@ public class Mine extends Structure {
         return miner.size();
     }
 
-    /*public Resource harvest(){
-
-    }*/
+    public Resource harvest(){
+        Iterator<OreGatherer> iterator = miner.iterator();
+        Resource resource = new Resource(0, ResourceTypeEnum.ORE);
+        while(iterator.hasNext()){
+            resource.combine(iterator.next().doProduction());
+        }
+        return resource;
+    }
 
     public void onTurnEnded() {
 

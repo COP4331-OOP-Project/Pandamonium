@@ -40,10 +40,9 @@ public class UnitIdManager {
     private IdManager colonistIdManager;
 
     // Constructor
-    public UnitIdManager(Player player,  Gameboard gb) {
-
+    public UnitIdManager(Player player,  PlacementManager placementManager) {
         // Setup unit factory
-        this.unitFactory = new UnitFactory(player, gb);
+        this.unitFactory = new UnitFactory(player, placementManager);
 
         // Setup Id managers
         this.allUnitIdManager = new IdManager(MIN_UNIT_ID, MAX_UNIT_COUNT);

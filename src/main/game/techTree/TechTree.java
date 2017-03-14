@@ -1,10 +1,11 @@
 package game.techTree;
 
 import game.Player;
+import game.entities.managers.PlacementManager;
 import game.entities.managers.StructureManager;
+import game.entities.managers.UnitManager;
 import game.entities.managers.WorkerManager;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
-import game.gameboard.Gameboard;
 import game.semantics.Percentage;
 import game.semantics.PercentageOutOfRangeException;
 import game.techTree.nodeTypes.*;
@@ -18,9 +19,9 @@ public class TechTree {
     private StructureManager structureManager;
     private Percentage tenPercent;
 
-    public TechTree(Player player, Gameboard gb) {
-        this.workerManager = new WorkerManager(player.getPlayerId());
-        this.structureManager = new StructureManager(player, gb);
+    public TechTree(Player player, PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager) {
+        this.workerManager = workerManager;
+        this.structureManager = new StructureManager(player, placementManager, workerManager, unitManager);
         this.rootNodes = new ArrayList<>();
         try {
             this.tenPercent = new Percentage(.1);

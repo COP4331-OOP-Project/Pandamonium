@@ -24,6 +24,12 @@ public class Resource {
         this.amount *= (1 + p.getPercentageValue());
     }
 
+    public void combine(Resource resource){
+        if(this.resourceType==resource.resourceType) {
+            this.amount = this.amount + resource.amount;
+        }
+    }
+
     public ResourceTypeEnum getResourceType() {
         return this.resourceType;
     }

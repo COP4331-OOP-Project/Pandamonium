@@ -4,54 +4,56 @@ import game.entities.DeathNotifier;
 import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
+import game.entities.managers.exceptions.WorkerDoesNotExistException;
+import game.entities.managers.exceptions.WorkerLimitExceededException;
+import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
-import game.entities.workers.workerTypes.ResearchGenerator;
+import game.entities.workers.workerTypes.*;
 import game.gameboard.Location;
+import game.visitors.TransferWorkerVisitor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class University extends Structure {
-    private Queue<ResearchGenerator> unassigned;
-    private Queue<ResearchGenerator> researcher;
+    private ArrayList<Worker> unassigned;
+    private ArrayList<ResearchGenerator> researcher;
+    private WorkerManager workerManager;
 
-    public University(StructureStats stats, Location location , EntityId entityId,
-                      PlacementManager placementManager, DeathNotifier notifier) {
-
+    public University(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
         super(stats, location, entityId, placementManager, notifier);
-
-        unassigned=new LinkedList<>();
-        researcher=new LinkedList<>();
+        unassigned=new ArrayList<>();
+        researcher=new ArrayList<>();
+        this.workerManager=workerManager;
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
     }
 
-    public void assignToResearcher(Location location){
-        unassigned.peek().setLocation(location);
-        researcher.add(unassigned.poll());
-    }
-
-    public void unassignResearcher(Location location){
-        Iterator<ResearchGenerator> iterator = researcher.iterator();
-        ResearchGenerator holder;
-        while(iterator.hasNext()){
-            holder=iterator.next();
-            if(location.equals(holder.getLocation())) {
-                holder.setLocation(location);
-                unassigned.add(holder);
+    public void assignToResearcher(Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
+            while(iterator.hasNext()){
+                Worker holder = iterator.next();
                 iterator.remove();
+                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.RESEARCH_GENERATOR, location);
+                researcher.add((ResearchGenerator) workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }
     }
 
-    public void addWorker(ResearchGenerator worker){
-        unassigned.add(worker);
-    }
-
-    public void removeWorker(){
-        unassigned.remove();
+    public void unassignResearcher()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
+        if(!researcher.isEmpty()){
+            Iterator<ResearchGenerator> iterator = researcher.iterator();
+            while(iterator.hasNext()){
+                Worker holder = iterator.next();
+                iterator.remove();
+                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
+                unassigned.add(workerManager.accept(transferWorkerVisitor));
+                return;
+            }
+        }
     }
 
     public int getTotalWorkers(){

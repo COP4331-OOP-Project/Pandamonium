@@ -5,6 +5,7 @@ import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
 import game.entities.stats.StructureStats;
 import game.entities.stats.UnitStats;
 import game.entities.structures.Capitol;
@@ -68,6 +69,7 @@ public class TileTest {
         try {
             gameboard = new Gameboard();
             placementManager = new PlacementManager(gameboard);
+            WorkerManager workerManager = new WorkerManager(playerId);
 
             playerId = 1;
             meleeStats = new UnitStats(EntitySubtypeEnum.MELEE);
@@ -96,8 +98,8 @@ public class TileTest {
             range2 = new Ranged(rangedStats, unitLocation, range2Id, placementManager, null);
             colonist1 = new Colonist(colonistStats, unitLocation, colonistId, placementManager, null);
 
-            capitol = new Capitol(capitolStat, capitolLocation, capitolId, placementManager, null);
-            farm = new Farm(farmStat, farmLocation, farmId, placementManager, null);
+            capitol = new Capitol(capitolStat, capitolLocation, capitolId, placementManager, null, null);
+            farm = new Farm(farmStat, farmLocation, farmId, placementManager, null, null);
 
             tileWaterLoc = new Location(20, 20);
             tileSandLoc = new Location(20, 21);
