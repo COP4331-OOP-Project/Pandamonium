@@ -49,17 +49,19 @@ public class SelectedUnitManager {
 	}
 
 	public void cycleForward() {
-		for (int i = 0; i < units.size() + 1; i++) {
-			if (unitIterator.hasNext()) {
-				selectedUnit = unitIterator.next();
-				selectedLocation = selectedUnit.getLocation();
-			} else {
-				selectedUnit = units.get(0);
-				unitIterator = units.listIterator(0);
-				selectedLocation = selectedUnit.getLocation();
-			}
-			if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
-				return;
+		if(units != null) {
+			for (int i = 0; i < units.size() + 1; i++) {
+				if (unitIterator.hasNext()) {
+					selectedUnit = unitIterator.next();
+					selectedLocation = selectedUnit.getLocation();
+				} else {
+					selectedUnit = units.get(0);
+					unitIterator = units.listIterator(0);
+					selectedLocation = selectedUnit.getLocation();
+				}
+				if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
+					return;
+				}
 			}
 		}
 		selectedUnit = null;
