@@ -3,10 +3,9 @@ package game;
 
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.research.workerResearch.iWorkerResearchObservable;
+import game.research.workerResearch.iWorkerResearchObserver;
 import game.semantics.Percentage;
-import game.techTree.nodeTypes.WorkerDensityResearchNode;
-import game.workerResearch.iWorkerResearchObservable;
-import game.workerResearch.iWorkerResearchObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

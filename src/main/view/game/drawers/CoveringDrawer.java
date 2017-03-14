@@ -1,13 +1,13 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
 import game.gameboard.TerrainEnum;
 import game.gameboard.TileVisibilityEnum;
 import javafx.scene.image.Image;
 import view.Animation;
 import view.assets.AssetManager;
 import view.game.GamePanel;
+
+import java.awt.*;
 
 public class CoveringDrawer {
     Animation fogAnimation;

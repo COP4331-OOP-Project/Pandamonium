@@ -1,16 +1,15 @@
 package controls;
 
-import java.io.File;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import game.commands.CommandEnum;
 import game.mode.ModeController;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.View;
+
+import java.io.File;
 
 public class KeyEventController {
     private final static Logger log = LogManager.getLogger(KeyEventController.class);

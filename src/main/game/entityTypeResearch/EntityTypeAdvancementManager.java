@@ -3,9 +3,6 @@ package game.entityTypeResearch;
 import game.entities.EntitySubtypeEnum;
 import game.entities.managers.StructureManager;
 import game.entities.managers.UnitManager;
-import game.entityTypeResearch.nodeTypes.structureAdvancements.StructureArmorAdvancementNode;
-import game.entityTypeResearch.nodeTypes.structureAdvancements.StructureAttackAdvancementNode;
-import game.entityTypeResearch.nodeTypes.structureAdvancements.StructureDefensiveAdvancementNode;
 import game.entityTypeResearch.treeTypes.structureAdvancements.*;
 import game.entityTypeResearch.treeTypes.unitAdvancements.*;
 

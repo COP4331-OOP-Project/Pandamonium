@@ -1,17 +1,16 @@
 package view.assets;
 
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.text.Font;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.text.Font;
 
 public class Assets {
     private final static Logger log = LogManager.getLogger(Assets.class);

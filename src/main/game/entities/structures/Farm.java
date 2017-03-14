@@ -6,7 +6,9 @@ import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.FoodGatherer;
 import game.gameboard.Location;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Farm extends Structure {
     private Queue<FoodGatherer> unassigned;

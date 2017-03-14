@@ -12,9 +12,8 @@ import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.units.Colonist;
 import game.entities.units.Melee;
 import game.entities.units.Ranged;
-import game.entities.units.*;
+import game.entities.units.Unit;
 import game.entities.units.exceptions.UnitNotFoundException;
-import game.techTree.TechTree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,10 +103,10 @@ public class TileTest {
             tileGrassLoc = new Location(20, 22);
             tileMountainLoc = new Location(19, 20);
 
-            tileWater = new Tile(TerrainEnum.WATER, tileWaterLoc);
-            tileSand = new Tile(TerrainEnum.SAND, tileSandLoc);
-            tileGrass = new Tile(TerrainEnum.GRASS, tileGrassLoc);
-            tileMountain = new Tile(TerrainEnum.MOUNTAIN, tileMountainLoc);
+            tileWater = new Tile(TerrainEnum.WATER, tileWaterLoc, null);
+            tileSand = new Tile(TerrainEnum.SAND, tileSandLoc, null);
+            tileGrass = new Tile(TerrainEnum.GRASS, tileGrassLoc, null);
+            tileMountain = new Tile(TerrainEnum.MOUNTAIN, tileMountainLoc, null);
         } catch (UnitNotFoundException e) {
             Assert.fail();
         } catch (StructureNotFoundException e) {
@@ -124,12 +123,12 @@ public class TileTest {
     @Test //Test ownership of the tile
     public void testOwnerShipOfTile(){
         //If no unit, return -1
-        Assert.assertEquals(tileGrass.getOwner(), -1);
+        Assert.assertEquals(tileGrass.getOwner(), null);
 
         tileGrass.addUnit(melee1);
         tileGrass.addUnit(melee2);
 
-        Assert.assertEquals(tileGrass.getOwner(), playerId);
+        Assert.assertEquals((int)tileGrass.getOwner(), playerId);
     }
 
     @Test //Test the enemy blocker

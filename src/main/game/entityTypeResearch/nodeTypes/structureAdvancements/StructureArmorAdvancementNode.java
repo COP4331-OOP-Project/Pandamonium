@@ -6,7 +6,6 @@ import game.entities.EntitySubtypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.StructureManager;
-import game.entities.managers.UnitManager;
 import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

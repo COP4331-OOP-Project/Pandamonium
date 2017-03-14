@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -13,6 +11,8 @@ import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class SideBarPanel extends Panel{
 	private AnchorPane sideBarButtons = new AnchorPane();

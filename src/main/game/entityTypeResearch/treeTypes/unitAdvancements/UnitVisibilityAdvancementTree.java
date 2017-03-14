@@ -3,7 +3,6 @@ package game.entityTypeResearch.treeTypes.unitAdvancements;
 import game.entities.EntitySubtypeEnum;
 import game.entities.managers.UnitManager;
 import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
-import game.entityTypeResearch.nodeTypes.unitAdvancements.UnitMovementAdvancementNode;
 import game.entityTypeResearch.nodeTypes.unitAdvancements.UnitVisibilityAdvancementNode;
 
 public class UnitVisibilityAdvancementTree {

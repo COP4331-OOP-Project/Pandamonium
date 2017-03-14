@@ -1,13 +1,12 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.ColorAdjust;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class HealthBarDrawer {
 	private final static Logger log = LogManager.getLogger(HealthBarDrawer.class);

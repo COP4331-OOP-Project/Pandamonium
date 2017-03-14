@@ -1,10 +1,10 @@
 package view;
 
-import java.awt.Point;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public abstract class Panel {
 	private ViewEnum viewEnum;

@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import game.techTree.nodeTypes.TechNodeImageEnum;
 import game.techTree.nodeTypes.TechTreeNode;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import view.GameModelAdapter;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class TechViewItem {
 	private TechViewEnum researched = TechViewEnum.UNRESEARCHED;

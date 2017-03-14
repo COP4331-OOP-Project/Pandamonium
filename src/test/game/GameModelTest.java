@@ -1,7 +1,5 @@
 package game;
 
-import game.entities.EntitySubtypeEnum;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,16 +1,15 @@
 package view.game;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class MakeDetailsPanel extends Panel{
     private final static Logger log = LogManager.getLogger(ControlModePanel.class);

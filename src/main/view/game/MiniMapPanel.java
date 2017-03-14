@@ -1,18 +1,17 @@
 package view.game;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import game.gameboard.SimpleTile;
 import game.gameboard.TerrainEnum;
 import game.gameboard.TileVisibilityEnum;
 import javafx.scene.canvas.GraphicsContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class MiniMapPanel extends Panel {
 	private static final int HEX_SIZE = 12;

@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import game.mode.Mode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
@@ -10,6 +8,8 @@ import javafx.scene.text.Font;
 import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class UnitDetailsPanel extends DetailsPanel {
     Font detailsFont = getAssets().getFont(0);

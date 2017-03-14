@@ -1,4 +1,4 @@
-package game.workerResearch;
+package game.research.workerResearch;
 
 import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;

@@ -1,25 +1,18 @@
 package game.entities.factories;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import game.workerResearch.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.WorkerStats;
-import game.entities.workers.workerTypes.FoodGatherer;
-import game.entities.workers.workerTypes.OreGatherer;
-import game.entities.workers.workerTypes.PeatGatherer;
-import game.entities.workers.workerTypes.ResearchGenerator;
-import game.entities.workers.workerTypes.SoldierGenerator;
-import game.entities.workers.workerTypes.Worker;
-import game.entities.workers.workerTypes.WorkerGenerator;
-import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.entities.workers.workerTypes.*;
 import game.gameboard.Location;
+import game.research.workerResearch.iWorkerResearchObserver;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import game.semantics.Percentage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorkerFactory implements iWorkerResearchObserver {
 

@@ -1,5 +1,6 @@
 package entityResearch;
 
+
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
 import game.semantics.Percentage;

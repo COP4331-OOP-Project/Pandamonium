@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Font;
@@ -9,6 +7,8 @@ import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class HoverPanel extends Panel {
 	String text;

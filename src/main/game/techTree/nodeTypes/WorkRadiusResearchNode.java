@@ -2,14 +2,8 @@ package game.techTree.nodeTypes;
 
 import entityResearch.iStructureResearchVisitor;
 import entityResearch.researchVisitors.StructureWorkerRadiusResearchVisitor;
-import game.entities.factories.StructureFactory;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.StructureManager;
-import game.entities.managers.WorkerManager;
-import game.entities.workers.workerTypes.WorkerTypeEnum;
-import game.semantics.Percentage;
-import game.workerResearch.WorkerProductionRateResearchVisitor;
-import game.workerResearch.iWorkerResearchVisitor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

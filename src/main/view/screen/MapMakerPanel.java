@@ -1,11 +1,5 @@
 package view.screen;
 
-import java.awt.Point;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import game.gameboard.MapLoader;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,6 +17,12 @@ import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
 import view.game.Camera;
+
+import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class MapMakerPanel extends Panel {
 	private static final int BOARD_SIZE = 42;

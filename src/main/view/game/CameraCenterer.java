@@ -1,6 +1,6 @@
 package view.game;
 
-import java.awt.Point;
+import java.awt.*;
 
 public class CameraCenterer {
     private static final int TIME_TO_CENTER = 32;

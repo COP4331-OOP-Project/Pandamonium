@@ -1,10 +1,7 @@
 package view.game;
 
-import java.awt.Point;
-
 import game.entities.EntityId;
 import game.entities.structures.Structure;
-import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
 import game.gameboard.TerrainEnum;
 import game.gameboard.TileVisibilityEnum;
@@ -17,13 +14,9 @@ import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
-import view.game.drawers.ArmyDrawer;
-import view.game.drawers.CoveringDrawer;
-import view.game.drawers.ResourceDrawer;
-import view.game.drawers.SelectedDrawer;
-import view.game.drawers.StructureDrawer;
-import view.game.drawers.TileDrawer;
-import view.game.drawers.UnitDrawer;
+import view.game.drawers.*;
+
+import java.awt.*;
 
 public class GamePanel extends Panel {
     private static final int TILE_PIXEL_SIZE = 130;
@@ -35,6 +28,7 @@ public class GamePanel extends Panel {
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private SelectedDrawer selectedDrawer;
+    private AreaEffectDrawer areaEffectDrawer;
     private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
 	private Point screenDimensions;
@@ -61,6 +55,7 @@ public class GamePanel extends Panel {
         selectedDrawer = new SelectedDrawer(this, gameModelAdapter, assets);
         resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
         coveringDrawer = new CoveringDrawer(this, assets);
+        areaEffectDrawer = new AreaEffectDrawer(this, assets);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
@@ -101,7 +96,10 @@ public class GamePanel extends Panel {
 	                if (resourcesVisible) {
 	                	resourceDrawer.drawResources(tile, currentTile, g);
 	                }
-                } 
+	                if (tile.getAreaEffect() != null) {
+	                    areaEffectDrawer.drawAreaEffect(currentTile, tile.getAreaEffect().getDecal());
+                    }
+                }
                 coveringDrawer.drawCovering(currentTile, tile.getTileType(), tile.getVisibility());
             }
          }   

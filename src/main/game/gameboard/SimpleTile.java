@@ -1,17 +1,16 @@
 package game.gameboard;
 
-import java.util.ArrayList;
-
 import game.entities.BattleGroup;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import game.entities.Army;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
+import game.gameboard.areaEffects.AreaEffect;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
 public class SimpleTile{
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
@@ -24,6 +23,7 @@ public class SimpleTile{
     private boolean resourcesProspected = false;
     private TileVisibilityEnum visibility = TileVisibilityEnum.INVISIBLE;
     private final static Logger log = LogManager.getLogger(SimpleTile.class);
+    private AreaEffect areaEffect;
 
     public SimpleTile(Tile tile) {
     	if (tile.getTileType() == TerrainEnum.NON_TILE)
@@ -36,6 +36,7 @@ public class SimpleTile{
 		food = tile.getResource(ResourceTypeEnum.FOOD);
 		ore = tile.getResource(ResourceTypeEnum.ORE);
 		peat = tile.getResource(ResourceTypeEnum.PEAT);
+		areaEffect = tile.getAreaEffect();
     }
 
     public void updateTile(Tile tile) {
@@ -47,6 +48,7 @@ public class SimpleTile{
     		food = tile.getResource(ResourceTypeEnum.FOOD);
     		ore = tile.getResource(ResourceTypeEnum.ORE);
     		peat = tile.getResource(ResourceTypeEnum.PEAT);
+    		areaEffect = tile.getAreaEffect();
     	}
     }
     
@@ -113,6 +115,8 @@ public class SimpleTile{
 	public Resource getPeat() {
 		return peat;
 	}
+
+	public AreaEffect getAreaEffect() { return areaEffect; }
 	
 	public boolean getResourcesProspected() {
 		return resourcesProspected;

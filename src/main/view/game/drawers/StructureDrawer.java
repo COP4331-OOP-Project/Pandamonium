@@ -1,18 +1,16 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import game.entities.EntityId;
-import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import javafx.scene.image.Image;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.Animation;
 import view.GameModelAdapter;
 import view.assets.AssetManager;
 import view.game.GamePanel;
+
+import java.awt.*;
 
 public class StructureDrawer {
     private final static Logger log = LogManager.getLogger(StructureDrawer.class);

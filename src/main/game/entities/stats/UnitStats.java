@@ -36,22 +36,22 @@ public class UnitStats {
                 this.upkeep = .05f;
                 break;
             case MELEE:
-                this.offPow = 5;
-                this.defPow = 5;
+                this.offPow = 7;
+                this.defPow = 7;
                 this.range = 1;
                 this.armor = 5;
                 this.speed = 1;
-                this.health = 10;
+                this.health = 30;
                 this.influence = 1;
                 this.upkeep = .1f;
                 break;
             case RANGE:
-                this.offPow = 7;
-                this.defPow = 7;
+                this.offPow = 5;
+                this.defPow = 5;
                 this.range = 3;
                 this.armor = 3;
                 this.speed = 2;
-                this.health = 10;
+                this.health = 30;
                 this.influence = 1;
                 this.upkeep = .1f;
                 break;

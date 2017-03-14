@@ -1,6 +1,8 @@
 package game.entities.managers;
 
-import game.entities.*;
+import game.entities.BattleGroup;
+import game.entities.EntityId;
+import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.Gameboard;

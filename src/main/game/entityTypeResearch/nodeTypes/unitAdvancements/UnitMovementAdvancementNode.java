@@ -1,7 +1,6 @@
 package game.entityTypeResearch.nodeTypes.unitAdvancements;
 
 import entityResearch.iUnitResearchVisitor;
-import entityResearch.researchVisitors.UnitHealthResearchVisitor;
 import entityResearch.researchVisitors.UnitMovementRangeResearchVisitor;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;

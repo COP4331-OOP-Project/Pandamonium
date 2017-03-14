@@ -1,23 +1,18 @@
 package game;
 
-import java.util.ArrayList;
-
-import game.entities.EntityId;
+import game.commands.MoveCommand;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.UnitFactory;
 import game.entities.factories.exceptions.*;
-import game.entities.stats.UnitStats;
-import game.entities.units.Colonist;
 import game.entities.units.Unit;
-import game.entities.units.exceptions.UnitNotFoundException;
+import game.gameboard.Gameboard;
+import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.commands.MoveCommand;
-import game.gameboard.Gameboard;
-import game.gameboard.Location;
+import java.util.ArrayList;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);

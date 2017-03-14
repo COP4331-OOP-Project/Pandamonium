@@ -1,18 +1,17 @@
 package view.game.drawers;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.units.Unit;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.assets.AssetManager;
 import view.game.Camera;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class UnitDrawer {
     private static final Logger log = LogManager.getLogger(UnitDrawer.class);
