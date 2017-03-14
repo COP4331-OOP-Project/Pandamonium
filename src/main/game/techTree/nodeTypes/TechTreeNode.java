@@ -69,6 +69,17 @@ public abstract class TechTreeNode {
         this.parents.add(node);
     }
 
+    public boolean canCompleteResearch() {
+        boolean parentsCompleted = true;
+        for (TechTreeNode node : this.parents) {
+            if (!node.isResearchCompleted()) {
+                parentsCompleted = false;
+                break;
+            }
+        }
+        return !this.isResearchCompleted() && parentsCompleted;
+    }
+
     public abstract boolean isResearchCompleted();
 
     public abstract void doResearch();
