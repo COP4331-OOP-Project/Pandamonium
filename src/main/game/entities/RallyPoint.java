@@ -31,9 +31,7 @@ public class RallyPoint implements iCommandable{
         return entityId;
     }
 
-	@Override
 	public ArrayList<CommandEnum> getCommands() {
-		// TODO Auto-generated method stub
-		return null;
+		return commands;
 	}
 }
