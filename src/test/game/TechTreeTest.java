@@ -7,6 +7,7 @@ import game.entities.factories.exceptions.*;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.semantics.Percentage;
 import game.semantics.PercentageOutOfRangeException;
@@ -22,6 +23,7 @@ public class TechTreeTest {
 
     private Player human;
     private Player panda;
+    private Gameboard gBoard;
 //    private TechTree humanTechTree;
 //    private TechTree pandaTechTree;
 
@@ -46,8 +48,9 @@ public class TechTreeTest {
     //TODO STANDBY worker type not found
     @Before
     public void setUp(){
-        human = new Player(0, HUMAN_STARTING_LOCATION);
-        panda = new Player(1, PANDA_STARTING_LOCATION);
+        gBoard = new Gameboard();
+        human = new Player(0, HUMAN_STARTING_LOCATION, gBoard);
+        panda = new Player(1, PANDA_STARTING_LOCATION, gBoard);
 //        humanTechTree = new TechTree(0);
 //        pandaTechTree = new TechTree(1);
         try {
