@@ -2,6 +2,7 @@ package game.entities.managers;
 
 import entityResearch.iStructureResearchObservable;
 import entityResearch.iStructureResearchObserver;
+import game.Player;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.StructureFactory;
@@ -33,7 +34,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
 
     private StructureIdManager structureIdManager;
 
-    public StructureManager(int playerId, Gameboard gb) {
+    public StructureManager(Player player, Gameboard gb) {
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
         this.forts = new ArrayList<>();
@@ -44,7 +45,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
 
-        StructureFactory structureFactory = new StructureFactory(playerId, gb);
+        StructureFactory structureFactory = new StructureFactory(player, gb);
         this.attach(structureFactory);
         this.structureIdManager = new StructureIdManager(structureFactory);
     }

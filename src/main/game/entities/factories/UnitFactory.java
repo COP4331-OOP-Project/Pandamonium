@@ -1,5 +1,7 @@
 package game.entities.factories;
 
+import game.Player;
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -20,12 +22,13 @@ public class UnitFactory {
 
     private final static Logger log = LogManager.getLogger(UnitFactory.class);
 
-    private int playerId;
+    private Player player;
     private Map<EntitySubtypeEnum, UnitStats> unitStatistics;
     private PlacementManager placementManager;
 
-    public UnitFactory(int playerId, Gameboard gb) {
-        this.playerId = playerId;
+    public UnitFactory(Player player, Gameboard gb) {
+
+        this.player = player;
         this.unitStatistics = new HashMap<>();
         this.placementManager = new PlacementManager(gb);
 
@@ -44,20 +47,24 @@ public class UnitFactory {
 
         switch(unitType) {
             case COLONIST: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id, globalId);
-                return new Colonist(unitStatistics.get(unitType), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(player);
+                return new Colonist(unitStatistics.get(unitType), location, entityId, placementManager, notifier);
             }
             case EXPLORER: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id, globalId);
-                return new Explorer(unitStatistics.get(unitType),location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(player);
+                return new Explorer(unitStatistics.get(unitType),location, entityId, placementManager, notifier);
             }
             case MELEE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id, globalId);
-                return new Melee(unitStatistics.get(unitType), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(player);
+                return new Melee(unitStatistics.get(unitType), location, entityId, placementManager, notifier);
             }
             case RANGE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id, globalId);
-                return new Ranged(unitStatistics.get(unitType), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(player);
+                return new Ranged(unitStatistics.get(unitType), location, entityId, placementManager, notifier);
             }
             default: throw new UnitTypeDoesNotExistException();
         }

@@ -2,6 +2,7 @@ package game.entities.managers;
 
 import entityResearch.iUnitResearchObservable;
 import entityResearch.iUnitResearchObserver;
+import game.Player;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.TotalUnitLimitExceededException;
@@ -30,9 +31,9 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     private UnitIdManager unitIdManager;
 
     // Constructor
-    public UnitManager(int playerId, Gameboard gb) {
+    public UnitManager(Player player, Gameboard gb) {
 
-        this.unitIdManager = new UnitIdManager(playerId, gb);   // Initialize unit id manager
+        this.unitIdManager = new UnitIdManager(player, gb);   // Initialize unit id manager
 
         // Setup unit type collections
         this.melees = new ArrayList<>();

@@ -1,5 +1,6 @@
 package game.entities.structures;
 
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -14,8 +15,11 @@ public class Mine extends Structure {
     private Queue<OreGatherer> unassigned;
     private Queue<OreGatherer> miner;
 
-    public Mine(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
-        super(stats, location, entityId, placementManager);
+    public Mine(StructureStats stats, Location location , EntityId entityId,
+                PlacementManager placementManager, DeathNotifier notifier) {
+
+        super(stats, location, entityId, placementManager, notifier);
+
         unassigned=new LinkedList<>();
         miner=new LinkedList<>();
     }

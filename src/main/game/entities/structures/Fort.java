@@ -1,5 +1,6 @@
 package game.entities.structures;
 
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.PowerState;
 import game.entities.managers.PlacementManager;
@@ -16,8 +17,11 @@ public class Fort extends Structure {
     private Queue<SoldierGenerator> unassigned;
     private Queue<SoldierGenerator> unitBuilder;
 
-    public Fort(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
-        super(stats, location, entityId, placementManager);
+    public Fort(StructureStats stats, Location location , EntityId entityId,
+                PlacementManager placementManager, DeathNotifier notifier) {
+
+        super(stats, location, entityId, placementManager, notifier);
+
         unassigned=new LinkedList<>();
         unitBuilder=new LinkedList<>();
     }

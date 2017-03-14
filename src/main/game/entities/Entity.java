@@ -8,18 +8,28 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Entity {
+
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
     protected PlacementManager placementManager;
+    protected DeathNotifier notifer;
 
-    //TODO Get movementManager into constructor
-    public Entity(EntityId entityId, PlacementManager povementManager){
+    // Constructor
+    public Entity(EntityId entityId, PlacementManager placementManager){
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
-        this.placementManager=placementManager;
+        this.placementManager = placementManager;
+    }
+
+    // Constructor w/ DN
+    public Entity(EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
+        this.commandQueue = new LinkedList<>();
+        this.entityId = entityId;
+        this.placementManager = placementManager;
+        this.notifer = notifier;
     }
 
     public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors
@@ -30,6 +40,9 @@ public abstract class Entity {
     public void takeDamage(double damage){                                          // Take damage to health
         this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
     }
     public void heal(double healing){                                               // Heal for a given amount
         this.health += healing;

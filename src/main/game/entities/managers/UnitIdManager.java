@@ -1,5 +1,6 @@
 package game.entities.managers;
 
+import game.Player;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.UnitFactory;
@@ -39,10 +40,10 @@ public class UnitIdManager {
     private IdManager colonistIdManager;
 
     // Constructor
-    public UnitIdManager(int playerId, Gameboard gb) {
+    public UnitIdManager(Player player,  Gameboard gb) {
 
         // Setup unit factory
-        this.unitFactory = new UnitFactory(playerId, gb);
+        this.unitFactory = new UnitFactory(player, gb);
 
         // Setup Id managers
         this.allUnitIdManager = new IdManager(MIN_UNIT_ID, MAX_UNIT_COUNT);
