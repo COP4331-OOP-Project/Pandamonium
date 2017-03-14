@@ -164,6 +164,9 @@ public class Assets {
         loadItem("AOE_DIE", "assets/images/areaEffect/loseHealth.png");
         loadItem("AOE_LOSE", "assets/images/areaEffect/redCross.png");
         loadItem("AOE_HEAL", "assets/images/areaEffect/skullDecal.png");
+        loadItem("ITEM_DIE", "assets/images/areaEffect/loseHealthItem.png");
+        loadItem("ITEM_LOSE", "assets/images/areaEffect/redCrossItem.png");
+        loadItem("ITEM_HEAL", "assets/images/areaEffect/skullDecalItem.png");
         loadItem("COMMAND_ASSIGN_WORKER", "assets/images/icon/assignWorker.png");
         loadItem("COMMAND_ATTACK", "assets/images/icon/attack.png");
         loadItem("COMMAND_BUILD", "assets/images/icon/build.png");
