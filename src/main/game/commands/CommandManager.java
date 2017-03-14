@@ -4,18 +4,11 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import game.Player;
-import game.entities.Army;
 import game.entities.EntityId;
-import game.entities.RallyPoint;
-import game.entities.managers.exceptions.ArmyDoesNotExistException;
-import game.entities.managers.exceptions.RallyPointDoesNotExistException;
-import game.entities.managers.exceptions.StructureDoesNotExistException;
-import game.entities.managers.exceptions.UnitDoesNotExistException;
-import game.entities.structures.Structure;
-import game.entities.units.Unit;
 
 public class CommandManager {
 	private iCommandable commandableItem;
+	private CommandExecutor commandExecutor = new CommandExecutor();
 	private Player currentPlayer;
 	private ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
 	private CommandEnum selectedCommand;
@@ -52,8 +45,8 @@ public class CommandManager {
 		
 	}
 	
-	public void execute() {
-		
+	public void execute(EntityId selectedEntity) {
+		commandExecutor.executeCommand(selectedEntity, selectedCommand, currentPlayer);
 	}
 	
 	public void setPlayer(Player currentPlayer) {
@@ -70,9 +63,8 @@ public class CommandManager {
 		commandIterator = possibleCommands.listIterator();
 	}
 	
-	public void executeCommand(CommandEnum command) {
+	public void setCommand(CommandEnum command) {
 		selectedCommand = command;
-		execute();
 	}
 	
 	public CommandEnum getCurrentCommand() {

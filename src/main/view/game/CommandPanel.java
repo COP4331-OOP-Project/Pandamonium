@@ -37,23 +37,35 @@ public class CommandPanel extends Panel{
 	private Point c7 = new Point();
 	private Point c8 = new Point();
 	private Point c9 = new Point();
-	private CommandButton commandBuild = new CommandButton(CommandEnum.BUILD_STRUCTURE, getImage("COMMAND_BUILD"));
-	private CommandButton commandHeal = new CommandButton(CommandEnum.HEAL, getImage("COMMAND_HEAL"));
-	private CommandButton commandAttack = new CommandButton(CommandEnum.ATTACK, getImage("COMMAND_ATTACK"));
-	private CommandButton commandDefend = new CommandButton(CommandEnum.DEFEND, getImage("COMMAND_DEFEND"));
-	private CommandButton commandPowerUp = new CommandButton(CommandEnum.POWER_UP, getImage("COMMAND_POWER_UP"));
-	private CommandButton commandPowerDown = new CommandButton(CommandEnum.POWER_DOWN, getImage("COMMAND_POWER_DOWN"));
+	private Point c10 = new Point();
+	private Point c11 = new Point();
+	private Point c12 = new Point();
+	private CommandButton build = new CommandButton(CommandEnum.BUILD_STRUCTURE, getImage("COMMAND_BUILD"));
+	private CommandButton heal = new CommandButton(CommandEnum.HEAL, getImage("COMMAND_HEAL"));
+	private CommandButton attack = new CommandButton(CommandEnum.ATTACK, getImage("COMMAND_ATTACK"));
+	private CommandButton defend = new CommandButton(CommandEnum.DEFEND, getImage("COMMAND_DEFEND"));
+	private CommandButton powerUp = new CommandButton(CommandEnum.POWER_UP, getImage("COMMAND_POWER_UP"));
+	private CommandButton powerDown = new CommandButton(CommandEnum.POWER_DOWN, getImage("COMMAND_POWER_DOWN"));
 	private CommandButton cancelQueue = new CommandButton(CommandEnum.CANCEL_QUEUE, getImage("COMMAND_CANCEL_QUEUE"));
-	private CommandButton commandDecommission = new CommandButton(CommandEnum.DECOMMISSION, getImage("COMMAND_DECOMMISSION"));
-	private CommandButton commandMove = new CommandButton(CommandEnum.MOVE, getImage("COMMAND_MOVE"));
-	private CommandButton commandassignWorker = new CommandButton(CommandEnum.ASSIGN_WORKER, getImage("COMMAND_ASSIGN_WORKER"));
+	private CommandButton decommission = new CommandButton(CommandEnum.DECOMMISSION, getImage("COMMAND_DECOMMISSION"));
+	private CommandButton move = new CommandButton(CommandEnum.MOVE, getImage("COMMAND_MOVE"));
+	private CommandButton assignWorker = new CommandButton(CommandEnum.ASSIGN_WORKER, getImage("COMMAND_ASSIGN_WORKER"));
 	private CommandButton unassignAllWorker = new CommandButton(CommandEnum.UNASSIGN_ALL_WORKERS, getImage("COMMAND_UNASSIGN_ALL_WORKERS"));
-	private CommandButton commandpickupWorker = new CommandButton(CommandEnum.PICK_UP_WORKER, getImage("COMMAND_PICKUP_WORKER"));
-	private CommandButton commanddropoffWorker = new CommandButton(CommandEnum.DROP_OFF_WORKER, getImage("COMMAND_DROP_OFF_WORKER"));
-	private CommandButton commandstartProspecting = new CommandButton(CommandEnum.START_PROSPECTING, getImage("COMMAND_START_PROSPECTING"));
-	private CommandButton commandstopProspecting = new CommandButton(CommandEnum.STOP_PROSPECTING, getImage("COMMAND_STOP_PROSPECTING"));
-	private CommandButton commandFoundCapitol = new CommandButton(CommandEnum.FOUND_CAPITOL, getImage("COMMAND_FOUND_CAPITOL"));
+	private CommandButton pickupWorker = new CommandButton(CommandEnum.PICK_UP_WORKER, getImage("COMMAND_PICKUP_WORKER"));
+	private CommandButton dropoffWorker = new CommandButton(CommandEnum.DROP_OFF_WORKER, getImage("COMMAND_DROP_OFF_WORKER"));
+	private CommandButton startProspecting = new CommandButton(CommandEnum.START_PROSPECTING, getImage("COMMAND_START_PROSPECTING"));
+	private CommandButton stopProspecting = new CommandButton(CommandEnum.STOP_PROSPECTING, getImage("COMMAND_STOP_PROSPECTING"));
+	private CommandButton foundCapitol = new CommandButton(CommandEnum.FOUND_CAPITOL, getImage("COMMAND_FOUND_CAPITOL"));
+	private CommandButton farm = new CommandButton(CommandEnum.WORKER_FARM, getImage("ICON_FOOD_HUMAN"));
+	private CommandButton mine = new CommandButton(CommandEnum.WORKER_MINE, getImage("ICON_METAL"));
+	private CommandButton generate = new CommandButton(CommandEnum.WORKER_GENERATE, getImage("ICON_POWER"));
+	private CommandButton breed = new CommandButton(CommandEnum.BREED_WORKERS, getImage("BREED_WORKER"));
+	private CommandButton createSoldiers = new CommandButton(CommandEnum.CREATE_SOLDIERS, getImage("WORKER_TO_SOLDIER_HUMAN"));
+	private CommandButton disbandArmy = new CommandButton(CommandEnum.DISBAND_ARMY, getImage("COMMAND_FOUND_CAPITOL"));
+	private CommandButton reinforceArmy = new CommandButton(CommandEnum.REINFORCE_ARMY, getImage("COMMAND_GOTO_RALLY_POINT"));
+	private CommandButton moveRallyPoint = new CommandButton(CommandEnum.MOVE_RALLY_POINT, getImage("COMMAND_GOTO_RALLY_POINT"));
 	private ArrayList<CommandButton> commandButtons = new ArrayList<>();
+	ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
 	private HoverPanel hoverPanel;
 	
 	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
@@ -61,28 +73,48 @@ public class CommandPanel extends Panel{
 		setIsVisible(false);
 		this.root = root;
 		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
-		setUpCommandButton(commandBuild);
-		setUpCommandButton(commandHeal);
-		setUpCommandButton(commandAttack);
-		setUpCommandButton(commandDefend);
-		setUpCommandButton(commandPowerUp);
-		setUpCommandButton(commandPowerDown);
+		setUpCommandButton(build);
+		setUpCommandButton(heal);
+		setUpCommandButton(attack);
+		setUpCommandButton(defend);
+		setUpCommandButton(powerUp);
+		setUpCommandButton(powerDown);
 		setUpCommandButton(cancelQueue);
-		setUpCommandButton(commandDecommission);
-		setUpCommandButton(commandMove);
+		setUpCommandButton(decommission);
+		setUpCommandButton(move);
+		setUpCommandButton(assignWorker);
+		setUpCommandButton(unassignAllWorker);
+		setUpCommandButton(pickupWorker);
+		setUpCommandButton(dropoffWorker);
+		setUpCommandButton(startProspecting);
+		setUpCommandButton(stopProspecting);
+		setUpCommandButton(foundCapitol);
+		setUpCommandButton(farm);
+		setUpCommandButton(mine);
+		setUpCommandButton(generate);
+		setUpCommandButton(breed);
+		setUpCommandButton(createSoldiers);
+		setUpCommandButton(disbandArmy);
+		setUpCommandButton(reinforceArmy);
+		setUpCommandButton(moveRallyPoint);
 	}
 	
-	public void setUpCommandButton(CommandButton CommandButton) {
-		CommandButton.getStyleClass().setAll("commandButton");
-		CommandButton.setOnAction(event -> {});
+	public void setUpCommandButton(CommandButton commandButton) {
+		commandButton.getStyleClass().setAll("commandButton");
+		commandButton.setOnAction(event -> {});
 		commandButtonPane.getChildren().removeAll();
-		commandButtonPane.getChildren().add(CommandButton);
-		commandButtons.add(CommandButton);
+		commandButtonPane.getChildren().add(commandButton);
+		commandButtons.add(commandButton);
+		commandButton.setOnAction(event -> {
+			setCommand(commandButton.getCommand());
+			getAdapter().executeCommand();
+		});
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
-        drawCommandPanel(g);
+		possibleCommands = getAdapter().getCommands();
+		drawCommandPanel(g);
 	}
 
     private void drawCommandPanel(GraphicsContext g) {
@@ -91,7 +123,22 @@ public class CommandPanel extends Panel{
     	} else {
     		yDistance = COMMAND_Y_NORMAL;
     	}
-		g.drawImage(getImage("GUI_COMMAND_PANEL"), 0, yDistance);
+    	if (getAdapter().getPlayer() == 0) {
+    		farm.setIcon(getImage("ICON_FOOD_HUMAN"));
+    		createSoldiers.setIcon(getImage("WORKER_TO_SOLDIER_HUMAN"));
+    	} else {
+    		farm.setIcon(getImage("ICON_FOOD_PANDA"));
+    		createSoldiers.setIcon(getImage("WORKER_TO_SOLDIER_PANDA"));
+    	}
+    	if (possibleCommands.size() >= 1 && possibleCommands.size() <= 3) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL1"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 4 && possibleCommands.size() <= 6) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL2"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 7 && possibleCommands.size() <= 9) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL3"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 10 && possibleCommands.size() <= 12) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL4"), 0, yDistance);
+    	}
     	updateCommandButtonLocations(g);
     	drawCommandButtons(g);
     }
@@ -115,14 +162,25 @@ public class CommandPanel extends Panel{
     	c8.y = yDistance + ICON_WIDTH * 2;
     	c9.x = ICON_WIDTH * 2;
     	c9.y = yDistance + ICON_WIDTH * 2;
+    	c10.x = 0;
+    	c10.y = yDistance + ICON_WIDTH * 3;
+    	c11.x = ICON_WIDTH;
+    	c11.y = yDistance + ICON_WIDTH * 3;
+    	c12.x = ICON_WIDTH * 3;
+    	c12.y = yDistance + ICON_WIDTH * 3;
 }
 
     private void drawCommandButtons(GraphicsContext g) {
-    	ArrayList<CommandEnum> possibleCommands = getAdapter().getCommands();
+    	 
 		for (CommandButton commandButton : commandButtons) {
 			boolean commandExists = false;
 			for (int i = 0; i < possibleCommands.size(); i++) {
     			if (commandButton.getCommand() == possibleCommands.get(i)) {
+    				if (getAdapter().getSelectedCommand() == commandButton.getCommand()) {
+						commandButton.getStyleClass().setAll("commandButtonSelected");
+					} else {
+						commandButton.getStyleClass().setAll("commandButton");
+					}
     				switch (i) {
     					case 0:
     						commandButton.setTranslateX(c1.x + SPACING);
@@ -160,6 +218,18 @@ public class CommandPanel extends Panel{
     						commandButton.setTranslateX(c9.x + SPACING);
     						commandButton.setTranslateY(c9.y + SPACING);
     						break;
+    					case 9:
+    						commandButton.setTranslateX(c10.x + SPACING);
+    						commandButton.setTranslateY(c10.y + SPACING);
+    						break;
+    					case 10:
+    						commandButton.setTranslateX(c11.x + SPACING);
+    						commandButton.setTranslateY(c11.y + SPACING);
+    						break;
+    					case 11:
+    						commandButton.setTranslateX(c12.x + SPACING);
+    						commandButton.setTranslateY(c12.y + SPACING);
+    						break;
     				}
     				commandExists = true;
     			}
@@ -171,18 +241,7 @@ public class CommandPanel extends Panel{
     		}
     	}
     }
-    /*
-	private void drawCommandButton(GraphicsContext g, CommandButton commandBuild, int x, int y, CommandEnum selected) {
-	//	if (current == selected) {
-			commandBuild.getStyleClass().setAll("commandButtonSelected");
-		//	drawHovered(g, selected);
-		} else {
-			commandBuild.getStyleClass().setAll("commandButton");
-		}
-		commandBuild.setTranslateX(x + SPACING);
-		commandBuild.setTranslateY(y + SPACING);
-	}
-*/
+
 	public void hideGUIElements() {
 		root.getChildren().remove(commandButtonPane);
 	}

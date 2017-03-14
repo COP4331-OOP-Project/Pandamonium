@@ -77,10 +77,6 @@ public class ModeController {
 		commandManager.cycleBackward();
 	}
 	
-	public void executeCommand(CommandEnum command) {
-		commandManager.executeCommand(command);
-	}
-	
 	public ArrayList<CommandEnum> getCommands() {
 		return commandManager.getPossibleCommands();
 	}
@@ -168,6 +164,10 @@ public class ModeController {
 	}
 
 	public void execute() {
-		commandManager.execute();
+		commandManager.execute(selectedManager.getSelectedEntity());
+	}
+
+	public void setCommand(CommandEnum command) {
+		commandManager.setCommand(command);
 	}
 }
