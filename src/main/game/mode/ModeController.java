@@ -4,8 +4,14 @@ import controls.KeyEventController;
 import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
-import game.commands.managers.CommandManager;
+import game.commands.CommandManager;
+import game.commands.iCommandable;
 import game.entities.EntityId;
+import game.entities.EntityTypeEnum;
+import game.entities.managers.exceptions.ArmyDoesNotExistException;
+import game.entities.managers.exceptions.RallyPointDoesNotExistException;
+import game.entities.managers.exceptions.StructureDoesNotExistException;
+import game.entities.managers.exceptions.UnitDoesNotExistException;
 import game.gameboard.Location;
 
 public class ModeController {
@@ -39,23 +45,26 @@ public class ModeController {
 		currentMode = currentMode.getNext();
 		cycleSubmodeForward();
 		selectedManager.cycle(true);
-		
+		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
 	}
 	
 	public void cycleModeBackward() {
 		currentMode = currentMode.getPrevious();
 		cycleSubmodeForward();
 		selectedManager.cycle(false);
+		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
 	}
 
 	public void cycleSubmodeForward() {
 		currentSubmode = currentSubmode.getNext(currentMode);
 		selectedManager.cycle(true);
+		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
 	}
 
 	public void cycleSubmodeBackward() {
 		currentSubmode = currentSubmode.getPrevious(currentMode);
 		selectedManager.cycle(false);
+		commandManager.updateSelectedEntity(commandableFromEntityId(selectedManager.getSelectedEntity()));
 	}
 	
 	public void cycleCommandForward() {
@@ -84,6 +93,7 @@ public class ModeController {
 
 	public void endTurn() {
 		gameModel.endTurn();
+		commandManager.setPlayer(currentPlayer);
 	}
 	
 	public Mode getGameMode() {
@@ -113,5 +123,30 @@ public class ModeController {
 	
 	public void setKeyEventController(KeyEventController event) {
 		keyEventController = event;
+	}
+	
+	private iCommandable commandableFromEntityId(EntityId entityId) {
+		if (entityId != null) {
+			try {
+				switch (entityId.getTypeId()) {
+					case RALLYPOINT:
+						return currentPlayer.getRallyPoint(entityId);
+					case STRUCTURE:
+						return currentPlayer.getStructure(entityId);
+					case UNIT:
+						return currentPlayer.getUnit(entityId);
+					case ARMY:
+						return currentPlayer.getArmy(entityId);
+					default:
+						return null;
+				} 
+			} catch (RallyPointDoesNotExistException | StructureDoesNotExistException |
+					UnitDoesNotExistException | ArmyDoesNotExistException e) {
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 }

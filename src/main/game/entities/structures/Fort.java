@@ -1,6 +1,10 @@
 package game.entities.structures;
 
+<<<<<<< HEAD
 import game.entities.DeathNotifier;
+=======
+import game.commands.CommandEnum;
+>>>>>>> Command Stuff
 import game.entities.EntityId;
 import game.entities.PowerState;
 import game.entities.managers.PlacementManager;
@@ -24,6 +28,10 @@ public class Fort extends Structure {
 
         unassigned=new LinkedList<>();
         unitBuilder=new LinkedList<>();
+        addCommand(CommandEnum.ATTACK);
+        addCommand(CommandEnum.ASSIGN_WORKER);
+        addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
+        addCommand(CommandEnum.CREATE_SOLDIERS);
     }
 
     public void assignToUnitBuilder(Location location){

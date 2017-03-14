@@ -28,7 +28,7 @@ public class CommandPanel extends Panel{
 	private Point screenDimensions;
 	private AnchorPane commandButtonPane = new AnchorPane();
 	private Group root;
-	private CommandButton commandBuild = new CommandButton(CommandEnum.MAKE, getImage("COMMAND_BUILD"));
+	private CommandButton commandBuild = new CommandButton(CommandEnum.BUILD_STRUCTURE, getImage("COMMAND_BUILD"));
 	private CommandButton commandHeal = new CommandButton(CommandEnum.HEAL, getImage("COMMAND_HEAL"));
 	private CommandButton commandAttack = new CommandButton(CommandEnum.ATTACK, getImage("COMMAND_ATTACK"));
 	private CommandButton commandDefend = new CommandButton(CommandEnum.DEFEND, getImage("COMMAND_DEFEND"));
@@ -87,7 +87,7 @@ public class CommandPanel extends Panel{
     }
 
     private void drawAllCommandButtons(GraphicsContext g) {
-    	drawCommandButton(g, commandBuild, 0, yDistance, CommandEnum.MAKE);
+    	drawCommandButton(g, commandBuild, 0, yDistance, CommandEnum.BUILD_STRUCTURE);
         drawCommandButton(g, commandHeal, ICON_WIDTH, yDistance, CommandEnum.HEAL);
     	drawCommandButton(g, commandAttack, ICON_WIDTH * 2, yDistance, CommandEnum.ATTACK);
     	drawCommandButton(g, commandDefend, 0, yDistance + ICON_WIDTH, CommandEnum.DEFEND);
@@ -100,7 +100,7 @@ public class CommandPanel extends Panel{
 
 	private void drawHovered(GraphicsContext g, CommandEnum selected) {
 		switch(selected) {
-			case MAKE:
+			case BUILD_STRUCTURE:
 				hoverPanel.drawText(g, new Point(190, yDistance), "Build Entity");
 				break;
 			case HEAL:

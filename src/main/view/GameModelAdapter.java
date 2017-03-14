@@ -111,6 +111,6 @@ public class GameModelAdapter {
 	}
 	
 	public void endTurn() {
-		gameModel.endTurn();
+		controlMode.endTurn();
 	}
 }

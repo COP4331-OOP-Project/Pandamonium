@@ -24,7 +24,13 @@ public class ResourceDrawer{
 	}
     
     public void drawResources(SimpleTile tile, Point p, GraphicsContext g) {
-    	String foodIconString = "";
+    	if (tile.getResourcesProspected()) {
+    		drawAllResources(tile, p, g);
+    	}
+    }
+
+	private void drawAllResources(SimpleTile tile, Point p, GraphicsContext g) {
+		String foodIconString = "";
     	if (gameModelAdapter.getPlayer() == 0) {
     		foodIconString = "ICON_FOOD_HUMAN";
     	} else {
@@ -49,6 +55,6 @@ public class ResourceDrawer{
     	g.drawImage(peatImage, x + (20 * scale), y + (48 * scale), scale * peatImage.getWidth(), 
     															   scale * peatImage.getHeight());
     	g.drawImage(oreImage, x + (20 * scale), y + (75 * scale), scale * oreImage.getWidth(), 
-    															 scale * oreImage.getHeight());
-    }
+													 scale * oreImage.getHeight());
+	}
 }

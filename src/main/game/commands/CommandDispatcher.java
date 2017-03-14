@@ -9,7 +9,6 @@ import game.gameboard.Tile;
 
 // Class to handle creation and assignment of commands
 public class CommandDispatcher {
-
     Player player;      // Player
 
     // Constructor
@@ -37,7 +36,7 @@ public class CommandDispatcher {
 
     // Issue a make command
     public void issueMakeCommand(Entity e, Tile target, String entityCode) {
-        e.addCommandToQueue(new MakeCommand(e, target, entityCode));
+        //e.addCommandToQueue(new BuildStructureCommand(e, target, entityCode));
     }
 
     // Issue a power down command

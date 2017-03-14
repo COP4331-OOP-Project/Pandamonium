@@ -1,6 +1,10 @@
 package game.entities.structures;
 
+<<<<<<< HEAD
 import game.entities.DeathNotifier;
+=======
+import game.commands.CommandEnum;
+>>>>>>> Command Stuff
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -22,6 +26,9 @@ public class Farm extends Structure {
 
         unassigned=new LinkedList<>();
         farmer=new LinkedList<>();
+        addCommand(CommandEnum.ASSIGN_WORKER);
+        addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
+        addCommand(CommandEnum.WORKER_FARM);
     }
 
     public void assignToFarmer(Location location){
