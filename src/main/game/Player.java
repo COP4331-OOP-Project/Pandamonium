@@ -1,37 +1,22 @@
 package game;
 
-import java.util.ArrayList;
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.*;
-import game.entities.managers.PlacementManager;
-import game.entities.managers.StructureManager;
-import game.entities.managers.UnitManager;
-import game.entities.managers.WorkerManager;
+import game.entities.managers.*;
 import game.entities.managers.exceptions.*;
-
+import game.entities.structures.*;
+import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import game.entities.structures.Capitol;
-import game.entities.structures.Farm;
-import game.entities.structures.Fort;
-import game.entities.structures.Mine;
-import game.entities.structures.ObservationTower;
-import game.entities.structures.PowerPlant;
-import game.entities.structures.Structure;
-import game.entities.structures.University;
-import game.entities.units.Colonist;
-import game.entities.units.Explorer;
-import game.entities.units.Melee;
-import game.entities.units.Ranged;
-import game.entities.units.Unit;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 
 public class Player implements iTurnObservable {
 
@@ -50,6 +35,7 @@ public class Player implements iTurnObservable {
 	private UnitManager unitManager;
 	private StructureManager structureManager;
 	private PlacementManager placementManager;
+	private ArmyManager armyManager;
 
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
@@ -63,6 +49,7 @@ public class Player implements iTurnObservable {
 
 	// Constructor
 	public Player(int playerId, Location loc, Gameboard gb) {
+		
 		this.playerId = playerId;	// Set player id
 
 		// Setup managers for entities, workers
@@ -70,6 +57,8 @@ public class Player implements iTurnObservable {
 		this.placementManager = new PlacementManager(gb);
 		this.unitManager = new UnitManager(this, placementManager);
 		this.structureManager = new StructureManager(this, placementManager, workerManager, unitManager);
+		this.armyManager = new ArmyManager(playerId, gb);
+
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
 
