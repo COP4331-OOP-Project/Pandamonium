@@ -35,6 +35,7 @@ public class GamePanel extends Panel {
     private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private AreaEffectDrawer areaEffectDrawer;
+    private OneShotItemDrawer oneShotItemDrawer;
     private ResourceDrawer resourceDrawer;
     private GraphicsContext g;
 	private Point screenDimensions;
@@ -61,6 +62,7 @@ public class GamePanel extends Panel {
         resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
         coveringDrawer = new CoveringDrawer(this, assets);
         areaEffectDrawer = new AreaEffectDrawer(this, assets);
+        oneShotItemDrawer = new OneShotItemDrawer(this, assets);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
@@ -103,6 +105,9 @@ public class GamePanel extends Panel {
 	                }
 	                if (tile.getAreaEffect() != null) {
 	                    areaEffectDrawer.drawAreaEffect(currentTile, tile.getAreaEffect().getDecal());
+                    }
+                    if (tile.getOneShotItem() != null) {
+	                    oneShotItemDrawer.drawOneShotItem(currentTile, tile.getOneShotItem().getDecal());
                     }
                 }
                 coveringDrawer.drawCovering(currentTile, tile.getTileType(), tile.getVisibility());

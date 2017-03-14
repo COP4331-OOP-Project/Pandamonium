@@ -10,8 +10,8 @@ import view.game.GamePanel;
 import java.awt.*;
 
 public class CoveringDrawer {
-    Animation fogAnimation;
-    GamePanel gamePanel;
+    private Animation fogAnimation;
+    private GamePanel gamePanel;
     
     public CoveringDrawer(GamePanel gamePanel, AssetManager assetManager) {
     this.gamePanel = gamePanel;

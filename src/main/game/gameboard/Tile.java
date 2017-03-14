@@ -7,6 +7,8 @@ import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.areaEffects.AreaEffect;
 import game.gameboard.areaEffects.AreaEffectAlreadyPresentException;
+import game.gameboard.oneShotItem.OneShotItem;
+import game.gameboard.oneShotItem.OneShotItemAlreadyPresentException;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import game.visitors.iTileActionVisitor;
@@ -36,6 +38,24 @@ public class Tile implements iTileAccessors {
     private Random resourceValueGenerator = new Random();
     private Integer ownerId;
     private AreaEffect areaEffect;
+    private OneShotItem oneShotItem;
+
+    Tile(TerrainEnum tileType, Location location) {
+        Terrain = tileType;
+        food = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        units = new ArrayList<Unit>();
+        battleGroups = new ArrayList<BattleGroup>();
+        rallyPoints = new ArrayList<RallyPoint>();
+        containsStructure = false;
+        containsRallyPoint = false;
+        containsUnit = false;
+        containsArmy = false;
+        structure = null;
+        this.location = location;
+        this.setOwnerId(null);
+    }
 
     Tile(TerrainEnum tileType, Location location, AreaEffect areaEffect) {
         Terrain = tileType;
@@ -52,6 +72,24 @@ public class Tile implements iTileAccessors {
         structure = null;
         this.location = location;
         this.areaEffect = areaEffect;
+        this.setOwnerId(null);
+    }
+
+    Tile(TerrainEnum tileType, Location location, OneShotItem oneShotItem) {
+        Terrain = tileType;
+        food = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
+        units = new ArrayList<Unit>();
+        battleGroups = new ArrayList<BattleGroup>();
+        rallyPoints = new ArrayList<RallyPoint>();
+        containsStructure = false;
+        containsRallyPoint = false;
+        containsUnit = false;
+        containsArmy = false;
+        structure = null;
+        this.location = location;
+        this.oneShotItem = oneShotItem;
         this.setOwnerId(null);
     }
 
@@ -80,13 +118,28 @@ public class Tile implements iTileAccessors {
         units.add(unit);
         if (this.areaEffect != null)
             this.areaEffect.affectUnit(unit);
+
+        if (this.oneShotItem != null) {
+            if (!this.oneShotItem.isUsed())
+                this.oneShotItem.useItem(unit);
+            else
+                this.oneShotItem = null;
+        }
         //unit.setLocation(this.location);
     }
 
-    public void addAreaEffect(AreaEffect areaEffect) throws AreaEffectAlreadyPresentException {
+    public void addAreaEffect(AreaEffect areaEffect) throws AreaEffectAlreadyPresentException, OneShotItemAlreadyPresentException {
         if (this.areaEffect != null) throw new AreaEffectAlreadyPresentException();
+        if (this.oneShotItem != null) throw new OneShotItemAlreadyPresentException();
 
         this.areaEffect = areaEffect;
+    }
+
+    public void addOneShotItem(OneShotItem oneShotItem) throws AreaEffectAlreadyPresentException, OneShotItemAlreadyPresentException {
+        if (this.areaEffect != null) throw new AreaEffectAlreadyPresentException();
+        if (this.oneShotItem != null) throw new OneShotItemAlreadyPresentException();
+
+        this.oneShotItem = oneShotItem;
     }
 
     public void addStructure(Structure structure){
@@ -194,5 +247,7 @@ public class Tile implements iTileAccessors {
     public AreaEffect getAreaEffect() {
         return this.areaEffect;
     }
+
+    public OneShotItem getOneShotItem() { return this.oneShotItem; }
 
 }
