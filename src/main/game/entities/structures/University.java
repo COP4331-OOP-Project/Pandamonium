@@ -42,7 +42,7 @@ public class University extends Structure {
             }
         }
     }
-
+    
     public void unassignResearcher()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
         if(!researcher.isEmpty()){
             Iterator<ResearchGenerator> iterator = researcher.iterator();

@@ -19,8 +19,7 @@ import game.visitors.TransferWorkerVisitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 public class Farm extends Structure {
     private ArrayList<Worker> unassigned;
