@@ -1,15 +1,13 @@
 package game.gameboard;
 
-import java.util.ArrayList;
-
+import game.Player;
+import game.entities.EntitySubtypeEnum;
+import game.entities.structures.Structure;
+import game.entities.units.Unit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.Player;
-import game.entities.EntitySubtypeEnum;
-import game.entities.structures.ObservationTower;
-import game.entities.structures.Structure;
-import game.entities.units.Unit;
+import java.util.ArrayList;
 
 public final class SimpleTileUpdater {
 

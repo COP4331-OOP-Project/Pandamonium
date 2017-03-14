@@ -17,4 +17,8 @@ public class HealAreaEffect implements AreaEffect {
     public void affectUnit(Unit u) {
         u.heal(this.healAmount);
     }
+
+    public AreaEffectDecalEnum getDecal() {
+        return AreaEffectDecalEnum.HEAL;
+    }
 }

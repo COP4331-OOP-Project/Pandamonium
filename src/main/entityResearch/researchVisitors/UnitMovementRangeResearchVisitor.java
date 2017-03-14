@@ -4,7 +4,6 @@ import entityResearch.iUnitResearchVisitor;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
 import game.entities.managers.UnitManager;
-import game.semantics.Percentage;
 
 // Visitor to have the unit manager of player perform the upgrade on subtype movement range
 public class UnitMovementRangeResearchVisitor implements iUnitResearchVisitor {

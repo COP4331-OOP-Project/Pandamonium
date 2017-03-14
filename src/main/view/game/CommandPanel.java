@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import game.commands.CommandEnum;
 import game.mode.Mode;
 import javafx.scene.Group;
@@ -15,6 +13,8 @@ import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class CommandPanel extends Panel{
 	private static final int COMMAND_Y_NORMAL = 99;

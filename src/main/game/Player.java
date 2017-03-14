@@ -1,10 +1,5 @@
 package game;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import javax.lang.model.UnknownEntityException;
-
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.*;
@@ -12,31 +7,17 @@ import game.entities.managers.StructureManager;
 import game.entities.managers.UnitManager;
 import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.*;
+import game.entities.structures.*;
+import game.entities.units.*;
 import game.entities.workers.workerTypes.Worker;
-
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.*;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import game.entities.factories.UnitFactory;
-import game.entities.structures.Capitol;
-import game.entities.structures.Farm;
-import game.entities.structures.Fort;
-import game.entities.structures.Mine;
-import game.entities.structures.ObservationTower;
-import game.entities.structures.PowerPlant;
-import game.entities.structures.Structure;
-import game.entities.structures.University;
-import game.entities.units.Colonist;
-import game.entities.units.Explorer;
-import game.entities.units.Melee;
-import game.entities.units.Ranged;
-import game.entities.units.Unit;
-import game.entities.units.exceptions.UnitNotFoundException;
-import game.entities.workers.workerTypes.Worker;
-import game.resources.Resource;
-import game.resources.ResourceTypeEnum;
+import java.util.ArrayList;
 
 public class Player implements iTurnObservable {
 

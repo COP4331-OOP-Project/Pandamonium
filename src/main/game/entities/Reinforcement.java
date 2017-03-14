@@ -1,10 +1,10 @@
 package game.entities;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import game.entities.units.Unit;
 import game.gameboard.Location;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Reinforcement {
     private ArrayList<Unit> reinforcements;

@@ -30,7 +30,7 @@ public class StructureStats {
                 this.attackStrength = 0;
                 this.defensiveStrength = 5;
                 this.armor = 20;
-                this.health = 20;
+                this.health = 150;
                 this.prodRate = 1;
                 this.influence = 1;
                 this.workerDensity = 10;
@@ -46,7 +46,7 @@ public class StructureStats {
                 this.attackStrength = 0;
                 this.defensiveStrength = 5;
                 this.armor = 20;
-                this.health = 20;
+                this.health = 30;
                 this.prodRate = 1;
                 this.influence = 1;
                 this.workerDensity = 10;
@@ -61,8 +61,8 @@ public class StructureStats {
             case FORT: {
                 this.attackStrength = 10;
                 this.defensiveStrength = 10;
-                this.armor = 20;
-                this.health = 50;
+                this.armor = 50;
+                this.health = 70;
                 this.prodRate = 1;
                 this.influence = 1;
                 this.workerDensity = 10;
@@ -126,7 +126,7 @@ public class StructureStats {
                 this.attackStrength = 0;
                 this.defensiveStrength = 5;
                 this.armor = 20;
-                this.health = 20;
+                this.health = 60;
                 this.prodRate = 1;
                 this.influence = 1;
                 this.workerDensity = 10;

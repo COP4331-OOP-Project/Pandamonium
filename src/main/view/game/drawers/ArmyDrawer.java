@@ -1,17 +1,16 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.GameModelAdapter;
 import view.assets.AssetManager;
 import view.game.Camera;
 import view.game.GamePanel;
+
+import java.awt.*;
 
 public class ArmyDrawer {
 

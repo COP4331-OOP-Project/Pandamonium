@@ -3,9 +3,9 @@ package game.techTree.nodeTypes;
 import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
-import game.semantics.Percentage;
 import game.research.workerResearch.WorkerProductionRateResearchVisitor;
 import game.research.workerResearch.iWorkerResearchVisitor;
+import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

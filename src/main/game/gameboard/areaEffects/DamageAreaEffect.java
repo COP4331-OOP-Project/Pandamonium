@@ -18,4 +18,8 @@ public class DamageAreaEffect implements AreaEffect {
         u.takeDamage(this.damageAmount);
     }
 
+    public AreaEffectDecalEnum getDecal() {
+        return AreaEffectDecalEnum.DAMAGE;
+    }
+
 }

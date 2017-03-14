@@ -2,12 +2,14 @@ package game.entities.managers;
 
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
+import game.entities.factories.StructureFactory;
+import game.entities.factories.exceptions.StructureTypeDoesNotExist;
+import game.entities.factories.exceptions.StructureTypeLimitExceededException;
+import game.entities.factories.exceptions.TotalStructureLimitExceededException;
 import game.entities.managers.IdManager.IdManager;
 import game.entities.managers.IdManager.exceptions.IdDoesNotExistException;
 import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
-import game.entities.factories.StructureFactory;
-import game.entities.factories.exceptions.*;
 import game.entities.structures.*;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;

@@ -1,7 +1,5 @@
 package view.screen;
 
-import java.awt.Point;
-
 import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,6 +12,8 @@ import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class IntroPanel extends Panel {
 	private static final int ASPECT_RATIO_X = 16;

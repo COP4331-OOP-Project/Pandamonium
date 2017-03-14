@@ -1,6 +1,6 @@
 package view.game;
 
-import java.awt.Point;
+import java.awt.*;
 
 public class Camera {
     private static final int HEX_W = 130;

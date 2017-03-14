@@ -1,31 +1,14 @@
 package view;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 import game.DebugMode;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import view.assets.AssetManager;
-import view.game.Camera;
-import view.game.CivilizationPanel;
-import view.game.CommandPanel;
-import view.game.ControlModePanel;
-import view.game.GamePanel;
-import view.game.MakeDetailsPanel;
-import view.game.MiniMapPanel;
-import view.game.SideBarPanel;
-import view.game.StructureDetailsPanel;
-import view.game.StructureOverviewPanel;
-import view.game.TechOverviewPanel;
-import view.game.ToggleBarPanel;
-import view.game.UnitDetailsPanel;
-import view.game.UnitOverviewPanel;
-import view.screen.IntroPanel;
-import view.screen.MainMenuPanel;
-import view.screen.MapMakerPanel;
-import view.screen.SettingsPanel;
-import view.screen.SplashPanel;
+import view.game.*;
+import view.screen.*;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class PanelManager {
 	private ViewEnum currentViewMode;

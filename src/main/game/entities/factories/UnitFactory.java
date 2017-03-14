@@ -1,24 +1,20 @@
 package game.entities.factories;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.factories.exceptions.*;
+import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
-import game.entities.units.Colonist;
-import game.entities.units.Explorer;
-import game.entities.units.Melee;
-import game.entities.units.Ranged;
-import game.entities.units.Unit;
+import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UnitFactory {
 

@@ -1,7 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
@@ -11,6 +9,8 @@ import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class CivilizationPanel extends Panel {
 	private DropShadow ds = new DropShadow();

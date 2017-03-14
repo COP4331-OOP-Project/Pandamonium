@@ -1,22 +1,21 @@
 package game.gameboard;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
 import game.entities.BattleGroup;
-import game.gameboard.areaEffects.AreaEffect;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import game.entities.Army;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
+import game.gameboard.areaEffects.AreaEffect;
+import game.gameboard.areaEffects.AreaEffectAlreadyPresentException;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import game.visitors.iTileActionVisitor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 // Tile class for gameboard
 public class Tile implements iTileAccessors {
@@ -79,8 +78,15 @@ public class Tile implements iTileAccessors {
             return;
         }*/
         units.add(unit);
-        this.areaEffect.affectUnit(unit);
+        if (this.areaEffect != null)
+            this.areaEffect.affectUnit(unit);
         //unit.setLocation(this.location);
+    }
+
+    public void addAreaEffect(AreaEffect areaEffect) throws AreaEffectAlreadyPresentException {
+        if (this.areaEffect != null) throw new AreaEffectAlreadyPresentException();
+
+        this.areaEffect = areaEffect;
     }
 
     public void addStructure(Structure structure){
@@ -184,4 +190,9 @@ public class Tile implements iTileAccessors {
 			return null;
     	}
     }
+
+    public AreaEffect getAreaEffect() {
+        return this.areaEffect;
+    }
+
 }

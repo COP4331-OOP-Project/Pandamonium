@@ -1,12 +1,6 @@
 package game.entities.units;
 
-import game.entities.Entity;
-import game.entities.EntityId;
-import game.entities.EntitySubtypeEnum;
-import game.entities.HealthPercentage;
-import game.entities.iAttacker;
-import game.entities.iDefender;
-import game.entities.iMoveable;
+import game.entities.*;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;

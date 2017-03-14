@@ -1,12 +1,12 @@
 package view.game;
 
-import java.awt.Point;
-
 import javafx.scene.canvas.GraphicsContext;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public abstract class DetailsPanel extends Panel{
 	

@@ -1,7 +1,5 @@
 package view.game.drawers;
 
-import java.awt.Point;
-
 import game.gameboard.SimpleTile;
 import game.resources.Resource;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,6 +8,8 @@ import javafx.scene.text.Font;
 import view.GameModelAdapter;
 import view.assets.AssetManager;
 import view.game.Camera;
+
+import java.awt.*;
 
 public class ResourceDrawer{
     private GameModelAdapter gameModelAdapter;

@@ -3,7 +3,6 @@ package game.entityTypeResearch.treeTypes.structureAdvancements;
 import game.entities.EntitySubtypeEnum;
 import game.entities.managers.StructureManager;
 import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
-import game.entityTypeResearch.nodeTypes.structureAdvancements.StructureDefensiveAdvancementNode;
 import game.entityTypeResearch.nodeTypes.structureAdvancements.StructureHealthAdvancementNode;
 
 public class StructureHealthAdvancementTree {

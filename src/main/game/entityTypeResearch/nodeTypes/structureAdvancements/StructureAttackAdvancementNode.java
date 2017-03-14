@@ -1,7 +1,6 @@
 package game.entityTypeResearch.nodeTypes.structureAdvancements;
 
 import entityResearch.iStructureResearchVisitor;
-import entityResearch.researchVisitors.StructureArmorStrengthResearchVisitor;
 import entityResearch.researchVisitors.StructureAttackStrengthResearchVisitor;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;

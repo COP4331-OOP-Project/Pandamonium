@@ -2,8 +2,6 @@ package game.techTree.nodeTypes;
 
 import entityResearch.iStructureResearchVisitor;
 import entityResearch.researchVisitors.StructureWorkerDensityResearchVisitor;
-import entityResearch.researchVisitors.StructureWorkerRadiusResearchVisitor;
-import game.entities.factories.StructureFactory;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.StructureManager;
 import org.apache.logging.log4j.LogManager;

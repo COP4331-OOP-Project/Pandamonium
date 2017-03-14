@@ -1,13 +1,10 @@
 package game.entities.factories;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
-import game.entities.factories.exceptions.*;
+import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
@@ -17,6 +14,9 @@ import game.gameboard.Location;
 import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StructureFactory implements iStructureResearchObserver {
 

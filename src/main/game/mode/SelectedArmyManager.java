@@ -1,12 +1,12 @@
 package game.mode;
 
-import java.util.ArrayList;
-
 import game.GameModel;
 import game.Player;
 import game.entities.Army;
 import game.entities.EntityId;
 import game.gameboard.Location;
+
+import java.util.ArrayList;
 
 public class SelectedArmyManager {
 	private GameModel gameModel;

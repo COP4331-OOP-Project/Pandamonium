@@ -1,8 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 import game.entities.stats.StructureStats;
 import game.entities.structures.Structure;
 import game.resources.Resource;
@@ -15,15 +12,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import view.GameModelAdapter;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class StructureOverviewPanel extends OverviewPanel{
 	private TableView<StructureItem> structureTable = new TableView<>();

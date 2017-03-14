@@ -1,12 +1,5 @@
 package view.screen;
 
-import java.awt.Point;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -26,6 +19,13 @@ import view.Panel;
 import view.PanelManager;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class SettingsPanel extends Panel {
 		private static final int SPACING = 33;

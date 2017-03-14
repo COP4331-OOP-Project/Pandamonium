@@ -8,8 +8,8 @@ import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
 import game.iTurnObserver;
-import game.visitors.AddStructureVisitor;
 import game.semantics.Percentage;
+import game.visitors.AddStructureVisitor;
 
 
 public abstract class Structure extends Entity implements iTurnObserver {

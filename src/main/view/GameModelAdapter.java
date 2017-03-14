@@ -1,20 +1,18 @@
 package view;
 
-import java.util.ArrayList;
-
 import game.GameModel;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
-
-import java.awt.Point;
-
 import game.gameboard.Location;
 import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
 import game.mode.Submode;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 public class GameModelAdapter {
 	GameModel gameModel;

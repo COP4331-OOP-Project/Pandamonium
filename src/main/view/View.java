@@ -1,14 +1,14 @@
 package view;
 
-import java.awt.Point;
-import java.io.File;
-
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import view.assets.AssetManager;
 import view.game.Camera;
+
+import java.awt.*;
+import java.io.File;
 
 public class View {
     private AssetManager assets = new AssetManager();

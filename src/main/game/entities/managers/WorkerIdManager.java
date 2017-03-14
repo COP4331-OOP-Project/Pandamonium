@@ -1,10 +1,10 @@
 package game.entities.managers;
 
 import game.entities.EntityId;
+import game.entities.factories.WorkerFactory;
 import game.entities.managers.IdManager.IdManager;
 import game.entities.managers.IdManager.exceptions.IdDoesNotExistException;
 import game.entities.managers.IdManager.exceptions.IdLimitExceededException;
-import game.entities.factories.WorkerFactory;
 import game.entities.managers.exceptions.WorkerDoesNotExistException;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;

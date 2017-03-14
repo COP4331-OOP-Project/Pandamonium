@@ -1,11 +1,11 @@
 package game.entities;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import game.commands.Command;
 import game.entities.managers.PlacementManager;
 import game.visitors.iTileActionVisitor;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public abstract class Entity {
     protected PowerState powerState;

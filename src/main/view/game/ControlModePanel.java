@@ -1,10 +1,5 @@
 package view.game;
 
-import java.awt.Point;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import game.mode.Mode;
 import game.mode.Submode;
 import javafx.scene.Group;
@@ -13,10 +8,14 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class ControlModePanel extends Panel {
     private final static Logger log = LogManager.getLogger(ControlModePanel.class);

@@ -1,7 +1,5 @@
 package view.screen;
 
-import java.awt.Point;
-
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,12 +8,11 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import view.GameModelAdapter;
+import view.*;
 import view.Panel;
-import view.PanelManager;
-import view.RotationAnimation;
-import view.ViewEnum;
 import view.assets.AssetManager;
+
+import java.awt.*;
 
 public class MainMenuPanel extends Panel {
 	private static final int MAIN_MENU_BUTTON_SPACING = 100;
