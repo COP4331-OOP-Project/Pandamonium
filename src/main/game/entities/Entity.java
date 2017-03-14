@@ -8,18 +8,28 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Entity {
+
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
     protected PlacementManager placementManager;
+    protected DeathNotifier notifer;
 
-    //TODO Get movementManager into constructor
+    // Constructor
     public Entity(EntityId entityId, PlacementManager povementManager){
         this.commandQueue = new LinkedList<>();
         this.entityId = entityId;
-        this.placementManager=placementManager;
+        this.placementManager = placementManager;
+    }
+
+    // Constructor w/ DN
+    public Entity(EntityId entityId, PlacementManager povementManager, DeathNotifier notifier) {
+        this.commandQueue = new LinkedList<>();
+        this.entityId = entityId;
+        this.placementManager = placementManager;
+        this.notifer = notifier;
     }
 
     public void accept(iTileActionVisitor v){ v.visitEntity(this); }             // Accept visitors

@@ -52,7 +52,7 @@ public class Player implements iTurnObservable {
 
 		// Setup managers for entities, workers
 		this.workerManager = new WorkerManager(playerId);
-		this.unitManager = new UnitManager(playerId, gb);
+		this.unitManager = new UnitManager(this, gb);
 		this.structureManager = new StructureManager(playerId, gb);
 
 		this.armies = new ArrayList<Army>();
@@ -207,6 +207,8 @@ public class Player implements iTurnObservable {
 	public SimpleTile[][] getSimpleTiles() {
 		return simpleTiles;
 	}
+
+	public int getPlayerId() { return this.playerId; }
 
 	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId)
 		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,

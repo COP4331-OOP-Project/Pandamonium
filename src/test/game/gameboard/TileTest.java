@@ -1,5 +1,6 @@
 package game.gameboard;
 
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -89,11 +90,11 @@ public class TileTest {
             capitolLocation = new Location(12, 16);
             farmLocation = new Location(11, 16);
 
-            melee1 = new Melee(meleeStats, unitLocation, melee1Id, placementManager);
-            melee2 = new Melee(meleeStats, unitLocation, melee2Id, placementManager);
-            range1 = new Ranged(rangedStats, unitLocation, range1Id, placementManager);
-            range2 = new Ranged(rangedStats, unitLocation, range2Id, placementManager);
-            colonist1 = new Colonist(colonistStats, unitLocation, colonistId, placementManager);
+            melee1 = new Melee(meleeStats, unitLocation, melee1Id, placementManager, null);
+            melee2 = new Melee(meleeStats, unitLocation, melee2Id, placementManager, null);
+            range1 = new Ranged(rangedStats, unitLocation, range1Id, placementManager, null);
+            range2 = new Ranged(rangedStats, unitLocation, range2Id, placementManager, null);
+            colonist1 = new Colonist(colonistStats, unitLocation, colonistId, placementManager, null);
 
             capitol = new Capitol(capitolStat, capitolLocation, capitolId, placementManager);
             farm = new Farm(farmStat, farmLocation, farmId, placementManager);
@@ -134,7 +135,7 @@ public class TileTest {
     @Test //Test the enemy blocker
     public void invalidAddUnitOnTile(){
         EntityId enemyEntityMeleeId = new EntityId(2, EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, 1, 1);
-        Melee melee3 = new Melee(meleeStats, unitLocation, enemyEntityMeleeId, placementManager);
+        Melee melee3 = new Melee(meleeStats, unitLocation, enemyEntityMeleeId, placementManager, null);
 
         tileGrass.addUnit(melee3);
         tileGrass.addUnit(melee1);

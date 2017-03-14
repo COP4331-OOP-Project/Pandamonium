@@ -15,8 +15,8 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     protected int orientation;
     protected Location location;
 
-    public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager){
-        super(entityId,placementManager);
+    public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
+        super(entityId,placementManager, notifier);
         this.location=location;
         this.stats = stats;
         this.health = stats.getHealth();
