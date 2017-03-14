@@ -220,6 +220,12 @@ public class Player implements iTurnObservable {
 
 	public StructureManager getStructureManager(){return structureManager;}
 
+	public UnitManager getUnitManager() { return this.unitManager; }
+
+	public ArmyManager getArmyManager() { return this.armyManager; }
+
+	public PlacementManager getPlacementManager() { return this.placementManager; }
+
 	public void updateSimpleTiles(Tile[][] tiles) {
 		simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);
 	}

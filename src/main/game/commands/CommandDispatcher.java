@@ -13,7 +13,7 @@ import game.gameboard.Tile;
 // Class to handle creation and assignment of commands
 public class CommandDispatcher {
 
-
+    // Default constructor
     CommandDispatcher() {}
 
     // Player's managers

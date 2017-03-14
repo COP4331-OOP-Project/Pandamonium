@@ -5,13 +5,27 @@ import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
 import game.entities.RallyPoint;
+import game.entities.managers.*;
 import game.entities.managers.exceptions.RallyPointDoesNotExistException;
-import game.entities.structures.exceptions.StructureNotFoundException;
 import game.entities.units.Colonist;
 import game.entities.units.exceptions.UnitNotFoundException;
 public class CommandExecutor {
 
-private CommandDispatcher dispatcher = new CommandDispatcher();
+	private CommandDispatcher dispatcher;
+	private StructureManager structureManager;
+	private UnitManager unitManager;
+	private WorkerManager workerManager;
+	private ArmyManager armyManager;
+	private PlacementManager placementManager;
+
+	public CommandExecutor(StructureManager structureManager, UnitManager unitManager,
+						   WorkerManager workerManager, ArmyManager armyManager, PlacementManager placementManager) {
+		this.structureManager = structureManager;
+		this.unitManager = unitManager;
+		this.workerManager = workerManager;
+		this.armyManager = armyManager;
+		this.dispatcher = new CommandDispatcher(unitManager, structureManager, armyManager, placementManager);
+	}
 
 	public void executeCommand(EntityId selectedEntity, CommandEnum selectedCommand, Player currentPlayer) {
 		Entity entity = null;
