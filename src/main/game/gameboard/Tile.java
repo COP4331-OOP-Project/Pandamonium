@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import game.gameboard.areaEffect.AreaEffect;
 import game.entities.BattleGroup;
-import game.gameboard.areaEffect.AreaEffectEnum;
-import game.gameboard.areaEffect.EffectNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +32,6 @@ public class Tile implements iTileAccessors {
     private ArrayList<RallyPoint> rallyPoints;
     private ArrayList<BattleGroup> battleGroups;
     private Structure structure;
-    private AreaEffect effect;
     private Location location;
     private Random resourceValueGenerator = new Random();
     private int ownerId;
@@ -96,16 +92,6 @@ public class Tile implements iTileAccessors {
     public void addRallyPoint(RallyPoint rallyPoint){
         rallyPoints.add(rallyPoint);
         containsRallyPoint = true;
-    }
-    public void addEffect(AreaEffectEnum effect){
-        try {
-            if (this.containsEffect == false) {
-                this.effect = new AreaEffect(effect);
-                this.containsEffect = true;
-            }
-        }catch (EffectNotFoundException e){
-            throw new RuntimeException("Area effect could not be could not be instantiated: " + e.getLocalizedMessage());
-        }
     }
 
     public ArrayList<Unit> getUnits(){return units;}
@@ -177,8 +163,6 @@ public class Tile implements iTileAccessors {
     public Structure getStructure() {
     	return structure;
     }
-
-    public AreaEffect getEffect() { return effect; }
 
     public Resource getResource(ResourceTypeEnum resource) {
     	switch (resource) {
