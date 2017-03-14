@@ -96,6 +96,16 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
 
+    /* Stat-adjusted damage taking*/
+    @Override
+    public void takeDamage(double damage){
+        int armor = stats.getArmor();
+        double damageX = 10/(10+armor);
+        double adjDamage = damage * damageX;
+        this.health -= adjDamage;
+        this.healthPercent.updateHealthPercentage((double)this.health);
+    }
+
     public void instantDeath() {
         // TODO: activate death visitor
         this.health = 0;
