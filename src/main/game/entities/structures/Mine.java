@@ -25,7 +25,6 @@ public class Mine extends Structure {
     private ArrayList<OreGatherer> miner;
     private WorkerManager workerManager;
 
-
     public Mine(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
         super(stats, location, entityId, placementManager, notifier);
         unassigned=new ArrayList<>();
@@ -43,7 +42,7 @@ public class Mine extends Structure {
             while(iterator.hasNext()){
                 Worker holder = iterator.next();
                 iterator.remove();
-                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.FOOD_GATHERER, location);
+                TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), WorkerTypeEnum.ORE_GATHERER, location);
                 miner.add((OreGatherer) workerManager.accept(transferWorkerVisitor));
                 return;
             }
