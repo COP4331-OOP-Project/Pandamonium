@@ -7,7 +7,7 @@ public class StopProspectingCommand extends Command{
 	private Explorer actor;
 	private Tile target;
 	
-	public StopProspectingCommand(Explorer actor, Tile target, int duration) {
+	public StopProspectingCommand(Explorer actor, int duration) {
 		super(duration);
         this.actor = actor;                 // Set attacker
         this.target = target;               // Set target

@@ -5,6 +5,7 @@ import game.entities.iAttacker;
 import game.entities.iDefender;
 import game.entities.iHealer;
 import game.entities.units.Colonist;
+import game.entities.units.Explorer;
 import game.gameboard.Location;
 import game.gameboard.Tile;
 
@@ -52,7 +53,15 @@ public class CommandDispatcher {
     public void issueDecommissionCommand(Entity e) {
         e.addCommandToQueue(new DecommissionCommand(e));
     }
+    
+    public void issueStartProspectingCommand(Explorer e) {
+    	e.addCommandToQueue(new StartProspectingCommand(e, 1));
+    }
 
+    public void issueStopProspectingCommand(Explorer e) {
+    	e.addCommandToQueue(new StopProspectingCommand(e, 1));
+    }
+    
     // Issue a cancel queue command
     public void issueCancelQueueCommand(Entity e) {
         e.cancelQueuedCommands();

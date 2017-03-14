@@ -7,7 +7,7 @@ public class StartProspectingCommand extends Command{
 	private Explorer actor;
 	private Tile target;
 	
-	public StartProspectingCommand(Explorer actor, Tile target, int duration) {
+	public StartProspectingCommand(Explorer actor, int duration) {
 		super(duration);
         this.actor = actor;                 // Set attacker
         this.target = target;               // Set target
