@@ -1,9 +1,5 @@
 package game.gameboard.areaEffect;
 
-/**
- * Created by khariollivierre on 3/13/17.
- */
-
 /*
 TODO: Handle effect actions based on enum values
  */
