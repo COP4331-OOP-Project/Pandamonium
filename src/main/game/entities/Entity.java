@@ -40,6 +40,9 @@ public abstract class Entity {
     public void takeDamage(double damage){                                          // Take damage to health
         this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
     }
     public void heal(double healing){                                               // Heal for a given amount
         this.health += healing;

@@ -14,7 +14,5 @@ public class Ranged extends Unit {
             super(stats, location, entityId, placementManager, notifier);
     }
 
-    public void onTurnEnded() {
-
-    }
+    public void onTurnEnded() {}
 }
