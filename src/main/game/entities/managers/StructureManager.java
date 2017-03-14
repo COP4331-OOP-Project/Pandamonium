@@ -33,7 +33,6 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
 
     private StructureIdManager structureIdManager;
 
-
     public StructureManager(Player player, PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager) {
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
