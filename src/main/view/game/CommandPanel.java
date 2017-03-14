@@ -123,7 +123,7 @@ public class CommandPanel extends Panel{
     	} else {
     		yDistance = COMMAND_Y_NORMAL;
     	}
-    	if (getAdapter().getPlayer() == 0) {
+    	if (getAdapter().getPlayerId() == 0) {
     		farm.setIcon(getImage("ICON_FOOD_HUMAN"));
     		createSoldiers.setIcon(getImage("WORKER_TO_SOLDIER_HUMAN"));
     	} else {

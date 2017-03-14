@@ -1,5 +1,10 @@
 package view.game;
 
+import game.entities.EntitySubtypeEnum;
+import game.entities.stats.StructureStats;
+import game.entities.stats.UnitStats;
+import game.entities.structures.Structure;
+import game.entities.units.Unit;
 import game.mode.Mode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
@@ -26,7 +31,7 @@ public class StructureDetailsPanel extends DetailsPanel {
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE) {
+    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE && getAdapter().getSelectedEntity() != null) {
 	    	drawBar(g, screenDimensions);
 	        g.setEffect(ds);
 	        drawText(g, screenDimensions.y);
@@ -37,30 +42,41 @@ public class StructureDetailsPanel extends DetailsPanel {
     private void drawText(GraphicsContext g, int height) {
         Font old = g.getFont();
         g.setFont(detailsFont);
-        g.fillText("Structure Details:", 10, height - 65);
-        /*
-        if (game.getCurrentPlayer().getBases().size() > 0) {
-            g.fillText("Type: ", X_DISTANCE , height - 35);
-            g.fillText("Health: ", X_DISTANCE, height - 10);
-            g.fillText("Attack: ", X_DISTANCE + SPACING , height - 35);
-            g.fillText("Defense: ", X_DISTANCE + SPACING, height - 10);
-            g.fillText("Armor: ", X_DISTANCE + SPACING * 2, height - 35);
-            g.fillText("Upkeep: ", X_DISTANCE + SPACING * 2, height - 10);
-
-            if (game.getCurrentType() == StructureEnum.BASE) {
-                g.fillText("Base", X_DISTANCE + OFFSET, height - 35);
-            }
-            g.fillText(game.getCurrentPlayer().getBases().get(0).getHealth() + "", X_DISTANCE + OFFSET, height - 10);
-            g.fillText(game.getCurrentPlayer().getBases().get(0).getAttackDamage() + "", X_DISTANCE + OFFSET + SPACING, height - 35);
-            g.fillText(game.getCurrentPlayer().getBases().get(0).getDefenseDamage() + "", X_DISTANCE + OFFSET + SPACING, height - 10);
-            g.fillText(game.getCurrentPlayer().getBases().get(0).getArmor() + "", X_DISTANCE + OFFSET + SPACING * 2, height - 35);
-            g.fillText(game.getCurrentPlayer().getBases().get(0).getUpkeep() + "", X_DISTANCE + OFFSET + SPACING * 2, height - 10);
-        } else {
-            g.setFont(bigFont);
-            g.fillText("You Have No Structures", X_DISTANCE, height - 17);
+        Structure structure = getAdapter().getSelectedStructure();
+        StructureStats stats = structure.getStats();
+        g.fillText("Structure Details", 10, height - 65);
+        g.fillText("Type: ", X_DISTANCE , height - 35);
+        g.fillText("Health: ", X_DISTANCE, height - 10);
+        g.fillText("Attack: ", X_DISTANCE + SPACING , height - 35);
+        g.fillText("Defense: ", X_DISTANCE + SPACING, height - 10);
+        g.fillText("Armor: ", X_DISTANCE + SPACING * 2, height - 35);
+        g.fillText("Upkeep: ", X_DISTANCE + SPACING * 2, height - 10);
+        if (structure.getType() == EntitySubtypeEnum.CAPITOL) {
+            g.fillText("Capitol", X_DISTANCE + OFFSET, height - 35);
         }
-        */
-        g.setFont(old);
+        if (structure.getType() == EntitySubtypeEnum.FARM) {
+            g.fillText("Farm", X_DISTANCE + OFFSET, height - 35);
+        }
+        if (structure.getType() == EntitySubtypeEnum.MINE) {
+            g.fillText("Mine", X_DISTANCE + OFFSET, height - 35);
+        }
+        if (structure.getType() == EntitySubtypeEnum.PLANT) {
+            g.fillText("Plant", X_DISTANCE + OFFSET, height - 35);
+        }
+        if (structure.getType() == EntitySubtypeEnum.OBSERVE) {
+            g.fillText("Observatory", X_DISTANCE + OFFSET, height - 35);
+        }
+        if (structure.getType() == EntitySubtypeEnum.FORT) {
+            g.fillText("Fort", X_DISTANCE + OFFSET, height - 35);
+        }
+        if (structure.getType() == EntitySubtypeEnum.UNIVERSITY) {
+            g.fillText("University", X_DISTANCE + OFFSET, height - 35);
+        }
+        g.fillText(structure.getCurrentHealth() + "", X_DISTANCE + OFFSET, height - 10);
+        g.fillText(stats.getAttackStrength() + "", X_DISTANCE + OFFSET + SPACING, height - 35);
+        g.fillText(stats.getDefensiveStrength() + "", X_DISTANCE + OFFSET + SPACING, height - 10);
+        g.fillText(stats.getArmor() + "", X_DISTANCE + OFFSET + SPACING * 2, height - 35);
+        g.fillText(stats.getUpkeep() + "", X_DISTANCE + OFFSET + SPACING * 2, height - 10);
     }
 
 	public void hideGUIElements() {

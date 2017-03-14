@@ -160,8 +160,8 @@ public class StructureOverviewPanel extends OverviewPanel{
 			}
 			StructureStats stats = structure.getStats();
 			//Have no way to get attack or worker count right now, leaving at -999 until later
-			structureList.add(new StructureItem(structureType, stats.getHealth(), -999, stats.getDefensiveStrength(),
-					stats.getArmor(), stats.getUpkeep(), -99));
+			structureList.add(new StructureItem(structureType, (int)structure.getCurrentHealth(), stats.getAttackStrength(), stats.getDefensiveStrength(),
+					stats.getArmor(), stats.getUpkeep(), -999));
 			}
 	}
 
