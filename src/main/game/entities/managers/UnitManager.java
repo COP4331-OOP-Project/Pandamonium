@@ -14,6 +14,7 @@ import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.iTurnObservable;
 import game.iTurnObserver;
+import game.resources.Resource;
 import game.semantics.Percentage;
 
 import java.util.ArrayList;
@@ -240,6 +241,21 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     public void endTurn() {
         for (iTurnObserver observer : this.turnObservers) {
             observer.onTurnEnded();
+        }
+    }
+
+    public void upkeepHandling(Resource nutrients){
+        for (Melee m : this.melees){
+            m.upkeepHandling(nutrients);
+        }
+        for (Ranged r : this.ranges){
+            r.upkeepHandling(nutrients);
+        }
+        for (Explorer e : this.explorers){
+            e.upkeepHandling(nutrients);
+        }
+        for (Colonist c : this.colonists){
+            c.upkeepHandling(nutrients);
         }
     }
 

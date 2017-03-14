@@ -16,6 +16,7 @@ import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 import game.iTurnObserver;
+import game.resources.Resource;
 import game.visitors.AddUnitVisitor;
 import game.visitors.RemoveEntityVisitor;
 
@@ -50,6 +51,9 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public Location getLocation(){return location;}
     public int getLocationX(){return location.getX();}
     public int getLocationY(){return location.getY();}
+
+    /* Stats Accessors */
+    public int getUpkeep() { return stats.getUpkeep(); }
 
     /* Mutators */
     public void setStats(UnitStats stats) { this.stats = stats; }
@@ -109,5 +113,12 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public void instantDeath() {
         // TODO: activate death visitor
         this.health = 0;
+    }
+
+    /* Upkeep handling */
+    public void upkeepHandling(Resource nutrients){
+        if (getUpkeep() <= nutrients.getAmount()){
+            nutrients.decreaseAmountByValue(getUpkeep());
+        } else takeDamage(10);
     }
 }

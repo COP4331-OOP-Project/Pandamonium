@@ -294,5 +294,6 @@ public class Player implements iTurnObservable {
 		for (iTurnObserver observer : this.turnObservers) {
 			observer.onTurnEnded();
 		}
+		unitManager.upkeepHandling(nutrients);
 	}
 }
