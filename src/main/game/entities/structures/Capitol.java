@@ -11,6 +11,8 @@ import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
 import game.entities.workers.workerTypes.*;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 import game.visitors.TransferWorkerVisitor;
 
 import java.util.ArrayList;
@@ -143,9 +145,37 @@ public class Capitol extends StructureWithWorker {
         }
     }
 
-    /*public Resource harvest(){
-
-    }*/
+    public Resource harvest(){
+        if(!farmer.isEmpty()){
+            Iterator<FoodGatherer> iterator = farmer.iterator();
+            Resource resource = new Resource(0, ResourceTypeEnum.FOOD);
+            while(iterator.hasNext()){
+                resource.combine(iterator.next().doProduction());
+            }
+            return resource;
+        }
+        else if(!miner.isEmpty()){
+            Iterator<OreGatherer> iterator = miner.iterator();
+            Resource resource = new Resource(0, ResourceTypeEnum.ORE);
+            while(iterator.hasNext()){
+                resource.combine(iterator.next().doProduction());
+            }
+            return resource;
+        }
+        else if(!generator.isEmpty()){
+            Iterator<PeatGatherer> iterator = generator.iterator();
+            Resource resource = new Resource(0, ResourceTypeEnum.PEAT);
+            while(iterator.hasNext()){
+                resource.combine(iterator.next().doProduction());
+            }
+            return resource;
+        }
+        //If there are no workers harvesting will return 0 in the resource
+        else{
+            Resource resource = new Resource(0, ResourceTypeEnum.FOOD);
+            return resource;
+        }
+    }
 
     public void onTurnEnded() {
 

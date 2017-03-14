@@ -3,14 +3,18 @@ package game.entities.structures;
 import game.entities.DeathNotifier;
 import game.commands.CommandEnum;
 import game.entities.EntityId;
+import game.entities.EntitySubtypeEnum;
 import game.entities.PowerState;
+import game.entities.factories.exceptions.TotalUnitLimitExceededException;
+import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
+import game.entities.factories.exceptions.UnitTypeLimitExceededException;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.UnitManager;
 import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.WorkerDoesNotExistException;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
-import game.entities.units.Unit;
 import game.entities.workers.workerTypes.SoldierGenerator;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
@@ -24,8 +28,9 @@ public class Fort extends Structure {
     private ArrayList<Worker> unassigned;
     private ArrayList<SoldierGenerator> unitBuilder;
     private WorkerManager workerManager;
+    private UnitManager unitManager;
 
-    public Fort(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
+    public Fort(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager, DeathNotifier notifier){
         super(stats, location, entityId, placementManager, notifier);
         unassigned=new ArrayList<>();
         unitBuilder=new ArrayList<>();
@@ -34,6 +39,7 @@ public class Fort extends Structure {
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
         addCommand(CommandEnum.CREATE_SOLDIERS);
+        this.unitManager=unitManager;
     }
 
     public void assignToUnitBuilder(Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
@@ -78,9 +84,10 @@ public class Fort extends Structure {
         setPowerState(PowerState.COMBAT);
     }
 
-    public Unit buildUnit(){
-        //TODO Creating Unit Handling
-        return null;
+    public void buildUnit(EntitySubtypeEnum type)throws UnitTypeLimitExceededException, TotalUnitLimitExceededException, UnitTypeDoesNotExistException {
+        if(type==EntitySubtypeEnum.COLONIST||type==EntitySubtypeEnum.EXPLORER||type==EntitySubtypeEnum.MELEE||type==EntitySubtypeEnum.RANGE){
+            unitManager.addUnit(type, this.location);
+        }
     }
 
     public void onTurnEnded() {

@@ -11,7 +11,6 @@ import game.entities.factories.exceptions.StructureTypeLimitExceededException;
 import game.entities.factories.exceptions.TotalStructureLimitExceededException;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.structures.*;
-import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.iTurnObservable;
 import game.iTurnObserver;

@@ -8,11 +8,11 @@ import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.UnitManager;
 import game.entities.managers.WorkerManager;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
 import game.entities.structures.exceptions.StructureNotFoundException;
-import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
@@ -29,13 +29,15 @@ public class StructureFactory implements iStructureResearchObserver {
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
     private PlacementManager placementManager;
     private WorkerManager workerManager;
+    private UnitManager unitManager;
 
     public StructureFactory(Player player, PlacementManager placementManager, WorkerManager workerManager) {
 
         this.player = player;
         this.structureStatistics = new HashMap<>();
         this.placementManager = placementManager;
-        this.workerManager=workerManager;
+        this.workerManager = workerManager;
+        this.unitManager = unitManager;
 
         try {
             this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(EntitySubtypeEnum.CAPITOL));
@@ -70,7 +72,7 @@ public class StructureFactory implements iStructureResearchObserver {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
                 return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location,
-                                        entityId, placementManager,workerManager, notifier);
+                                        entityId, placementManager, workerManager, unitManager, notifier);
             }
             case MINE: {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
@@ -88,12 +90,12 @@ public class StructureFactory implements iStructureResearchObserver {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
                 return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location,
-                                        entityId, placementManager,workerManager, notifier);
+                                        entityId, placementManager, workerManager, notifier);
             }
             case UNIVERSITY: {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
-                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location,
+                return new University(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location,
                                     entityId, placementManager, workerManager, notifier);
             }
             default:

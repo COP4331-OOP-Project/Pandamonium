@@ -13,6 +13,8 @@ import game.entities.workers.workerTypes.FoodGatherer;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 import game.visitors.TransferWorkerVisitor;
 
 import java.util.ArrayList;
@@ -73,9 +75,14 @@ public class Farm extends Structure {
         return farmer.size();
     }
 
-    /*public Resource harvest(){
-
-    }*/
+    public Resource harvest(){
+        Iterator<FoodGatherer> iterator = farmer.iterator();
+        Resource resource = new Resource(0, ResourceTypeEnum.FOOD);
+        while(iterator.hasNext()){
+            resource.combine(iterator.next().doProduction());
+        }
+        return resource;
+    }
 
     public void onTurnEnded() {
 

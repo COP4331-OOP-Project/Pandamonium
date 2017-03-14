@@ -9,17 +9,16 @@ import game.entities.managers.exceptions.WorkerDoesNotExistException;
 import game.entities.managers.exceptions.WorkerLimitExceededException;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.StructureStats;
-import game.entities.workers.workerTypes.FoodGatherer;
 import game.entities.workers.workerTypes.OreGatherer;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.Location;
+import game.resources.Resource;
+import game.resources.ResourceTypeEnum;
 import game.visitors.TransferWorkerVisitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-
 
 public class Mine extends Structure {
     private ArrayList<Worker> unassigned;
@@ -76,9 +75,14 @@ public class Mine extends Structure {
         return miner.size();
     }
 
-    /*public Resource harvest(){
-
-    }*/
+    public Resource harvest(){
+        Iterator<OreGatherer> iterator = miner.iterator();
+        Resource resource = new Resource(0, ResourceTypeEnum.ORE);
+        while(iterator.hasNext()){
+            resource.combine(iterator.next().doProduction());
+        }
+        return resource;
+    }
 
     public void onTurnEnded() {
 
