@@ -15,9 +15,9 @@ public class TechTreeNodeOwnership {
     public boolean doTurn() {
         if (--this.turnsLeft <= 0) {
             this.techTreeNode.doResearch();
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 }
