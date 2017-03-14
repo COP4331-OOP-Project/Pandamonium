@@ -62,14 +62,6 @@ public class Fort extends Structure {
         }
     }
 
-    public void addWorker(SoldierGenerator worker){
-
-    }
-
-    public void removeWorker(){
-
-    }
-
     public int getTotalWorkers(){
         return unassigned.size() + unitBuilder.size();
     }

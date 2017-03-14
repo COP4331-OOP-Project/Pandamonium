@@ -60,14 +60,6 @@ public class PowerPlant extends Structure {
         }
     }
 
-    public void addWorker(){
-
-    }
-
-    public void removeWorker(){
-
-    }
-
     public int getTotalWorkers(){
         return unassigned.size() + generator.size();
     }

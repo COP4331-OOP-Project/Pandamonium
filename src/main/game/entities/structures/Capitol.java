@@ -16,8 +16,7 @@ import game.visitors.TransferWorkerVisitor;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Capitol extends Structure {
-    private ArrayList<Worker> workers;
+public class Capitol extends StructureWithWorker {
     private ArrayList<FoodGatherer> farmer;
     private ArrayList<PeatGatherer> generator;
     private ArrayList<OreGatherer> miner;
@@ -27,17 +26,22 @@ public class Capitol extends Structure {
     public Capitol(StructureStats stats, Location location , EntityId entityId, PlacementManager placementManager, WorkerManager workerManager, DeathNotifier notifier){
         super(stats, location, entityId, placementManager, notifier);
         this.workerManager=workerManager;
+        farmer = new ArrayList<>();
+        generator = new ArrayList<>();
+        miner = new ArrayList<>();
+        breeder = new ArrayList<>();
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
         addCommand(CommandEnum.HEAL);
         addCommand(CommandEnum.WORKER_FARM);
         addCommand(CommandEnum.WORKER_MINE);
         addCommand(CommandEnum.WORKER_GENERATE);
+
     }
 
     public void assignToFarmer(Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException {
-        if(!workers.isEmpty()){
-            Iterator<Worker> iterator = workers.iterator();
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
             while(iterator.hasNext()){
                 Worker holder = iterator.next();
                 iterator.remove();
@@ -55,15 +59,15 @@ public class Capitol extends Structure {
                 Worker holder = iterator.next();
                 iterator.remove();
                 TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
-                workers.add(workerManager.accept(transferWorkerVisitor));
+                unassigned.add(workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }
     }
 
     public void assignToGenerator()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
-        if(!workers.isEmpty()){
-            Iterator<Worker> iterator = workers.iterator();
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
             while(iterator.hasNext()){
                 Worker holder = iterator.next();
                 iterator.remove();
@@ -81,15 +85,15 @@ public class Capitol extends Structure {
                 Worker holder = iterator.next();
                 iterator.remove();
                 TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
-                workers.add(workerManager.accept(transferWorkerVisitor));
+                unassigned.add(workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }
     }
 
     public void assignToMiner()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
-        if(!workers.isEmpty()){
-            Iterator<Worker> iterator = workers.iterator();
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
             while(iterator.hasNext()){
                 Worker holder = iterator.next();
                 iterator.remove();
@@ -107,23 +111,15 @@ public class Capitol extends Structure {
                 Worker holder = iterator.next();
                 iterator.remove();
                 TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
-                workers.add(workerManager.accept(transferWorkerVisitor));
+                unassigned.add(workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }
     }
 
-    public void addWorker(){
-
-    }
-
-    public void removeWorker(){
-
-    }
-
     public void assignToBreeder()throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
-        if(!workers.isEmpty()){
-            Iterator<Worker> iterator = workers.iterator();
+        if(!unassigned.isEmpty()){
+            Iterator<Worker> iterator = unassigned.iterator();
             while(iterator.hasNext()){
                 Worker holder = iterator.next();
                 iterator.remove();
@@ -141,7 +137,7 @@ public class Capitol extends Structure {
                 Worker holder = iterator.next();
                 iterator.remove();
                 TransferWorkerVisitor transferWorkerVisitor = new TransferWorkerVisitor(holder.getId(), holder.getWorkerType(), this.location);
-                workers.add(workerManager.accept(transferWorkerVisitor));
+                unassigned.add(workerManager.accept(transferWorkerVisitor));
                 return;
             }
         }

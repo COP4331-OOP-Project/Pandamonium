@@ -61,14 +61,6 @@ public class Farm extends Structure {
         }
     }
 
-    public void addWorker(FoodGatherer worker){
-
-    }
-
-    public void removeWorker(){
-
-    }
-
     public int getTotalWorkers(){
         return unassigned.size() + farmer.size();
     }

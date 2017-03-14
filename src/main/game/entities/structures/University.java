@@ -56,14 +56,6 @@ public class University extends Structure {
         }
     }
 
-    public void addWorker(ResearchGenerator worker){
-
-    }
-
-    public void removeWorker(){
-
-    }
-
     public int getTotalWorkers(){
         return unassigned.size() + researcher.size();
     }
