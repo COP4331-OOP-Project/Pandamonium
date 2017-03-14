@@ -10,6 +10,7 @@ public class CommandManager {
 	public void updateCommandList() {
 		
 	}
+	
 	public void cycleForward() {
 	
 	}
@@ -28,6 +29,10 @@ public class CommandManager {
 	
 	public void setPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+	
+	public void updateSelectedEntity(EntityId entityId) {
+		selectedEntity = entityId;
 	}
 
 }
