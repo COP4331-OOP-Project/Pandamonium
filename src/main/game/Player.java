@@ -219,6 +219,10 @@ public class Player implements iTurnObservable {
 		return metal;
 	}
 
+	public WorkerManager getWorkerManager(){return workerManager;}
+
+	public StructureManager getStructureManager(){return structureManager;}
+
 	public void updateSimpleTiles(Tile[][] tiles) {
 		simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);
 	}

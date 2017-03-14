@@ -30,6 +30,7 @@ public abstract class Structure extends Entity implements iTurnObserver {
     public Location getLocation(){return location;}
     public int getLocationX(){return location.getX();}
     public int getLocationY(){return location.getY();}
+    public int getVisibilityRadius(){return this.stats.getVisibilityRadius();}
 
     public EntitySubtypeEnum getType() {
         return (EntitySubtypeEnum) getEntityId().getSubTypeId();
