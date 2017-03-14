@@ -15,7 +15,7 @@ import game.iTurnObserver;
 import game.semantics.Percentage;
 import game.visitors.AddStructureVisitor;
 
-public abstract class Structure extends Entity implements iTurnObserver {
+public abstract class Structure extends Entity {
 
     protected StructureStats stats;
     protected Location location;

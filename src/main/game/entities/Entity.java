@@ -8,13 +8,15 @@ import game.commands.Command;
 import game.entities.managers.PlacementManager;
 import game.commands.CommandEnum;
 import game.commands.iCommandable;
+import game.gameboard.Location;
+import game.iTurnObserver;
 import game.visitors.iTileActionVisitor;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 
-public abstract class Entity implements iCommandable {
+public abstract class Entity implements iCommandable, iTurnObserver {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
@@ -63,38 +65,50 @@ public abstract class Entity implements iCommandable {
 
     // Command queue management
     public void addCommandToQueue(Command command){ commandQueue.offer(command); }  // Add new command to queue
-    public void doTurn(){
-        if(commandQueue.peek().getDuration()==0){
-            commandQueue.poll().exec();
+
+    // Iterate turn
+    public void doTurn() {
+        if(commandQueue.peek().iterateDuration()){
+            commandQueue.poll();
         }
-        else{
-            commandQueue.peek().iterateDuration();
-        }
-        //Yes it violates TDA but for now is the only way to do it based on how the Command class is created
-    }                            // Iterate turn
+    }
+
+    // Do turn for entity
+    public void onTurnEnded() {
+        doTurn();
+    }
+
     public Command nextCommand(){ return commandQueue.poll(); }                     // Next queue for new command or decrement turn count
     public Command peekCommand(){ return commandQueue.peek(); }                     // Peek at next command
     public boolean isQueueEmpty(){ return commandQueue.isEmpty(); }                 // Test is queue is empty
     public void cancelQueuedCommands(){ commandQueue.clear(); }                     // Clear command queue
 
     // State
-    public void powerDown(){
+
+    // Set power down state
+    public void powerDown() {
     	addCommand(CommandEnum.POWER_UP);
     	removeCommand(CommandEnum.POWER_DOWN);
     	powerState = PowerState.POWERED_DOWN; 
-    	}// Set power down state
+
+    }
+
+    // Set power up state
     public void powerUp(){ 
     	addCommand(CommandEnum.POWER_DOWN);
     	removeCommand(CommandEnum.POWER_UP);
     	powerState = PowerState.POWERED_UP; 
-    }                    // Set power up state
+    }
+
     public void combatState(){ powerState = PowerState.COMBAT; }                    // Set combat state on entity
     public void standby(){ powerState = PowerState.STANDBY; }                       // Set standby state on entity
     public PowerState getPowerState(){ return powerState; }                         // Get power state
     public void setPowerState(PowerState state){ powerState = state; }              // Set power state
 
-    // Decommission
-    public void decommissionEntity(){ /* TODO: Implement decommissionEntity */ }    // Destroy entity
+    // Decommission entity
+    public void decommissionEntity() {
+        this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
+    }
 
     // Required Accessors
     public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id

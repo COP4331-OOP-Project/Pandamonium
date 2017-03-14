@@ -1,7 +1,7 @@
 package game.entities.structures;
 
-import game.entities.DeathNotifier;
 import game.commands.CommandEnum;
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.managers.WorkerManager;
@@ -19,7 +19,4 @@ public class Capitol extends StructureWithWorker {
 
     }
 
-    public void onTurnEnded() {
-
-    }
 }

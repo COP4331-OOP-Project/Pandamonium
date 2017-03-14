@@ -17,7 +17,4 @@ public class Melee extends Unit {
                 super(stats, location, entityId, placementManager, notifier);
     }
 
-    public void onTurnEnded() {
-
-    }
 }

@@ -15,7 +15,7 @@ public class BuildStructureCommand extends Command {
     public BuildStructureCommand(Entity actor, Tile target, EntitySubtypeEnum structure, int duration) {
     	super(duration);
         this.actor = actor;             // Set actor
-        this.target = target;           // Set target tile\
+        this.target = target;           // Set target tile
     }
 
     // Execute command

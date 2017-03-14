@@ -41,6 +41,4 @@ public class Explorer extends Unit {
     	}
     }
 
-	public void onTurnEnded() {
-	}
 }

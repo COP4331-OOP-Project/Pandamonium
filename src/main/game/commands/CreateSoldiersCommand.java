@@ -1,12 +1,19 @@
 package game.commands;
 
-public class CreateSoldiersCommand extends Command{
+import game.entities.structures.Fort;
+import game.gameboard.Tile;
 
-	public CreateSoldiersCommand(int duration) {
+// Command to turn workers on a Fort into Melee units
+public class CreateSoldiersCommand extends Command {
+
+	// Constructor
+	public CreateSoldiersCommand(Fort actor, Tile target, int duration) {
 		super(duration);
 	}
 
+	// Execute creation of soldiers
+	public void exec() {
 
-	public void exec() {}
+	}
 
 }
