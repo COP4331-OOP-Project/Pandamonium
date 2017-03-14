@@ -7,11 +7,11 @@ import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.visitors.iMovementManageVisitor;
 
-public class MovementManager {
+public class PlacementManager {
     //TODO UNCOMMENT MOVEMENTMANAGER USAGE IN CONSTRUCTORS
     private Gameboard gameboard;
 
-    public MovementManager(Gameboard gb){
+    public PlacementManager(Gameboard gb){
         gameboard=gb;
     }
 

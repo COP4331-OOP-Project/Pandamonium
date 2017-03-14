@@ -4,26 +4,26 @@ import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.HealthPercentage;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
 import game.iTurnObserver;
 import game.visitors.AddStructureVisitor;
 import game.semantics.Percentage;
-import game.visitors.AddStructureVisitor;
 
 
 public abstract class Structure extends Entity implements iTurnObserver {
     protected StructureStats stats;
     protected Location location;
 
-    public Structure(StructureStats stats, Location location , EntityId entityId ){
-        super(entityId);
+    public Structure(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
+        super(entityId,placementManager);
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new HealthPercentage();
         this.location=location;
         AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this,this.location);
-        //movementManager.accept(addStructureVisitor);
+        placementManager.accept(addStructureVisitor);
         standby();
     }
 

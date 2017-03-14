@@ -7,6 +7,7 @@ import game.entities.HealthPercentage;
 import game.entities.iAttacker;
 import game.entities.iDefender;
 import game.entities.iMoveable;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 import game.iTurnObserver;
@@ -20,15 +21,15 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     protected int orientation;
     protected Location location;
 
-    public Unit(UnitStats stats, Location location, EntityId entityId){
-        super(entityId);
+    public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager){
+        super(entityId,placementManager);
         this.location=location;
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new HealthPercentage();
         this.orientation = 180;
         AddUnitVisitor addUnit = new AddUnitVisitor(this, this.location);
-        //movementManager.accept(addUnit);
+        placementManager.accept(addUnit);
         standby();
     }
 
@@ -51,10 +52,10 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         setOrientation(direction(location));
         //Move To Tile
         AddUnitVisitor addUnit = new AddUnitVisitor(this, location);
-        movementManager.accept(addUnit);
+        placementManager.accept(addUnit);
         //Delete old tile reference
         RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), this.location);
-        movementManager.accept(removeEntityVisitor);
+        placementManager.accept(removeEntityVisitor);
         //Update location
         this.location=location;
     }

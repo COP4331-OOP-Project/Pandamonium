@@ -1,5 +1,6 @@
 package game.entities;
 
+import game.entities.managers.PlacementManager;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 import game.visitors.AddArmyVisitor;
@@ -12,23 +13,23 @@ public class Army extends Entity{
     private RallyPoint rallyPoint;
 
     //TODO Know when to add battlegroup to tile. Shouldn't show up unless units in battlegroup
-    public Army(EntityId entityId, RallyPoint rp){
-        super(entityId);
+    public Army(EntityId entityId, RallyPoint rp, PlacementManager placementManager){
+        super(entityId, placementManager);
         battleGroup = new BattleGroup(rp.getLocation(), entityId);
         reinforcement = new Reinforcement();
         rallyPoint=rp;
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
-        //movementManager.accept(addRallyPointVisitor);
+        placementManager.accept(addRallyPointVisitor);
         updateArmy();
     }
 
     public void moveRallyPoint(Location loc){
         //Add to new tile
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,loc);
-        movementManager.accept(addRallyPointVisitor);
+        placementManager.accept(addRallyPointVisitor);
         //Remove from old tile
         RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(rallyPoint.getEntityId(),rallyPoint.getLocation());
-        movementManager.accept(removeEntityVisitor);
+        placementManager.accept(removeEntityVisitor);
         rallyPoint.setLocation(loc);
     }
 
@@ -37,7 +38,7 @@ public class Army extends Entity{
             Unit unitToAdd = reinforcement.getOnLocationUnit(battleGroup.getLocation());
             //Remove tile reference to unit
             RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(unitToAdd.getEntityId(), unitToAdd.getLocation());
-            movementManager.accept(removeEntityVisitor);
+            placementManager.accept(removeEntityVisitor);
 
             battleGroup.addUnit(unitToAdd);
         }
@@ -46,10 +47,10 @@ public class Army extends Entity{
     public void moveBattleGroup(Location loc){
         //Move to Tile
         AddArmyVisitor addArmyVisitor = new AddArmyVisitor(battleGroup, loc);
-        movementManager.accept(addArmyVisitor);
+        placementManager.accept(addArmyVisitor);
         //Delete old Tile reference
         RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(),battleGroup.getLocation());
-        movementManager.accept(removeEntityVisitor);
+        placementManager.accept(removeEntityVisitor);
         //Update battlegroup and army location
         battleGroup.setLocation(loc);
     }

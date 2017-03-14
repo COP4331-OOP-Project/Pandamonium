@@ -1,7 +1,7 @@
 package game.visitors;
 
 import game.entities.RallyPoint;
-import game.entities.managers.MovementManager;
+import game.entities.managers.PlacementManager;
 import game.gameboard.Location;
 
 public class AddRallyPointVisitor implements iMovementManageVisitor {
@@ -13,7 +13,7 @@ public class AddRallyPointVisitor implements iMovementManageVisitor {
         location=loc;
     }
 
-    public void visitMoveManage(MovementManager mm){
+    public void visitMoveManage(PlacementManager mm){
         mm.addRallyPoint(rallyPoint, location);
     }
 }

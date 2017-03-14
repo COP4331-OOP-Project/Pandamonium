@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.entities.EntityId;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
 
@@ -11,8 +12,8 @@ public class Capitol extends Structure {
     //private ArrayList<worker> miner;
     //private ArrayList<worker> breeder;
 
-    public Capitol(StructureStats stats, Location location , EntityId entityId ){
-        super(stats, location, entityId);
+    public Capitol(StructureStats stats, Location location , EntityId entityId, PlacementManager placementManager){
+        super(stats, location, entityId, placementManager);
     }
 
     public void assignToFarmer(){

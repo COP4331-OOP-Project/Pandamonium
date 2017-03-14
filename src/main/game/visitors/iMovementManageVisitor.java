@@ -1,7 +1,8 @@
 package game.visitors;
 
-import game.entities.managers.MovementManager;
+
+import game.entities.managers.PlacementManager;
 
 public interface iMovementManageVisitor {
-    void visitMoveManage(MovementManager mm);
+    void visitMoveManage(PlacementManager pm);
 }

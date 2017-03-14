@@ -8,9 +8,11 @@ import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.exceptions.*;
+import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
 import game.entities.structures.exceptions.StructureNotFoundException;
+import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
@@ -22,10 +24,12 @@ public class StructureFactory implements iStructureResearchObserver {
 
     private int playerId;
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
+    private PlacementManager placementManager;
 
-    public StructureFactory(int playerId) {
+    public StructureFactory(int playerId, Gameboard gb) {
         this.playerId = playerId;
         this.structureStatistics = new HashMap<>();
+        this.placementManager = new PlacementManager(gb);
 
         try {
             this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(EntitySubtypeEnum.CAPITOL));
@@ -46,31 +50,31 @@ public class StructureFactory implements iStructureResearchObserver {
         switch (structureType) {
             case CAPITOL: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id, globalId);
-                return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId);
+                return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId, placementManager);
             }
             case FARM: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id, globalId);
-                return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId);
+                return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId, placementManager);
             }
             case FORT: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id, globalId);
-                return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId, placementManager);
             }
             case MINE: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
-                return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId);
+                return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId, placementManager);
             }
             case OBSERVE: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id, globalId);
-                return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId);
+                return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId, placementManager);
             }
             case PLANT: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id, globalId);
-                return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId);
+                return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId, placementManager);
             }
             case UNIVERSITY: {
                 EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
-                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId, placementManager);
             }
             default:
                 throw new StructureTypeDoesNotExist();
