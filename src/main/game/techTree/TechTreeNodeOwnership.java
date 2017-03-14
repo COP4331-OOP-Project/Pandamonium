@@ -1,6 +1,5 @@
 package game.techTree;
 
-import game.iTurnObserver;
 import game.techTree.nodeTypes.TechTreeNode;
 
 public class TechTreeNodeOwnership {
@@ -10,7 +9,7 @@ public class TechTreeNodeOwnership {
 
     public TechTreeNodeOwnership(TechTreeNode techTreeNode, int productionRate) {
         this.techTreeNode = techTreeNode;
-        this.turnsLeft = this.techTreeNode.getProductionRequirement();
+        this.turnsLeft = this.techTreeNode.getProductionRequirement() / productionRate;
     }
 
     public boolean doTurn() {

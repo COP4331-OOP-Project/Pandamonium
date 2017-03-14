@@ -29,6 +29,8 @@ public class University extends StructureWithWorker {
             researchProductionRate += generator.getProductionRate();
         }
 
+        if (researchProductionRate == 0) return;    // you can't do research with no production capability. Silly you....
+
         this.techTreeNodeOwnership = new TechTreeNodeOwnership(techTreeNode, researchProductionRate);
     }
 
