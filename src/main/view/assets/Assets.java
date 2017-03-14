@@ -161,12 +161,12 @@ public class Assets {
         loadItem("TILE_FOG2", "assets/images/tileCovering/fog2.png");
         loadItem("TILE_FOG3", "assets/images/tileCovering/fog3.png");
         loadItem("TILE_SEMI_VISIBLE", "assets/images/tileCovering/semiVisible.png");
-        loadItem("AOE_DIE", "assets/images/areaEffect/loseHealth.png");
-        loadItem("AOE_LOSE", "assets/images/areaEffect/redCross.png");
-        loadItem("AOE_HEAL", "assets/images/areaEffect/skullDecal.png");
-        loadItem("ITEM_DIE", "assets/images/areaEffect/loseHealthItem.png");
-        loadItem("ITEM_LOSE", "assets/images/areaEffect/redCrossItem.png");
-        loadItem("ITEM_HEAL", "assets/images/areaEffect/skullDecalItem.png");
+        loadItem("AOE_DIE", "assets/images/areaEffect/skullDecal.png");
+        loadItem("AOE_LOSE", "assets/images/areaEffect/loseHealthItem.png");
+        loadItem("AOE_HEAL", "assets/images/areaEffect/redCrossItem.png");
+        loadItem("ITEM_DIE", "assets/images/areaEffect/skullDecalItem.png");
+        loadItem("ITEM_LOSE", "assets/images/areaEffect/loseHealthItem.png");
+        loadItem("ITEM_HEAL", "assets/images/areaEffect/redCrossItem.png");
         loadItem("COMMAND_ASSIGN_WORKER", "assets/images/icon/assignWorker.png");
         loadItem("COMMAND_ATTACK", "assets/images/icon/attack.png");
         loadItem("COMMAND_BUILD", "assets/images/icon/build.png");
