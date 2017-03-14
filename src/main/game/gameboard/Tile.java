@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import game.entities.BattleGroup;
+import game.gameboard.areaEffects.AreaEffect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,9 +35,10 @@ public class Tile implements iTileAccessors {
     private Structure structure;
     private Location location;
     private Random resourceValueGenerator = new Random();
-    private int ownerId;
+    private Integer ownerId;
+    private AreaEffect areaEffect;
 
-    Tile(TerrainEnum tileType, Location location) {
+    Tile(TerrainEnum tileType, Location location, AreaEffect areaEffect) {
         Terrain = tileType;
         food = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
@@ -50,16 +52,17 @@ public class Tile implements iTileAccessors {
         containsArmy = false;
         structure = null;
         this.location = location;
-        this.setOwnerId(-1);
+        this.areaEffect = areaEffect;
+        this.setOwnerId(null);
     }
 
-    public void setOwnerId(int ownerId){
+    public void setOwnerId(Integer ownerId){
         this.ownerId = ownerId;
     }
 
-    public int getOwner() {
+    public Integer getOwner() {
         if(this.units.isEmpty()){
-            ownerId = -1;
+            ownerId = null;
         }
         else {
             ownerId = units.get(0).getOwnerID();
@@ -76,13 +79,14 @@ public class Tile implements iTileAccessors {
             return;
         }*/
         units.add(unit);
+        this.areaEffect.affectUnit(unit);
         //unit.setLocation(this.location);
     }
 
     public void addStructure(Structure structure){
-        if(containsStructure()==false){
+        if(!containsStructure())
             this.structure = structure;
-        }
+
     }
 
     public void addBattleGroup(BattleGroup battleGroup){

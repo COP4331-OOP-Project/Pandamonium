@@ -3,7 +3,7 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
-import game.workerResearch.iWorkerResearchObserver;
+import game.research.workerResearch.iWorkerResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;

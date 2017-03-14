@@ -88,4 +88,9 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
 
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
+
+    public void instantDeath() {
+        // TODO: activate death visitor
+        this.health = 0;
+    }
 }
