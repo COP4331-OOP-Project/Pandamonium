@@ -3,7 +3,7 @@ package game.entities.factories;
 import java.util.HashMap;
 import java.util.Map;
 
-import entityResearch.iStructureResearchObserver;
+import game.research.entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;

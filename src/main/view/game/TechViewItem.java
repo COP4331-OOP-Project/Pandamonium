@@ -2,8 +2,8 @@ package view.game;
 
 import java.awt.Point;
 
-import game.techTree.nodeTypes.TechNodeImageEnum;
-import game.techTree.nodeTypes.TechTreeNode;
+import game.research.techTree.nodeTypes.TechNodeImageEnum;
+import game.research.techTree.nodeTypes.TechTreeNode;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;

@@ -3,9 +3,9 @@ package game.entities;
 import game.entities.managers.PlacementManager;
 import game.entities.units.Unit;
 import game.gameboard.Location;
-import game.visitors.AddArmyVisitor;
-import game.visitors.AddRallyPointVisitor;
-import game.visitors.RemoveEntityVisitor;
+import game.commands.commandVisitors.AddArmyVisitor;
+import game.commands.commandVisitors.AddRallyPointVisitor;
+import game.commands.commandVisitors.RemoveEntityVisitor;
 
 public class Army extends Entity{
     private BattleGroup battleGroup;

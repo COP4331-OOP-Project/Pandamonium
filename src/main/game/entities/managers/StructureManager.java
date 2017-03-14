@@ -1,7 +1,7 @@
 package game.entities.managers;
 
-import entityResearch.iStructureResearchObservable;
-import entityResearch.iStructureResearchObserver;
+import game.research.entityResearch.iStructureResearchObservable;
+import game.research.entityResearch.iStructureResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.StructureFactory;

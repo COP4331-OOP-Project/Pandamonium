@@ -8,7 +8,8 @@ import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
 import game.iTurnObserver;
-import game.visitors.AddStructureVisitor;
+
+import game.commands.commandVisitors.AddStructureVisitor;
 import game.semantics.Percentage;
 
 

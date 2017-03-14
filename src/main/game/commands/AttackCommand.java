@@ -2,7 +2,7 @@ package game.commands;
 
 import game.entities.iAttacker;
 import game.gameboard.Tile;
-import game.visitors.AttackVisitor;
+import game.commands.commandVisitors.AttackVisitor;
 
 // Attack Command
 public class AttackCommand extends Command {

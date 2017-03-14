@@ -10,9 +10,9 @@ import game.entities.iMoveable;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
+import game.commands.commandVisitors.AddUnitVisitor;
+import game.commands.commandVisitors.RemoveEntityVisitor;
 import game.iTurnObserver;
-import game.visitors.AddUnitVisitor;
-import game.visitors.RemoveEntityVisitor;
 
 // TODO: Fix damage taking to account for defense
 

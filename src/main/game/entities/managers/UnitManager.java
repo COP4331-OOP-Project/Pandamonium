@@ -1,7 +1,7 @@
 package game.entities.managers;
 
-import entityResearch.iUnitResearchObservable;
-import entityResearch.iUnitResearchObserver;
+import game.research.entityResearch.iUnitResearchObservable;
+import game.research.entityResearch.iUnitResearchObserver;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.factories.exceptions.TotalUnitLimitExceededException;

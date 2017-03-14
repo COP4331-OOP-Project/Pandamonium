@@ -3,7 +3,7 @@ package game.gameboard;
 //import game.entities.Army;
 //import game.entities.structures.Structure;
 //import game.entities.units.Unit;
-import game.visitors.iTileActionVisitor;
+import game.commands.commandVisitors.iTileActionVisitor;
 
 /**
  * Necessary commands for Tile access and management

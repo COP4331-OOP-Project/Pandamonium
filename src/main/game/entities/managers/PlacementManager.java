@@ -5,7 +5,7 @@ import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
-import game.visitors.iMovementManageVisitor;
+import game.commands.commandVisitors.iMovementManageVisitor;
 
 public class PlacementManager {
     //TODO UNCOMMENT MOVEMENTMANAGER USAGE IN CONSTRUCTORS
