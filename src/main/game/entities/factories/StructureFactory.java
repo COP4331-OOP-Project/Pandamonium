@@ -31,7 +31,7 @@ public class StructureFactory implements iStructureResearchObserver {
     private WorkerManager workerManager;
     private UnitManager unitManager;
 
-    public StructureFactory(Player player, PlacementManager placementManager, WorkerManager workerManager) {
+    public StructureFactory(Player player, PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager) {
 
         this.player = player;
         this.structureStatistics = new HashMap<>();

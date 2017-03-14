@@ -20,9 +20,9 @@ public class TechTree {
     private StructureManager structureManager;
     private Percentage tenPercent;
 
-    public TechTree(Player player, PlacementManager placementManager, WorkerManager workerManager) {
+    public TechTree(Player player, PlacementManager placementManager, WorkerManager workerManager, UnitManager unitManager) {
         this.workerManager = workerManager;
-        this.structureManager = new StructureManager(player, placementManager, workerManager);
+        this.structureManager = new StructureManager(player, placementManager, workerManager, unitManager);
         this.rootNodes = new ArrayList<>();
         try {
             this.tenPercent = new Percentage(.1);
