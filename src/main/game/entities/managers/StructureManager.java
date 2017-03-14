@@ -34,7 +34,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
 
     private StructureIdManager structureIdManager;
 
-    public StructureManager(Player player, Gameboard gb) {
+    public StructureManager(Player player, Gameboard gb, WorkerManager workerManager) {
         this.capitols = new ArrayList<>();
         this.farms = new ArrayList<>();
         this.forts = new ArrayList<>();
@@ -45,7 +45,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
 
-        StructureFactory structureFactory = new StructureFactory(player, gb);
+        StructureFactory structureFactory = new StructureFactory(player, gb, workerManager);
         this.attach(structureFactory);
         this.structureIdManager = new StructureIdManager(structureFactory);
     }

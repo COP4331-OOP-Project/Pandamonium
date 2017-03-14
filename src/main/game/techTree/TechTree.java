@@ -20,7 +20,7 @@ public class TechTree {
 
     public TechTree(Player player, Gameboard gb) {
         this.workerManager = new WorkerManager(player.getPlayerId());
-        this.structureManager = new StructureManager(player, gb);
+        this.structureManager = new StructureManager(player, gb, workerManager);
         this.rootNodes = new ArrayList<>();
         try {
             this.tenPercent = new Percentage(.1);

@@ -96,7 +96,7 @@ public class TileTest {
             range2 = new Ranged(rangedStats, unitLocation, range2Id, placementManager, null);
             colonist1 = new Colonist(colonistStats, unitLocation, colonistId, placementManager, null);
 
-            capitol = new Capitol(capitolStat, capitolLocation, capitolId, placementManager, null);
+            capitol = new Capitol(capitolStat, capitolLocation, capitolId, placementManager, null, null);
             farm = new Farm(farmStat, farmLocation, farmId, placementManager, null);
 
             tileWaterLoc = new Location(20, 20);

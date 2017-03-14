@@ -8,6 +8,7 @@ import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.factories.exceptions.StructureTypeDoesNotExist;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
 import game.entities.stats.StructureStats;
 import game.entities.structures.*;
 import game.entities.structures.exceptions.StructureNotFoundException;
@@ -27,12 +28,14 @@ public class StructureFactory implements iStructureResearchObserver {
     private Player player;
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
     private PlacementManager placementManager;
+    private WorkerManager workerManager;
 
-    public StructureFactory(Player player, Gameboard gb) {
+    public StructureFactory(Player player, Gameboard gb, WorkerManager workerManager) {
 
         this.player = player;
         this.structureStatistics = new HashMap<>();
         this.placementManager = new PlacementManager(gb);
+        this.workerManager=workerManager;
 
         try {
             this.structureStatistics.put(EntitySubtypeEnum.CAPITOL, new StructureStats(EntitySubtypeEnum.CAPITOL));
@@ -55,7 +58,7 @@ public class StructureFactory implements iStructureResearchObserver {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
                 return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location,
-                                    entityId, placementManager, notifier);
+                                    entityId, placementManager,workerManager, notifier);
             }
             case FARM: {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id, globalId);
@@ -73,7 +76,7 @@ public class StructureFactory implements iStructureResearchObserver {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
                 DeathNotifier notifier = new DeathNotifier(this.player);
                 return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location,
-                                    entityId, placementManager, notifier);
+                                    entityId, placementManager,workerManager, notifier);
             }
             case OBSERVE: {
                 EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id, globalId);

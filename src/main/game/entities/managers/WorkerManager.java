@@ -12,6 +12,7 @@ import game.iTurnObservable;
 import game.iTurnObserver;
 import game.research.workerResearch.iWorkerResearchObservable;
 import game.research.workerResearch.iWorkerResearchObserver;
+import game.visitors.iWorkerTransferVisitor;
 import game.semantics.Percentage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +38,10 @@ public class WorkerManager implements iWorkerResearchObservable, iTurnObserver, 
         this.workers = new ArrayList<>();
     }
 
+    public Worker transferWorker(EntityId id, WorkerTypeEnum transferTo, Location location)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
+        removeWorker(id);
+        return addWorker(transferTo, location);
+    }
 
     public Worker addWorker(WorkerTypeEnum workerType, Location location) throws WorkerLimitExceededException, WorkerTypeDoesNotExist {
         Worker w = this.workerIdManager.createWorker(workerType, location);
@@ -70,6 +75,10 @@ public class WorkerManager implements iWorkerResearchObservable, iTurnObserver, 
         return null;
     }
 
+
+    public Worker accept(iWorkerTransferVisitor v)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
+        return v.visitTransferVisitor(this);
+    }
 
     public void attach(iWorkerResearchObserver observer) {
         this.observers.add(observer);

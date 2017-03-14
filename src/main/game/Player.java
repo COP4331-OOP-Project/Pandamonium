@@ -53,7 +53,7 @@ public class Player implements iTurnObservable {
 		// Setup managers for entities, workers
 		this.workerManager = new WorkerManager(playerId);
 		this.unitManager = new UnitManager(this, gb);
-		this.structureManager = new StructureManager(this, gb);
+		this.structureManager = new StructureManager(this, gb,workerManager);
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
