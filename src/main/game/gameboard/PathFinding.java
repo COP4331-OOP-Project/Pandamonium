@@ -26,7 +26,7 @@ public class PathFinding {
         //Begin Algorithm
 
         while(!open.isEmpty()) {
-            Location current = smallestF(f);
+            Location current = smallestF(f, closed);
             if (current.equals(end)) {
                 return getNextDirection(cameFrom, start, end);
             }
@@ -35,23 +35,7 @@ public class PathFinding {
             //Check each neighbor
             int direction = 0;
             while(direction!=-1) {
-                Location neighbor = directionLocation(current,direction);
-                if (!closed.contains(neighbor)) {
-                    //TODO check if tile is player id;
-                    if(!gameboard.getTiles()[neighbor.getX()][neighbor.getY()].isImpassable()) {
-                        if (!open.contains(neighbor)) {
-                            open.add(neighbor);
-                        } else if (g.get(current) + 1 < g.get(neighbor)) {
-                            cameFrom.put(neighbor, current);
-                            g.put(neighbor, g.get(current) + 1);
-                            f.put(neighbor, g.get(neighbor) + hscore(neighbor, end));
-                        }
-                    }
-                    else{
-                        closed.add(neighbor);
-                    }
-                }
-
+                int directionHold=direction;
                 switch (direction){
                     case 0:
                         direction=45;
@@ -74,22 +58,45 @@ public class PathFinding {
                     default:
                         direction=-1;
                 }
+                Location neighbor = directionLocation(current,directionHold);
+                if(!g.containsKey(neighbor)) {
+                    g.put(neighbor,10000);
+                }
+                if (!closed.contains(neighbor)) {
+                    //TODO check if tile is player id;
+                    if(!gameboard.getTiles()[neighbor.getX()][neighbor.getY()].isImpassable()) {
+                        if (!open.contains(neighbor)) {
+                            open.add(neighbor);
+                        }
+                        else if(g.get(current) + 1 >= g.get(neighbor)) {
+                            continue;
+                        }
+                        cameFrom.put(neighbor, current);
+                        g.put(neighbor, g.get(current) + 1);
+                        f.put(neighbor, g.get(neighbor) + hscore(neighbor, end));
+                    }
+                }
+                else{
+                    closed.add(neighbor);
+                }
             }
         }
         //Path not found
         return -1;
     }
 
-    public Location smallestF(HashMap<Location, Integer> f){
+    public Location smallestF(HashMap<Location, Integer> f, Set<Location> closed){
         Set<Location> key = f.keySet();
         Location smallest = null;
         int compare = 10000;
         Iterator<Location> iterator = key.iterator();
         while(iterator.hasNext()){
             Location holder = iterator.next();
-            if(f.get(holder)<compare){
-                smallest=holder;
-                compare=f.get(holder);
+            if(!closed.contains(holder)) {
+                if (f.get(holder) < compare) {
+                    smallest = holder;
+                    compare = f.get(holder);
+                }
             }
         }
         return smallest;
