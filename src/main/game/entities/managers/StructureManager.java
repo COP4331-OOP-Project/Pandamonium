@@ -44,7 +44,6 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
         this.universities = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
-
         StructureFactory structureFactory = new StructureFactory(player, gb, workerManager);
         this.attach(structureFactory);
         this.structureIdManager = new StructureIdManager(structureFactory);

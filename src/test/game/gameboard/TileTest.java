@@ -5,6 +5,7 @@ import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
 import game.entities.managers.PlacementManager;
+import game.entities.managers.WorkerManager;
 import game.entities.stats.StructureStats;
 import game.entities.stats.UnitStats;
 import game.entities.structures.Capitol;
@@ -68,6 +69,7 @@ public class TileTest {
         try {
             gameboard = new Gameboard();
             placementManager = new PlacementManager(gameboard);
+            WorkerManager workerManager = new WorkerManager(playerId);
 
             playerId = 1;
             meleeStats = new UnitStats(EntitySubtypeEnum.MELEE);
