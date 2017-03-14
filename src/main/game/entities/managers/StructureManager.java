@@ -187,8 +187,7 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
                 return s;
             }
         }
-
-        throw new StructureDoesNotExistException();
+        return null;
     }
 
     private void removeEntityFromList(EntityId entityId, ArrayList<? extends Structure> structures) throws StructureDoesNotExistException {

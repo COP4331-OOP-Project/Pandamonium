@@ -112,7 +112,6 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
 
     // Return the unit instance of the passed entity id
     public Unit getUnitById(EntityId entityId) throws UnitDoesNotExistException {
-
         // Collect all available instances
         ArrayList<Unit> allUnits = getTotalUnits();
 
@@ -122,9 +121,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
                 return u;
             }
         }
-
-        throw new UnitDoesNotExistException(); // No unit found
-
+        return null; // No unit found
     }
 
     // Remove unit of designated id from players list of units

@@ -36,7 +36,7 @@ public class UnitDetailsPanel extends DetailsPanel {
 
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-        if (getAdapter().getCurrentMode() == Mode.UNIT && getAdapter().getSelectedEntity() != null) {
+        if (getAdapter().getCurrentMode() == Mode.UNIT && getAdapter().getSelectedUnit() != null) {
         	drawBar(g, screenDimensions);
             g.setEffect(ds);
             drawText(g, screenDimensions.y);

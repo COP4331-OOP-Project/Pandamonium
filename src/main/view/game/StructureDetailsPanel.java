@@ -31,7 +31,7 @@ public class StructureDetailsPanel extends DetailsPanel {
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE && getAdapter().getSelectedEntity() != null) {
+    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE && getAdapter().getSelectedStructure() != null) {
 	    	drawBar(g, screenDimensions);
 	        g.setEffect(ds);
 	        drawText(g, screenDimensions.y);

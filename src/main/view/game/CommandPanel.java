@@ -114,7 +114,9 @@ public class CommandPanel extends Panel{
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
 		possibleCommands = getAdapter().getCommands();
-		drawCommandPanel(g);
+		if (getAdapter().getSelectedEntity() != null) {
+			drawCommandPanel(g);
+		}
 	}
 
     private void drawCommandPanel(GraphicsContext g) {
