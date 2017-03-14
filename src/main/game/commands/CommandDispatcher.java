@@ -13,24 +13,23 @@ import game.gameboard.Tile;
 public class CommandDispatcher {
 
     // Constructor
-    CommandDispatcher() {
-    }
+    CommandDispatcher() {}
 
     // Issue an attack command
     public void issueAttackCommand(iAttacker a, Tile target) {
-        Entity e = (Entity)a;
+        Entity e = (Entity) a;
         e.addCommandToQueue(new AttackCommand(a, target, 1));
     }
 
     // Issue a defend command
     public void issueDefendCommand(iDefender d, int direction) {
-        Entity e = (Entity)d;
+        Entity e = (Entity) d;
         e.addCommandToQueue(new DefendCommand(d, direction, 1));
     }
 
     // Issue a heal command
     public void issueHealCommand(iHealer h, Tile target) {
-        Entity e = (Entity)h;
+        Entity e = (Entity) h;
         e.addCommandToQueue(new HealCommand(h, target, 1));
     }
 

@@ -14,10 +14,11 @@ public class MoveCommand extends Command {
 
     // Constructor
     public MoveCommand(iMoveable actor, Tile target, int direction, int duration) {
-    	super(duration);
-    	this.actor = actor;
-        this.target = target;
-        this.direction = direction;
+
+    	super(duration);                // Set duration of cmd
+    	this.actor = actor;             // Set actor to move
+        this.target = target;           // Set tile to move actor to
+        this.direction = direction;     // Set direction of move
     }
 
     // Get direction of move
@@ -26,6 +27,8 @@ public class MoveCommand extends Command {
     }
 
     // Execute move from Gameboard function
-    public void exec() {}
+    public void exec() {
+        actor.setLocation(target.getLocation());
+    }
 
 }

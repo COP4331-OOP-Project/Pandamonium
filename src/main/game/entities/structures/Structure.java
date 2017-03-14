@@ -29,7 +29,7 @@ public abstract class Structure extends Entity implements iTurnObserver {
         this.healthPercent = new HealthPercentage();
         this.location=location;
 
-        AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this,this.location);
+        AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this, this.location);
         placementManager.accept(addStructureVisitor);
 
         standby();
