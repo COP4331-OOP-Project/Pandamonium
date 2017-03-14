@@ -27,7 +27,7 @@ public class GameEngine extends Application {
 	
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Asian Game");
+        stage.setTitle("Pandamonium");
         Group root = new Group();
         Scene scene = new Scene(root, Color.BLACK);
         if (!DebugMode.DEBUG_MODE) {

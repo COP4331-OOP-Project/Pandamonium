@@ -64,7 +64,7 @@ public class Assets {
             mediumFont = Font.loadFont(new FileInputStream(new File(FONT)), 25);
             largeFont = Font.loadFont(new FileInputStream(new File(FONT)), 37);
             hugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 53);
-            veryHugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 100);
+            veryHugeFont = Font.loadFont(new FileInputStream(new File(FONT)), 150);
         } catch (IOException e) {
             defaultFont = new Font("Lucida Sans", 20);
             smallFont = new Font("Lucida Sans", 18);
@@ -196,7 +196,8 @@ public class Assets {
 		loadItem("ICON_END_TURN", "assets/images/icon/endTurn.png");
         loadItem("WORK_RADIUS", "assets/images/icon/workerRadius.png");
         loadItem("WORKER_ON_TILE", "assets/images/icon/workerOnTile.png");
-        loadItem("WORKER_TO_SOLDIER", "assets/images/icon/workerToSoldier.png");
+        loadItem("WORKER_TO_SOLDIER_HUMAN", "assets/images/icon/workerToHuman.png");
+        loadItem("WORKER_TO_SOLDIER_PANDA", "assets/images/icon/workerToPanda.png");
         loadItem("BREED_WORKER", "assets/images/icon/breedWorker.png");
         loadItem("CHECKED", "assets/images/icon/checked.png");
         loadItem("UNCHECKED", "assets/images/icon/unChecked.png");

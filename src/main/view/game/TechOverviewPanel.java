@@ -29,48 +29,29 @@ public class TechOverviewPanel extends OverviewPanel{
 	private TechModeEnum currentMode = TechModeEnum.TECHNOLOGY;
 	private AnchorPane techBox = new AnchorPane();
 	private ScrollPane scrollPane = new ScrollPane();
-	private TechViewItem fertilizer = new TechViewItem(getAssets(), "Fertilizer", 
-			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechViewItem wheelbarrow = new TechViewItem(getAssets(), "Wheelbarrow",
-			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechViewItem tent = new TechViewItem(getAssets(), "Tent", 
-			getAssets().getImage("WORKER_ON_TILE"), "+1");
-	private TechViewItem ironMining = new TechViewItem(getAssets(), "Iron Mining", 
-			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechViewItem bed = new TechViewItem(getAssets(), "Bed", 
-			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechViewItem housing = new TechViewItem(getAssets(), "Housing", 
-			getAssets().getImage("WORKER_ON_TILE"), "+2");
-	private TechViewItem draftHorse = new TechViewItem(getAssets(), "Draft Horse",
-			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechViewItem irrigation = new TechViewItem(getAssets(), "Irrigation", 
-			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechViewItem steamPower = new TechViewItem(getAssets(), "Steam Power",
-			getAssets().getImage("ICON_POWER"), "+10%");
-	private TechViewItem militia = new TechViewItem(getAssets(), "Militia", 
-			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechViewItem pesticides = new TechViewItem(getAssets(), "Pesticides", 
-			getAssets().getImage("ICON_FOOD_HUMAN"), "+10%");
-	private TechViewItem steelMining = new TechViewItem(getAssets(), "Steel Mining", 
-			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechViewItem barracks = new TechViewItem(getAssets(), "Barracks", 
-			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechViewItem beer = new TechViewItem(getAssets(), "Beer", 
-			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechViewItem blastFurnace = new TechViewItem(getAssets(), "Blast Furnace",
-			getAssets().getImage("ICON_METAL"), "+10%");
-	private TechViewItem roads = new TechViewItem(getAssets(), "Roads",
-			getAssets().getImage("WORK_RADIUS"), "+1");
-	private TechViewItem vodka = new TechViewItem(getAssets(), "Vodka", 
-			getAssets().getImage("BREED_WORKER"), "-1 Turn");
-	private TechViewItem urbanPlanning = new TechViewItem(getAssets(), "Urban Planning", 
-			getAssets().getImage("WORKER_ON_TILE"), "+2");
-	private TechViewItem windPower = new TechViewItem(getAssets(), "Wind Power",
-			getAssets().getImage("ICON_POWER"), "+10%");
-	private TechViewItem militaryAcademy = new TechViewItem(getAssets(), "Military Academy", 
-			getAssets().getImage("WORKER_TO_SOLDIER"), "-1 Turn");
-	private TechViewItem nuclearPower = new TechViewItem(getAssets(), "Nuclear Power",
-			getAssets().getImage("ICON_POWER"), "+10%");
+	/*
+	private TechViewItem fertilizer = new TechViewItem(getAssets();
+	private TechViewItem wheelbarrow = new TechViewItem(getAssets());
+	private TechViewItem tent = new TechViewItem(getAssets());
+	private TechViewItem ironMining = new TechViewItem(getAssets());
+	private TechViewItem bed = new TechViewItem(getAssets());
+	private TechViewItem housing = new TechViewItem(getAssets());
+	private TechViewItem draftHorse = new TechViewItem(getAssets());
+	private TechViewItem irrigation = new TechViewItem(getAssets());
+	private TechViewItem steamPower = new TechViewItem(getAssets());
+	private TechViewItem militia = new TechViewItem(getAssets());
+	private TechViewItem pesticides = new TechViewItem(getAssets());
+	private TechViewItem steelMining = new TechViewItem(getAssets());
+	private TechViewItem barracks = new TechViewItem(getAssets());
+	private TechViewItem beer = new TechViewItem(getAssets());
+	private TechViewItem blastFurnace = new TechViewItem(getAssets());
+	private TechViewItem roads = new TechViewItem(getAssets());
+	private TechViewItem vodka = new TechViewItem(getAssets());
+	private TechViewItem urbanPlanning = new TechViewItem(getAssets());
+	private TechViewItem windPower = new TechViewItem(getAssets());
+	private TechViewItem militaryAcademy = new TechViewItem(getAssets());
+	private TechViewItem nuclearPower = new TechViewItem(getAssets());
+	*/
 	private ToggleButton techsToggle = new ToggleButton("Technologies");
 	private ToggleButton improvementsToggle = new ToggleButton("Improvements");
 	private ComboBox<String> universityComboBox;
@@ -216,7 +197,6 @@ public class TechOverviewPanel extends OverviewPanel{
 				canvas.setWidth(2450);
 				canvas.setTranslateY(0);
 				canvas.setHeight(screenDimensions.y - 147);
-				checkFoodIcons();
 				drawTechnologies();
 				drawConnectors();
 				break;
@@ -296,18 +276,6 @@ public class TechOverviewPanel extends OverviewPanel{
 		techGraphics.setEffect(null);
 	}
 
-	private void checkFoodIcons() {
-		if (getAdapter().getPlayer() == 0) {
-			fertilizer.setIcon(getAssets().getImage("ICON_FOOD_HUMAN")); 
-			irrigation.setIcon(getAssets().getImage("ICON_FOOD_HUMAN"));
-			pesticides.setIcon(getAssets().getImage("ICON_FOOD_HUMAN"));
-		} else {
-			fertilizer.setIcon(getAssets().getImage("ICON_FOOD_PANDA")); 
-			irrigation.setIcon(getAssets().getImage("ICON_FOOD_PANDA"));
-			pesticides.setIcon(getAssets().getImage("ICON_FOOD_PANDA"));
-		}
-	}
-
 	private void drawConnectors() {
 		//These are all those little connector graphics in between the technologies
 		techGraphics.drawImage(getAssets().getImage("TECH_CONNECT1"), 235, 132);
@@ -328,6 +296,7 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	private void drawTechnologies() {
+		/*
         fertilizer.draw(techGraphics, new Point (0,80));
         wheelbarrow.draw(techGraphics, new Point(0, 190));
         tent.draw(techGraphics, new Point(0, 300));
@@ -349,9 +318,11 @@ public class TechOverviewPanel extends OverviewPanel{
         windPower.draw(techGraphics, new Point(1925, 245));
         militaryAcademy.draw(techGraphics, new Point(2200, 135));
         nuclearPower.draw(techGraphics, new Point(2200, 245));
+        */
 	}
 	
 	private void paneClicked(double x, double y) {
+		/*
 		if (currentMode == TechModeEnum.TECHNOLOGY) {
 			if (pointInPane(14, 87, x, y)) {
 				fertilizer.onClick();
@@ -397,8 +368,9 @@ public class TechOverviewPanel extends OverviewPanel{
 				militaryAcademy.onClick();
 			}else if (pointInPane(2214, 252, x, y)) {
 				nuclearPower.onClick();
-			}
+			}	
 		}
+		*/
 	}
 	
 	private boolean pointInPane(int paneX, int paneY, double clickX, double clickY) {

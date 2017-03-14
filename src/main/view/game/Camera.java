@@ -9,6 +9,7 @@ public class Camera {
 	private static final double SCALE_AMOUNT = 0.05; //The amount change per zoom
 	private static final double MIN_SCALE = 0.4; //Min amount to be zoomed in
 	private static final double MAX_SCALE = 1.0; //Max amount to be zoomed in
+	private static final int ZOOM_COUNTER = 25;
 	
     private CameraCenterer centerer = new CameraCenterer(this);
     private Point screenDimensions;
@@ -161,7 +162,7 @@ public class Camera {
 	private void checkZooming() {
     	if (zoomCounter != -1) {
     		zoomCounter++;
-    		if (zoomCounter > 40) {
+    		if (zoomCounter > ZOOM_COUNTER) {
     			zoomCounter = -1;
     			zooming = false;
     			centerer.stopCentering();
