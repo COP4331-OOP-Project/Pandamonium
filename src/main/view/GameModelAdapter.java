@@ -1,6 +1,7 @@
 package view;
 
 import game.GameModel;
+import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
@@ -108,6 +109,10 @@ public class GameModelAdapter {
 			}
 		}
 		return new Point(0,0);
+	}
+	
+	public void executeCommand(CommandEnum command) {
+		
 	}
 	
 	public void endTurn() {
