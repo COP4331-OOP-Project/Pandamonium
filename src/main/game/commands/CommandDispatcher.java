@@ -1,19 +1,18 @@
 package game.commands;
 
-import game.Player;
 import game.entities.Entity;
 import game.entities.iAttacker;
 import game.entities.iDefender;
 import game.entities.iHealer;
+import game.entities.units.Colonist;
+import game.gameboard.Location;
 import game.gameboard.Tile;
 
 // Class to handle creation and assignment of commands
 public class CommandDispatcher {
-    Player player;      // Player
 
     // Constructor
-    CommandDispatcher(Player player) {
-        this.player = player;   // Set player
+    CommandDispatcher() {
     }
 
     // Issue an attack command
@@ -58,5 +57,9 @@ public class CommandDispatcher {
     public void issueCancelQueueCommand(Entity e) {
         e.cancelQueuedCommands();
     }
+
+	public void issueFoundCapitolCommand(Colonist c) {
+		
+	}
 
 }

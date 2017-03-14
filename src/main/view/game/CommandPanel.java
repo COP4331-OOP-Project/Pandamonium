@@ -37,6 +37,9 @@ public class CommandPanel extends Panel{
 	private Point c7 = new Point();
 	private Point c8 = new Point();
 	private Point c9 = new Point();
+	private Point c10 = new Point();
+	private Point c11 = new Point();
+	private Point c12 = new Point();
 	private CommandButton build = new CommandButton(CommandEnum.BUILD_STRUCTURE, getImage("COMMAND_BUILD"));
 	private CommandButton heal = new CommandButton(CommandEnum.HEAL, getImage("COMMAND_HEAL"));
 	private CommandButton attack = new CommandButton(CommandEnum.ATTACK, getImage("COMMAND_ATTACK"));
@@ -54,7 +57,7 @@ public class CommandPanel extends Panel{
 	private CommandButton stopProspecting = new CommandButton(CommandEnum.STOP_PROSPECTING, getImage("COMMAND_STOP_PROSPECTING"));
 	private CommandButton foundCapitol = new CommandButton(CommandEnum.FOUND_CAPITOL, getImage("COMMAND_FOUND_CAPITOL"));
 	private CommandButton farm = new CommandButton(CommandEnum.WORKER_FARM, getImage("ICON_FOOD_HUMAN"));
-	private CommandButton mine = new CommandButton(CommandEnum.WORKER_MINE, getImage("ICON_MINE"));
+	private CommandButton mine = new CommandButton(CommandEnum.WORKER_MINE, getImage("ICON_METAL"));
 	private CommandButton generate = new CommandButton(CommandEnum.WORKER_GENERATE, getImage("ICON_POWER"));
 	private CommandButton breed = new CommandButton(CommandEnum.BREED_WORKERS, getImage("BREED_WORKER"));
 	private CommandButton createSoldiers = new CommandButton(CommandEnum.CREATE_SOLDIERS, getImage("WORKER_TO_SOLDIER_HUMAN"));
@@ -62,6 +65,7 @@ public class CommandPanel extends Panel{
 	private CommandButton reinforceArmy = new CommandButton(CommandEnum.REINFORCE_ARMY, getImage("COMMAND_GOTO_RALLY_POINT"));
 	private CommandButton moveRallyPoint = new CommandButton(CommandEnum.MOVE_RALLY_POINT, getImage("COMMAND_GOTO_RALLY_POINT"));
 	private ArrayList<CommandButton> commandButtons = new ArrayList<>();
+	ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
 	private HoverPanel hoverPanel;
 	
 	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
@@ -109,7 +113,8 @@ public class CommandPanel extends Panel{
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		this.screenDimensions = screenDimensions;
-        drawCommandPanel(g);
+		possibleCommands = getAdapter().getCommands();
+		drawCommandPanel(g);
 	}
 
     private void drawCommandPanel(GraphicsContext g) {
@@ -125,7 +130,15 @@ public class CommandPanel extends Panel{
     		farm.setIcon(getImage("ICON_FOOD_PANDA"));
     		createSoldiers.setIcon(getImage("WORKER_TO_SOLDIER_PANDA"));
     	}
-		g.drawImage(getImage("GUI_COMMAND_PANEL"), 0, yDistance);
+    	if (possibleCommands.size() >= 1 && possibleCommands.size() <= 3) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL1"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 4 && possibleCommands.size() <= 6) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL2"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 7 && possibleCommands.size() <= 9) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL3"), 0, yDistance);
+    	} else if (possibleCommands.size() >= 10 && possibleCommands.size() <= 12) {
+    		g.drawImage(getImage("GUI_COMMAND_PANEL4"), 0, yDistance);
+    	}
     	updateCommandButtonLocations(g);
     	drawCommandButtons(g);
     }
@@ -149,10 +162,16 @@ public class CommandPanel extends Panel{
     	c8.y = yDistance + ICON_WIDTH * 2;
     	c9.x = ICON_WIDTH * 2;
     	c9.y = yDistance + ICON_WIDTH * 2;
+    	c10.x = 0;
+    	c10.y = yDistance + ICON_WIDTH * 3;
+    	c11.x = ICON_WIDTH;
+    	c11.y = yDistance + ICON_WIDTH * 3;
+    	c12.x = ICON_WIDTH * 3;
+    	c12.y = yDistance + ICON_WIDTH * 3;
 }
 
     private void drawCommandButtons(GraphicsContext g) {
-    	ArrayList<CommandEnum> possibleCommands = getAdapter().getCommands();
+    	 
 		for (CommandButton commandButton : commandButtons) {
 			boolean commandExists = false;
 			for (int i = 0; i < possibleCommands.size(); i++) {
@@ -198,6 +217,18 @@ public class CommandPanel extends Panel{
     					case 8:
     						commandButton.setTranslateX(c9.x + SPACING);
     						commandButton.setTranslateY(c9.y + SPACING);
+    						break;
+    					case 9:
+    						commandButton.setTranslateX(c10.x + SPACING);
+    						commandButton.setTranslateY(c10.y + SPACING);
+    						break;
+    					case 10:
+    						commandButton.setTranslateX(c11.x + SPACING);
+    						commandButton.setTranslateY(c11.y + SPACING);
+    						break;
+    					case 11:
+    						commandButton.setTranslateX(c12.x + SPACING);
+    						commandButton.setTranslateY(c12.y + SPACING);
     						break;
     				}
     				commandExists = true;
