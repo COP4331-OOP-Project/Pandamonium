@@ -9,6 +9,7 @@ import game.entities.managers.WorkerManager;
 import game.entities.managers.exceptions.*;
 import game.entities.structures.*;
 import game.entities.units.*;
+import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.*;
@@ -16,7 +17,6 @@ import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.ArrayList;
 
 public class Player implements iTurnObservable {
@@ -53,7 +53,7 @@ public class Player implements iTurnObservable {
 		// Setup managers for entities, workers
 		this.workerManager = new WorkerManager(playerId);
 		this.unitManager = new UnitManager(this, gb);
-		this.structureManager = new StructureManager(playerId, gb);
+		this.structureManager = new StructureManager(this, gb);
 
 		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
@@ -80,6 +80,18 @@ public class Player implements iTurnObservable {
 				throw new EntityTypeDoesNotExistException("Entity of type " + type + " does not exist.");
 		}
 
+	}
+
+	// Get entity by id
+	public Entity getEntityById(EntityId id) throws UnitNotFoundException {
+		try {
+			return unitManager.getUnitById(id);
+		} catch (UnitDoesNotExistException ex) {}
+		try {
+			return this.structureManager.getStructureById(id);
+		} catch (StructureDoesNotExistException ex) {}
+
+		throw new UnitNotFoundException();
 	}
 
 	// Add worker of designated subtype @ given location

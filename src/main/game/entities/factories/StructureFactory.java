@@ -1,6 +1,8 @@
 package game.entities.factories;
 
 import entityResearch.iStructureResearchObserver;
+import game.Player;
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -22,12 +24,13 @@ public class StructureFactory implements iStructureResearchObserver {
 
     private final static Logger log = LogManager.getLogger(StructureFactory.class);
 
-    private int playerId;
+    private Player player;
     private Map<EntitySubtypeEnum, StructureStats> structureStatistics;
     private PlacementManager placementManager;
 
-    public StructureFactory(int playerId, Gameboard gb) {
-        this.playerId = playerId;
+    public StructureFactory(Player player, Gameboard gb) {
+
+        this.player = player;
         this.structureStatistics = new HashMap<>();
         this.placementManager = new PlacementManager(gb);
 
@@ -49,32 +52,46 @@ public class StructureFactory implements iStructureResearchObserver {
             throws  StructureTypeDoesNotExist {
         switch (structureType) {
             case CAPITOL: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id, globalId);
-                return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new Capitol(structureStatistics.get(EntitySubtypeEnum.CAPITOL), location,
+                                    entityId, placementManager, notifier);
             }
             case FARM: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id, globalId);
-                return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new Farm(structureStatistics.get(EntitySubtypeEnum.FARM), location,
+                                    entityId, placementManager, notifier);
             }
             case FORT: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id, globalId);
-                return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.FORT), location,
+                                        entityId, placementManager, notifier);
             }
             case MINE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
-                return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new Mine(structureStatistics.get(EntitySubtypeEnum.MINE), location,
+                                    entityId, placementManager, notifier);
             }
             case OBSERVE: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id, globalId);
-                return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new ObservationTower(structureStatistics.get(EntitySubtypeEnum.OBSERVE), location,
+                                                entityId, placementManager, notifier);
             }
             case PLANT: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id, globalId);
-                return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.PLANT, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new PowerPlant(structureStatistics.get(EntitySubtypeEnum.PLANT), location,
+                                        entityId, placementManager, notifier);
             }
             case UNIVERSITY: {
-                EntityId entityId = new EntityId(playerId, EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
-                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location, entityId, placementManager);
+                EntityId entityId = new EntityId(player.getPlayerId(), EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, id, globalId);
+                DeathNotifier notifier = new DeathNotifier(this.player);
+                return new Fort(structureStatistics.get(EntitySubtypeEnum.UNIVERSITY), location,
+                                    entityId, placementManager, notifier);
             }
             default:
                 throw new StructureTypeDoesNotExist();

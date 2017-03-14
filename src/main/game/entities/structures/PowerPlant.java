@@ -1,5 +1,6 @@
 package game.entities.structures;
 
+import game.entities.DeathNotifier;
 import game.entities.EntityId;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
@@ -14,8 +15,9 @@ public class PowerPlant extends Structure {
     private Queue<PeatGatherer> unassigned;
     private Queue<PeatGatherer> generator;
 
-    public PowerPlant(StructureStats stats, Location location , EntityId entityId , PlacementManager placementManager){
-        super(stats, location, entityId, placementManager);
+    public PowerPlant(StructureStats stats, Location location , EntityId entityId,
+                      PlacementManager placementManager, DeathNotifier notifier) {
+        super(stats, location, entityId, placementManager, notifier);
         unassigned=new LinkedList<>();
         generator=new LinkedList<>();
     }
