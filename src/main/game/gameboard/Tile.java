@@ -97,12 +97,15 @@ public class Tile implements iTileAccessors {
         rallyPoints.add(rallyPoint);
         containsRallyPoint = true;
     }
-    public void addEffect(AreaEffectEnum effect) throws EffectNotFoundException {
-        try{
-            if (this.containsEffect == false){
+    public void addEffect(AreaEffectEnum effect){
+        try {
+            if (this.containsEffect == false) {
                 this.effect = new AreaEffect(effect);
                 this.containsEffect = true;
             }
+        }catch (EffectNotFoundException e){
+            throw new RuntimeException("Area effect could not be could not be instantiated: " + e.getLocalizedMessage());
+        }
     }
 
     public ArrayList<Unit> getUnits(){return units;}

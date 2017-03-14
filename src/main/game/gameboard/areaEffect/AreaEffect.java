@@ -11,7 +11,9 @@ public class AreaEffect {
     private AreaEffectEnum effect;
 
     public AreaEffect(AreaEffectEnum effect) throws EffectNotFoundException{
-        this.effect = effect;
+        if(effect != AreaEffectEnum.POISON || effect != AreaEffectEnum.HEALING || effect != AreaEffectEnum.DEATH){
+            throw new EffectNotFoundException("This effect does not exist!");
+        } else this.effect = effect;
     }
 
     /* Accessors */
