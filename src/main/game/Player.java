@@ -222,6 +222,32 @@ public class Player implements iTurnObservable {
 
 	public int getPlayerId() { return this.playerId; }
 
+	public Army getArmy(EntityId entityId) throws ArmyDoesNotExistException {
+		for (Army army : armies) {
+			if (entityId.compareTo(army.getEntityId()) == 1) {
+				return army;
+			}
+		}
+		throw new ArmyDoesNotExistException();
+	}
+	
+	public Unit getUnit(EntityId entityId) throws UnitDoesNotExistException{
+		return unitManager.getUnitById(entityId);
+	}
+	
+	public Structure getStructure(EntityId entityId) throws StructureDoesNotExistException{
+		return structureManager.getStructureById(entityId);
+	}
+	
+	public RallyPoint getRallyPoint(EntityId entityId) throws RallyPointDoesNotExistException{
+		for (RallyPoint rally : rallyPoints) {
+			if (entityId.compareTo(rally.getEntityId()) == 1) {
+				return rally;
+			}
+		}
+		throw new RallyPointDoesNotExistException();
+	}
+	
 	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId)
 		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,
 				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException {

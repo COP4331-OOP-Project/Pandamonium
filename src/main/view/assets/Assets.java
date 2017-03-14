@@ -179,6 +179,8 @@ public class Assets {
         loadItem("COMMAND_POWER_DOWN", "assets/images/icon/powerDown.png");
         loadItem("COMMAND_POWER_UP", "assets/images/icon/powerUp.png");
         loadItem("COMMAND_UNASSIGN_ALL_WORKERS", "assets/images/icon/unassignAllWorkers.png");
+        loadItem("COMMAND_START_PROSPECTING", "assets/images/icon/startProspecting.png");
+        loadItem("COMMAND_STOP_PROSPECTING", "assets/images/icon/stopProspecting.png");
         loadItem("TEXT_PATTERN", "assets/images/textTexture.jpg");
         loadItem("ICON_FOOD_HUMAN", "assets/images/icon/foodHuman.png");
         loadItem("ICON_FOOD_PANDA", "assets/images/icon/foodPanda.png");

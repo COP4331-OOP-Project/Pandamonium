@@ -19,5 +19,6 @@ public enum CommandEnum {
     UNASSIGN_ALL_WORKERS,
     DISBAND_ARMY,
     BAND_ARMY,
-    CANCEL_QUEUE;
+    CANCEL_QUEUE,
+	FOUND_CAPITOL;
 }

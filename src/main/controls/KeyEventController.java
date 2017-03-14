@@ -22,7 +22,6 @@ public class KeyEventController {
     private Scene scene;
     private ControlFileReader controlReader;
     private boolean gettingMoves = false;
-    private boolean gettingMakeList = false;
     private int currentPlayerControls = 1;
 	private static final String COMMAND_UP = "COMMAND_UP";
 	private static final String COMMAND_DOWN = "COMMAND_DOWN";
@@ -92,12 +91,8 @@ public class KeyEventController {
             
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select key pressed");
-            CommandEnum command = controlMode.executeCommand();
-            if (command == CommandEnum.MOVE) {
-                gettingMoves = true;
-            } else if (command == CommandEnum.MAKE) {
-                gettingMakeList = true;
-            }
+            controlMode.executeCommand();
+            
         } else if (key == controlReader.getControl(CENTER)) {
         	log.debug("Center key pressed");
         	view.centerOnCurrentTypeInstance();
@@ -147,36 +142,16 @@ public class KeyEventController {
         	controlMode.addMoveToList(315);
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select Item Pressed");
-            controlMode.executeMoveCommand();
+            controlMode.executeCommand();
             gettingMoves = false;
         } else {
             log.info("Invalid command");
         }
     }
-
-    // Handle cycle through make list
-    public void getMakeList(KeyEvent e) {
-        KeyCode key = e.getCode();
-
-        // Cycle key mode choices for
-        if (key == controlReader.getControl(COMMAND_UP)) {
-        	log.debug("UP Key pressed (Make)");
-        	controlMode.cycleMakeOptionUp();
-            
-        } else if (key == controlReader.getControl(COMMAND_DOWN)) {
-        	log.debug("DOWN Key pressed (Make)");
-        	controlMode.cycleMakeOptionDown();
-        	
-        } else if (key == controlReader.getControl(SELECT_ITEM)) {
-            log.debug("Enter pressed");
-            }
-    }
     
     public void keyReleased(KeyEvent e) {
     	if (gettingMoves) {
             getMoves(e);
-        } else if (gettingMakeList) {
-            getMakeList(e);
         } else if ((e.isControlDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.CONTROL)) ||
         			(e.isAltDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.ALT)) ||
         			(e.isShiftDown() && (controlReader.getControl(CHANGE_CYCLING) == KeyCode.SHIFT))){
