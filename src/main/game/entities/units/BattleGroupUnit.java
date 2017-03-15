@@ -26,4 +26,8 @@ public class BattleGroupUnit implements iAttacker{
         return stats.getSpeed();
     }
 
+    public UnitStats getStats(){return stats;}
+
+    public EntityId getEntityId(){return entityId;}
+
 }

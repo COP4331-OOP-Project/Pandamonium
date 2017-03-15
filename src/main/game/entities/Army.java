@@ -4,6 +4,7 @@ import game.commands.MoveCommand;
 import game.entities.managers.PlacementManager;
 
 import game.commands.CommandEnum;
+import game.entities.units.BattleGroupUnit;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 import game.gameboard.PathFinding;
@@ -128,7 +129,18 @@ public class Army extends Entity {
     public HealthPercentage getHealthPercentage(){
         return null;
     }
-    public void takeDamage(double damage) {}
+    public void takeDamage(double damage) {
+        Iterator<BattleGroupUnit> iterator = battleGroup.getBattleGroup().iterator();
+        double armor = stats.getArmor();
+        double damageX = 10/(10+armor);
+        double adjDamage = damage * damageX;
+
+        this.health -= adjDamage;
+        this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
+    }
     public void heal(double healing) {}
     public void decommissionEntity() {}
     public void disband() {
