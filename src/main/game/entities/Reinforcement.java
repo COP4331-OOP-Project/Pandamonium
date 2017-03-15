@@ -46,6 +46,7 @@ public class Reinforcement {
         while (iterator.hasNext()) {
             Unit holder = iterator.next();
             if (holder.getLocation().equals(location)){
+                iterator.remove();
                 return holder;
             }
         }
