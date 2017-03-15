@@ -117,7 +117,7 @@ public class Tile implements iTileAccessors {
 
     //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
-        if(getOwnerId()!=-1 && unit.getOwnerID()!=ownerId){
+        if(getOwnerId()!=null && unit.getOwnerID()!=ownerId){
             //System.out.println("Good");
             return;
         }
@@ -155,7 +155,9 @@ public class Tile implements iTileAccessors {
     }
 
     public void addBattleGroup(BattleGroup battleGroup){
-        if
+        if (getOwnerId()!=null && battleGroup.getOwnerId()!=battleGroups.get(0).getOwnerId()){
+            return;
+        }
         battleGroups.add(battleGroup);
     }
 
