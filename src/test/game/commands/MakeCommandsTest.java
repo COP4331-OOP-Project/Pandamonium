@@ -10,6 +10,7 @@ import game.entities.units.Unit;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
 import game.gameboard.Tile;
+import game.gameboard.iTileObserver;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,6 +105,13 @@ public class MakeCommandsTest {
         f = t.getStructure();
 
         assert(f == null);
+
+
+        Tile t2 = gb.getTileWithLocation(new Location(0, 1));
+        ArrayList<iTileObserver> list = t2.getInfluencedBy();
+        iTileObserver o = list.get(0);
+
+        assert(o != null);
 
     }
 

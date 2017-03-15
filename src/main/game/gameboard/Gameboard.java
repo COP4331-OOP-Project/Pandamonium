@@ -62,23 +62,43 @@ public class Gameboard {
 
     public void addStructureToTile(Structure structure, Location location){
         board[location.getX()][location.getY()].addStructure(structure);
-        //board[location.getX()][location.getY()].attach(structure);
+        attachInfluencers(structure);
     }
-
 
     public void attachInfluencers(Structure structure){
         int influence = structure.getInfluence();
-        int infLevel = 0;
-        Location tracker = structure.getLocation();
-        for (int i = 0; i <= influence; i++ ){
-            tracker.setY( tracker.getY() - (influence-i) );
-            for (int j = infLevel; j <= influence; j++){
-                tracker.setX( tracker.getX() + j );
-                board[tracker.getX()][tracker.getY()].attach(structure);
+        Location location = structure.getLocation();
+        Location trackLeft;
+        Location trackRight;
+        Location trackCenter;
+
+        // Attach observers to each tile within influence radius
+        // TODO: Fix possible TDA violation with if statements
+        for (int i = influence; i > 0; i--){
+            trackRight = new Location(location.getX() + i, location.getY() + (influence-i)) ;
+            trackLeft = new Location(location.getX() - i, location.getY() - (influence-i));
+
+            for (int j = 0; j <= (influence + (influence - i)); j++){
+                trackRight.setY(trackRight.getY() - 1);
+                trackLeft.setY(trackLeft.getY() + 1);
+                if(trackRight.getX() >= 0 && trackRight.getY() >= 0){
+                    board[trackRight.getX()][trackRight.getY()].attach(structure);
+                }
+                if(trackLeft.getX() >= 0 && trackLeft.getY() >= 0){
+                    board[trackLeft.getX()][trackLeft.getY()].attach(structure);
+                }
+            }
+        }
+
+        // Attachment for center column of tiles
+        trackCenter = new Location(location.getX(), location.getY() - influence);
+        for (int i = 0; i <= (2 * influence); i++){
+            trackCenter.setY(trackCenter.getY() + 1);
+            if(trackCenter.getX() >= 0 && trackCenter.getY() >= 0){
+                board[trackCenter.getX()][trackCenter.getY()].attach(structure);
             }
         }
     }
-
 
     public void addArmyToTile(BattleGroup battleGroup, Location location){
         board[location.getX()][location.getY()].addBattleGroup(battleGroup);

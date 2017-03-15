@@ -112,7 +112,6 @@ public class Tile implements iTileAccessors, iTileObservable {
 
     public Location getLocation(){return location;}
 
-
     public void addUnit(Unit unit) {
         if(getOwnerId()!=null && unit.getOwnerID()!=ownerId){
             //System.out.println("Good");
