@@ -371,6 +371,9 @@ public class Player implements iTurnObservable {
 			case 17:
 				eight();
 				break;
+			case 19:
+				nine();
+				break;
 			default:
 				break;
 
@@ -527,6 +530,18 @@ public class Player implements iTurnObservable {
 			Tile t = gameboard.getTileWithLocation(new Location(5, 25));
 
 			AttackVisitor atk = new AttackVisitor(m6.getDamage());
+			t.accept(atk);
+
+		}
+	}
+
+	public void nine() {
+
+		if (this.playerId == 0) {
+
+			Tile t = gameboard.getTileWithLocation(new Location(5, 26));
+
+			AttackVisitor atk = new AttackVisitor(m3.getDamage() * 20);
 			t.accept(atk);
 
 		}
