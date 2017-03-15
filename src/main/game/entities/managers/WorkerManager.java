@@ -75,7 +75,6 @@ public class WorkerManager implements iWorkerResearchObservable, iTurnObserver, 
         return null;
     }
 
-
     public Worker accept(iWorkerTransferVisitor v)throws WorkerLimitExceededException, WorkerTypeDoesNotExist, WorkerDoesNotExistException{
         return v.visitTransferVisitor(this);
     }
