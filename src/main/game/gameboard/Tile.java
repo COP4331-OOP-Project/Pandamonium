@@ -98,10 +98,13 @@ public class Tile implements iTileAccessors {
     }
 
     public Integer getOwner() {
-        if(this.units.isEmpty()){
+        if(this.units.isEmpty() && this.structure == null && this.containsArmy){
             ownerId = null;
         }
-        else {
+        else if(this.structure!=null){
+            ownerId = structure.getOwnerID();
+        }
+        else if(!this.units.isEmpty()){
             ownerId = units.get(0).getOwnerID();
         }
         return this.ownerId;
@@ -111,10 +114,10 @@ public class Tile implements iTileAccessors {
 
     //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
-        /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
-            System.out.println("Good");
-            return;
-        }*/
+//        if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
+//            System.out.println("Good");
+//            return;
+//        }
         units.add(unit);
         if (this.areaEffect != null)
             this.areaEffect.affectUnit(unit);
