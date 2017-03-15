@@ -82,6 +82,18 @@ public class SimpleTile{
     public TerrainEnum getTileType() {
     	return Terrain;
     }
+
+	// Check if has army
+	public boolean hasArmy() {
+		if (this.armies.size() > 0) return true;
+		return false;
+	}
+
+	// Check if has units
+	public boolean hasUnits() {
+		if (this.units.size() > 0) return true;
+		return false;
+	}
     
     public Structure getStructure() {
     	return structure;
