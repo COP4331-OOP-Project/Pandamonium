@@ -14,11 +14,10 @@ import game.visitors.RemoveEntityVisitor;
 public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;
     protected int orientation;
-    protected Location location;
 
     public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         super(entityId,placementManager, notifier);
-        this.location=location;
+        this.location = location;
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new HealthPercentage();
@@ -47,14 +46,15 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
 
     public void setLocation(Location location){
         setOrientation(direction(location));
+        Location oldLocation = new Location(this.location.getX(), this.location.getY());
+        this.location = location;
         //Move To Tile
         AddUnitVisitor addUnit = new AddUnitVisitor(this, location);
         placementManager.accept(addUnit);
         //Delete old tile reference
-        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), this.location);
+        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), oldLocation);
         placementManager.accept(removeEntityVisitor);
         //Update location
-        this.location=location;
     }
 
     public int direction(Location location){

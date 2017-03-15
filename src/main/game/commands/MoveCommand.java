@@ -1,6 +1,7 @@
 package game.commands;
 
 import game.entities.iMoveable;
+import game.gameboard.Location;
 import game.gameboard.Tile;
 
 /**
@@ -9,11 +10,11 @@ import game.gameboard.Tile;
 public class MoveCommand extends Command {
 
     private iMoveable actor;     // Actor
-    private Tile target;        // Target Tile of move
+    private Location target;        // Target Tile of move
     private int direction;      // Direction of move
 
     // Constructor
-    public MoveCommand(iMoveable actor, Tile target, int direction, int duration) {
+    public MoveCommand(iMoveable actor, Location target, int direction, int duration) {
 
     	super(duration);                // Set duration of cmd
     	this.actor = actor;             // Set actor to move
@@ -28,7 +29,7 @@ public class MoveCommand extends Command {
 
     // Execute move from Gameboard function
     public void exec() {
-        actor.setLocation(target.getLocation());
+        actor.setLocation(this.target);
     }
 
 }

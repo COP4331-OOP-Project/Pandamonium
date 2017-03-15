@@ -1,17 +1,14 @@
 package game.entities;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
 import game.commands.Command;
-import game.entities.managers.PlacementManager;
 import game.commands.CommandEnum;
 import game.commands.iCommandable;
+import game.entities.managers.PlacementManager;
 import game.gameboard.Location;
 import game.iTurnObserver;
 import game.visitors.iTileActionVisitor;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -22,6 +19,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     protected int health;
     protected HealthPercentage healthPercent;
     private EntityId entityId;
+    protected Location location;
 
     private ArrayList<CommandEnum> commands = new ArrayList<>();
 
@@ -56,7 +54,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
         this.healthPercent.updateHealthPercentage((double)this.health);
 
         if (this.health <= 0)
-            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
     public void heal(double healing){                                               // Heal for a given amount
         this.health += healing;
@@ -68,8 +66,10 @@ public abstract class Entity implements iCommandable, iTurnObserver {
 
     // Iterate turn
     public void doTurn() {
-        if(commandQueue.peek().iterateDuration()){
-            commandQueue.poll();
+        if(!commandQueue.isEmpty()) {
+            if(commandQueue.peek().iterateDuration()){
+                commandQueue.poll();
+            }
         }
     }
 
@@ -107,7 +107,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
 
     // Decommission entity
     public void decommissionEntity() {
-        this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
+        this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
 
     // Required Accessors
