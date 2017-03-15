@@ -12,8 +12,8 @@ public class Resource {
         this.resourceType = resourceType;
     }
 
-    public double getAmount() {
-        return this.amount;
+    public int getAmount() {
+        return (int)this.amount;
     }
 
     public void decreaseAmountByPercentage(Percentage p) {
