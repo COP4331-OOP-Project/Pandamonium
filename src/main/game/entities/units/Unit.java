@@ -16,6 +16,8 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     protected UnitStats stats;
     protected int orientation;
 
+    private Integer armyId;
+
     public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         super(entityId,placementManager, notifier);
         this.location = location;
@@ -28,6 +30,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         standby();
         addCommand(CommandEnum.MOVE);
         addCommand(CommandEnum.REINFORCE_ARMY);
+        armyId = null;
     }
 
     public EntitySubtypeEnum getType() { 
@@ -47,6 +50,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     /* Mutators */
     public void setStats(UnitStats stats) { this.stats = stats; }
     public void setOrientation(int orientation) { this.orientation = orientation; }
+    public void setArmyId(Integer armyId) {this.armyId = armyId;}
 
     public void setLocation(Location location){
         setOrientation(direction(location));
@@ -89,6 +93,8 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
 
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
+
+    public Integer getArmyId(){return this.armyId;}
 
     /* Stat-adjusted damage taking */
     @Override
