@@ -103,11 +103,6 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
             this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
 
-    // Instantly kill this unit
-    public void instantDeath() {
-        this.takeDamage(this.health);
-    }
-
     /* Upkeep handling */
     public void upkeepHandling(Resource nutrients){
         if (getUpkeep() <= nutrients.getAmount()){

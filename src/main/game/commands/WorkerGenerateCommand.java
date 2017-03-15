@@ -1,17 +1,19 @@
 package game.commands;
 
-import game.entities.structures.Structure;
-import game.gameboard.Tile;
+import game.Player;
+import game.entities.structures.StructureWithWorker;
 
 public class WorkerGenerateCommand extends Command{
-	private Structure actor;
-	private Tile target;
+	private StructureWithWorker actor;
+	private Player player;
 	
-	public WorkerGenerateCommand(Structure actor, Tile target, int duration) {
+	public WorkerGenerateCommand(StructureWithWorker actor, Player player, int duration) {
 		super(duration);
         this.actor = actor;                 // Set attacker
-        this.target = target;               // Set target
+        this.player = player;               // Set Player
     }
 	
-	public void exec() {}
+	public void exec() {
+		this.player.addPower(actor.harvestPower());
+	}
 }
