@@ -81,5 +81,8 @@ public abstract class Structure extends Entity implements iTurnObserver {
         double adjDamage = damage * damageX;
         this.health -= adjDamage;
         this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
     }
 }

@@ -108,6 +108,9 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
         double adjDamage = damage * damageX;
         this.health -= adjDamage;
         this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId);
     }
 
     public void instantDeath() {

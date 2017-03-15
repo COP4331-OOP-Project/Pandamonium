@@ -19,7 +19,7 @@ public abstract class Entity implements iCommandable {
     protected Queue<Command> commandQueue;
     protected int health;
     protected HealthPercentage healthPercent;
-    private EntityId entityId;
+    protected EntityId entityId;
 
     private ArrayList<CommandEnum> commands = new ArrayList<>();
 
