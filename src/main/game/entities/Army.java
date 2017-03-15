@@ -88,6 +88,8 @@ public class Army extends Entity {
             RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(unitToAdd.getEntityId(), unitToAdd.getLocation());
             placementManager.accept(removeEntityVisitor);
             battleGroup.addUnit(unitToAdd);
+
+            //reinforcement.removeReinforcement(unitToAdd.getEntityId());
         }
         if(battleGroup.hasUnits()){
             AddArmyVisitor addArmyVisitor = new AddArmyVisitor(battleGroup, battleGroup.getLocation());

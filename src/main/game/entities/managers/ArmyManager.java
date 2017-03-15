@@ -102,4 +102,6 @@ public class ArmyManager {
 
     }
 
+    public ArrayList<Army> getArmies(){return this.armies;}
+
 }

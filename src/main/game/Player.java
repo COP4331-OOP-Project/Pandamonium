@@ -28,7 +28,6 @@ public class Player implements iTurnObservable {
 	private int playerId;
 
 	// ArrayLists of this player's instances
-	private ArrayList<Army> armies;
 	private ArrayList<RallyPoint> rallyPoints;
 
 	// Managers
@@ -62,7 +61,6 @@ public class Player implements iTurnObservable {
 		this.structureManager = new StructureManager(this, placementManager, workerManager, unitManager);
 		this.armyManager = new ArmyManager(playerId, gb);
 
-		this.armies = new ArrayList<Army>();
 		this.rallyPoints = new ArrayList<RallyPoint>();
 
 		this.turnObservers = new ArrayList<>();
@@ -212,10 +210,6 @@ public class Player implements iTurnObservable {
 		return rallyPoints;
 	}
 
-	public ArrayList<Army> getArmies() {
-		return armies;
-	}
-
 	public Resource getNutrients() {
 		return nutrients;
 	}
@@ -249,12 +243,7 @@ public class Player implements iTurnObservable {
 	public int getPlayerId() { return this.playerId; }
 
 	public Army getArmy(EntityId entityId) throws ArmyDoesNotExistException {
-		for (Army army : armies) {
-			if (entityId.compareTo(army.getEntityId()) == 1) {
-				return army;
-			}
-		}
-		throw new ArmyDoesNotExistException();
+		return armyManager.getArmyById(entityId);
 	}
 	
 	public Unit getUnit(EntityId entityId) throws UnitDoesNotExistException{
@@ -281,6 +270,8 @@ public class Player implements iTurnObservable {
 		}
 		throw new RallyPointDoesNotExistException();
 	}
+
+	public ArrayList<Army> getArmies(){return armyManager.getArmies();}
 	
 	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId, Location location)
 		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,
