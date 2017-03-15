@@ -356,24 +356,44 @@ public class Player implements iTurnObservable {
 			case 5:
 				three();
 				break;
+			case 7:
+				four();
+				break;
+			case 9:
+				five();
+				break;
+			case 11:
+				seven();
+				break;
 
 		}
 		this.turnCounter++;
 	}
 
+	Colonist c1;
 	private void one() {
-		Colonist actor = this.unitManager.getColonists().get(0);
-		FoundCapitolCommand command = new FoundCapitolCommand(actor, actor.getLocation(), 2, this.structureManager, this.unitManager, this.workerManager);
-		actor.addCommandToQueue(command);
+		this.c1 = this.unitManager.getColonists().get(0);
+		Command powerDown = new PowerDownCommand(this.c1);
+		this.c1.addCommandToQueue(powerDown);
 	}
 
 	private Melee m;
+	private Melee m2;
 	private void two() {
-		Capitol capitol = this.structureManager.getCapitols().get(0);
+		Command powerUp = new PowerUpCommand(this.c1);
+		this.c1.addCommandToQueue(powerUp);
+	}
 
+	private void three() {
+		FoundCapitolCommand command = new FoundCapitolCommand(this.c1, this.c1.getLocation(), 2, this.structureManager, this.unitManager, this.workerManager);
+		this.c1.addCommandToQueue(command);
+	}
+
+	private void four() {
 		try {
 			if (this.getPlayerId() == 0) {
 				this.m = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
+				this.m2 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
 				Command command = new MakeStructureCommand(m, new Location(5, 30), 1, EntitySubtypeEnum.FARM, this.structureManager);
 				m.addCommandToQueue(command);
 			} else {
@@ -384,10 +404,18 @@ public class Player implements iTurnObservable {
 		}
 	}
 
-	private void three() {
+	private void five() {
 		if (this.m != null) {
 			MoveCommand moveCommand = new MoveCommand(this.m, new Location(5,31), 0, 1);
 			this.m.addCommandToQueue(moveCommand);
 		}
+	}
+
+	private void six() {
+
+	}
+
+	private void seven() {
+
 	}
 }
