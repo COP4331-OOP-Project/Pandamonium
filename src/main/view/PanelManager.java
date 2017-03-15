@@ -17,6 +17,7 @@ public class PanelManager {
 	private CivilizationPanel civilizationPanel;
 	private SideBarPanel sideBarPanel;
 	private CommandPanel commandPanel;
+	private SubCommandPanel subCommandPanel;
 	private ControlModePanel controlModePanel;
 	private GamePanel gamePanel;
 	private MakeDetailsPanel makeDetailsPanel;
@@ -59,6 +60,8 @@ public class PanelManager {
 		panels.add(sideBarPanel);
 		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME, tileSelector);
 		panels.add(commandPanel);
+		subCommandPanel = new SubCommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME, tileSelector);
+		panels.add(subCommandPanel);
 		makeDetailsPanel = new MakeDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(makeDetailsPanel);
 		miniMapPanel = new MiniMapPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
@@ -90,6 +93,7 @@ public class PanelManager {
 	public void drawPanels(Point screenDimensions, long currentPulse) {
 		musicManager.updateMusic(currentViewMode);
     	commandPanel.setIsVisible(gameModelAdapter.getSelectedEntity() != null);
+    	subCommandPanel.setIsVisible(gameModelAdapter.getSelectedCommand() != null);
 		for (Panel panel : panels) {
 			panel.drawPanel(g, screenDimensions, currentViewMode, currentPulse);
 		}

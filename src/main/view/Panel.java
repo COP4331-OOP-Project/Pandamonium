@@ -1,5 +1,6 @@
 package view;
 
+import game.commands.SubCommandEnum;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import view.assets.AssetManager;
@@ -45,6 +46,8 @@ public abstract class Panel {
     public void setCommand(CommandEnum command) {
     	gameModelAdapter.setCommand(command);
     }
+
+    public void setSubCommand(SubCommandEnum command) { gameModelAdapter.setSubCommand(command); }
     
     public void setIsVisible(boolean isVisible) {
     	this.isVisible = isVisible;
