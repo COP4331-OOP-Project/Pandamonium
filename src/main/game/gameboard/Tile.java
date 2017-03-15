@@ -1,7 +1,6 @@
 package game.gameboard;
 
 import game.entities.BattleGroup;
-import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
@@ -21,8 +20,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 // Tile class for gameboard
-public class Tile implements iTileAccessors {
-	private final static Logger log = LogManager.getLogger(Tile.class);
+public class Tile implements iTileAccessors, iTileObservable {
+    private final static Logger log = LogManager.getLogger(Tile.class);
     public boolean containsUnit;
     public boolean containsArmy;
     public boolean containsRallyPoint;
@@ -34,6 +33,7 @@ public class Tile implements iTileAccessors {
     private ArrayList<Unit> units;
     private ArrayList<RallyPoint> rallyPoints;
     private ArrayList<BattleGroup> battleGroups;
+    private ArrayList<iTileObserver> influencedBy;
     private Structure structure;
     private Location location;
     private Random resourceValueGenerator = new Random();
@@ -41,14 +41,16 @@ public class Tile implements iTileAccessors {
     private AreaEffect areaEffect;
     private OneShotItem oneShotItem;
 
+
     Tile(TerrainEnum tileType, Location location) {
         Terrain = tileType;
         food = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
-        units = new ArrayList<Unit>();
-        battleGroups = new ArrayList<BattleGroup>();
-        rallyPoints = new ArrayList<RallyPoint>();
+        units = new ArrayList<>();
+        battleGroups = new ArrayList<>();
+        rallyPoints = new ArrayList<>();
+        influencedBy = new ArrayList<>();
         containsStructure = false;
         containsRallyPoint = false;
         containsUnit = false;
@@ -98,29 +100,24 @@ public class Tile implements iTileAccessors {
         this.ownerId = ownerId;
     }
 
-    public Integer getOwnerId() {
-        if(this.units.isEmpty() && this.structure == null && this.battleGroups.isEmpty()){
+    public Integer getOwner() {
+        if(this.units.isEmpty()){
             ownerId = null;
         }
-        else if(this.structure!=null){
-            ownerId = structure.getOwnerID();
-        }
-        else if(!this.units.isEmpty()){
+        else {
             ownerId = units.get(0).getOwnerID();
-        }
-        else if(!this.battleGroups.isEmpty()){
-            ownerId = battleGroups.get(0).getOwnerId();
         }
         return this.ownerId;
     }
 
     public Location getLocation(){return location;}
 
+    //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
-        if(getOwnerId()!=null && unit.getOwnerID()!=ownerId){
-            //System.out.println("Good");
+        /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
+            System.out.println("Good");
             return;
-        }
+        }*/
         units.add(unit);
         if (this.areaEffect != null)
             this.areaEffect.affectUnit(unit);
@@ -155,13 +152,6 @@ public class Tile implements iTileAccessors {
     }
 
     public void addBattleGroup(BattleGroup battleGroup){
-        Iterator<BattleGroup> iterator = battleGroups.iterator();
-        while(iterator.hasNext()){
-            BattleGroup holder = iterator.next();
-            if(holder.getEntityId().compareTo(battleGroup.getEntityId())==1){
-                return;
-            }
-        }
         battleGroups.add(battleGroup);
     }
 
@@ -189,7 +179,7 @@ public class Tile implements iTileAccessors {
         }
 
         //Structure
-        if (this.structure != null && entityId.compareTo(structure.getEntityId())==1){
+        if (entityId.compareTo(structure.getEntityId())==1){
             this.structure = null;
             return;
         }
@@ -223,49 +213,50 @@ public class Tile implements iTileAccessors {
         return (!units.isEmpty());
     }
 
-    public boolean containsArmy() {
+    public boolean containsArmy(){
         //check if the tile contains army
-        return containsArmy;
+        return false;
     }
 
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
-
-        ArrayList<Entity> entities = new ArrayList<>();
-        entities.addAll(getUnits());
-        entities.add(getStructure());
-
-         for (Entity e : entities) { e.accept(v); }
-
+        // for (iEntity e : Entities) { e.accept(v) }
     }
-    
+
+    // Observable
+    public void attach(iTileObserver o){ influencedBy.add(o); }
+
     public ArrayList<BattleGroup> getBattleGroups(){return  battleGroups;}
-    
+
     public ArrayList<RallyPoint> getRallyPoints() {
-    	return rallyPoints;
+        return rallyPoints;
     }
-    
+
+    public ArrayList<iTileObserver> getInfluencedBy(){ return influencedBy; }
+
     public Structure getStructure() {
-    	return structure;
+        return structure;
     }
-    
+
     public Resource getResource(ResourceTypeEnum resource) {
-    	switch (resource) {
-    	case FOOD:
-    		return food;
-    	case ORE:
-    		return ore;
-    	case PEAT:
-    		return peat;
-		default:
-			log.error("Invalid Resource Type: " + resource + "not present on tile.");
-			return null;
-    	}
+        switch (resource) {
+            case FOOD:
+                return food;
+            case ORE:
+                return ore;
+            case PEAT:
+                return peat;
+            default:
+                log.error("Invalid Resource Type: " + resource + "not present on tile.");
+                return null;
+        }
     }
 
     public AreaEffect getAreaEffect() {
         return this.areaEffect;
     }
+
+    public Integer getOwnerId() { return ownerId; }
 
     public OneShotItem getOneShotItem() { return this.oneShotItem; }
 

@@ -11,13 +11,15 @@ import game.entities.HealthPercentage;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
+import game.gameboard.iTileObserver;
 import game.iTurnObserver;
 import game.semantics.Percentage;
 import game.visitors.AddStructureVisitor;
 
-public abstract class Structure extends Entity {
+public abstract class Structure extends Entity implements iTurnObserver, iTileObserver {
 
     protected StructureStats stats;
+    protected Location location;
 
     public Structure(StructureStats stats, Location location , EntityId entityId ,
                      PlacementManager placementManager, DeathNotifier notifier) {
@@ -28,7 +30,7 @@ public abstract class Structure extends Entity {
         this.healthPercent = new HealthPercentage();
         this.location=location;
 
-        AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this, this.location);
+        AddStructureVisitor addStructureVisitor = new AddStructureVisitor(this,this.location);
         placementManager.accept(addStructureVisitor);
 
         standby();
@@ -47,7 +49,10 @@ public abstract class Structure extends Entity {
     public StructureStats getStats() {
         return stats;
     }
-    
+
+    /* stats accessors */
+    public int getInfluence() { return stats.getInfluence(); }
+
     public void increaseVisibilityRadius(int increaseAmount) {
         this.stats.increaseVisibilityRadius(increaseAmount);
     }

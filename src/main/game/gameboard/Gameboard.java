@@ -13,19 +13,19 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 public class Gameboard {
-	private static final int BOARD_SIZE = 42;
-	private static final File MAP_FILE = new File("assets/maps/default.map");
+    private static final int BOARD_SIZE = 42;
+    private static final File MAP_FILE = new File("assets/maps/default.map");
     private final static Logger log = LogManager.getLogger(Gameboard.class);
     private Tile[][] board;     // Map for game tiles  // 0 is grass, 1 is sand, 2 is water
     //private ArrayList<Player> players;              // Players for game
-	
-	public Gameboard(/*ArrayList<Player> players*/) {
+
+    public Gameboard(/*ArrayList<Player> players*/) {
         //this.players = players;                     // Set players
         setupMap();                                 // Setup board
-	}
-    
+    }
+
     private void setupMap() {
-    	int[][] map = MapLoader.getMap(BOARD_SIZE, MAP_FILE);
+        int[][] map = MapLoader.getMap(BOARD_SIZE, MAP_FILE);
         board = new Tile[BOARD_SIZE][];
         for (int i = 0; i < BOARD_SIZE; i++) {
             board[i] = new Tile[BOARD_SIZE];
@@ -47,22 +47,38 @@ public class Gameboard {
 
         this.addSeeminglyRandomAreaEffects();
     }
-    
+
     public Tile getTileWithLocation(Location l) {
         return board[l.getX()][l.getY()];
     }
-    
+
     public Tile[][] getTiles() {
-		return board;
+        return board;
     }
 
     public void addUnitToTile(Unit unit, Location location){
-	    board[location.getX()][location.getY()].addUnit(unit);
+        board[location.getX()][location.getY()].addUnit(unit);
     }
-    
+
     public void addStructureToTile(Structure structure, Location location){
-	    board[location.getX()][location.getY()].addStructure(structure);
+        board[location.getX()][location.getY()].addStructure(structure);
+        //board[location.getX()][location.getY()].attach(structure);
     }
+
+
+    public void attachInfluencers(Structure structure){
+        int influence = structure.getInfluence();
+        int infLevel = 0;
+        Location tracker = structure.getLocation();
+        for (int i = 0; i <= influence; i++ ){
+            tracker.setY( tracker.getY() - (influence-i) );
+            for (int j = infLevel; j <= influence; j++){
+                tracker.setX( tracker.getX() + j );
+                board[tracker.getX()][tracker.getY()].attach(structure);
+            }
+        }
+    }
+
 
     public void addArmyToTile(BattleGroup battleGroup, Location location){
         board[location.getX()][location.getY()].addBattleGroup(battleGroup);
@@ -97,8 +113,7 @@ public class Gameboard {
 
 
 //        addAreaEffectLogException(this.board[6][30], lowDamageEffect);
-//        addOneShotItemLogException(this.board[5][28], oneShotItem);
-        addAreaEffectLogException(this.board[5][29], instantDeathEffect);
+        addOneShotItemLogException(this.board[5][28], oneShotItem);
         //TODO: add some area effects
     }
 
