@@ -37,6 +37,7 @@ public class Player implements iTurnObservable {
 	private StructureManager structureManager;
 	private PlacementManager placementManager;
 	private ArmyManager armyManager;
+	private ResourceManager resourceManager;
 
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
@@ -54,7 +55,8 @@ public class Player implements iTurnObservable {
 		this.playerId = playerId;	// Set player id
 
 		// Setup managers for entities, workers
-		this.workerManager = new WorkerManager(playerId);
+		this.resourceManager = new ResourceManager(gb);
+		this.workerManager = new WorkerManager(playerId,resourceManager);
 		this.placementManager = new PlacementManager(gb);
 		this.unitManager = new UnitManager(this, placementManager);
 		this.structureManager = new StructureManager(this, placementManager, workerManager, unitManager);
