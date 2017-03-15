@@ -95,5 +95,6 @@ public class StructureDrawer {
         if (structure.getEntityId() == selectedEntity) {
             gamePanel.drawStaticTileElement(p, "SELECTED_STRUCTURE");
         }
+        gamePanel.drawHealthBar(structure.getHealthPercentage().getHealthPercent(), p);
     }
 }
