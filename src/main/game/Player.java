@@ -11,12 +11,16 @@ import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.entityTypeResearch.UniversityAlreadyDoingResearchException;
 import game.gameboard.*;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
 import game.techTree.TechTree;
 import game.techTree.nodeTypes.TechTreeNode;
 
+import game.techTree.nodeTypes.ProductionRateIntegerResearchNode;
+import game.techTree.nodeTypes.TechNodeImageEnum;
+import game.techTree.nodeTypes.TechTreeNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -365,7 +369,9 @@ public class Player implements iTurnObservable {
 			case 11:
 				six();
 				break;
-			case 12:
+			case 13:
+				break;
+			case 15:
 				seven();
 				break;
 
@@ -399,8 +405,9 @@ public class Player implements iTurnObservable {
 				this.m2 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
 				Command command = new MakeStructureCommand(m, new Location(5, 30), 1, EntitySubtypeEnum.FARM, this.structureManager);
 				m.addCommandToQueue(command);
-			} else {
-				this.structureManager.addStructure(EntitySubtypeEnum.FARM, new Location(32, 13));
+
+				Command makeUniversity = new MakeStructureCommand(m, new Location(4, 30), 1, EntitySubtypeEnum.UNIVERSITY, this.structureManager);
+				m.addCommandToQueue(makeUniversity);
 			}
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
@@ -411,17 +418,34 @@ public class Player implements iTurnObservable {
 		if (this.m != null) {
 			MoveCommand moveCommand = new MoveCommand(this.m, new Location(5,31), 0, 1);
 			this.m.addCommandToQueue(moveCommand);
+
+			University u = this.getUniversities().get(0);
+			TechTreeNode node = new ProductionRateIntegerResearchNode(this.workerManager, "", "", TechNodeImageEnum.FOOD, WorkerTypeEnum.FOOD_GATHERER, 50);
+			try {
+				u.research(node);
+			} catch (UniversityAlreadyDoingResearchException e) {
+				log.error("oh well");
+			}
 		}
 	}
 
 	private void six() {
 		if (this.m2 != null) {
-			MoveCommand moveCommand = new MoveCommand(this.m, new Location(6,32), 0, 1);
+			MoveCommand moveCommand = new MoveCommand(this.m2, new Location(6, 29), 0, 1);
 			this.m2.addCommandToQueue(moveCommand);
+
+			MoveCommand moveCommand2 = new MoveCommand(this.m2, new Location(5, 30), 0, 1);
+			this.m2.addCommandToQueue(moveCommand2);
 		}
 	}
 
+	Melee p1;
 	private void seven() {
+		if (this.getPlayerId() == 1) {
+			this.p1 = this.getMelees().get(0);
+			MoveCommand moveCommand = new MoveCommand(this.p1, new Location(8,28), 0, 1);
+			this.p1.addCommandToQueue(moveCommand);
+		}
 
 	}
 }
