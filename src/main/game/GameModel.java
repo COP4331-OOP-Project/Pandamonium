@@ -6,10 +6,12 @@ import game.entities.EntityTypeEnum;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.UnitFactory;
 import game.entities.factories.exceptions.*;
+import game.entities.structures.Capitol;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
+import javafx.application.Platform;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,9 +54,7 @@ public class GameModel {
     }
     
     public void updateGame() { //This is called up to 60 times per second
-    	if (gameHasStarted) {
-    		checkIfGameOver();
-    	}
+
     }
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
@@ -87,14 +87,16 @@ public class GameModel {
         }
     }
     
-    private void checkIfGameOver() {
-	}
-    
     public void startTurn() {
     	if (currentPlayer == players.get(0)) {
     		turnNum++;
     	}
     	currentPlayer.updateSimpleTiles(gBoard.getTiles());
+    }
+
+    public boolean isGameOver() {
+        ArrayList<Capitol> capitols = this.currentPlayer.getCapitols();
+        return capitols.size() == 0;
     }
     
     public void endTurn() {
@@ -105,6 +107,7 @@ public class GameModel {
     	} else {
     		currentPlayer = players.get(0);
     	}
+
     	startTurn();
     }
 
