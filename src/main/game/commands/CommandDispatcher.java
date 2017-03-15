@@ -57,16 +57,6 @@ public class CommandDispatcher {
         e.addCommandToQueue(new HealCommand(h, target, 1));
     }
 
-    // Issue a make unit command
-    public void issueMakeUnitCommand(Entity e, Tile target, EntityTypeEnum type, EntitySubtypeEnum subtype) {
-       e.addCommandToQueue(new MakeUnitCommand(e, target, 2, type, subtype, this.unitManager));
-    }
-
-    // Issue a make unit command
-    public void issueMakeStructureCommand(Entity e, Tile target, EntityTypeEnum type, EntitySubtypeEnum subtype) {
-        e.addCommandToQueue(new MakeStructureCommand(e, target, 2, type, subtype, this.structureManager));
-    }
-
     // Issue a power down command
     public void issuePowerDownCommand(Entity e) {
         e.addCommandToQueue(new PowerDownCommand(e));
@@ -93,6 +83,16 @@ public class CommandDispatcher {
     // Issue a cancel queue command
     public void issueCancelQueueCommand(Entity e) {
         e.cancelQueuedCommands();
+    }
+
+    // Issue a make unit command
+    public void issueMakeUnitCommand(Entity e, Location location, EntitySubtypeEnum subtype) {
+        e.addCommandToQueue(new MakeUnitCommand(e, location, 1, subtype, this.unitManager));
+    }
+
+    // Issue a make structure command
+    public void issueMakeStructureCommand(Entity e, Location location, EntitySubtypeEnum subtype) {
+        e.addCommandToQueue(new MakeStructureCommand(e, location, 1, subtype, this.structureManager));
     }
 
 }
