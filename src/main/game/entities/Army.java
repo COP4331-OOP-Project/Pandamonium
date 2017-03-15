@@ -144,6 +144,7 @@ public class Army extends Entity {
                     amount -= hp;
                     Unit u = getUnitById(holder.getEntityId());
                     this.notifer.publishEntityDeath(u.getEntityId().getTypeId(), (EntitySubtypeEnum) u.getEntityId().getSubTypeId(), u.getEntityId(), u.getLocation());
+                    iterator.remove();
                 }
             }
         }
