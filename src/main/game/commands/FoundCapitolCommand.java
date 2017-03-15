@@ -18,18 +18,19 @@ public class FoundCapitolCommand extends Command {
 	private WorkerManager workerManager;			// Worker manager to create workers
 
 	// Constructor
-	public FoundCapitolCommand(Colonist actor, Location location, int duration, StructureManager structureManager) {
-
+	public FoundCapitolCommand(Colonist actor, Location location, int duration,
+                               StructureManager structureManager, UnitManager unitManager, WorkerManager workerManager) {
 		super(duration);
 		this.actor = actor;							// Set actor
-		this.location = location;						// Set location
+		this.location = location;					// Set location
 		this.structureManager = structureManager;	// Set structure manager
+        this.unitManager = unitManager;             // Set unit manager
+        this.workerManager = workerManager;         // Set worker manager
 
 	}
 
 	// Execute command
 	public void exec() {
-
 		// Create Capitol and starting units and add it to location tile
 		try {
 			this.structureManager.addStructure(EntitySubtypeEnum.CAPITOL, this.location);

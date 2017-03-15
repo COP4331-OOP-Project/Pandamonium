@@ -24,7 +24,7 @@ public class CommandExecutor {
 		this.unitManager = unitManager;
 		this.workerManager = workerManager;
 		this.armyManager = armyManager;
-		this.dispatcher = new CommandDispatcher(unitManager, structureManager, armyManager, placementManager);
+		this.dispatcher = new CommandDispatcher(unitManager, structureManager, armyManager, placementManager, workerManager);
 	}
 
 	public void executeCommand(EntityId selectedEntity, CommandEnum selectedCommand, Player currentPlayer) {

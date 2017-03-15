@@ -1,6 +1,5 @@
 package game.entities.units;
 
-
 import game.commands.CommandEnum;
 import game.entities.*;
 import game.entities.managers.PlacementManager;

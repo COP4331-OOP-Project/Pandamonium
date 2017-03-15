@@ -1,10 +1,7 @@
 package game.commands;
 
 import game.entities.*;
-import game.entities.managers.ArmyManager;
-import game.entities.managers.PlacementManager;
-import game.entities.managers.StructureManager;
-import game.entities.managers.UnitManager;
+import game.entities.managers.*;
 import game.entities.units.Colonist;
 import game.entities.units.Explorer;
 import game.gameboard.Location;
@@ -21,22 +18,24 @@ public class CommandDispatcher {
     StructureManager structureManager;
     ArmyManager armyManager;
     PlacementManager placementManager;
+    WorkerManager workerManager;
 
     // Constructor
-    CommandDispatcher(UnitManager unitManager,
-                      StructureManager structureManager, ArmyManager armyManager, PlacementManager placementManager) {
+    CommandDispatcher(UnitManager unitManager, StructureManager structureManager, ArmyManager armyManager,
+                      PlacementManager placementManager, WorkerManager workerManager) {
 
         // Set managers
         this.unitManager = unitManager;
         this.structureManager = structureManager;
         this.armyManager = armyManager;
         this.placementManager = placementManager;
+        this.workerManager = workerManager;
 
     }
 
     // Issue a found capitol command
     public void issueFoundCapitolCommand(Colonist c, Location location) {
-        c.addCommandToQueue(new FoundCapitolCommand(c, location, 1, this.structureManager));
+        c.addCommandToQueue(new FoundCapitolCommand(c, location, 1, this.structureManager, this.unitManager, this.workerManager));
     }
 
     // Issue an attack command
