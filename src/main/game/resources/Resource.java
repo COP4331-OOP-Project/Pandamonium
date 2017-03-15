@@ -21,6 +21,15 @@ public class Resource {
     }
     public void decreaseAmountByValue(double v){ this.amount -= v; }
 
+    public Resource possibleAmountRetrieve(double v){
+        if(v<=amount){
+            return new Resource(v, resourceType);
+        }
+        else{
+            return new Resource(amount, resourceType);
+        }
+    }
+
     public void increaseAmountByPercentage(Percentage p) {
         this.amount *= (1 + p.getPercentageValue());
     }

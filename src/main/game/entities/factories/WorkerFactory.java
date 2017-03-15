@@ -2,6 +2,7 @@ package game.entities.factories;
 
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
+import game.entities.managers.ResourceManager;
 import game.entities.managers.exceptions.WorkerTypeDoesNotExist;
 import game.entities.stats.WorkerStats;
 import game.entities.workers.workerTypes.*;
@@ -18,8 +19,10 @@ public class WorkerFactory implements iWorkerResearchObserver {
 
     private Map<WorkerTypeEnum, WorkerStats> workerProductionStatistics;
     private int playerId;
+    private ResourceManager resourceManager;
 
-    public WorkerFactory(int playerId) {
+    public WorkerFactory(int playerId, ResourceManager resourceManager) {
+        this.resourceManager=resourceManager;
         this.playerId = playerId;
         this.workerProductionStatistics = new HashMap<>();
         this.workerProductionStatistics.put(WorkerTypeEnum.FOOD_GATHERER, new WorkerStats(1, new Resource(1, ResourceTypeEnum.FOOD)));
@@ -35,11 +38,11 @@ public class WorkerFactory implements iWorkerResearchObserver {
         EntityId entityId = new EntityId(this.playerId, EntityTypeEnum.WORKER, workerType, id, id);
         switch(workerType) {
             case FOOD_GATHERER:
-                return new FoodGatherer(entityId, workerProductionStatistics.get(workerType), location);
+                return new FoodGatherer(entityId, workerProductionStatistics.get(workerType), location, resourceManager);
             case ORE_GATHERER:
-                return new OreGatherer(entityId, workerProductionStatistics.get(workerType), location);
+                return new OreGatherer(entityId, workerProductionStatistics.get(workerType), location, resourceManager);
             case PEAT_GATHERER:
-                return new PeatGatherer(entityId, workerProductionStatistics.get(workerType), location);
+                return new PeatGatherer(entityId, workerProductionStatistics.get(workerType), location, resourceManager);
             case WORKER_GENERATOR:
                 return new WorkerGenerator(entityId, workerProductionStatistics.get(workerType), location);
             case RESEARCH_GENERATOR:

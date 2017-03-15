@@ -69,7 +69,7 @@ public class TileTest {
         try {
             gameboard = new Gameboard();
             placementManager = new PlacementManager(gameboard);
-            WorkerManager workerManager = new WorkerManager(playerId);
+            WorkerManager workerManager = new WorkerManager(playerId, null);
 
             playerId = 1;
             meleeStats = new UnitStats(EntitySubtypeEnum.MELEE);
