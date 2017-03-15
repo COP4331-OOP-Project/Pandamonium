@@ -32,7 +32,6 @@ public class GamePanel extends Panel {
     private TileDrawer tileDrawer;
     private CoveringDrawer coveringDrawer;
     private UnitDrawer unitDrawer;
-    private ArmyDrawer armyDrawer;
     private StructureDrawer structureDrawer;
     private AreaEffectDrawer areaEffectDrawer;
     private OneShotItemDrawer oneShotItemDrawer;
@@ -44,7 +43,6 @@ public class GamePanel extends Panel {
 	private ViewEnum view;
 	private EntityId selectedEntity;
 	private Point selectedPoint;
-	private TileSelector tileSelector;
 	private boolean resourcesVisible = false;
 	private boolean unitsVisible = true;
 	private boolean structuresVisible = true;
@@ -58,7 +56,6 @@ public class GamePanel extends Panel {
         currentTile = new Point();
         tileDrawer = new TileDrawer(this, assets);
         unitDrawer = new UnitDrawer(assets, camera);
-        armyDrawer = new ArmyDrawer(this, gameModelAdapter, assets);
         structureDrawer = new StructureDrawer(this, gameModelAdapter, assets);
         resourceDrawer = new ResourceDrawer(gameModelAdapter, assets, camera);
         coveringDrawer = new CoveringDrawer(this, assets);
@@ -76,7 +73,6 @@ public class GamePanel extends Panel {
         camera.adjustZoom(screenDimensions);
         camera.centerToSelected(selectedPoint, screenDimensions);
         drawAllItems();
-        //tileDrawer.drawMovingTiles();
     }
 
 

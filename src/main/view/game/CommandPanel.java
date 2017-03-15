@@ -67,9 +67,11 @@ public class CommandPanel extends Panel{
 	private ArrayList<CommandButton> commandButtons = new ArrayList<>();
 	ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
 	private HoverPanel hoverPanel;
+	private TileSelector tileSelector;
 	
-	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view) {
+	public CommandPanel(GameModelAdapter gameModelAdapter, Group root, AssetManager assets, ViewEnum view, TileSelector tileSelector) {
 		super(gameModelAdapter, assets, view);
+		this.tileSelector = tileSelector;
 		setIsVisible(false);
 		this.root = root;
 		hoverPanel = new HoverPanel(gameModelAdapter, assets, view);

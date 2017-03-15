@@ -96,7 +96,7 @@ public class Player implements iTurnObservable {
 			return this.structureManager.getStructureById(id);
 		} catch (StructureDoesNotExistException ex) {}
 
-		return null;
+		throw new UnitNotFoundException();
 	}
 
 	// Add worker of designated subtype @ given location
@@ -106,7 +106,6 @@ public class Player implements iTurnObservable {
 		if (type == EntityTypeEnum.WORKER) {
 			return this.workerManager.addWorker(subtype, location);
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
-
 	}
 
 	public void addArmy(Army army) {

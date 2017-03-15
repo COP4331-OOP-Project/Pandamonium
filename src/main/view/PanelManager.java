@@ -32,6 +32,7 @@ public class PanelManager {
 	private IntroPanel introPanel;
 	private MapMakerPanel mapMakerPanel;
 	private SettingsPanel settingsPanel;
+	private TileSelector tileSelector;
 	private GraphicsContext g;
 	private ArrayList<Panel> panels;
 	
@@ -48,13 +49,15 @@ public class PanelManager {
 		panels = new ArrayList<Panel>();
 		gamePanel = new GamePanel(gameModelAdapter, assets, camera, ViewEnum.MAIN_GAME);
 		panels.add(gamePanel);
+		tileSelector = new TileSelector(gameModelAdapter, assets, currentViewMode, group, camera, gamePanel);
+		panels.add(tileSelector);
 		civilizationPanel = new CivilizationPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(civilizationPanel);
 		controlModePanel = new ControlModePanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
 		panels.add(controlModePanel);
 		sideBarPanel = new SideBarPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group, this);
 		panels.add(sideBarPanel);
-		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME);
+		commandPanel = new CommandPanel(gameModelAdapter, group, assets, ViewEnum.MAIN_GAME, tileSelector);
 		panels.add(commandPanel);
 		makeDetailsPanel = new MakeDetailsPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME);
 		panels.add(makeDetailsPanel);

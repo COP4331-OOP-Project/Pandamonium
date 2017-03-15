@@ -16,17 +16,15 @@ public class TileSelector extends Panel{
 	private boolean waitingForTile = false;
 	private Point selectedTile;
 	private Group root;
-	private Camera camera;
 	private GamePanel gamePanel;
 	private Point clickedPixel = new Point();
 	private Point clickedTile = new Point();
 	private ArrayList<Point> points = new ArrayList<>();
 	
 	public TileSelector(GameModelAdapter gameModelAdapter, AssetManager assets,
-			ViewEnum viewEnum, Group root, Camera camera, GamePanel panel) {
+			ViewEnum viewEnum, Group root, Camera camera, GamePanel gamePanel) {
 		super(gameModelAdapter, assets, viewEnum);
 		this.root = root;
-		this.camera = camera;
 		this.gamePanel = gamePanel;
 		tileSelector.setOnMouseClicked(event -> {
 			clickedPixel.x = (int)event.getX();
@@ -56,9 +54,9 @@ public class TileSelector extends Panel{
 		return waitingForTile;
 	}
 	
-	private void handleKeyPressWaiting() {
+	private void drawTiles() {
 		for (Point point : points) {
-			gamePanel.drawStaticTileElement(point, "");
+			gamePanel.drawStaticTileElement(point, "MOVE_SELECTED");
 		}
 	} 
 
@@ -67,14 +65,13 @@ public class TileSelector extends Panel{
 			drawTiles();
 		}
 	}
-
-	private void drawTiles() {
-	}
 	
 	public void hideGUIElements() {
+		root.getChildren().remove(tileSelector);
 	}
 
 	public void showGUIElements() {
+		root.getChildren().add(tileSelector);
 	}
 	
 }
