@@ -14,6 +14,9 @@ import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.gameboard.*;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
+import game.techTree.TechTree;
+import game.techTree.nodeTypes.TechTreeNode;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,7 +40,8 @@ public class Player implements iTurnObservable {
 	private PlacementManager placementManager;
 	private ArmyManager armyManager;
 	private ResourceManager resourceManager;
-
+	private TechTree techTree;
+	
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
 
@@ -67,7 +71,8 @@ public class Player implements iTurnObservable {
 		this.attach(this.workerManager);
 		this.attach(this.unitManager);
 		this.attach(this.structureManager);
-
+		
+		techTree = new TechTree(this, placementManager, structureManager, workerManager);
 	}
 
 	// Add entity of designated type, subtype @ given location
@@ -346,5 +351,9 @@ public class Player implements iTurnObservable {
 
 	public void addMetal(Resource metal) {
 		this.metal.combine(metal);
+	}
+	
+	public ArrayList<TechTreeNode> getRootTechs() {
+		return techTree.getRootNodes();
 	}
 }

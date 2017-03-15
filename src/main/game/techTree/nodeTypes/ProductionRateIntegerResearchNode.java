@@ -38,6 +38,7 @@ public class ProductionRateIntegerResearchNode extends TechTreeNode {
     }
 
     public void doResearch() {
+    	setResearchStarted(true);
         iWorkerResearchVisitor workerResearchVisitor = new WorkerProductionRateResearchVisitor(this.productionRateChange);
         try {
             workerResearchVisitor.visitWorkerManager(this.workerManager, this.workerType);

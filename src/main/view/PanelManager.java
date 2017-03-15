@@ -24,7 +24,8 @@ public class PanelManager {
 	private MiniMapPanel miniMapPanel;
 	private UnitOverviewPanel unitOverviewPanel;
 	private StructureOverviewPanel structureOverviewPanel;
-	private TechOverviewPanel techOverviewPanel;
+	private TechOverviewPanel humanTechOverviewPanel;
+	private TechOverviewPanel pandaTechOverviewPanel;
 	private ToggleBarPanel toggleBarPanel;
 	private UnitDetailsPanel unitDetailsPanel;
 	private StructureDetailsPanel structureDetailsPanel;
@@ -74,8 +75,10 @@ public class PanelManager {
 		panels.add(unitDetailsPanel);
 		unitOverviewPanel = new UnitOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
 		panels.add(unitOverviewPanel);
-		techOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group);
-		panels.add(techOverviewPanel);
+		humanTechOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group, 0);
+		panels.add(humanTechOverviewPanel);
+		pandaTechOverviewPanel = new TechOverviewPanel(gameModelAdapter, assets, ViewEnum.MAIN_GAME, group, 1);
+		panels.add(pandaTechOverviewPanel);
 		toggleBarPanel = new ToggleBarPanel(gameModelAdapter, group, this, assets, ViewEnum.MAIN_GAME);
 		panels.add(toggleBarPanel);
 		splashPanel = new SplashPanel(gameModelAdapter, group, this, assets, ViewEnum.SPLASH);
@@ -112,7 +115,8 @@ public class PanelManager {
 	public void toggleUnitOverview() {
 		if (currentViewMode == ViewEnum.MAIN_GAME) {
 	        structureOverviewPanel.hideIfVisible();
-	        techOverviewPanel.hideIfVisible();
+	        humanTechOverviewPanel.hideIfVisible();
+	        pandaTechOverviewPanel.hideIfVisible();
 	        unitOverviewPanel.toggle();
 		}
 	}
@@ -120,7 +124,8 @@ public class PanelManager {
 	public void toggleStructureOverview() {
 		if (currentViewMode == ViewEnum.MAIN_GAME) {
 	    	unitOverviewPanel.hideIfVisible();
-	    	techOverviewPanel.hideIfVisible();
+	    	humanTechOverviewPanel.hideIfVisible();
+	    	pandaTechOverviewPanel.hideIfVisible();
 	        structureOverviewPanel.toggle();
 		}
 	}
@@ -129,7 +134,12 @@ public class PanelManager {
 		if (currentViewMode == ViewEnum.MAIN_GAME) {
 	    	unitOverviewPanel.hideIfVisible();
 	    	structureOverviewPanel.hideIfVisible();
-	        techOverviewPanel.toggle();
+	        if (gameModelAdapter.getPlayerId() == 0) {
+	        	humanTechOverviewPanel.toggle();
+	        } else {
+	        	pandaTechOverviewPanel.toggle();
+	        }
+	    	
 		}
 	}
 

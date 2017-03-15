@@ -11,6 +11,7 @@ public abstract class TechTreeNode {
     private String name;
     private String description;
     private TechNodeImageEnum imageEnum;
+    private boolean researchStarted;
     private int productionRequirement;
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum) {
@@ -20,6 +21,7 @@ public abstract class TechTreeNode {
         this.children = new ArrayList<>();
         this.parents = new ArrayList<>();
         this.productionRequirement = 50;
+        this.researchStarted = false;
     }
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum, TechTreeNode... parents) {
@@ -87,6 +89,14 @@ public abstract class TechTreeNode {
         return this.productionRequirement;
     }
 
+    public boolean getResearching() {
+    	return (researchStarted && !isResearchCompleted());
+    }
+    
+    public void setResearchStarted(boolean started) {
+    	researchStarted = started;
+    }
+    
     public abstract boolean isResearchCompleted();
 
     public abstract void doResearch();

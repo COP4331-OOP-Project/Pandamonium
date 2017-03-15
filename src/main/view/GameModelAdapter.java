@@ -15,6 +15,7 @@ import game.gameboard.SimpleTile;
 import game.mode.Mode;
 import game.mode.ModeController;
 import game.mode.Submode;
+import game.techTree.nodeTypes.TechTreeNode;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -166,5 +167,21 @@ public class GameModelAdapter {
 		controlMode.setCommand(command);
 	}
 
+
+
 	public void setSubCommand(SubCommandEnum command) { controlMode.setSubCommand(command); }
+
+
+	public boolean getGameStarted() {
+		return gameModel.getGameStarted();
+	}
+	
+	public ArrayList<TechTreeNode> getHumanTechNodes() {
+		return gameModel.getPlayer(0).getRootTechs();
+	}
+	
+	public ArrayList<TechTreeNode> getPandaTechNodes() {
+		return gameModel.getPlayer(1).getRootTechs();
+	}
+
 }

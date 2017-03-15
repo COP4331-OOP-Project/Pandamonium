@@ -209,6 +209,7 @@ public class Assets {
         loadItem("HEALTH_BAR", "assets/images/health/healthBar.png");
         loadItem("HEALTH_BAR_FILL", "assets/images/health/healthBarFilling.png");
         loadItem("RESEARCHED", "assets/images/techTree/researched.png");
+        loadItem("RESEARCHABLE", "assets/images/techTree/researchable.png");
         loadItem("RESEARCHING", "assets/images/techTree/researching.png");
         loadItem("TECHNOLOGY", "assets/images/techTree/technology.png");
         loadItem("TECH_CONNECT1", "assets/images/techTree/connector1.png");
