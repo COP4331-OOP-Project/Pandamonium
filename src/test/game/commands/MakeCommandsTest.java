@@ -106,7 +106,6 @@ public class MakeCommandsTest {
 
         assert(f == null);
 
-
         Tile t2 = gb.getTileWithLocation(new Location(0, 1));
         ArrayList<iTileObserver> list = t2.getInfluencedBy();
         iTileObserver o = list.get(0);

@@ -73,7 +73,7 @@ public class Gameboard {
         Location trackRight;
         Location trackCenter;
 
-        // Attach observers to each tile within influence radius
+        // Attach observers to each tile within influence radius (right/left)
         // TODO: Fix possible TDA violation with if statements
         for (int i = influence; i > 0; i--){
             trackRight = new Location(location.getX() + i, location.getY() + (influence-i)) ;
