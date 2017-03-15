@@ -261,7 +261,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
 
         this.observersToBeDeletedAtEndOfTurn.clear();
 
-        this.endOfTurnIteration = true;
+        this.endOfTurnIteration = false;
     }
 
     public void upkeepHandling(Resource nutrients){
