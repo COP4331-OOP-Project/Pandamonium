@@ -112,12 +112,12 @@ public class Tile implements iTileAccessors, iTileObservable {
 
     public Location getLocation(){return location;}
 
-    //TODO FIND BETTER WAY TO DO OWNER ID
+
     public void addUnit(Unit unit) {
-        /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
-            System.out.println("Good");
+        if(getOwnerId()!=null && unit.getOwnerID()!=ownerId){
+            //System.out.println("Good");
             return;
-        }*/
+        }
         units.add(unit);
         if (this.areaEffect != null)
             this.areaEffect.affectUnit(unit);
