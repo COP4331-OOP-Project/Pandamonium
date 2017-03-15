@@ -89,4 +89,6 @@ public abstract class Structure extends Entity implements iTurnObserver, iTileOb
             this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
 
+    /* iTileObserver */
+
 }
