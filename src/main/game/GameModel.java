@@ -58,7 +58,7 @@ public class GameModel {
     }
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
-        
+
         try {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
