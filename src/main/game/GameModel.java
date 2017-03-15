@@ -1,5 +1,6 @@
 package game;
 
+import game.commands.CommandEnum;
 import game.commands.MoveCommand;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -28,6 +29,8 @@ public class GameModel {
     private int turnNum = 0;
     private Location lastMoveLocation;
     private boolean gameHasStarted = false;
+    private Player human;
+    private Player panda;
     
     public void initializeGame() {
         try {
@@ -58,32 +61,25 @@ public class GameModel {
     }
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
+        this.human = human;
+        this.panda = panda;
 
         try {
-            Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
-            Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
-
-            Structure fort = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, HUMAN_STARTING_LOCATION);
-          
-            /*
-          
->>>>>>> Health
-            Unit unit3 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
-            
-            Unit explorer = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
-            Unit melee = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY() + 2));
-            Unit ranged = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, new Location (HUMAN_STARTING_LOCATION.getX() + 4, HUMAN_STARTING_LOCATION.getY() + 4));
-
-            
-            Structure observationTower = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
-            Structure mine = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
-            Structure capitol = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, new Location (HUMAN_STARTING_LOCATION.getX() - 1, HUMAN_STARTING_LOCATION.getY()));
-            Structure farm1 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() -1));
-            Structure farm2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY()));
-<<<<<<< HEAD
-
-            */
-      
+            Unit unit1 = (Unit) this.human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
+            Unit unit2 = (Unit) this.panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
+//            Unit unit3 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
+//
+//            Unit explorer = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
+//            Unit melee = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.MELEE, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY() + 2));
+//            Unit ranged = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.RANGE, new Location (HUMAN_STARTING_LOCATION.getX() + 4, HUMAN_STARTING_LOCATION.getY() + 4));
+//
+//
+//            Structure observationTower = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.OBSERVE, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
+//            Structure mine = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.MINE, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
+//            Structure capitol = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, new Location (HUMAN_STARTING_LOCATION.getX() - 1, HUMAN_STARTING_LOCATION.getY()));
+//            Structure farm1 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() -1));
+//            Structure farm2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FARM, new Location (HUMAN_STARTING_LOCATION.getX() + 1, HUMAN_STARTING_LOCATION.getY()));
+//
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();
@@ -136,4 +132,5 @@ public class GameModel {
     public Player getPlayer(int playerID) {
         return players.get(playerID);
     }
+
 }
