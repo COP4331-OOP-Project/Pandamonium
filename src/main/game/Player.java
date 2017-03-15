@@ -117,7 +117,7 @@ public class Player implements iTurnObservable {
 					throw new EntityTypeDoesNotExistException("The input type " + type + " is not army.");
 			}
 		} catch(ArmyDoesNotExistException|ArmyLimitExceededException e){
-			System.out.println("Can't create army");
+			log.error("Army can't be created");
 		}
 		return null;
 	}

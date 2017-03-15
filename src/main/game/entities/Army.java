@@ -131,7 +131,7 @@ public class Army extends Entity {
     public void decommissionEntity() {}
     public void disband() {
         for(int i = 0;i<units.size();i++){
-            units.get(0).setArmyId(null);
+            units.get(i).setArmyId(null);
         }
     }
 
