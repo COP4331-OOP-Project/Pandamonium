@@ -1,6 +1,7 @@
 package game.gameboard;
 
 import game.entities.BattleGroup;
+import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
@@ -179,9 +180,11 @@ public class Tile implements iTileAccessors, iTileObservable {
         }
 
         //Structure
-        if (entityId.compareTo(structure.getEntityId())==1){
-            this.structure = null;
-            return;
+        if(structure!=null) {
+            if (entityId.compareTo(structure.getEntityId()) == 1) {
+                this.structure = null;
+                return;
+            }
         }
 
         //BattleGroup
@@ -220,7 +223,7 @@ public class Tile implements iTileAccessors, iTileObservable {
 
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
-        // for (iEntity e : Entities) { e.accept(v) }
+         for (Entity e : units) { e.accept(v); }
     }
 
     // Observable
