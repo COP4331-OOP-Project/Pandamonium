@@ -44,6 +44,7 @@ public class GamePanel extends Panel {
 	private ViewEnum view;
 	private EntityId selectedEntity;
 	private Point selectedPoint;
+	private TileSelector tileSelector;
 	private boolean resourcesVisible = false;
 	private boolean unitsVisible = true;
 	private boolean structuresVisible = true;
