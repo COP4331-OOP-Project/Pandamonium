@@ -169,5 +169,7 @@ public class PanelManager {
 
 	public void endTurn() {
 		gamePanel.endTurn();
+		humanTechOverviewPanel.updatePlayer();
+		pandaTechOverviewPanel.updatePlayer();
 	}
 }

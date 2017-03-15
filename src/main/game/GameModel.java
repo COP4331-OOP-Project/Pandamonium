@@ -68,10 +68,10 @@ public class GameModel {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
             Unit unit2 = (Unit) panda.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, PANDA_STARTING_LOCATION);
 
-
+            /*
             Structure fort = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.FORT, HUMAN_STARTING_LOCATION);
           
-            /*
+          
           
 
             Structure university = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
