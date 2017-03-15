@@ -45,6 +45,7 @@ public class GamePanel extends Panel {
 	private boolean resourcesVisible = false;
 	private boolean unitsVisible = true;
 	private boolean structuresVisible = true;
+    private HealthBarDrawer healthBar;
 
     public GamePanel(GameModelAdapter gameModelAdapter, AssetManager assets, Camera camera, ViewEnum view) {
     	super(gameModelAdapter, assets, view);
@@ -60,6 +61,7 @@ public class GamePanel extends Panel {
         coveringDrawer = new CoveringDrawer(this, assets);
         areaEffectDrawer = new AreaEffectDrawer(this, assets);
         oneShotItemDrawer = new OneShotItemDrawer(this, assets);
+        healthBar = new HealthBarDrawer(assets);
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
@@ -138,6 +140,11 @@ public class GamePanel extends Panel {
     	a.draw(g, camera.offset(p).x, camera.offset(p).y, camera.getScale(), 
         		camera.getScale(), currentPulse);
      }
+    
+    public void drawHealthBar(double health, Point p) {
+    	 Point position = new Point(camera.offset(p).x, camera.offset(p).y);
+    	 healthBar.drawBar(position, health, camera.getScale(), g);
+    }
 
     public Camera getCamera() {
         return camera;
