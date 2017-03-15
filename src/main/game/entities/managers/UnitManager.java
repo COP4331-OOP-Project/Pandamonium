@@ -121,7 +121,9 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
                 return u;
             }
         }
-        return null; // No unit found
+
+        throw new UnitDoesNotExistException(); // No unit found
+        
     }
 
     // Remove unit of designated id from players list of units
