@@ -16,7 +16,6 @@ public class Capitol extends StructureWithWorker {
         addCommand(CommandEnum.WORKER_FARM);
         addCommand(CommandEnum.WORKER_MINE);
         addCommand(CommandEnum.WORKER_GENERATE);
-
     }
 
 }

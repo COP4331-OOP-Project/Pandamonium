@@ -2,6 +2,7 @@ package game.entities;
 
 import game.commands.Command;
 import game.commands.CommandEnum;
+import game.commands.SubCommandEnum;
 import game.commands.iCommandable;
 import game.entities.managers.PlacementManager;
 import game.gameboard.Location;
@@ -21,6 +22,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     protected EntityId entityId;
     protected Location location;
 
+    private ArrayList<SubCommandEnum> subCommands = new ArrayList<>();
     private ArrayList<CommandEnum> commands = new ArrayList<>();
 
     protected PlacementManager placementManager;
@@ -128,12 +130,17 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     public void addCommand(CommandEnum command) {
     	commands.add(command);
     }
+
+    public void addSubCommand(SubCommandEnum command) { subCommands.add(command); }
     
     public void removeCommand(CommandEnum command) {
     	commands.remove(command);
     }
     
-    public ArrayList<CommandEnum> getCommands() {
-    	return commands;
-    }
+    public ArrayList<CommandEnum> getCommands() { return commands; }
+
+    public ArrayList<SubCommandEnum> getSubCommands() { return subCommands; }
+
+    public Location getLocation() { return location; }
+
 }

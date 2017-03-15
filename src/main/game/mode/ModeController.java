@@ -7,6 +7,7 @@ import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
 import game.commands.CommandManager;
+import game.commands.SubCommandEnum;
 import game.commands.iCommandable;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
@@ -24,6 +25,7 @@ public class ModeController {
 	private GameModel gameModel;
 	private Player currentPlayer;
 	private KeyEventController keyEventController;
+	private boolean expectingSubCommand = false;
 	
 	public ModeController(GameModel gameModel) {
 		this.gameModel = gameModel;
@@ -48,6 +50,7 @@ public class ModeController {
 		cycleSubmodeForward();
 		selectedManager.cycle(true);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 	
 	public void cycleModeBackward() {
@@ -55,19 +58,26 @@ public class ModeController {
 		cycleSubmodeForward();
 		selectedManager.cycle(false);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 
 	public void cycleSubmodeForward() {
 		currentSubmode = currentSubmode.getNext(currentMode);
 		selectedManager.cycle(true);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 
 	public void cycleSubmodeBackward() {
 		currentSubmode = currentSubmode.getPrevious(currentMode);
 		selectedManager.cycle(false);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
+
+	public void setExpectingSubCommand() { this.expectingSubCommand = true; }
+	public void clearExpectingSubCommand() { this.expectingSubCommand = false; }
+	public boolean isExpectingSubCommand() { return this.expectingSubCommand; }
 	
 	public void cycleCommandForward() {
 		commandManager.cycleForward();
@@ -76,13 +86,21 @@ public class ModeController {
 	public void cycleCommandBackward() {
 		commandManager.cycleBackward();
 	}
-	
+
 	public ArrayList<CommandEnum> getCommands() {
 		return commandManager.getPossibleCommands();
 	}
-	
+
+	public ArrayList<SubCommandEnum> getSubCommands() {
+		return commandManager.getPossibleSubCommands();
+	}
+
 	public CommandEnum getSelectedCommand() {
 		return commandManager.getCurrentCommand();
+	}
+
+	public SubCommandEnum getSelectedSubCommand() {
+		return commandManager.getCurrentSubCommand();
 	}
 
 	public void addMoveToList(int degrees) {
@@ -163,10 +181,32 @@ public class ModeController {
 	}
 
 	public void execute() {
-		commandManager.execute(selectedManager.getSelectedEntity());
+
+		CommandEnum cmd = commandManager.getCurrentCommand();
+
+		switch (cmd) {
+			case CREATE_SOLDIERS:
+			case ASSIGN_WORKER:
+				setExpectingSubCommand();
+				break;
+			default:
+				clearExpectingSubCommand();
+				commandManager.execute(selectedManager.getSelectedEntity());
+		}
+
+	}
+
+	public void executeSubCommand() {
+
+		commandManager.executeSubCommand(selectedManager.getSelectedEntity());
+
 	}
 
 	public void setCommand(CommandEnum command) {
 		commandManager.setCommand(command);
+	}
+
+	public void setSubCommand(SubCommandEnum command) {
+		commandManager.setSubCommand(command);
 	}
 }

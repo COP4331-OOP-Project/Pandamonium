@@ -1,13 +1,11 @@
 package game.commands;
 
 import game.Player;
-import game.entities.Entity;
-import game.entities.EntityId;
-import game.entities.EntityTypeEnum;
-import game.entities.RallyPoint;
+import game.entities.*;
 import game.entities.managers.*;
 import game.entities.managers.exceptions.RallyPointDoesNotExistException;
 import game.entities.units.Colonist;
+import game.entities.units.Explorer;
 import game.entities.units.exceptions.UnitNotFoundException;
 public class CommandExecutor {
 
@@ -25,8 +23,70 @@ public class CommandExecutor {
 		this.workerManager = workerManager;
 		this.armyManager = armyManager;
 		this.dispatcher = new CommandDispatcher(unitManager, structureManager, armyManager, placementManager, workerManager);
+		this.placementManager = placementManager;
+
 	}
 
+	// Execute chosen subcommand
+	public void executeSubCommand(EntityId selectedEntity, SubCommandEnum selectedCommand, Player currentPlayer) {
+
+		Entity entity = null;
+
+		try {
+
+			entity = currentPlayer.getEntityById(selectedEntity);
+
+			switch (selectedCommand) {
+				case CREATE_MELEE:
+					dispatcher.issueMakeUnitCommand(entity, entity.getLocation(), EntitySubtypeEnum.MELEE);
+					break;
+				case CREATE_COLONIST:
+					dispatcher.issueMakeUnitCommand(entity, entity.getLocation(), EntitySubtypeEnum.COLONIST);
+					break;
+				case CREATE_EXPLORER:
+					dispatcher.issueMakeUnitCommand(entity, entity.getLocation(), EntitySubtypeEnum.EXPLORER);
+					break;
+				case CREATE_RANGED:
+					dispatcher.issueMakeUnitCommand(entity, entity.getLocation(), EntitySubtypeEnum.RANGE);
+					break;
+				case CREATE_WORKER:
+				case ASSIGN_BREEDER:
+				case ASSIGN_GENERATOR:
+				case ASSIGN_MINER:
+				case ASSIGN_SOLDIER_GENERATOR:
+				case ASSIGN_INACTIVE_WORKER:
+				case ASSIGN_RESEARCHER:
+				case ASSIGN_FARMER:
+					break;
+				case BUILD_CAPITOL:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.CAPITOL);
+					break;
+				case BUILD_FORT:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.FORT);
+					break;
+				case BUILD_MINE:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.MINE);
+					break;
+				case BUILD_OBSERVER:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.OBSERVE);
+					break;
+				case BUILD_FARM:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.FARM);
+					break;
+				case BUILD_POWER_PLANT:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.PLANT);
+					break;
+				case BUILD_UNIVERSITY:
+					dispatcher.issueMakeStructureCommand(entity, entity.getLocation(), EntitySubtypeEnum.UNIVERSITY);
+					break;
+			}
+		} catch (UnitNotFoundException e) {
+			e.getLocalizedMessage();
+		}
+
+	}
+
+	// Execute chosen command
 	public void executeCommand(EntityId selectedEntity, CommandEnum selectedCommand, Player currentPlayer) {
 		Entity entity = null;
 		RallyPoint rally = null;
@@ -77,8 +137,10 @@ public class CommandExecutor {
 					dispatcher.issueFoundCapitolCommand(colonist, colonist.getLocation());
 					break;
 				case START_PROSPECTING:
+					dispatcher.issueStartProspectingCommand((Explorer) entity);
 					break;
 				case STOP_PROSPECTING:
+					dispatcher.issueStopProspectingCommand((Explorer) entity);
 					break;
 				case BREED_WORKERS:
 					break;

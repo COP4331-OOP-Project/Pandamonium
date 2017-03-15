@@ -3,6 +3,7 @@ package view;
 import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
+import game.commands.SubCommandEnum;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.managers.exceptions.StructureDoesNotExistException;
@@ -58,6 +59,8 @@ public class GameModelAdapter {
 			return 1;
 		}
 	}
+
+	// Send whatever info needed for command to execute to controlMode
 	
 	public Unit getSelectedUnit() {
 		try {
@@ -130,15 +133,31 @@ public class GameModelAdapter {
 	public void executeCommand() {
 		controlMode.execute();
 	}
+
+	public void executeSubCommand() {
+		controlMode.executeSubCommand();
+	}
+
+	public boolean isExpectingSubCommand() {
+		return controlMode.isExpectingSubCommand();
+	}
 	
 	public ArrayList<CommandEnum> getCommands() {
 		return controlMode.getCommands();
 	}
-	
+
+	public ArrayList<SubCommandEnum> getSubCommands() {
+		return controlMode.getSubCommands();
+	}
+
 	public CommandEnum getSelectedCommand() {
 		return controlMode.getSelectedCommand();
 	}
-	
+
+	public SubCommandEnum getSelectedSubCommand() {
+		return controlMode.getSelectedSubCommand();
+	}
+
 	public void endTurn() {
 		controlMode.endTurn();
 	}
@@ -146,4 +165,6 @@ public class GameModelAdapter {
 	public void setCommand(CommandEnum command) {
 		controlMode.setCommand(command);
 	}
+
+	public void setSubCommand(SubCommandEnum command) { controlMode.setSubCommand(command); }
 }

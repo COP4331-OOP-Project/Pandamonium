@@ -3,6 +3,7 @@ package game.entities;
 import java.util.ArrayList;
 
 import game.commands.CommandEnum;
+import game.commands.SubCommandEnum;
 import game.commands.iCommandable;
 import game.gameboard.Location;
 
@@ -34,5 +35,7 @@ public class RallyPoint implements iCommandable {
 	public ArrayList<CommandEnum> getCommands() {
 		return commands;
 	}
+
+	public ArrayList<SubCommandEnum> getSubCommands() { return null; }
 
 }
