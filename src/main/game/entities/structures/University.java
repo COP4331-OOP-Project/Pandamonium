@@ -9,6 +9,7 @@ import game.entities.workers.workerTypes.*;
 import game.entityTypeResearch.EntityTypeAdvancementNodeOwnership;
 import game.entityTypeResearch.UniversityAlreadyDoingResearchException;
 import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
+import game.entities.workers.workerTypes.ResearchGenerator;
 import game.gameboard.Location;
 import game.techTree.TechTreeNodeOwnership;
 import game.techTree.nodeTypes.TechTreeNode;
@@ -17,9 +18,7 @@ import java.util.ArrayList;
 
 public class University extends StructureWithWorker {
 
-    private ArrayList<Worker> unassigned;
     private ArrayList<ResearchGenerator> researcher;
-    private WorkerManager workerManager;
     private TechTreeNodeOwnership techTreeNodeOwnership;
     private EntityTypeAdvancementNodeOwnership entityTypeAdvancementNodeOwnership;
 
@@ -41,7 +40,7 @@ public class University extends StructureWithWorker {
 
         this.techTreeNodeOwnership = new TechTreeNodeOwnership(techTreeNode, researchProductionRate);
     }
-
+    
     public void research(EntityTypeAdvancementNode entityTypeAdvancementNode) throws UniversityAlreadyDoingResearchException {
         if (this.techTreeNodeOwnership != null) throw new UniversityAlreadyDoingResearchException();
         int researchProductionRate = 0;
@@ -57,6 +56,7 @@ public class University extends StructureWithWorker {
         this.entityTypeAdvancementNodeOwnership = new EntityTypeAdvancementNodeOwnership(entityTypeAdvancementNode, researchProductionRate);
     }
 
+    @Override
     public void onTurnEnded() {
         if (this.techTreeNodeOwnership != null) {
             boolean researchCompleted = this.techTreeNodeOwnership.doTurn();
@@ -68,4 +68,5 @@ public class University extends StructureWithWorker {
             if (researchCompleted) this.entityTypeAdvancementNodeOwnership = null;
         }
     }
+
 }

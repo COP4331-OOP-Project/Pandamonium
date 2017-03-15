@@ -12,7 +12,4 @@ public class ObservationTower extends Structure {
         super(stats, location, entityId, placementManager, notifier);
     }
 
-    public void onTurnEnded() {
-
-    }
 }

@@ -1,6 +1,7 @@
 package game.gameboard;
 
 import game.entities.BattleGroup;
+import game.entities.Entity;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
@@ -176,7 +177,7 @@ public class Tile implements iTileAccessors {
         }
 
         //Structure
-        if (entityId.compareTo(structure.getEntityId())==1){
+        if (this.structure != null && entityId.compareTo(structure.getEntityId())==1){
             this.structure = null;
             return;
         }
@@ -210,14 +211,20 @@ public class Tile implements iTileAccessors {
         return (!units.isEmpty());
     }
 
-    public boolean containsArmy(){
+    public boolean containsArmy() {
         //check if the tile contains army
         return false;
     }
 
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
-        // for (iEntity e : Entities) { e.accept(v) }
+
+        ArrayList<Entity> entities = new ArrayList<>();
+        entities.addAll(getUnits());
+        entities.add(getStructure());
+
+         for (Entity e : entities) { e.accept(v); }
+
     }
     
     public ArrayList<BattleGroup> getBattleGroups(){return  battleGroups;}

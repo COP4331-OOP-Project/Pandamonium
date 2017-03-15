@@ -1,34 +1,23 @@
 package game.entities.units;
 
 
-import game.entities.*;
-
 import game.commands.CommandEnum;
-import game.entities.Entity;
-import game.entities.EntityId;
-import game.entities.EntitySubtypeEnum;
-import game.entities.HealthPercentage;
-import game.entities.iAttacker;
-import game.entities.iDefender;
-import game.entities.iMoveable;
-
+import game.entities.*;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
-import game.iTurnObserver;
 import game.visitors.AddUnitVisitor;
 import game.visitors.RemoveEntityVisitor;
 
 // TODO: Fix damage taking to account for defense
 
-public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable, iTurnObserver {
+public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
     protected UnitStats stats;
     protected int orientation;
-    protected Location location;
 
     public Unit(UnitStats stats, Location location, EntityId entityId, PlacementManager placementManager, DeathNotifier notifier) {
         super(entityId,placementManager, notifier);
-        this.location=location;
+        this.location = location;
         this.stats = stats;
         this.health = stats.getHealth();
         this.healthPercent = new HealthPercentage();
@@ -57,14 +46,15 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
 
     public void setLocation(Location location){
         setOrientation(direction(location));
+        Location oldLocation = new Location(this.location.getX(), this.location.getY());
+        this.location = location;
         //Move To Tile
         AddUnitVisitor addUnit = new AddUnitVisitor(this, location);
         placementManager.accept(addUnit);
         //Delete old tile reference
-        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), this.location);
+        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(), oldLocation);
         placementManager.accept(removeEntityVisitor);
         //Update location
-        this.location=location;
     }
 
     public int direction(Location location){
@@ -96,8 +86,9 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
 
+    // Instantly kill this unit
     public void instantDeath() {
-        // TODO: activate death visitor
-        this.health = 0;
+        this.takeDamage(this.health);
     }
+
 }

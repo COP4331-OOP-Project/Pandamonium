@@ -98,6 +98,7 @@ public class GameModel {
     }
     
     public void endTurn() {
+        currentPlayer.endTurn();
     	currentPlayer.updateSimpleTiles(gBoard.getTiles());
     	if (currentPlayer == players.get(0)) {
     		currentPlayer = players.get(1);

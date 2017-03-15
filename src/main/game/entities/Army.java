@@ -85,6 +85,7 @@ public class Army extends Entity {
     public void takeDamage(double damage) {}
     public void heal(double healing) {}
     public void decommissionEntity() {}
+    public void disband() {}
 
     public BattleGroup getBattleGroup() { return battleGroup; }
     public Reinforcement getReinforcements() { return reinforcement; }

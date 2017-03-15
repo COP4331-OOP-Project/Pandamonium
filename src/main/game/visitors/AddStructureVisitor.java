@@ -9,11 +9,14 @@ public class AddStructureVisitor implements iMovementManageVisitor {
     private Location location;
 
     public AddStructureVisitor(Structure structure, Location loc){
+
         this.structure=structure;
-        location=loc;
+        this.location=loc;
+
     }
 
     public void visitMoveManage(PlacementManager mm){
         mm.addStructure(this.structure, location);
     }
+
 }

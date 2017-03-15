@@ -8,11 +8,13 @@ public class DecommissionCommand extends Command {
     private Entity actor;              // Actor to decomission
 
     public DecommissionCommand(Entity actor) {
-        super(0); // No wait till activation
-    	this.actor = actor;             // Set actor           
+        super(0);       // No wait till activation
+    	this.actor = actor;     // Set actor
     }
 
-    // Execute decommission command in Gameboard function
-    public void exec() {}
+    // Execute decommission command on actor
+    public void exec() {
+        this.actor.decommissionEntity();
+    }
 
 }
