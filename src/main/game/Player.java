@@ -325,4 +325,17 @@ public class Player implements iTurnObservable {
 		}
 
 	}
+
+
+	public void addNutrients(Resource nutrients) {
+		this.nutrients.combine(nutrients);
+	}
+
+	public void addPower(Resource power) {
+		this.power.combine(power);
+	}
+
+	public void addMetal(Resource metal) {
+		this.metal.combine(metal);
+	}
 }

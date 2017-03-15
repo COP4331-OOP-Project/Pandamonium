@@ -1,17 +1,21 @@
 package game.commands;
 
+import game.Player;
 import game.entities.structures.Structure;
+import game.entities.structures.StructureWithWorker;
 import game.gameboard.Tile;
 
 public class WorkerMineCommand extends Command{
-	private Structure actor;
-	private Tile target;
+	private StructureWithWorker actor;
+	private Player player;
 	
-	public WorkerMineCommand(Structure actor, Tile target, int duration) {
+	public WorkerMineCommand(StructureWithWorker actor, Player player, int duration) {
 		super(duration);
         this.actor = actor;                 // Set attacker
-        this.target = target;               // Set target
+		this.player = player;				// Set player
     }
 	
-	public void exec() {}
+	public void exec() {
+		this.player.addMetal(this.actor.harvestMetal());
+	}
 }

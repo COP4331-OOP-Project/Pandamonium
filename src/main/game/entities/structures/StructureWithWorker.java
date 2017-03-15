@@ -58,28 +58,40 @@ public abstract class StructureWithWorker extends Structure {
         }
     }
 
-    public ArrayList<Resource> harvest(){
-        ArrayList<Resource> harvested = new ArrayList<>();
+    public Resource harvestNutrients() {
         Resource food = new Resource(0, ResourceTypeEnum.FOOD);
-        harvested.add(food);
-        Resource peat = new Resource(0,ResourceTypeEnum.PEAT);
-        harvested.add(peat);
-        Resource ore = new Resource(0, ResourceTypeEnum.ORE);
-        harvested.add(ore);
         Iterator<Worker> iterator = busy.iterator();
-        while(iterator.hasNext()){
+        while(iterator.hasNext()) {
             Worker holder = iterator.next();
             if(holder.getWorkerType()==WorkerTypeEnum.FOOD_GATHERER){
-                harvested.get(0).combine(holder.doProduction());
-            }
-            else if(holder.getWorkerType()==WorkerTypeEnum.PEAT_GATHERER){
-                harvested.get(1).combine(holder.doProduction());
-            }
-            else if(holder.getWorkerType()==WorkerTypeEnum.ORE_GATHERER){
-                harvested.get(2).combine(holder.doProduction());
+                food.combine(holder.doProduction());
             }
         }
-        return harvested;
+        return food;
+    }
+
+    public Resource harvestPower() {
+        Resource power = new Resource(0, ResourceTypeEnum.PEAT);
+        Iterator<Worker> iterator = busy.iterator();
+        while(iterator.hasNext()) {
+            Worker holder = iterator.next();
+            if(holder.getWorkerType()==WorkerTypeEnum.PEAT_GATHERER){
+                power.combine(holder.doProduction());
+            }
+        }
+        return power;
+    }
+
+    public Resource harvestMetal() {
+        Resource metal = new Resource(0, ResourceTypeEnum.ORE);
+        Iterator<Worker> iterator = busy.iterator();
+        while(iterator.hasNext()) {
+            Worker holder = iterator.next();
+            if(holder.getWorkerType()==WorkerTypeEnum.ORE_GATHERER){
+                metal.combine(holder.doProduction());
+            }
+        }
+        return metal;
     }
 
     public void addWorkers(ArrayList<Worker> workers){
