@@ -100,7 +100,7 @@ public class Tile implements iTileAccessors, iTileObservable {
         this.ownerId = ownerId;
     }
 
-    public Integer getOwner() {
+    public Integer getOwnerId() {
         if(this.units.isEmpty()){
             ownerId = null;
         }
@@ -255,8 +255,6 @@ public class Tile implements iTileAccessors, iTileObservable {
     public AreaEffect getAreaEffect() {
         return this.areaEffect;
     }
-
-    public Integer getOwnerId() { return ownerId; }
 
     public OneShotItem getOneShotItem() { return this.oneShotItem; }
 
