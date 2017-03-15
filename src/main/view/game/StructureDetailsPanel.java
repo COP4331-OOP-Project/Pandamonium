@@ -1,6 +1,7 @@
 package view.game;
 
 import game.entities.EntitySubtypeEnum;
+import game.entities.managers.exceptions.StructureDoesNotExistException;
 import game.entities.stats.StructureStats;
 import game.entities.stats.UnitStats;
 import game.entities.structures.Structure;
@@ -31,19 +32,27 @@ public class StructureDetailsPanel extends DetailsPanel {
     }
 
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
-    	if (getAdapter().getCurrentMode() == Mode.STRUCTURE && getAdapter().getSelectedStructure() != null) {
-	    	drawBar(g, screenDimensions);
-	        g.setEffect(ds);
-	        drawText(g, screenDimensions.y);
-	        g.setEffect(null);
-    	}
+    	try {
+			if (getAdapter().getCurrentMode() == Mode.STRUCTURE && getAdapter().getSelectedStructure() != null) {
+				drawBar(g, screenDimensions);
+			    g.setEffect(ds);
+			    drawText(g, screenDimensions.y);
+			    g.setEffect(null);
+			}
+		} catch (StructureDoesNotExistException e) {
+			e.printStackTrace();
+		}
     }
 
     private void drawText(GraphicsContext g, int height) {
         Font old = g.getFont();
         g.setFont(detailsFont);
-        Structure structure = getAdapter().getSelectedStructure();
-        StructureStats stats = structure.getStats();
+        Structure structure = null;
+        StructureStats stats = null;
+		try {
+			structure = getAdapter().getSelectedStructure();
+			stats = structure.getStats();
+		} catch (StructureDoesNotExistException e) {}
         g.fillText("Structure Details", 10, height - 65);
         g.fillText("Type: ", X_DISTANCE , height - 35);
         g.fillText("Health: ", X_DISTANCE, height - 10);

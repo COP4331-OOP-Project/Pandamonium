@@ -68,13 +68,8 @@ public class GameModelAdapter {
 		return null;
 	}
 	
-	public Structure getSelectedStructure() {
-		try {
-			return gameModel.getCurrentPlayer().getStructure(getSelectedEntity());
-		} catch (StructureDoesNotExistException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public Structure getSelectedStructure() throws StructureDoesNotExistException {
+		return gameModel.getCurrentPlayer().getStructure(getSelectedEntity());
 	}
 
 	public int getTurnNum() {
