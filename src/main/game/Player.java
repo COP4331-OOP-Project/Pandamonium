@@ -404,6 +404,7 @@ public class Player implements iTurnObservable {
 		}
 	}
 
+	Melee p1;
 	private void five() {
 		if (this.m != null) {
 			MoveCommand moveCommand = new MoveCommand(this.m, new Location(5,31), 0, 1);
@@ -417,6 +418,12 @@ public class Player implements iTurnObservable {
 				log.error("oh well");
 			}
 		}
+
+		if (this.getPlayerId() == 1) {
+			this.p1 = this.getMelees().get(0);
+			Command command = new MakeStructureCommand(this.p1, new Location(7, 28), 1, EntitySubtypeEnum.MINE, this.structureManager);
+			p1.addCommandToQueue(command);
+		}
 	}
 
 	private void six() {
@@ -429,10 +436,8 @@ public class Player implements iTurnObservable {
 		}
 	}
 
-	Melee p1;
 	private void seven() {
 		if (this.getPlayerId() == 1) {
-			this.p1 = this.getMelees().get(0);
 			MoveCommand moveCommand = new MoveCommand(this.p1, new Location(8,28), 0, 1);
 			this.p1.addCommandToQueue(moveCommand);
 		}

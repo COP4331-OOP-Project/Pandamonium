@@ -36,7 +36,6 @@ public class FoundCapitolCommand extends Command {
 			this.structureManager.addStructure(EntitySubtypeEnum.CAPITOL, this.location);
 			this.unitManager.addUnit(EntitySubtypeEnum.MELEE, this.location);
 			this.unitManager.addUnit(EntitySubtypeEnum.MELEE, this.location);
-			this.unitManager.addUnit(EntitySubtypeEnum.MELEE, this.location);
 			this.workerManager.addWorker(WorkerTypeEnum.FOOD_GATHERER, this.location);
 			this.workerManager.addWorker(WorkerTypeEnum.FOOD_GATHERER, this.location);
 			this.workerManager.addWorker(WorkerTypeEnum.FOOD_GATHERER, this.location);
