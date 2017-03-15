@@ -15,10 +15,15 @@ import game.entityTypeResearch.EntityTypeAdvancementManager;
 import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
 import game.entityTypeResearch.nodeTypes.unitAdvancements.UnitAttackAdvancementNode;
 import game.entityTypeResearch.treeTypes.unitAdvancements.UnitAttackAdvancementTree;
+import game.techTree.TechTree;
+import game.entityTypeResearch.UniversityAlreadyDoingResearchException;
 import game.gameboard.*;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
-import game.techTree.TechTree;
+import game.techTree.nodeTypes.ProductionRateIntegerResearchNode;
+import game.techTree.nodeTypes.TechNodeImageEnum;
+import game.techTree.nodeTypes.TechTreeNode;
+import game.visitors.AttackVisitor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,6 +39,7 @@ public class Player implements iTurnObservable {
 
 	// ArrayLists of this player's instances
 	private ArrayList<RallyPoint> rallyPoints;
+	private Gameboard gameboard;
 
 	// Managers
 	private WorkerManager workerManager;
@@ -75,6 +81,8 @@ public class Player implements iTurnObservable {
 		this.improvementManager = new EntityTypeAdvancementManager(playerId, unitManager, structureManager);
 
 		this.rallyPoints = new ArrayList<RallyPoint>();
+
+		this.gameboard = gb;
 
 		this.turnObservers = new ArrayList<>();
 		this.attach(this.workerManager);
@@ -376,8 +384,18 @@ public class Player implements iTurnObservable {
 			case 11:
 				six();
 				break;
-			case 12:
+			case 13:
+				break;
+			case 15:
 				seven();
+				break;
+			case 17:
+				eight();
+				break;
+			case 19:
+				nine();
+				break;
+			default:
 				break;
 
 		}
@@ -393,7 +411,7 @@ public class Player implements iTurnObservable {
 
 	private Melee m;
 	private Melee m2;
-	private Melee m3;
+	private Melee mx;
 	private void two() {
 		Command powerUp = new PowerUpCommand(this.c1);
 		this.c1.addCommandToQueue(powerUp);
@@ -409,28 +427,47 @@ public class Player implements iTurnObservable {
 			if (this.getPlayerId() == 0) {
 				this.m = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
 				this.m2 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
-				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location (4, 30));
+				this.mx = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location (4, 30));
 				Command command = new MakeStructureCommand(m, new Location(5, 30), 1, EntitySubtypeEnum.FARM, this.structureManager);
 				m.addCommandToQueue(command);
-			} else {
-				this.structureManager.addStructure(EntitySubtypeEnum.FARM, new Location(32, 13));
+
+				Command makeUniversity = new MakeStructureCommand(m, new Location(4, 30), 1, EntitySubtypeEnum.UNIVERSITY, this.structureManager);
+				m.addCommandToQueue(makeUniversity);
 			}
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 		}
     }
 
+	Melee p1;
 	private void five() {
 		if (this.m != null) {
 			MoveCommand moveCommand = new MoveCommand(this.m, new Location(5,31), 0, 1);
 			this.m.addCommandToQueue(moveCommand);
+
+			University u = this.getUniversities().get(0);
+			TechTreeNode node = new ProductionRateIntegerResearchNode(this.workerManager, "", "", TechNodeImageEnum.FOOD, WorkerTypeEnum.FOOD_GATHERER, 50);
+			try {
+				u.research(node);
+			} catch (UniversityAlreadyDoingResearchException e) {
+				log.error("oh well");
+			}
+		}
+
+		if (this.getPlayerId() == 1) {
+			this.p1 = this.getMelees().get(0);
+			Command command = new MakeStructureCommand(this.p1, new Location(7, 28), 1, EntitySubtypeEnum.MINE, this.structureManager);
+			p1.addCommandToQueue(command);
 		}
 	}
 
 	private void six() {
 		if (this.m2 != null) {
-			MoveCommand moveCommand = new MoveCommand(this.m, new Location(6,32), 0, 1);
+			MoveCommand moveCommand = new MoveCommand(this.m2, new Location(6, 29), 0, 1);
 			this.m2.addCommandToQueue(moveCommand);
+
+			MoveCommand moveCommand2 = new MoveCommand(this.m2, new Location(5, 30), 0, 1);
+			this.m2.addCommandToQueue(moveCommand2);
 		}
 		if (this.getPlayerId() == 0){
             Command command = new MakeStructureCommand(m3, new Location(5, 32), 1, EntitySubtypeEnum.UNIVERSITY, this.structureManager);
@@ -438,6 +475,102 @@ public class Player implements iTurnObservable {
         }
     }
 
+	private Melee m3;
+	private Melee m4;
+	private Melee m5;
+
+	private Melee m6;
+	private Melee m7;
+	private Melee m8;
+
 	private void seven() {
+		if (this.getPlayerId() == 1) {
+			MoveCommand moveCommand = new MoveCommand(this.p1, new Location(8,28), 0, 1);
+			this.p1.addCommandToQueue(moveCommand);
+		}
+
+		if (this.playerId == 0) {
+
+			try {
+
+				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
+				this.m4 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
+				this.m5 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
+
+			} catch (Exception e) {
+				e.getLocalizedMessage();
+			}
+
+
+			ArrayList<Unit> units = new ArrayList<>();
+			units.add(m3);
+			units.add(m4);
+			units.add(m5);
+
+			try {
+				this.armyManager.addArmy(units, new Location(6, 25));
+			} catch (ArmyLimitExceededException e) {
+				e.getLocalizedMessage();
+			} catch (ArmyDoesNotExistException e) {
+				e.getLocalizedMessage();
+			}
+
+		} else {
+
+			try {
+
+				this.m6 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
+				this.m7 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
+				this.m8 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
+
+			} catch (Exception e) {
+				e.getLocalizedMessage();
+			}
+
+
+			ArrayList<Unit> units = new ArrayList<>();
+			units.add(m6);
+			units.add(m7);
+			units.add(m8);
+
+			try {
+				this.armyManager.addArmy(units, new Location(6, 26));
+			} catch (ArmyLimitExceededException e) {
+				e.getLocalizedMessage();
+			} catch (ArmyDoesNotExistException e) {
+				e.getLocalizedMessage();
+			}
+
+		}
+	}
+
+	public void eight() {
+		if (this.playerId == 0) {
+
+			Tile t = gameboard.getTileWithLocation(new Location(5, 26));
+
+			AttackVisitor atk = new AttackVisitor(m3.getDamage());
+			t.accept(atk);
+
+		} else {
+
+			Tile t = gameboard.getTileWithLocation(new Location(5, 25));
+
+			AttackVisitor atk = new AttackVisitor(m6.getDamage());
+			t.accept(atk);
+
+		}
+	}
+
+	public void nine() {
+
+		if (this.playerId == 0) {
+
+			Tile t = gameboard.getTileWithLocation(new Location(5, 26));
+
+			AttackVisitor atk = new AttackVisitor(m3.getDamage() * 20);
+			t.accept(atk);
+
+		}
 	}
 }

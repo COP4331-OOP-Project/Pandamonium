@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
-	private static final Location PANDA_STARTING_LOCATION = new Location(10, 20);
+	private static final Location PANDA_STARTING_LOCATION = new Location(7, 28);
     private final static Logger log = LogManager.getLogger(GameModel.class);
     private UnitFactory unitFactory;
     private Player currentPlayer;
@@ -42,10 +42,10 @@ public class GameModel {
             players.add(human);
             players.add(panda);
             initialUnits(human, panda);
-            human.initializeSimpleTiles(gBoard.getTiles());
-            panda.initializeSimpleTiles(gBoard.getTiles());
-            human.updateSimpleTiles(gBoard.getTiles());
-            panda.updateSimpleTiles(gBoard.getTiles());
+            human.initializeSimpleTiles(gBoard.getTiles().clone());
+            panda.initializeSimpleTiles(gBoard.getTiles().clone());
+            human.updateSimpleTiles(gBoard.getTiles().clone());
+            panda.updateSimpleTiles(gBoard.getTiles().clone());
             gameHasStarted = true;
             startTurn();
         }catch(GameFailedToStartException e){
@@ -99,12 +99,12 @@ public class GameModel {
     	if (currentPlayer == players.get(0)) {
     		turnNum++;
     	}
-    	currentPlayer.updateSimpleTiles(gBoard.getTiles());
+    	currentPlayer.updateSimpleTiles(gBoard.getTiles().clone());
     }
     
     public void endTurn() {
         currentPlayer.endTurn();
-    	currentPlayer.updateSimpleTiles(gBoard.getTiles());
+    	currentPlayer.updateSimpleTiles(gBoard.getTiles().clone());
     	if (currentPlayer == players.get(0)) {
     		currentPlayer = players.get(1);
     	} else {

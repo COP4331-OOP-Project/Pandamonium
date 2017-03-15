@@ -32,9 +32,12 @@ public class SimpleTile{
     	if (tile.getTileType() == TerrainEnum.NON_TILE)
     		visibility = TileVisibilityEnum.NON_TILE;
     	Terrain = tile.getTileType();
-		units = tile.getUnits();
-		armies = tile.getArmies();
-		rallyPoints = tile.getRallyPoints();
+    	units = new ArrayList<>();
+    	units.addAll(tile.getUnits());
+    	armies = new ArrayList<>();
+    	armies.addAll(tile.getArmies());
+    	rallyPoints = new ArrayList<>();
+    	rallyPoints.addAll(tile.getRallyPoints());
 		structure = tile.getStructure();
 		food = tile.getResource(ResourceTypeEnum.FOOD);
 		ore = tile.getResource(ResourceTypeEnum.ORE);
@@ -45,9 +48,12 @@ public class SimpleTile{
 
     public void updateTile(Tile tile) {
     	if (visibility == TileVisibilityEnum.VISIBLE) {
-    		units = tile.getUnits();
-    		armies = tile.getArmies();
-    		rallyPoints = tile.getRallyPoints();
+			units = new ArrayList<>();
+			units.addAll(tile.getUnits());
+			armies = new ArrayList<>();
+			armies.addAll(tile.getArmies());
+			rallyPoints = new ArrayList<>();
+			rallyPoints.addAll(tile.getRallyPoints());
     		structure = tile.getStructure();
     		food = tile.getResource(ResourceTypeEnum.FOOD);
     		ore = tile.getResource(ResourceTypeEnum.ORE);
@@ -76,6 +82,18 @@ public class SimpleTile{
     public TerrainEnum getTileType() {
     	return Terrain;
     }
+
+	// Check if has army
+	public boolean hasArmy() {
+		if (this.armies.size() > 0) return true;
+		return false;
+	}
+
+	// Check if has units
+	public boolean hasUnits() {
+		if (this.units.size() > 0) return true;
+		return false;
+	}
     
     public Structure getStructure() {
     	return structure;

@@ -26,20 +26,28 @@ public class Army extends Entity {
 
     private ArrayList<Unit> units;
 
-    public Army(EntityId id, ArrayList<Unit> units, RallyPoint rp, PlacementManager placementManager, PathFinding pathFinding){
+    public Army(EntityId id, ArrayList<Unit> units, RallyPoint rp, PlacementManager placementManager, PathFinding pathFinding) {
         super(id, placementManager);
+
         this.rallyPoint = rp;               // Set rally point
         this.location = rp.getLocation();           // Set location
+
         battleGroup = new BattleGroup(rp.getLocation(), id);  // Setup Battlegroup
         reinforcement = new Reinforcement();                  // Setup Reinforcements
+
         this.units = units;
+
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
         placementManager.accept(addRallyPointVisitor);
-        for(Unit u: units){
+
+        for(Unit u: units) {
             reinforcement.addReinforcement(u);
         }
+
         updateArmy();
+
         this.pathFinding=pathFinding;
+
         addCommand(CommandEnum.DROP_OFF_WORKER);
         addCommand(CommandEnum.PICK_UP_WORKER);
         addCommand(CommandEnum.BUILD_STRUCTURE);

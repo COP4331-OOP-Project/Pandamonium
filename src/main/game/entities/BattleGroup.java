@@ -7,7 +7,7 @@ import game.gameboard.Location;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class BattleGroup implements iAttacker{
+public class BattleGroup implements iAttacker {
     private EntityId entityId;
     private ArrayList<BattleGroupUnit> bgUnits;
     private Location location;
