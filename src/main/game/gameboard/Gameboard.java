@@ -134,7 +134,7 @@ public class Gameboard {
 
 
 //        addAreaEffectLogException(this.board[6][30], lowDamageEffect);
-        addOneShotItemLogException(this.board[5][30], oneShotItem);
+        addOneShotItemLogException(this.board[5][31], oneShotItem);
         //TODO: add some area effects
     }
 
