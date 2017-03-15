@@ -1,6 +1,7 @@
 package game.entities.structures;
 
 import game.commands.CommandEnum;
+import game.commands.SubCommandEnum;
 import game.entities.*;
 import game.entities.factories.exceptions.TotalUnitLimitExceededException;
 import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
@@ -21,6 +22,8 @@ public class Fort extends StructureWithWorker implements iAttacker, iDefender {
         addCommand(CommandEnum.ASSIGN_WORKER);
         addCommand(CommandEnum.UNASSIGN_ALL_WORKERS);
         addCommand(CommandEnum.CREATE_SOLDIERS);
+        addSubCommand(SubCommandEnum.CREATE_MELEE);
+        addSubCommand(SubCommandEnum.CREATE_RANGED);
         this.unitManager=unitManager;
     }
 

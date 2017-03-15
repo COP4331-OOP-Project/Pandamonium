@@ -22,6 +22,7 @@ public class CommandManager {
 	
 	public void updateCommandList() {
 			possibleCommands = commandableItem.getCommands();
+			possibleSubCommands = commandableItem.getSubCommands();
 	}
 	
 	public void cycleForward() {
@@ -53,6 +54,10 @@ public class CommandManager {
 	
 	public void execute(EntityId selectedEntity) {
 		commandExecutor.executeCommand(selectedEntity, selectedCommand, currentPlayer);
+	}
+
+	public void executeSubCommand(EntityId selectedEntity) {
+		commandExecutor.executeSubCommand(selectedEntity, selectedSubCommand, currentPlayer);
 	}
 	
 	public void setPlayer(Player currentPlayer) {

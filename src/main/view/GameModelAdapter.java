@@ -133,6 +133,14 @@ public class GameModelAdapter {
 	public void executeCommand() {
 		controlMode.execute();
 	}
+
+	public void executeSubCommand() {
+		controlMode.executeSubCommand();
+	}
+
+	public boolean isExpectingSubCommand() {
+		return controlMode.isExpectingSubCommand();
+	}
 	
 	public ArrayList<CommandEnum> getCommands() {
 		return controlMode.getCommands();

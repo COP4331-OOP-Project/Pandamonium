@@ -25,6 +25,7 @@ public class ModeController {
 	private GameModel gameModel;
 	private Player currentPlayer;
 	private KeyEventController keyEventController;
+	private boolean expectingSubCommand = false;
 	
 	public ModeController(GameModel gameModel) {
 		this.gameModel = gameModel;
@@ -49,6 +50,7 @@ public class ModeController {
 		cycleSubmodeForward();
 		selectedManager.cycle(true);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 	
 	public void cycleModeBackward() {
@@ -56,19 +58,26 @@ public class ModeController {
 		cycleSubmodeForward();
 		selectedManager.cycle(false);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 
 	public void cycleSubmodeForward() {
 		currentSubmode = currentSubmode.getNext(currentMode);
 		selectedManager.cycle(true);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
 
 	public void cycleSubmodeBackward() {
 		currentSubmode = currentSubmode.getPrevious(currentMode);
 		selectedManager.cycle(false);
 		updateSelectedEntityCommands();
+		clearExpectingSubCommand();
 	}
+
+	public void setExpectingSubCommand() { this.expectingSubCommand = true; }
+	public void clearExpectingSubCommand() { this.expectingSubCommand = false; }
+	public boolean isExpectingSubCommand() { return this.expectingSubCommand; }
 	
 	public void cycleCommandForward() {
 		commandManager.cycleForward();
@@ -172,7 +181,25 @@ public class ModeController {
 	}
 
 	public void execute() {
-		commandManager.execute(selectedManager.getSelectedEntity());
+
+		CommandEnum cmd = commandManager.getCurrentCommand();
+
+		switch (cmd) {
+			case CREATE_SOLDIERS:
+			case ASSIGN_WORKER:
+				setExpectingSubCommand();
+				break;
+			default:
+				clearExpectingSubCommand();
+				commandManager.execute(selectedManager.getSelectedEntity());
+		}
+
+	}
+
+	public void executeSubCommand() {
+
+		commandManager.executeSubCommand(selectedManager.getSelectedEntity());
+
 	}
 
 	public void setCommand(CommandEnum command) {

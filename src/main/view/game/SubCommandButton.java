@@ -13,6 +13,7 @@ public class SubCommandButton extends Button {
         super(command.toString());
         this.command = command;
         this.description = command.toString();
+        setVisible(false);
     }
 
     public SubCommandEnum getCommand() { return command; }

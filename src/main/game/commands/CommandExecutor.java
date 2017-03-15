@@ -1,10 +1,7 @@
 package game.commands;
 
 import game.Player;
-import game.entities.Entity;
-import game.entities.EntityId;
-import game.entities.EntityTypeEnum;
-import game.entities.RallyPoint;
+import game.entities.*;
 import game.entities.managers.*;
 import game.entities.managers.exceptions.RallyPointDoesNotExistException;
 import game.entities.units.Colonist;
@@ -25,6 +22,24 @@ public class CommandExecutor {
 		this.workerManager = workerManager;
 		this.armyManager = armyManager;
 		this.dispatcher = new CommandDispatcher(unitManager, structureManager, armyManager, placementManager, workerManager);
+		this.placementManager = placementManager;
+
+	}
+
+	public void executeSubCommand(EntityId selectedEntity, SubCommandEnum selectedCommand, Player currentPlayer) {
+
+		Entity entity = null;
+
+		try {
+			switch (selectedCommand) {
+				case CREATE_MELEE:
+					entity = currentPlayer.getEntityById(selectedEntity);
+					dispatcher.issueMakeUnitCommand(entity, entity.getLocation(), EntitySubtypeEnum.MELEE);
+			}
+		} catch (UnitNotFoundException e) {
+			e.getLocalizedMessage();
+		}
+
 	}
 
 	public void executeCommand(EntityId selectedEntity, CommandEnum selectedCommand, Player currentPlayer) {

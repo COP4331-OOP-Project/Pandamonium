@@ -1,12 +1,10 @@
 package view.game;
 
-import game.commands.CommandEnum;
 import game.commands.SubCommandEnum;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.Button;
 import view.GameModelAdapter;
 import view.Panel;
 import view.ViewEnum;
@@ -19,9 +17,8 @@ import java.util.ArrayList;
 
 public class SubCommandPanel extends Panel {
 
-    private static final int COMMAND_Y_NORMAL = 99;
-    private static final int COMMAND_Y_RP = 50;
-    private static final int ICON_WIDTH = 55;
+    private static final int COMMAND_Y_NORMAL = 350;
+    private static final int BUTTON_HEIGHT = 18;
     private static final int SPACING = 15;
     private int yDistance = COMMAND_Y_NORMAL;
     private DropShadow ds = new DropShadow();
@@ -76,54 +73,78 @@ public class SubCommandPanel extends Panel {
 
         super(gameModelAdapter, assets, view);
 
-        setIsVisible(true);
+        setIsVisible(false);
 
         this.root = root;
         this.hoverPanel = new HoverPanel(gameModelAdapter, assets, view);
         this.tileSelector = tileSelector;
+
+        // Setup buttons
+        setUpSubCommandButton(assignBreeder);
+        setUpSubCommandButton(assignFarmer);
+        setUpSubCommandButton(assignGenerator);
+        setUpSubCommandButton(assignMiner);
+        setUpSubCommandButton(assignInactive);
+        setUpSubCommandButton(assignSoldierGenerator);
+        setUpSubCommandButton(assignResearcher);
+        setUpSubCommandButton(createMelee);
+        setUpSubCommandButton(createColonist);
+        setUpSubCommandButton(createRanged);
+        setUpSubCommandButton(createExplorer);
+        setUpSubCommandButton(createWorker);
+        setUpSubCommandButton(buildFort);
+        setUpSubCommandButton(buildCapitol);
+        setUpSubCommandButton(buildObserver);
+        setUpSubCommandButton(buildUniversity);
+        setUpSubCommandButton(buildMine);
+        setUpSubCommandButton(buildPowerPlant);
+        setUpSubCommandButton(buildFarm);
+
     }
 
     private void drawSubCommandPanel(GraphicsContext g) {
         yDistance = COMMAND_Y_NORMAL;
 
         if (possibleSubCommands.size() >= 1 && possibleSubCommands.size() <= 3) {
-            g.drawImage(getImage("GUI_COMMAND_PANEL1"), 50, yDistance);
+            g.drawImage(getImage("GUI_COMMAND_PANEL1"), 0, yDistance);
         } else if (possibleSubCommands.size() >= 4 && possibleSubCommands.size() <= 6) {
-            g.drawImage(getImage("GUI_COMMAND_PANEL2"), 50, yDistance);
+            g.drawImage(getImage("GUI_COMMAND_PANEL2"), 0, yDistance);
         } else if (possibleSubCommands.size() >= 7 && possibleSubCommands.size() <= 9) {
-            g.drawImage(getImage("GUI_COMMAND_PANEL3"), 50, yDistance);
+            g.drawImage(getImage("GUI_COMMAND_PANEL3"), 0, yDistance);
         } else if (possibleSubCommands.size() >= 10 && possibleSubCommands.size() <= 12) {
-            g.drawImage(getImage("GUI_COMMAND_PANEL4"), 50, yDistance);
+            g.drawImage(getImage("GUI_COMMAND_PANEL4"), 0, yDistance);
         }
+
         updateCommandButtonLocations(g);
         drawCommandButtons(g);
+
     }
 
     private void updateCommandButtonLocations(GraphicsContext g) {
         c1.x = 0;
         c1.y = yDistance;
-        c2.x = ICON_WIDTH;
-        c2.y = yDistance;
-        c3.x = ICON_WIDTH * 2;
-        c3.y = yDistance;
+        c2.x = 0;
+        c2.y = yDistance + BUTTON_HEIGHT;
+        c3.x = 0;
+        c3.y = yDistance + BUTTON_HEIGHT * 2;
         c4.x = 0;
-        c4.y = yDistance + ICON_WIDTH;
-        c5.x = ICON_WIDTH;
-        c5.y = yDistance + ICON_WIDTH;
-        c6.x = ICON_WIDTH * 2;
-        c6.y = yDistance + ICON_WIDTH;
+        c4.y = yDistance + BUTTON_HEIGHT * 3;
+        c5.x = 0;
+        c5.y = yDistance + BUTTON_HEIGHT * 4;
+        c6.x = 0;
+        c6.y = yDistance + BUTTON_HEIGHT * 5;
         c7.x = 0;
-        c7.y = yDistance + ICON_WIDTH * 2;
-        c8.x = ICON_WIDTH;
-        c8.y = yDistance + ICON_WIDTH * 2;
-        c9.x = ICON_WIDTH * 2;
-        c9.y = yDistance + ICON_WIDTH * 2;
+        c7.y = yDistance + BUTTON_HEIGHT * 6;
+        c8.x = 0;
+        c8.y = yDistance + BUTTON_HEIGHT * 7;
+        c9.x = 0;
+        c9.y = yDistance + BUTTON_HEIGHT * 8;
         c10.x = 0;
-        c10.y = yDistance + ICON_WIDTH * 3;
-        c11.x = ICON_WIDTH;
-        c11.y = yDistance + ICON_WIDTH * 3;
-        c12.x = ICON_WIDTH * 3;
-        c12.y = yDistance + ICON_WIDTH * 3;
+        c10.y = yDistance + BUTTON_HEIGHT * 9;
+        c11.x = 0;
+        c11.y = yDistance + BUTTON_HEIGHT * 10;
+        c12.x = 0;
+        c12.y = yDistance + BUTTON_HEIGHT * 11;
     }
 
     private void drawCommandButtons(GraphicsContext g) {
@@ -202,21 +223,30 @@ public class SubCommandPanel extends Panel {
     public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
         this.screenDimensions = screenDimensions;
         possibleSubCommands = getAdapter().getSubCommands();
-        if (getAdapter().getSelectedEntity() != null) {
+        if (getAdapter().getSelectedEntity() != null &&  getAdapter().isExpectingSubCommand()) {
             drawSubCommandPanel(g);
+        } else {
+            this.hideButtons();
+        }
+    }
+
+    // Set buttons invisible
+    private void hideButtons() {
+        for (SubCommandButton b : subCommandButtons) {
+            b.setVisible(false);
         }
     }
 
     // Setup the correct selected subCommand
     public void setUpSubCommandButton(SubCommandButton subCommandButton) {
-        subCommandButton.getStyleClass().setAll("commandButton");
+        subCommandButton.setId("button");
         subCommandButton.setOnAction(event -> {});
         subCommandButtonPane.getChildren().removeAll();
         subCommandButtonPane.getChildren().add(subCommandButton);
         subCommandButtons.add(subCommandButton);
         subCommandButton.setOnAction(event -> {
             setSubCommand(subCommandButton.getCommand());
-            getAdapter().executeCommand();
+            getAdapter().executeSubCommand();
         });
     }
 
