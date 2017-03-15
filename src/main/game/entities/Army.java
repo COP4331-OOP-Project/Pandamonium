@@ -23,12 +23,15 @@ public class Army extends Entity {
     private Location location;              // Army current location
     private PathFinding pathFinding;
 
+    private ArrayList<Unit> units;
+
     public Army(EntityId id, ArrayList<Unit> units, RallyPoint rp, PlacementManager placementManager, PathFinding pathFinding){
         super(id, placementManager);
         this.rallyPoint = rp;               // Set rally point
         this.location = rp.getLocation();           // Set location
         battleGroup = new BattleGroup(rp.getLocation(), id);  // Setup Battlegroup
         reinforcement = new Reinforcement();                  // Setup Reinforcements
+        this.units = units;
         AddRallyPointVisitor addRallyPointVisitor = new AddRallyPointVisitor(rallyPoint,rp.getLocation());
         placementManager.accept(addRallyPointVisitor);
         for(Unit u: units){
@@ -126,7 +129,11 @@ public class Army extends Entity {
     public void takeDamage(double damage) {}
     public void heal(double healing) {}
     public void decommissionEntity() {}
-    public void disband() {}
+    public void disband() {
+        for(int i = 0;i<units.size();i++){
+            units.get(i).setArmyId(null);
+        }
+    }
 
     public BattleGroup getBattleGroup() { return battleGroup; }
     public Reinforcement getReinforcements() { return reinforcement; }

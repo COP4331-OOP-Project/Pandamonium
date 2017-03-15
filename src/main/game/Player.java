@@ -110,8 +110,18 @@ public class Player implements iTurnObservable {
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
 	}
 
-	public void addArmy(Army army) {
-		armies.add(army);
+	public Army addArmy(EntityTypeEnum type, ArrayList<Unit> units, Location loc) throws EntityTypeDoesNotExistException {
+		try {
+			switch (type) {
+				case ARMY:
+					return this.armyManager.addArmy(units, loc);
+				default:
+					throw new EntityTypeDoesNotExistException("The input type " + type + " is not army.");
+			}
+		} catch(ArmyDoesNotExistException|ArmyLimitExceededException e){
+			log.error("Army can't be created");
+		}
+		return null;
 	}
 
 	public void addRallyPoint(RallyPoint rallyPoint) {
