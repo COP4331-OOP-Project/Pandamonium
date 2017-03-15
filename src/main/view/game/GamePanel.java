@@ -91,12 +91,12 @@ public class GamePanel extends Panel {
                 if (tile.getTileType() != TerrainEnum.NON_TILE && tile.getVisibility() != TileVisibilityEnum.INVISIBLE) {
 	                //Draw Tiles
 	                tileDrawer.drawTile(currentTile, tile.getTileType());
-	                if (unitsVisible && tile.getUnitCount() > 0) {
-	                    unitDrawer.drawUnits(currentTile, tile.getUnits(), g, selectedEntity);
-	                }
 	                if (structuresVisible && tile.getStructure() != null) {
 	                    Structure structure = tile.getStructure();
 	                    structureDrawer.drawStructure(currentTile, structure, selectedEntity);
+	                }
+	                if (unitsVisible && tile.getUnitCount() > 0) {
+	                    unitDrawer.drawUnits(currentTile, tile.getUnits(), g, selectedEntity);
 	                }
 	                if (resourcesVisible) {
 	                	resourceDrawer.drawResources(tile, currentTile, g);

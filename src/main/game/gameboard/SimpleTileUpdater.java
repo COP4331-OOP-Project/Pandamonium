@@ -37,6 +37,13 @@ public final class SimpleTileUpdater {
 				setSurroundingVisible(structure, simpleTiles);
 			}
 		}
+		for (int i = 0; i < simpleTiles.length; i++) {
+			for (int j = 0; j < simpleTiles[i].length; j++) {
+				if (simpleTiles[i][j].getVisibility() == TileVisibilityEnum.VISIBLE) {
+					simpleTiles[i][j].updateTile(tiles[i][j]);
+				}
+			}
+		}
 		return simpleTiles;
 	}
 
