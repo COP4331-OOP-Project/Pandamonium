@@ -364,6 +364,9 @@ public class Player implements iTurnObservable {
 			case 15:
 				seven();
 				break;
+			case 17:
+				eight();
+				break;
 
 		}
 		this.turnCounter++;
@@ -378,6 +381,7 @@ public class Player implements iTurnObservable {
 
 	private Melee m;
 	private Melee m2;
+	private Explorer e;
 	private void two() {
 		Command powerUp = new PowerUpCommand(this.c1);
 		this.c1.addCommandToQueue(powerUp);
@@ -442,5 +446,19 @@ public class Player implements iTurnObservable {
 			this.p1.addCommandToQueue(moveCommand);
 		}
 
+	}
+
+	private  void eight(){
+		try {
+			if (this.getPlayerId() == 0) {
+				this.e = (Explorer) this.unitManager.addUnit(EntitySubtypeEnum.EXPLORER, new Location(6, 30));
+			}
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+		}
+		if(this.getPlayerId() == 0) {
+			StartProspectingCommand startProspectingCommand = new StartProspectingCommand(this.e, 1);
+			this.e.addCommandToQueue(startProspectingCommand);
+		}
 	}
 }
