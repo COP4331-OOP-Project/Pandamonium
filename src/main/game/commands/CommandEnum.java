@@ -48,5 +48,6 @@ public enum CommandEnum {
     DROP_OFF_WORKER,
     PICK_UP_WORKER,
     BUILD_STRUCTURE,
+    BUILD_UNIT,
     DISBAND_ARMY,
 }
