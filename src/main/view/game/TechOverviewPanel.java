@@ -1,6 +1,9 @@
 package view.game;
 
 import game.entities.EntitySubtypeEnum;
+import game.entities.structures.Structure;
+import game.entities.structures.University;
+import game.techTree.nodeTypes.TechTreeNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -19,52 +22,57 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class TechOverviewPanel extends OverviewPanel{
 	private static final int PANE_WIDTH = 219;
 	private static final int PANE_HEIGHT = 80;
 	private Label label = new Label("Technology Overview");
+	private Label label2 = new Label();
 	private TechModeEnum currentMode = TechModeEnum.TECHNOLOGY;
 	private AnchorPane techBox = new AnchorPane();
 	private ScrollPane scrollPane = new ScrollPane();
-	/*
-	private TechViewItem fertilizer = new TechViewItem(getAssets();
-	private TechViewItem wheelbarrow = new TechViewItem(getAssets());
-	private TechViewItem tent = new TechViewItem(getAssets());
-	private TechViewItem ironMining = new TechViewItem(getAssets());
-	private TechViewItem bed = new TechViewItem(getAssets());
-	private TechViewItem housing = new TechViewItem(getAssets());
-	private TechViewItem draftHorse = new TechViewItem(getAssets());
-	private TechViewItem irrigation = new TechViewItem(getAssets());
-	private TechViewItem steamPower = new TechViewItem(getAssets());
-	private TechViewItem militia = new TechViewItem(getAssets());
-	private TechViewItem pesticides = new TechViewItem(getAssets());
-	private TechViewItem steelMining = new TechViewItem(getAssets());
-	private TechViewItem barracks = new TechViewItem(getAssets());
-	private TechViewItem beer = new TechViewItem(getAssets());
-	private TechViewItem blastFurnace = new TechViewItem(getAssets());
-	private TechViewItem roads = new TechViewItem(getAssets());
-	private TechViewItem vodka = new TechViewItem(getAssets());
-	private TechViewItem urbanPlanning = new TechViewItem(getAssets());
-	private TechViewItem windPower = new TechViewItem(getAssets());
-	private TechViewItem militaryAcademy = new TechViewItem(getAssets());
-	private TechViewItem nuclearPower = new TechViewItem(getAssets());
-	*/
+	private TechViewItem fertilizer;
+	private TechViewItem wheelbarrow;
+	private TechViewItem tent;
+	private TechViewItem ironMining;
+	private TechViewItem bed;
+	private TechViewItem housing;
+	private TechViewItem draftHorse;
+	private TechViewItem irrigation;
+	private TechViewItem steamPower;
+	private TechViewItem militia;
+	private TechViewItem pesticides;
+	private TechViewItem steelMining;
+	private TechViewItem barracks;
+	private TechViewItem beer;
+	private TechViewItem blastFurnace;
+	private TechViewItem roads;
+	private TechViewItem vodka;
+	private TechViewItem urbanPlanning;
+	private TechViewItem windPower;
+	private TechViewItem militaryAcademy;
+	private TechViewItem nuclearPower;
 	private ToggleButton techsToggle = new ToggleButton("Technologies");
-	private ToggleButton improvementsToggle = new ToggleButton("Improvements");
-	private ComboBox<String> universityComboBox;
-	private ObservableList<String> universityList = FXCollections.observableArrayList();
+	private ToggleButton improvementsToggle = new ToggleButton("Improvements"); 
+	private ArrayList<University> currentUniversities;
 	private ComboBox<String> upgradableComboBox;
 	private ObservableList<String> upgradableList;
 	private DropShadow ds = new DropShadow();
 	private EntitySubtypeEnum selectedEntity;
 	private GraphicsContext techGraphics;
+	private int itemsResearching = 0;
+	private int universityCount = 0;
+	private int player;
 	private Canvas canvas;
 	private Group root;
 	
-	public TechOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root) {
+	public TechOverviewPanel(GameModelAdapter gameModelAdapter, AssetManager assets, ViewEnum view, Group root, int player) {
 		super(gameModelAdapter, assets, view);
+		currentUniversities = new ArrayList<>();
+		this.player = player;
 		this.root = root;
+		setUpTechsForPlayer();
 		upgradableList = FXCollections.observableArrayList(
 		        "Colonist",
 		        "Explorer",
@@ -81,10 +89,60 @@ public class TechOverviewPanel extends OverviewPanel{
 		setUpCanvas();
 		setUpLabel();
 		setUpButtons();
-		setUpUniversityList();
 		setUpUpgradableList();
 		setUpScrollPane();
-		techBox.getChildren().addAll(canvas, label, techsToggle, improvementsToggle, universityComboBox, upgradableComboBox);
+		techBox.getChildren().addAll(canvas, label, label2, techsToggle, improvementsToggle, upgradableComboBox);
+	}
+
+	private void setUpTechsForPlayer() {
+		ArrayList<TechTreeNode> techs;
+		if (player == 0) {
+			techs = getAdapter().getHumanTechNodes();
+		} else {
+			techs = getAdapter().getPandaTechNodes();
+		}
+		TechTreeNode fertilizerNode = techs.get(0);
+		TechTreeNode wheelbarrowNode = techs.get(1);
+		TechTreeNode tentNode = techs.get(2);
+		TechTreeNode ironMiningNode = fertilizerNode.getChildren().get(0);
+		TechTreeNode bedNode = tentNode.getChildren().get(0);
+		TechTreeNode housingNode = ironMiningNode.getChildren().get(0);
+		TechTreeNode draftHorseNode = housingNode.getChildren().get(0);
+		TechTreeNode irrigationNode = housingNode.getChildren().get(1);
+		TechTreeNode steamPowerNode = housingNode.getChildren().get(2);
+		TechTreeNode militiaNode = draftHorseNode.getChildren().get(0);
+		TechTreeNode pesticidesNode = irrigationNode.getChildren().get(0);
+		TechTreeNode steelMiningNode = steamPowerNode.getChildren().get(0);
+		TechTreeNode barracksNode = militiaNode.getChildren().get(0);
+		TechTreeNode beerNode  = pesticidesNode.getChildren().get(0);
+		TechTreeNode blastFurnaceNode = steelMiningNode.getChildren().get(0);
+		TechTreeNode roadsNode = barracksNode.getChildren().get(0);
+		TechTreeNode vodkaNode = beerNode.getChildren().get(0);
+		TechTreeNode urbanPlanningNode = roadsNode.getChildren().get(0);
+		TechTreeNode windPowerNode = roadsNode.getChildren().get(1);
+		TechTreeNode militaryAcademyNode = urbanPlanningNode.getChildren().get(0);
+		TechTreeNode nuclearPowerNode = windPowerNode.getChildren().get(0);
+		fertilizer = new TechViewItem(getAssets(), fertilizerNode, getAdapter(), this);
+		wheelbarrow = new TechViewItem(getAssets(), wheelbarrowNode, getAdapter(), this);
+		tent = new TechViewItem(getAssets(), tentNode, getAdapter(), this);
+		ironMining = new TechViewItem(getAssets(), ironMiningNode, getAdapter(), this);
+		bed = new TechViewItem(getAssets(), bedNode, getAdapter(), this);
+		housing = new TechViewItem(getAssets(), housingNode, getAdapter(), this);
+		draftHorse = new TechViewItem(getAssets(), draftHorseNode, getAdapter(), this);
+		irrigation = new TechViewItem(getAssets(), irrigationNode, getAdapter(), this);
+		steamPower = new TechViewItem(getAssets(), steamPowerNode, getAdapter(), this);
+		militia = new TechViewItem(getAssets(), militiaNode, getAdapter(), this);
+		pesticides = new TechViewItem(getAssets(), pesticidesNode, getAdapter(), this);
+		steelMining = new TechViewItem(getAssets(), steelMiningNode, getAdapter(), this);
+		barracks = new TechViewItem(getAssets(), barracksNode, getAdapter(), this);
+		beer = new TechViewItem(getAssets(), beerNode, getAdapter(), this);
+		blastFurnace = new TechViewItem(getAssets(), blastFurnaceNode, getAdapter(), this);
+		roads = new TechViewItem(getAssets(), roadsNode, getAdapter(), this);
+		vodka = new TechViewItem(getAssets(), vodkaNode, getAdapter(), this);
+		urbanPlanning = new TechViewItem(getAssets(), urbanPlanningNode, getAdapter(), this);
+		windPower = new TechViewItem(getAssets(), windPowerNode, getAdapter(), this);
+		militaryAcademy = new TechViewItem(getAssets(), militaryAcademyNode, getAdapter(), this);
+		nuclearPower = new TechViewItem(getAssets(), nuclearPowerNode, getAdapter(), this);
 	}
 
 	private void setUpButtons() {
@@ -136,23 +194,6 @@ public class TechOverviewPanel extends OverviewPanel{
 		upgradableComboBox.getSelectionModel().selectFirst();
 		selectedEntity = EntitySubtypeEnum.COLONIST;
 	}
-	
-	private void setUpUniversityList() {
-		universityComboBox = new ComboBox<String>(universityList);
-		universityComboBox.setButtonCell(new ListCell<String>(){
-		        @Override
-		        protected void updateItem(String string, boolean empty) {
-		            super.updateItem(string, empty); 
-		            if(!(empty || string==null)){
-		                setStyle("-fx-text-fill: white");
-		                setText(string);
-		            }
-		       }
-		});
-		universityComboBox.setTranslateX(700);
-		universityComboBox.setTranslateY(17);
-	}
-
 
 	private void setUpCanvas() {
 		canvas = new Canvas(); //This is the canvas that goes inside of the scroll pane
@@ -179,9 +220,15 @@ public class TechOverviewPanel extends OverviewPanel{
         label.setEffect(ds);
         label.setTranslateX(10);
         label.setTranslateY(10);
+        label2.setTextFill(Color.WHITE);
+        label2.setFont(getAssets().getFont(1));
+        label2.setEffect(ds);
+        label2.setTranslateX(720);
+        label2.setTranslateY(20);
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		label2.setText("Available: " + (universityCount - itemsResearching));
 		techGraphics.clearRect(0, 0, 2500, screenDimensions.y);
 		scrollPane.toFront();
 		scrollPane.setMaxHeight(488);
@@ -207,7 +254,6 @@ public class TechOverviewPanel extends OverviewPanel{
 				canvas.setHeight(screenDimensions.y - 147);
 				canvas.setTranslateY(0);
 				drawImprovementText();
-				updateImprovementButtons();
 				break;
 		}
 		
@@ -247,9 +293,6 @@ public class TechOverviewPanel extends OverviewPanel{
 				selectedEntity = EntitySubtypeEnum.UNIVERSITY;
 				break;
 		}
-	}
-
-	private void updateImprovementButtons() {
 	}
 
 	private void drawImprovementText() {
@@ -294,7 +337,6 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	private void drawTechnologies() {
-		/*
         fertilizer.draw(techGraphics, new Point (0,80));
         wheelbarrow.draw(techGraphics, new Point(0, 190));
         tent.draw(techGraphics, new Point(0, 300));
@@ -316,11 +358,9 @@ public class TechOverviewPanel extends OverviewPanel{
         windPower.draw(techGraphics, new Point(1925, 245));
         militaryAcademy.draw(techGraphics, new Point(2200, 135));
         nuclearPower.draw(techGraphics, new Point(2200, 245));
-        */
 	}
 	
 	private void paneClicked(double x, double y) {
-		/*
 		if (currentMode == TechModeEnum.TECHNOLOGY) {
 			if (pointInPane(14, 87, x, y)) {
 				fertilizer.onClick();
@@ -366,9 +406,8 @@ public class TechOverviewPanel extends OverviewPanel{
 				militaryAcademy.onClick();
 			}else if (pointInPane(2214, 252, x, y)) {
 				nuclearPower.onClick();
-			}	
+			}
 		}
-		*/
 	}
 	
 	private boolean pointInPane(int paneX, int paneY, double clickX, double clickY) {
@@ -382,5 +421,38 @@ public class TechOverviewPanel extends OverviewPanel{
 
 	public void hideGUIElements() {
 		root.getChildren().remove(scrollPane);
+	}
+
+	public void updatePlayer() {
+		setUpTechsForPlayer();
+		updateUniversities();
+	}
+
+	private void updateUniversities() {
+		currentUniversities.clear();
+		for (Structure structure : getAdapter().getStructures()) {
+			if (structure.getType() == EntitySubtypeEnum.UNIVERSITY) {
+				currentUniversities.add((University)structure);
+			}
+		}
+		universityCount = currentUniversities.size();
+	}
+	
+	public int getUniversityCount() {
+		return universityCount;
+	}
+	
+	public int getItemsResearching() {
+		return itemsResearching;
+	}
+
+	public void research(TechTreeNode techNode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPlayer(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }

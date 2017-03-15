@@ -34,6 +34,7 @@ public class WorkRadiusResearchNode extends TechTreeNode {
     }
 
     public void doResearch() {
+    	setResearchStarted(true);
         iStructureResearchVisitor structureResearchVisitor = new StructureWorkerRadiusResearchVisitor(this.increaseAmount);
         try {
             structureResearchVisitor.visitStructureManager(this.structureManager);

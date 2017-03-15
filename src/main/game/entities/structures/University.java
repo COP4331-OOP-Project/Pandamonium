@@ -29,15 +29,13 @@ public class University extends StructureWithWorker {
     public void research(TechTreeNode techTreeNode) throws UniversityAlreadyDoingResearchException {
         if (this.entityTypeAdvancementNodeOwnership != null) throw new UniversityAlreadyDoingResearchException();
         int researchProductionRate = 0;
-
+        
         for (Worker w : this.busy) {
             if (w.getWorkerType() == WorkerTypeEnum.RESEARCH_GENERATOR) {
                 researchProductionRate += w.getProductionRate();
             }
         }
-
         if (researchProductionRate == 0) return;    // you can't do research with no production capability. Silly you....
-
         this.techTreeNodeOwnership = new TechTreeNodeOwnership(techTreeNode, researchProductionRate);
     }
     
@@ -50,7 +48,6 @@ public class University extends StructureWithWorker {
                 researchProductionRate += w.getProductionRate();
             }
         }
-
         if (researchProductionRate == 0) return;
 
         this.entityTypeAdvancementNodeOwnership = new EntityTypeAdvancementNodeOwnership(entityTypeAdvancementNode, researchProductionRate);

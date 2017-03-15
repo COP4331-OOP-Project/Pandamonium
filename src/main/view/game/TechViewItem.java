@@ -20,11 +20,15 @@ public class TechViewItem {
 	private String improvement;
 	private AssetManager assets;
 	private GameModelAdapter adapter;
+	private TechOverviewPanel techPanel;
 	private Font font = Font.font(17);
 	private DropShadow ds = new DropShadow();
 	
-	public TechViewItem(AssetManager assets, TechTreeNode techNode, GameModelAdapter adapter) {
+	public TechViewItem(AssetManager assets, TechTreeNode techNode, GameModelAdapter adapter, TechOverviewPanel techPanel) {
 		this.assets = assets;
+		this.adapter = adapter;
+		this.techNode = techNode;
+		this.techPanel = techPanel;
 		text = techNode.getName();
 		improvement = techNode.getDescription();
 		getIcon(techNode.getImageEnum());
@@ -67,11 +71,12 @@ public class TechViewItem {
 	}
 
 	public void draw(GraphicsContext g, Point p) {
+		updateTechStatus();
 		g.drawImage(assets.getImage("TECHNOLOGY"), p.x, p.y);
-		if (researched == TechViewEnum.RESEARCHING) {
-			g.drawImage(assets.getImage("RESEARCHING"), p.x, p.y);
-		} else if (researched == TechViewEnum.RESEARCHED) {
+		if (techNode.isResearchCompleted()) {
 			g.drawImage(assets.getImage("RESEARCHED"), p.x, p.y);
+		} else if (techNode.canCompleteResearch()) {
+			g.drawImage(assets.getImage("RESEARCHING"), p.x, p.y);
 		}
 		g.drawImage(icon, p.x + 25, p.y + 47, 0.8 * icon.getWidth(), 0.8 * icon.getHeight());
 		g.setEffect(ds);
@@ -82,15 +87,16 @@ public class TechViewItem {
 		g.setEffect(null);
 	}
 	
+	private void updateTechStatus() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void onClick() {
 		//This functionality below is just a test of clicking on the technology.
 		//This needs to be replaced with actual technology function on clicking
 		//on the technology.
-		if (researched == TechViewEnum.RESEARCHED) {
-			researched = TechViewEnum.RESEARCHING;
-		} else {
-			researched = TechViewEnum.RESEARCHED;
-		}
+		techPanel.research(techNode);
 	}
 	
 	public void setIcon(Image icon) {
