@@ -132,6 +132,18 @@ public class Tile implements iTileAccessors, iTileObservable {
         //unit.setLocation(this.location);
     }
 
+    // Check if has army
+    public boolean hasArmy() {
+        if (this.armies.size() > 0) return true;
+        return false;
+    }
+
+    // Check if has units
+    public boolean hasUnits() {
+        if (this.units.size() > 0) return true;
+        return false;
+    }
+
     public void addAreaEffect(AreaEffect areaEffect) throws AreaEffectAlreadyPresentException, OneShotItemAlreadyPresentException {
         if (this.areaEffect != null) throw new AreaEffectAlreadyPresentException();
         if (this.oneShotItem != null) throw new OneShotItemAlreadyPresentException();

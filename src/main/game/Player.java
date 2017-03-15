@@ -21,6 +21,7 @@ import game.techTree.nodeTypes.TechTreeNode;
 import game.techTree.nodeTypes.ProductionRateIntegerResearchNode;
 import game.techTree.nodeTypes.TechNodeImageEnum;
 import game.techTree.nodeTypes.TechTreeNode;
+import game.visitors.AttackVisitor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,6 +37,7 @@ public class Player implements iTurnObservable {
 
 	// ArrayLists of this player's instances
 	private ArrayList<RallyPoint> rallyPoints;
+	private Gameboard gameboard;
 
 	// Managers
 	private WorkerManager workerManager;
@@ -71,6 +73,8 @@ public class Player implements iTurnObservable {
 		this.armyManager = new ArmyManager(playerId, gb);
 
 		this.rallyPoints = new ArrayList<RallyPoint>();
+
+		this.gameboard = gb;
 
 		this.turnObservers = new ArrayList<>();
 		this.attach(this.workerManager);
@@ -374,6 +378,11 @@ public class Player implements iTurnObservable {
 			case 15:
 				seven();
 				break;
+			case 17:
+				eight();
+				break;
+			default:
+				break;
 
 		}
 		this.turnCounter++;
@@ -446,11 +455,90 @@ public class Player implements iTurnObservable {
 		}
 	}
 
+	private Melee m3;
+	private Melee m4;
+	private Melee m5;
+
+	private Melee m6;
+	private Melee m7;
+	private Melee m8;
+
 	private void seven() {
 		if (this.getPlayerId() == 1) {
 			MoveCommand moveCommand = new MoveCommand(this.p1, new Location(8,28), 0, 1);
 			this.p1.addCommandToQueue(moveCommand);
 		}
 
+		if (this.playerId == 0) {
+
+			try {
+
+				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
+				this.m4 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
+				this.m5 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
+
+			} catch (Exception e) {
+				e.getLocalizedMessage();
+			}
+
+
+			ArrayList<Unit> units = new ArrayList<>();
+			units.add(m3);
+			units.add(m4);
+			units.add(m5);
+
+			try {
+				this.armyManager.addArmy(units, new Location(8, 29));
+			} catch (ArmyLimitExceededException e) {
+				e.getLocalizedMessage();
+			} catch (ArmyDoesNotExistException e) {
+				e.getLocalizedMessage();
+			}
+
+		} else {
+
+			try {
+
+				this.m6 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
+				this.m7 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
+				this.m8 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
+
+			} catch (Exception e) {
+				e.getLocalizedMessage();
+			}
+
+
+			ArrayList<Unit> units = new ArrayList<>();
+			units.add(m6);
+			units.add(m7);
+			units.add(m8);
+
+			try {
+				this.armyManager.addArmy(units, new Location(8, 30));
+			} catch (ArmyLimitExceededException e) {
+				e.getLocalizedMessage();
+			} catch (ArmyDoesNotExistException e) {
+				e.getLocalizedMessage();
+			}
+
+		}
+	}
+
+	public void eight() {
+		if (this.playerId == 0) {
+
+			Tile t = gameboard.getTileWithLocation(new Location(7, 29));
+
+			AttackVisitor atk = new AttackVisitor(m3.getDamage());
+			t.accept(atk);
+
+		} else {
+
+			Tile t = gameboard.getTileWithLocation(new Location(7, 28));
+
+			AttackVisitor atk = new AttackVisitor(m6.getDamage());
+			t.accept(atk);
+
+		}
 	}
 }

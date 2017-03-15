@@ -6,7 +6,7 @@ import game.entities.HealthPercentage;
 import game.entities.iAttacker;
 import game.entities.stats.UnitStats;
 
-public class BattleGroupUnit implements iAttacker{
+public class BattleGroupUnit implements iAttacker {
     private EntityId entityId;
     private UnitStats stats;
     private int health;

@@ -1,7 +1,9 @@
 package view.game;
 
+import game.entities.Army;
 import game.entities.EntityId;
 import game.entities.structures.Structure;
+import game.entities.units.Unit;
 import game.gameboard.SimpleTile;
 import game.gameboard.TerrainEnum;
 import game.gameboard.TileVisibilityEnum;
@@ -17,6 +19,7 @@ import view.assets.AssetManager;
 import view.game.drawers.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import view.game.drawers.CoveringDrawer;
 import view.game.drawers.ResourceDrawer;
