@@ -79,4 +79,6 @@ public class BattleGroup implements iAttacker{
     }
 
     public Integer getOwnerId(){return entityId.getPlayerId();}
+
+    public boolean hasUnits(){return !bgUnits.isEmpty();}
 }
