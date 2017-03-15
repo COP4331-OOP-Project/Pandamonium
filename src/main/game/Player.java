@@ -265,34 +265,29 @@ public class Player implements iTurnObservable {
 	
 	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId, Location location)
 		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,
-				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException {
+				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException,
+				ArmyDoesNotExistException {
 
 		switch (type) {
 			case UNIT:
 				this.unitManager.removeUnit(subtype, entityId);
 				this.placementManager.remove(entityId, location);
-				return;
+				break;
 			case STRUCTURE:
 				this.structureManager.removeStructure(subtype,entityId);
 				this.placementManager.remove(entityId, location);
-				return;
+				break;
 			case WORKER:
 				this.workerManager.removeWorker(entityId);
 				this.placementManager.remove(entityId, location);
-				return;
-//			case ARMY:
-//				this.armyManager.removeArmy(entityId);
+				break;
+			case ARMY:
+				this.armyManager.removeArmy(entityId);
+				this.placementManager.remove(entityId, location);
+				break;
 			default:
+				throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
 		}
-
-		for(int i = 0; i < armies.size(); i++) {
-			if(entityId.compareTo(armies.get(i).getEntityId())==1){
-				armies.remove(i);
-				return;
-			}
-		}
-
-		throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
 
 	}
 
