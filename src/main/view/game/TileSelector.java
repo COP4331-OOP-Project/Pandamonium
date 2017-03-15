@@ -57,7 +57,9 @@ public class TileSelector extends Panel{
 	}
 	
 	private void handleKeyPressWaiting() {
-		
+		for (Point point : points) {
+			gamePanel.drawStaticTileElement(point, "");
+		}
 	} 
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {

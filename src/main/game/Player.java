@@ -96,7 +96,7 @@ public class Player implements iTurnObservable {
 			return this.structureManager.getStructureById(id);
 		} catch (StructureDoesNotExistException ex) {}
 
-		throw new UnitNotFoundException();
+		return null;
 	}
 
 	// Add worker of designated subtype @ given location
