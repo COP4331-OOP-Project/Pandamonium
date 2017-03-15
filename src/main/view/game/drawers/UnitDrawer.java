@@ -213,7 +213,6 @@ public class UnitDrawer {
 			g.setEffect(null);
 	}
 
-
 	public void drawItem(Point p, Point offset, String image, double scale, GraphicsContext g) {
     	Image img = assets.getImage(image);
     	g.drawImage(img, camera.offset(p).x + (offset.x * camera.getScale() * scale), camera.offset(p).y + (offset.y * camera.getScale() * scale), 
