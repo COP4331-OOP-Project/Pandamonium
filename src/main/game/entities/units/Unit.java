@@ -44,7 +44,12 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public int getLocationY(){return location.getY();}
 
     /* Stats Accessors */
-    public int getUpkeep() { return stats.getUpkeep(); }
+    public double getUpkeep() {
+        if (this.powerState == PowerState.POWERED_DOWN) {
+            return stats.getUpkeep() * .75;
+        }
+        return stats.getUpkeep();
+    }
 
     /* Mutators */
     public void setStats(UnitStats stats) { this.stats = stats; }
