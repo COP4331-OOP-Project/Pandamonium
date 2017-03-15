@@ -7,6 +7,7 @@ import game.GameModel;
 import game.Player;
 import game.commands.CommandEnum;
 import game.commands.CommandManager;
+import game.commands.SubCommandEnum;
 import game.commands.iCommandable;
 import game.entities.EntityId;
 import game.entities.EntityTypeEnum;
@@ -76,13 +77,21 @@ public class ModeController {
 	public void cycleCommandBackward() {
 		commandManager.cycleBackward();
 	}
-	
+
 	public ArrayList<CommandEnum> getCommands() {
 		return commandManager.getPossibleCommands();
 	}
-	
+
+	public ArrayList<SubCommandEnum> getSubCommands() {
+		return commandManager.getPossibleSubCommands();
+	}
+
 	public CommandEnum getSelectedCommand() {
 		return commandManager.getCurrentCommand();
+	}
+
+	public SubCommandEnum getSelectedSubCommand() {
+		return commandManager.getCurrentSubCommand();
 	}
 
 	public void addMoveToList(int degrees) {
@@ -168,5 +177,9 @@ public class ModeController {
 
 	public void setCommand(CommandEnum command) {
 		commandManager.setCommand(command);
+	}
+
+	public void setSubCommand(SubCommandEnum command) {
+		commandManager.setSubCommand(command);
 	}
 }

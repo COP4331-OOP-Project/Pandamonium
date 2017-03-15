@@ -11,7 +11,9 @@ public class CommandManager {
 	private CommandExecutor commandExecutor;
 	private Player currentPlayer;
 	private ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
+	private ArrayList<SubCommandEnum> possibleSubCommands = new ArrayList<>();
 	private CommandEnum selectedCommand;
+	private SubCommandEnum selectedSubCommand;
 	private ListIterator<CommandEnum> commandIterator;
 
 	public CommandManager(Player p) {
@@ -76,12 +78,24 @@ public class CommandManager {
 	public void setCommand(CommandEnum command) {
 		selectedCommand = command;
 	}
-	
+
+	public void setSubCommand(SubCommandEnum command) {
+		selectedSubCommand = command;
+	}
+
 	public CommandEnum getCurrentCommand() {
 		return selectedCommand;
 	}
-	
+
+	public SubCommandEnum getCurrentSubCommand() {
+		return selectedSubCommand;
+	}
+
 	public ArrayList<CommandEnum> getPossibleCommands() {
 		return possibleCommands;
+	}
+
+	public ArrayList<SubCommandEnum> getPossibleSubCommands() {
+		return possibleSubCommands;
 	}
 }

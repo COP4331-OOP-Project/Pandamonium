@@ -1,15 +1,10 @@
 package view.game;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 import game.commands.CommandEnum;
 import game.mode.Mode;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import view.GameModelAdapter;
 import view.Panel;
@@ -17,6 +12,7 @@ import view.ViewEnum;
 import view.assets.AssetManager;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CommandPanel extends Panel{
 	private static final int COMMAND_Y_NORMAL = 99;

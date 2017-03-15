@@ -91,6 +91,10 @@ public class KeyEventController {
             
         } else if (key == controlReader.getControl(SELECT_ITEM)) {
             log.debug("Select key pressed");
+
+            // Check cmd type
+            // If has subcommand requirements, display subcmd & await next selection
+
             controlMode.execute();
             
         } else if (key == controlReader.getControl(CENTER)) {
