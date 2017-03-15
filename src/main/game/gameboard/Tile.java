@@ -98,12 +98,18 @@ public class Tile implements iTileAccessors {
         this.ownerId = ownerId;
     }
 
-    public Integer getOwner() {
-        if(this.units.isEmpty()){
+    public Integer getOwnerId() {
+        if(this.units.isEmpty() && this.structure == null && this.battleGroups.isEmpty()){
             ownerId = null;
         }
-        else {
+        else if(this.structure!=null){
+            ownerId = structure.getOwnerID();
+        }
+        else if(!this.units.isEmpty()){
             ownerId = units.get(0).getOwnerID();
+        }
+        else if(!this.battleGroups.isEmpty()){
+            ownerId = battleGroups.get(0).getOwnerId();
         }
         return this.ownerId;
     }
@@ -112,10 +118,10 @@ public class Tile implements iTileAccessors {
 
     //TODO FIND BETTER WAY TO DO OWNER ID
     public void addUnit(Unit unit) {
-        /*if(getOwner()!=-1 && unit.getOwnerID()!=ownerId){
-            System.out.println("Good");
+        if(getOwnerId()!=null && unit.getOwnerID()!=ownerId){
+            //System.out.println("Good");
             return;
-        }*/
+        }
         units.add(unit);
         if (this.areaEffect != null)
             this.areaEffect.affectUnit(unit);
@@ -150,6 +156,9 @@ public class Tile implements iTileAccessors {
     }
 
     public void addBattleGroup(BattleGroup battleGroup){
+        if (getOwnerId()!=null && battleGroup.getOwnerId()!=battleGroups.get(0).getOwnerId()){
+            return;
+        }
         battleGroups.add(battleGroup);
     }
 
@@ -213,7 +222,7 @@ public class Tile implements iTileAccessors {
 
     public boolean containsArmy() {
         //check if the tile contains army
-        return false;
+        return containsArmy;
     }
 
     // Accept tile action visitors
