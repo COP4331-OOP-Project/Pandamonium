@@ -106,7 +106,6 @@ public class Player implements iTurnObservable {
 		if (type == EntityTypeEnum.WORKER) {
 			return this.workerManager.addWorker(subtype, location);
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
-
 	}
 
 	public void addArmy(Army army) {
@@ -247,11 +246,19 @@ public class Player implements iTurnObservable {
 	}
 	
 	public Unit getUnit(EntityId entityId) throws UnitDoesNotExistException{
-		return unitManager.getUnitById(entityId);
+		if (entityId != null) {
+			return unitManager.getUnitById(entityId);
+		} else {
+			return null;
+		}
 	}
 	
 	public Structure getStructure(EntityId entityId) throws StructureDoesNotExistException{
-		return structureManager.getStructureById(entityId);
+		if (entityId != null) {
+			return structureManager.getStructureById(entityId);
+		} else {
+			return null;
+		}
 	}
 	
 	public RallyPoint getRallyPoint(EntityId entityId) throws RallyPointDoesNotExistException{

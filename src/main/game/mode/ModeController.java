@@ -108,7 +108,6 @@ public class ModeController {
 	}
 
 	public void endTurn() {
-
 		gameModel.endTurn();
 		commandManager.setPlayer(currentPlayer);
 	}

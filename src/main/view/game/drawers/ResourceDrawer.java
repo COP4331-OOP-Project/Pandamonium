@@ -31,7 +31,7 @@ public class ResourceDrawer{
 
 	private void drawAllResources(SimpleTile tile, Point p, GraphicsContext g) {
 		String foodIconString = "";
-    	if (gameModelAdapter.getPlayer() == 0) {
+    	if (gameModelAdapter.getPlayerId() == 0) {
     		foodIconString = "ICON_FOOD_HUMAN";
     	} else {
     		foodIconString = "ICON_FOOD_PANDA";

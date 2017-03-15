@@ -114,13 +114,11 @@ public class Assets {
         loadItem("SAND_MINI", "assets/images/gui/miniMap/sandmini.png");
         loadItem("WATER_MINI", "assets/images/gui/miniMap/watermini.png");
         loadItem("MOUNTAIN_MINI", "assets/images/gui/miniMap/mountainmini.png");
-        loadItem("UNIT_LARGE_HUMAN", "assets/images/units/largeHuman.png");
         loadItem("UNIT_GIANT_HUMAN", "assets/images/units/giantHuman.png");
-        loadItem("UNIT_LARGE_HUMAN_HAT", "assets/images/units/largeHumanHat.png");
         loadItem("UNIT_SMALL_HUMAN", "assets/images/units/smallHuman.png");
         loadItem("UNIT_SMALL_HUMAN_HAT", "assets/images/units/smallHumanHat.png");
-        loadItem("UNIT_LARGE_PANDA", "assets/images/units/largePanda.png");
         loadItem("UNIT_SMALL_PANDA", "assets/images/units/smallPanda.png");
+        loadItem("UNIT_SMALL_PANDA_HAT", "assets/images/units/smallPandaHat.png");
         loadItem("UNIT_GIANT_PANDA", "assets/images/units/giantPanda.png");
         loadItem("UNIT_HUMAN_MM", "assets/images/gui/miniMap/human.png");
         loadItem("UNIT_PANDA_MM", "assets/images/gui/miniMap/panda.png");

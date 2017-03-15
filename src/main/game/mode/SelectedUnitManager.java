@@ -49,7 +49,7 @@ public class SelectedUnitManager {
 	}
 
 	public void cycleForward() {
-		if(units != null) {
+		if(units != null && unitIterator != null) {
 			for (int i = 0; i < units.size() + 1; i++) {
 				if (unitIterator.hasNext()) {
 					selectedUnit = unitIterator.next();
@@ -69,21 +69,23 @@ public class SelectedUnitManager {
 	}
 	
 	public void cycleBackward() {
-		for (int i = 0; i < units.size() + 1; i++) {
-			if (unitIterator.hasPrevious()) {
-				selectedUnit = unitIterator.previous();
-				selectedLocation = selectedUnit.getLocation();
-			} else {
-				selectedUnit = units.get(units.size() - 1);
-				unitIterator = units.listIterator(units.size() - 1);
-				selectedLocation = selectedUnit.getLocation();
+		if(units != null && unitIterator != null) {
+			for (int i = 0; i < units.size() + 1; i++) {
+				if (unitIterator.hasPrevious()) {
+					selectedUnit = unitIterator.previous();
+					selectedLocation = selectedUnit.getLocation();
+				} else {
+					selectedUnit = units.get(units.size() - 1);
+					unitIterator = units.listIterator(units.size() - 1);
+					selectedLocation = selectedUnit.getLocation();
+				}
+				if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
+					return;
+				}
 			}
-			if (submodeFromUnit(selectedUnit) == controlMode.getGameSubmode()) {
-				return;
-			}
+			selectedUnit = null;
+			selectedLocation = null;
 		}
-		selectedUnit = null;
-		selectedLocation = null;
 	}
 
 	private Submode submodeFromUnit(Unit unit) {
