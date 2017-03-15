@@ -51,7 +51,7 @@ public class MainMenuPanel extends Panel {
 	private void setUpButtons() {
 		startGame.setId("mainMenuButton");
 		startGame.setOnAction(event -> {
-			panelManager.setMode(ViewEnum.INTRO);
+			panelManager.setMode(ViewEnum.MAIN_GAME);
 			getAdapter().startGame();
 		});
 		mapMaker.setId("mainMenuButton");

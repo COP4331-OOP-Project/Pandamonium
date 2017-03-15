@@ -40,7 +40,7 @@ public class PanelManager {
 	
 	public PanelManager(GameModelAdapter gameModelAdapter, AssetManager assets, Group group, GraphicsContext g, Camera camera) {
 		if (!DebugMode.DEBUG_MODE) {
-			currentViewMode = ViewEnum.SPLASH;
+			currentViewMode = ViewEnum.MAIN_MENU;
 		} else {
 			gameModelAdapter.startGame();
 			currentViewMode = ViewEnum.MAIN_GAME;
