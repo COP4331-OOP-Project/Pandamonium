@@ -29,10 +29,10 @@ public class WorkerManager implements iWorkerResearchObservable, iTurnObserver, 
     private List<iWorkerResearchObserver> observers;
     private ArrayList<iTurnObserver> turnObservers;
 
-    public WorkerManager(int playerId) {
+    public WorkerManager(int playerId, ResourceManager resourceManager) {
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
-        WorkerFactory workerFactory = new WorkerFactory(playerId);
+        WorkerFactory workerFactory = new WorkerFactory(playerId, resourceManager);
         this.attach(workerFactory);
         this.workerIdManager = new WorkerIdManager(workerFactory);
         this.workers = new ArrayList<>();

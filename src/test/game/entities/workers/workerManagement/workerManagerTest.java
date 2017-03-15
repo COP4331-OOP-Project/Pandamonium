@@ -19,7 +19,7 @@ public class workerManagerTest {
 
     @Before
     public void setUp() {
-        WorkerFactory workerFactory = new WorkerFactory(1);
+        WorkerFactory workerFactory = new WorkerFactory(1, null);
         this.workerIdManager = new WorkerIdManager(workerFactory);
         this.aLocation = new Location(1,1);
     }

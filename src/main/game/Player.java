@@ -37,6 +37,7 @@ public class Player implements iTurnObservable {
 	private StructureManager structureManager;
 	private PlacementManager placementManager;
 	private ArmyManager armyManager;
+	private ResourceManager resourceManager;
 
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
@@ -54,7 +55,8 @@ public class Player implements iTurnObservable {
 		this.playerId = playerId;	// Set player id
 
 		// Setup managers for entities, workers
-		this.workerManager = new WorkerManager(playerId);
+		this.resourceManager = new ResourceManager(gb);
+		this.workerManager = new WorkerManager(playerId,resourceManager);
 		this.placementManager = new PlacementManager(gb);
 		this.unitManager = new UnitManager(this, placementManager);
 		this.structureManager = new StructureManager(this, placementManager, workerManager, unitManager);
@@ -108,8 +110,18 @@ public class Player implements iTurnObservable {
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
 	}
 
-	public void addArmy(Army army) {
-		armies.add(army);
+	public Army addArmy(EntityTypeEnum type, ArrayList<Unit> units, Location loc) throws EntityTypeDoesNotExistException {
+		try {
+			switch (type) {
+				case ARMY:
+					return this.armyManager.addArmy(units, loc);
+				default:
+					throw new EntityTypeDoesNotExistException("The input type " + type + " is not army.");
+			}
+		} catch(ArmyDoesNotExistException|ArmyLimitExceededException e){
+			log.error("Army can't be created");
+		}
+		return null;
 	}
 
 	public void addRallyPoint(RallyPoint rallyPoint) {

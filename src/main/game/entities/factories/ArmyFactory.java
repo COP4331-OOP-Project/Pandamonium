@@ -36,6 +36,9 @@ public class ArmyFactory {
 
         // Create army
         EntityId armyId = new EntityId(this.playerId, EntityTypeEnum.ARMY, null, id, id);
+        for(int i = 0;i<units.size();i++){
+            units.get(i).setArmyId(armyId.getInstanceId());
+        }
         Army newArmy = new Army(armyId, units, rp, placementManager, pathFinding);
 
         return newArmy; // Return army
