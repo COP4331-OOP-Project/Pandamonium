@@ -127,6 +127,7 @@ public class UnitOverviewPanel extends OverviewPanel{
 	private void updateUnits() {
 		ArrayList<Unit> units = getAdapter().getCurrentUnits();
         unitTable.setPrefHeight(45 + (units.size() * 35));
+		unitList.clear();
 		for (Unit unit : units) {
 			String unitType = "";
 			switch (unit.getType()) {
@@ -147,7 +148,6 @@ public class UnitOverviewPanel extends OverviewPanel{
 				break;
 				}
 			UnitStats stats = unit.getStats();
-			unitList.clear();
 			String armyId;
 			if (unit.getArmyId() != null) {
 				armyId = Integer.toString(unit.getArmyId());

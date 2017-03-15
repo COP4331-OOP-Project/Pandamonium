@@ -1,8 +1,6 @@
 package game;
 
-import game.commands.CommandEnum;
-import game.commands.FoundCapitolCommand;
-import game.commands.MoveCommand;
+import game.commands.*;
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.*;
@@ -48,9 +46,9 @@ public class Player implements iTurnObservable {
 	private SimpleTile[][] simpleTiles;
 
 	// Player resource counts
-	private Resource nutrients = new Resource(5, ResourceTypeEnum.NUTRIENTS);
-	private Resource power = new Resource(5, ResourceTypeEnum.POWER);
-	private Resource metal = new Resource(5, ResourceTypeEnum.METAL);
+	private Resource nutrients = new Resource(500, ResourceTypeEnum.NUTRIENTS);
+	private Resource power = new Resource(500, ResourceTypeEnum.POWER);
+	private Resource metal = new Resource(500, ResourceTypeEnum.METAL);
 
 	private ArrayList<iTurnObserver> turnObservers;
 	private int turnCounter = 1;	// for demo purposes
@@ -352,8 +350,11 @@ public class Player implements iTurnObservable {
 			case 1:
 				one();
 				break;
-			case 2:
+			case 3:
 				two();
+				break;
+			case 5:
+				three();
 				break;
 
 		}
@@ -366,7 +367,27 @@ public class Player implements iTurnObservable {
 		actor.addCommandToQueue(command);
 	}
 
+	private Melee m;
 	private void two() {
 		Capitol capitol = this.structureManager.getCapitols().get(0);
+
+		try {
+			if (this.getPlayerId() == 0) {
+				this.m = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
+				Command command = new MakeStructureCommand(m, new Location(5, 30), 1, EntitySubtypeEnum.FARM, this.structureManager);
+				m.addCommandToQueue(command);
+			} else {
+				this.structureManager.addStructure(EntitySubtypeEnum.FARM, new Location(32, 13));
+			}
+		} catch (Exception e) {
+			log.error(e.getLocalizedMessage());
+		}
+	}
+
+	private void three() {
+		if (this.m != null) {
+			MoveCommand moveCommand = new MoveCommand(this.m, new Location(5,31), 0, 1);
+			this.m.addCommandToQueue(moveCommand);
+		}
 	}
 }
