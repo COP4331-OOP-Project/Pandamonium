@@ -1,5 +1,6 @@
 package game.entities.managers;
 
+import game.entities.Army;
 import game.entities.BattleGroup;
 import game.entities.EntityId;
 import game.entities.RallyPoint;
@@ -25,8 +26,8 @@ public class PlacementManager {
         gameboard.addStructureToTile(structure,loc);
     }
 
-    public void addArmy(BattleGroup battleGroup, Location loc){
-        gameboard.addArmyToTile(battleGroup,loc);
+    public void addArmy(Army army, Location loc){
+        gameboard.addArmyToTile(army,loc);
     }
 
     public void addRallyPoint(RallyPoint rallyPoint, Location loc){

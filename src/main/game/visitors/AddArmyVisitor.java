@@ -1,19 +1,20 @@
 package game.visitors;
 
+import game.entities.Army;
 import game.entities.BattleGroup;
 import game.entities.managers.PlacementManager;
 import game.gameboard.Location;
 
 public class AddArmyVisitor implements iMovementManageVisitor {
-    private BattleGroup battleGroup;
+    private Army army;
     private Location location;
 
-    public AddArmyVisitor(BattleGroup bg, Location loc){
-        battleGroup=bg;
+    public AddArmyVisitor(Army army, Location loc){
+        this.army = army;
         location=loc;
     }
 
     public void visitMoveManage(PlacementManager mm){
-        mm.addArmy(battleGroup, location);
+        mm.addArmy(army, location);
     }
 }

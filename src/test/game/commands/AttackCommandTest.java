@@ -64,21 +64,29 @@ public class AttackCommandTest {
         human.getArmies().get(0).addCommandToQueue(attackCommand);
         human.getArmies().get(0).doTurn();
         Assert.assertEquals(25, panda.getUnits().get(0).getCurrentHealth(),0);
+        human.getArmies().get(0).addCommandToQueue(attackCommand);
+        human.getArmies().get(0).doTurn();
+        human.getArmies().get(0).addCommandToQueue(attackCommand);
+        human.getArmies().get(0).doTurn();
+        human.getArmies().get(0).addCommandToQueue(attackCommand);
+        human.getArmies().get(0).doTurn();
+        Assert.assertEquals(10, panda.getUnits().get(0).getCurrentHealth(),0);
     }
 
     @Test //Test melee attack against army
     public void testMeleeAttackArmy(){
         ArrayList<Unit> pandaUnits = new ArrayList<Unit>();
+        pandaUnits.add(panda.getUnits().get(0));
         try {
             panda.addArmy(EntityTypeEnum.ARMY, pandaUnits, pandaMeleeLocation);
         }catch (EntityTypeDoesNotExistException e){
             Assert.fail();
         }
 
-        Assert.assertEquals(30, panda.getArmies().get(0).getBattleGroup().getBattleGroup().get(0),0);
+        Assert.assertEquals(30, panda.getArmies().get(0).getBattleGroup().getBattleGroup().get(0).getHealth(),0);
         AttackCommand attackCommand = new AttackCommand(human.getUnits().get(0), gBoard.getTiles()[28][29], 1);
         human.getArmies().get(0).addCommandToQueue(attackCommand);
         human.getArmies().get(0).doTurn();
-        Assert.assertEquals(25, panda.getArmies().get(0).getCurrentHealth(),0);
+        Assert.assertEquals(23, panda.getArmies().get(0).getBattleGroup().getBattleGroup().get(0).getHealth(),0);
     }
 }

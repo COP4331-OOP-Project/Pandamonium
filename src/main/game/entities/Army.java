@@ -93,21 +93,21 @@ public class Army extends Entity {
             //reinforcement.removeReinforcement(unitToAdd.getEntityId());
         }
         if(battleGroup.hasUnits()){
-            AddArmyVisitor addArmyVisitor = new AddArmyVisitor(battleGroup, battleGroup.getLocation());
+            AddArmyVisitor addArmyVisitor = new AddArmyVisitor(this, this.getLocation());
             placementManager.accept(addArmyVisitor);
         }
         else{
-            RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(battleGroup.getEntityId(), battleGroup.getLocation());
+            RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(this.getEntityId(), this.getLocation());
             placementManager.accept(removeEntityVisitor);
         }
     }
 
     public void moveBattleGroup(Location loc){
         //Move to Tile
-        AddArmyVisitor addArmyVisitor = new AddArmyVisitor(battleGroup, loc);
+        AddArmyVisitor addArmyVisitor = new AddArmyVisitor(this, loc);
         placementManager.accept(addArmyVisitor);
         //Delete old Tile reference
-        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(),battleGroup.getLocation());
+        RemoveEntityVisitor removeEntityVisitor = new RemoveEntityVisitor(getEntityId(),this.getLocation());
         placementManager.accept(removeEntityVisitor);
         //Update battlegroup and army location
         battleGroup.setLocation(loc);
