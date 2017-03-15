@@ -171,4 +171,7 @@ public class Army extends Entity {
     public Reinforcement getReinforcements() { return reinforcement; }
     public RallyPoint getRallyPoint() { return rallyPoint; }
 
+    /* iTileObserver */
+    public int getInfluence(){ return 0; }
+
 }

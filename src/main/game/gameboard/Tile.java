@@ -232,8 +232,12 @@ public class Tile implements iTileAccessors, iTileObservable {
          for (Entity e : entities) { e.accept(v); }
     }
 
-    // Observable
+    /* iTileObservable */
     public void attach(iTileObserver o){ influencedBy.add(o); }
+    public void detach(iTileObserver o) throws ObserverNotFoundException {
+        Boolean removed = influencedBy.remove(o);
+        if(!removed) throw new ObserverNotFoundException();
+    }
 
     public ArrayList<Army> getArmies(){return armies;}
 

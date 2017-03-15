@@ -26,9 +26,9 @@ public interface iTileAccessors {
 //    boolean isImpassable();
 //
 //    // Get entity commands
-//    Unit getUnitById(int id) throws EntityNotFoundException;
+//    Unit getUnitById(int id) throws ObserverNotFoundException;
 //
-//    Army getArmyById(int id) throws EntityNotFoundException;
+//    Army getArmyById(int id) throws ObserverNotFoundException;
 //
 //    ArrayList<Unit> getUnits();
 //

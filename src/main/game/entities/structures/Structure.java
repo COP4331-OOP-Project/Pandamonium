@@ -1,7 +1,6 @@
 package game.entities.structures;
 
 import game.entities.*;
-import java.util.ArrayList;
 
 import game.commands.CommandEnum;
 import game.entities.Entity;
@@ -11,12 +10,11 @@ import game.entities.HealthPercentage;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.StructureStats;
 import game.gameboard.Location;
-import game.gameboard.iTileObserver;
 import game.iTurnObserver;
 import game.semantics.Percentage;
 import game.visitors.AddStructureVisitor;
 
-public abstract class Structure extends Entity implements iTurnObserver, iTileObserver {
+public abstract class Structure extends Entity implements iTurnObserver {
     protected StructureStats stats;
 
     public Structure(StructureStats stats, Location location , EntityId entityId ,
@@ -47,9 +45,6 @@ public abstract class Structure extends Entity implements iTurnObserver, iTileOb
     public StructureStats getStats() {
         return stats;
     }
-
-    /* stats accessors */
-    public int getInfluence() { return stats.getInfluence(); }
 
     public void increaseVisibilityRadius(int increaseAmount) {
         this.stats.increaseVisibilityRadius(increaseAmount);
@@ -90,5 +85,6 @@ public abstract class Structure extends Entity implements iTurnObserver, iTileOb
     }
 
     /* iTileObserver */
+    public int getInfluence() { return stats.getInfluence(); }
 
 }

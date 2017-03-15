@@ -166,8 +166,7 @@ public class StructureStats {
     public void setWorkerRadius(int workerRadius) { this.workerRadius = workerRadius; }
     public void setWorkerDensity(int workerDensity) { this.workerDensity = workerDensity; }
     public void setUpkeep(ArrayList<Resource> upkeep) { this.upkeep = upkeep; }
-
-
+    
     public void increaseVisibilityRadius(int increaseAmount) {
         this.visibilityRadius += increaseAmount;
     }

@@ -8,6 +8,7 @@ import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.Gameboard;
 import game.gameboard.Location;
+import game.gameboard.iTileObserver;
 import game.visitors.iMovementManageVisitor;
 
 public class PlacementManager {
@@ -36,6 +37,10 @@ public class PlacementManager {
 
     public void remove(EntityId id, Location loc){
         gameboard.getTiles()[loc.getX()][loc.getY()].removeEntity(id);
+    }
+
+    public void detachInfluencers(iTileObserver o){
+        gameboard.detachInfluencers(o);
     }
 
     public void accept(iMovementManageVisitor v){

@@ -115,4 +115,7 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
             nutrients.decreaseAmountByValue(getUpkeep());
         } else takeDamage(10);
     }
+
+    /* iTileObserver */
+    public int getInfluence() { return stats.getInfluence(); }
 }

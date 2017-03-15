@@ -6,6 +6,7 @@ import game.commands.SubCommandEnum;
 import game.commands.iCommandable;
 import game.entities.managers.PlacementManager;
 import game.gameboard.Location;
+import game.gameboard.iTileObserver;
 import game.iTurnObserver;
 import game.visitors.iTileActionVisitor;
 
@@ -14,7 +15,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-public abstract class Entity implements iCommandable, iTurnObserver {
+public abstract class Entity implements iCommandable, iTurnObserver, iTileObserver {
     protected PowerState powerState;
     protected Queue<Command> commandQueue;
     protected int health;
@@ -142,5 +143,4 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     public ArrayList<SubCommandEnum> getSubCommands() { return subCommands; }
 
     public Location getLocation() { return location; }
-
 }
