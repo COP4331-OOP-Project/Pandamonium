@@ -9,7 +9,8 @@ import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 
-public class Colonist extends Unit{
+public class Colonist extends Unit {
+
     // Constructor
     public Colonist(UnitStats stats, Location location, EntityId entityId,
                     PlacementManager placementManager, DeathNotifier notifier) {
@@ -17,5 +18,4 @@ public class Colonist extends Unit{
                         addCommand(CommandEnum.FOUND_CAPITOL);
     }
 
-    public void onTurnEnded() {}
 }

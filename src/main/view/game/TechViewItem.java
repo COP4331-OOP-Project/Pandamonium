@@ -35,7 +35,7 @@ public class TechViewItem {
 	private void getIcon(TechNodeImageEnum imageEnum) {
 		switch (imageEnum) {
 		case FOOD:
-			if (adapter.getPlayer() == 0) {
+			if (adapter.getPlayerId() == 0) {
 				icon = assets.getImage("ICON_FOOD_HUMAN");
 			} else {
 				icon = assets.getImage("ICON_FOOD_PANDA");
@@ -57,7 +57,7 @@ public class TechViewItem {
 			icon = assets.getImage("WORKER_ON_TILE");
 			break;
 		case SOLDIER_POINTS:
-			if (adapter.getPlayer() == 0) {
+			if (adapter.getPlayerId() == 0) {
 				icon = assets.getImage("WORKER_TO_SOLDIER_HUMAN");
 			} else {
 				icon = assets.getImage("WORKER_TO_SOLDIER_PANDA");

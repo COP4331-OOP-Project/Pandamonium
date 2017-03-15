@@ -32,7 +32,7 @@ public class UnitOverviewPanel extends OverviewPanel{
 	private TableColumn<UnitItem, String> attackColumn = new TableColumn<>("Attack");
 	private TableColumn<UnitItem, String> defenseColumn = new TableColumn<>("Defense");
 	private TableColumn<UnitItem, String> armorColumn = new TableColumn<>("Armor");
-	private TableColumn<UnitItem, String> upkeepColumn = new TableColumn<>("Upkeep");
+	private TableColumn<UnitItem, String> upkeepColumn = new TableColumn<>("Upkeep (Food)");
 	private TableColumn<UnitItem, String> addToArmyColumn = new TableColumn<>("Army");
 	private ObservableList<UnitItem> unitList = FXCollections.observableArrayList();
 	private VBox unitBox = new VBox();
@@ -127,7 +127,6 @@ public class UnitOverviewPanel extends OverviewPanel{
 	private void updateUnits() {
 		ArrayList<Unit> units = getAdapter().getCurrentUnits();
         unitTable.setPrefHeight(45 + (units.size() * 35));
-		unitList.clear();
 		for (Unit unit : units) {
 			String unitType = "";
 			switch (unit.getType()) {
@@ -148,8 +147,8 @@ public class UnitOverviewPanel extends OverviewPanel{
 				break;
 				}
 			UnitStats stats = unit.getStats();
-			//Have no way to get attack or army status right now, leaving at -999 until later
-			unitList.add(new UnitItem(unitType, stats.getHealth(), -999, stats.getDefPow(),
+			unitList.clear();
+			unitList.add(new UnitItem(unitType, (int)unit.getCurrentHealth(), stats.getOffPow(), stats.getDefPow(),
 					stats.getArmor(), (int)stats.getUpkeep(), -999));
 			}
 	}

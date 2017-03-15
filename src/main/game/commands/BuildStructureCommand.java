@@ -7,18 +7,18 @@ import game.gameboard.Tile;
 // Initiate making an entity with an actor
 public class BuildStructureCommand extends Command {
 
-    private Entity actor;                  // Actor to create an entity
-    private Tile target; 	              // Direction to create in
+    private Entity actor;                 // Actor to create an entity
+    private Tile target; 	              // Target tile to create on
     private EntitySubtypeEnum structure;  //Type of structure to create
 
     // Constructor
     public BuildStructureCommand(Entity actor, Tile target, EntitySubtypeEnum structure, int duration) {
     	super(duration);
         this.actor = actor;             // Set actor
-        this.target = target;           // Set target tile\
+        this.target = target;           // Set target tile
     }
 
-    // Execute make from Gameboard function
+    // Execute command
     public void exec() {}
 
 }

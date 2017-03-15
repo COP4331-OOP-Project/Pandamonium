@@ -1,5 +1,6 @@
 package game;
 
+import game.commands.MoveCommand;
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
 import game.entities.factories.exceptions.*;
@@ -105,7 +106,6 @@ public class Player implements iTurnObservable {
 		if (type == EntityTypeEnum.WORKER) {
 			return this.workerManager.addWorker(subtype, location);
 		} else throw new EntityTypeDoesNotExistException("Entity is not of type Worker.");
-
 	}
 
 	public void addArmy(Army army) {
@@ -220,6 +220,12 @@ public class Player implements iTurnObservable {
 
 	public StructureManager getStructureManager(){return structureManager;}
 
+	public UnitManager getUnitManager() { return this.unitManager; }
+
+	public ArmyManager getArmyManager() { return this.armyManager; }
+
+	public PlacementManager getPlacementManager() { return this.placementManager; }
+
 	public void updateSimpleTiles(Tile[][] tiles) {
 		simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);
 	}
@@ -240,11 +246,19 @@ public class Player implements iTurnObservable {
 	}
 	
 	public Unit getUnit(EntityId entityId) throws UnitDoesNotExistException{
-		return unitManager.getUnitById(entityId);
+		if (entityId != null) {
+			return unitManager.getUnitById(entityId);
+		} else {
+			return null;
+		}
 	}
 	
 	public Structure getStructure(EntityId entityId) throws StructureDoesNotExistException{
-		return structureManager.getStructureById(entityId);
+		if (entityId != null) {
+			return structureManager.getStructureById(entityId);
+		} else {
+			return null;
+		}
 	}
 	
 	public RallyPoint getRallyPoint(EntityId entityId) throws RallyPointDoesNotExistException{
@@ -256,33 +270,31 @@ public class Player implements iTurnObservable {
 		throw new RallyPointDoesNotExistException();
 	}
 	
-	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId)
+	public void removeEntity(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId entityId, Location location)
 		throws EntityTypeDoesNotExistException, UnitDoesNotExistException, UnitTypeDoesNotExistException,
-				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException {
+				StructureDoesNotExistException, StructureTypeDoesNotExist, WorkerDoesNotExistException,
+				ArmyDoesNotExistException {
 
 		switch (type) {
 			case UNIT:
 				this.unitManager.removeUnit(subtype, entityId);
+				this.placementManager.remove(entityId, location);
 				break;
 			case STRUCTURE:
 				this.structureManager.removeStructure(subtype,entityId);
+				this.placementManager.remove(entityId, location);
 				break;
 			case WORKER:
 				this.workerManager.removeWorker(entityId);
+				this.placementManager.remove(entityId, location);
 				break;
-//			case ARMY:
-//				this.armyManager.removeArmy(entityId);
+			case ARMY:
+				this.armyManager.removeArmy(entityId);
+				this.placementManager.remove(entityId, location);
+				break;
 			default:
+				throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
 		}
-
-		for(int i = 0; i < armies.size(); i++) {
-			if(entityId.compareTo(armies.get(i).getEntityId())==1){
-				armies.remove(i);
-				return;
-			}
-		}
-
-		throw new EntityTypeDoesNotExistException("Entity type " + type + " does not exist.");
 
 	}
 
@@ -290,7 +302,30 @@ public class Player implements iTurnObservable {
 		this.turnObservers.add(observer);
 	}
 
+
+	boolean test = false;
+
 	public void endTurn() {
+		if (!test) {
+			Colonist c = this.unitManager.getColonists().get(0);
+			Location moveLocation = new Location(c.getLocationX() + 2, c.getLocationY() - 2);
+			Location moveLocation2 = new Location(moveLocation.getX(), moveLocation.getY() - 2);
+			Location moveLocation3 = new Location(moveLocation2.getX(), moveLocation2.getY() - 2);
+			Location moveLocation4 = new Location(5, 29);
+
+			MoveCommand mc = new MoveCommand(c, moveLocation, 1, 1);
+			MoveCommand mc2 = new MoveCommand(c, moveLocation2, 1, 1);
+			MoveCommand mc3 = new MoveCommand(c, moveLocation3, 1, 1);
+			MoveCommand mc4 = new MoveCommand(c, moveLocation4, 1, 1);
+
+			c.addCommandToQueue(mc);
+			c.addCommandToQueue(mc2);
+			c.addCommandToQueue(mc3);
+			c.addCommandToQueue(mc4);
+			test = true;
+
+		}
+
 		for (iTurnObserver observer : this.turnObservers) {
 			observer.onTurnEnded();
 		}

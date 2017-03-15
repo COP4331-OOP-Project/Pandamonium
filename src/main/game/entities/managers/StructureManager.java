@@ -187,7 +187,6 @@ public class StructureManager implements iStructureResearchObservable, iTurnObse
                 return s;
             }
         }
-
         throw new StructureDoesNotExistException();
     }
 

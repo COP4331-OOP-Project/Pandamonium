@@ -1,9 +1,12 @@
 package view;
 
 import game.GameModel;
+import game.Player;
 import game.commands.CommandEnum;
 import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
+import game.entities.managers.exceptions.StructureDoesNotExistException;
+import game.entities.managers.exceptions.UnitDoesNotExistException;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.Location;
@@ -48,12 +51,25 @@ public class GameModelAdapter {
 		controlMode.setSubmode(submode);
 	}
 
-	public int getPlayer() {
+	public int getPlayerId() {
 		if (gameModel.getCurrentPlayer() == gameModel.getPlayer(0)) {
 			return 0;
 		} else {
 			return 1;
 		}
+	}
+	
+	public Unit getSelectedUnit() {
+		try {
+			return gameModel.getCurrentPlayer().getUnit(getSelectedEntity());
+		} catch (UnitDoesNotExistException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Structure getSelectedStructure() throws StructureDoesNotExistException {
+		return gameModel.getCurrentPlayer().getStructure(getSelectedEntity());
 	}
 
 	public int getTurnNum() {

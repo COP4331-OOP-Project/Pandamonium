@@ -33,7 +33,7 @@ public class CivilizationPanel extends Panel {
 
 	private void drawResources(GraphicsContext g) {
 		g.setFont(getAssets().getFont(1));
-		if (getAdapter().getPlayer() == 0)
+		if (getAdapter().getPlayerId() == 0)
 			g.drawImage(getImage("ICON_FOOD_HUMAN"), 330, 4);
 		else
 			g.drawImage(getImage("ICON_FOOD_PANDA"), 330, 4);
@@ -47,9 +47,9 @@ public class CivilizationPanel extends Panel {
 	}
 
 	private void drawPlayerIcon(GraphicsContext g) {
-		if (getAdapter().getPlayer() == 0)
+		if (getAdapter().getPlayerId() == 0)
 			g.drawImage(getImage("ICON_HUMAN"), 130, 3);
-		if (getAdapter().getPlayer() == 1)
+		if (getAdapter().getPlayerId() == 1)
 			g.drawImage(getImage("ICON_PANDA"), 130, 3);
 	}
 
