@@ -112,4 +112,8 @@ public abstract class StructureWithWorker extends Structure {
             }
         }
     }
+    
+    public int getWorkerCount() {
+    	return workerManager.getWorkers().size();
+    }
 }

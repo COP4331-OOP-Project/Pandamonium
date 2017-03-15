@@ -148,8 +148,14 @@ public class UnitOverviewPanel extends OverviewPanel{
 				}
 			UnitStats stats = unit.getStats();
 			unitList.clear();
+			String armyId;
+			if (unit.getArmyId() != null) {
+				armyId = Integer.toString(unit.getArmyId());
+			} else {
+				armyId = "No Army";
+			}
 			unitList.add(new UnitItem(unitType, (int)unit.getCurrentHealth(), stats.getOffPow(), stats.getDefPow(),
-					stats.getArmor(), (int)stats.getUpkeep(), -999));
+					stats.getArmor(), (int)stats.getUpkeep(), armyId));
 			}
 	}
 
@@ -170,14 +176,14 @@ public class UnitOverviewPanel extends OverviewPanel{
 		private final SimpleStringProperty  upkeepProp;
 		private final SimpleStringProperty  armyProp;
 		
-		public UnitItem(String unitType, int health, int attack, int defense, int armor, int upkeep, int army) {
+		public UnitItem(String unitType, int health, int attack, int defense, int armor, int upkeep, String army) {
 			unitTypeProp = new SimpleStringProperty(unitType);
 			healthProp = new SimpleStringProperty(Integer.toString(health));
 			attackProp = new SimpleStringProperty(Integer.toString(attack));
 			defenseProp = new SimpleStringProperty(Integer.toString(defense));
 			armorProp = new SimpleStringProperty(Integer.toString(armor));
 			upkeepProp = new SimpleStringProperty(Integer.toString(upkeep));
-			armyProp = new SimpleStringProperty(Integer.toString(army));
+			armyProp = new SimpleStringProperty(army);
 		}
 		
 		public String getAttack() {

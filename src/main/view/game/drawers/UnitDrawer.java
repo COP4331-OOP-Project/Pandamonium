@@ -4,6 +4,7 @@ import game.entities.EntityId;
 import game.entities.EntitySubtypeEnum;
 import game.entities.units.Unit;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ public class UnitDrawer {
     private AssetManager assets;
     private Camera camera;
     private EntityId selectedEntity;
+    private ColorAdjust colorAdjust = new ColorAdjust();
     
     public UnitDrawer(AssetManager assets, Camera camera) {
         this.assets = assets;
@@ -191,12 +193,27 @@ public class UnitDrawer {
 			default :
 				break;
 		}
+		if (unit.getArmyId() != null) {
+			drawArmyHat(player, unit.getArmyId(), p, offset, scale, g);
+		}
 		if (selectedEntity != null && entityId.compareTo(selectedEntity) == 1) {
 			drawItem(p, offset, "SELECTED_UNIT",scale, g);
 		}
 	}
 	
-    public void drawItem(Point p, Point offset, String image, double scale, GraphicsContext g) {
+    private void drawArmyHat(int player, Integer armyId, Point p, Point offset, double scale, GraphicsContext g) {
+			double hue = armyId * 0.65;
+			colorAdjust.setHue(hue);
+			g.setEffect(colorAdjust);
+			if (player == 0) {
+				drawItem(p, offset, "UNIT_SMALL_HUMAN_HAT", scale, g);
+			} else {
+				drawItem(p, offset, "UNIT_SMALL_PANDA_HAT", scale, g);
+			}
+			g.setEffect(null);
+	}
+
+	public void drawItem(Point p, Point offset, String image, double scale, GraphicsContext g) {
     	Image img = assets.getImage(image);
     	g.drawImage(img, camera.offset(p).x + (offset.x * camera.getScale() * scale), camera.offset(p).y + (offset.y * camera.getScale() * scale), 
     			camera.getScale() * img.getWidth() * scale, camera.getScale() * img.getHeight() * scale);

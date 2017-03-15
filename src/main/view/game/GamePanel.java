@@ -18,7 +18,6 @@ import view.game.drawers.*;
 
 import java.awt.*;
 
-import view.game.drawers.ArmyDrawer;
 import view.game.drawers.CoveringDrawer;
 import view.game.drawers.ResourceDrawer;
 import view.game.drawers.StructureDrawer;
