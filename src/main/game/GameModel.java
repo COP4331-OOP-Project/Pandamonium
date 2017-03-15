@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class GameModel {
 	private static final Location HUMAN_STARTING_LOCATION = new Location(5, 28);
-	private static final Location PANDA_STARTING_LOCATION = new Location(32, 11);
+	private static final Location PANDA_STARTING_LOCATION = new Location(10, 20);
     private final static Logger log = LogManager.getLogger(GameModel.class);
     private UnitFactory unitFactory;
     private Player currentPlayer;

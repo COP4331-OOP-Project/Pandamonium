@@ -118,6 +118,6 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public void upkeepHandling(Resource nutrients){
         if (getUpkeep() <= nutrients.getAmount()){
             nutrients.decreaseAmountByValue(getUpkeep());
-        } else takeDamage(10);
+        } else takeDamage(5);
     }
 }

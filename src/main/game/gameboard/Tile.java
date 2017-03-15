@@ -124,10 +124,10 @@ public class Tile implements iTileAccessors, iTileObservable {
             this.areaEffect.affectUnit(unit);
 
         if (this.oneShotItem != null) {
-            if (!this.oneShotItem.isUsed())
+            if (!this.oneShotItem.isUsed()) {
                 this.oneShotItem.useItem(unit);
-            else
                 this.oneShotItem = null;
+            }
         }
         //unit.setLocation(this.location);
     }

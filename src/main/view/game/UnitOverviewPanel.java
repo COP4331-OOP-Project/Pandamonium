@@ -155,7 +155,7 @@ public class UnitOverviewPanel extends OverviewPanel{
 				armyId = "No Army";
 			}
 			unitList.add(new UnitItem(unitType, (int)unit.getCurrentHealth(), stats.getOffPow(), stats.getDefPow(),
-					stats.getArmor(), stats.getUpkeep(), armyId));
+					stats.getArmor(), unit.getUpkeep(), armyId));
 			}
 	}
 

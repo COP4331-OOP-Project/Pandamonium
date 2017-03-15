@@ -310,11 +310,11 @@ public class Player implements iTurnObservable {
 
 	public void endTurn() {
 		doDemoMove();
+		unitManager.upkeepHandling(nutrients);
 
 		for (iTurnObserver observer : this.turnObservers) {
 			observer.onTurnEnded();
 		}
-		unitManager.upkeepHandling(nutrients);
 	}
 
 
@@ -353,6 +353,9 @@ public class Player implements iTurnObservable {
 				five();
 				break;
 			case 11:
+				six();
+				break;
+			case 12:
 				seven();
 				break;
 
@@ -402,7 +405,10 @@ public class Player implements iTurnObservable {
 	}
 
 	private void six() {
-
+		if (this.m2 != null) {
+			MoveCommand moveCommand = new MoveCommand(this.m, new Location(6,32), 0, 1);
+			this.m2.addCommandToQueue(moveCommand);
+		}
 	}
 
 	private void seven() {
