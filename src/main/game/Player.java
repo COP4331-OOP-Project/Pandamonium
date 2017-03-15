@@ -473,9 +473,9 @@ public class Player implements iTurnObservable {
 
 			try {
 
-				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
-				this.m4 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
-				this.m5 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 28));
+				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
+				this.m4 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
+				this.m5 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 25));
 
 			} catch (Exception e) {
 				e.getLocalizedMessage();
@@ -488,7 +488,7 @@ public class Player implements iTurnObservable {
 			units.add(m5);
 
 			try {
-				this.armyManager.addArmy(units, new Location(8, 29));
+				this.armyManager.addArmy(units, new Location(6, 25));
 			} catch (ArmyLimitExceededException e) {
 				e.getLocalizedMessage();
 			} catch (ArmyDoesNotExistException e) {
@@ -499,9 +499,9 @@ public class Player implements iTurnObservable {
 
 			try {
 
-				this.m6 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
-				this.m7 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
-				this.m8 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(7, 29));
+				this.m6 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
+				this.m7 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
+				this.m8 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 26));
 
 			} catch (Exception e) {
 				e.getLocalizedMessage();
@@ -514,7 +514,7 @@ public class Player implements iTurnObservable {
 			units.add(m8);
 
 			try {
-				this.armyManager.addArmy(units, new Location(8, 30));
+				this.armyManager.addArmy(units, new Location(6, 26));
 			} catch (ArmyLimitExceededException e) {
 				e.getLocalizedMessage();
 			} catch (ArmyDoesNotExistException e) {
@@ -527,14 +527,14 @@ public class Player implements iTurnObservable {
 	public void eight() {
 		if (this.playerId == 0) {
 
-			Tile t = gameboard.getTileWithLocation(new Location(7, 29));
+			Tile t = gameboard.getTileWithLocation(new Location(5, 26));
 
 			AttackVisitor atk = new AttackVisitor(m3.getDamage());
 			t.accept(atk);
 
 		} else {
 
-			Tile t = gameboard.getTileWithLocation(new Location(7, 28));
+			Tile t = gameboard.getTileWithLocation(new Location(5, 25));
 
 			AttackVisitor atk = new AttackVisitor(m6.getDamage());
 			t.accept(atk);
