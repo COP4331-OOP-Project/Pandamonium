@@ -306,7 +306,6 @@ public class Player implements iTurnObservable {
 	boolean test = false;
 
 	public void endTurn() {
-
 		if (!test) {
 			Colonist c = this.unitManager.getColonists().get(0);
 			Location moveLocation = new Location(c.getLocationX() + 2, c.getLocationY() - 2);
@@ -330,6 +329,6 @@ public class Player implements iTurnObservable {
 		for (iTurnObserver observer : this.turnObservers) {
 			observer.onTurnEnded();
 		}
-
+		unitManager.upkeepHandling(nutrients);
 	}
 }
