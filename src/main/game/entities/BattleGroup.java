@@ -77,4 +77,6 @@ public class BattleGroup implements iAttacker{
     public EntityId getEntityId(){
         return entityId;
     }
+
+    public int getOwnerId(){return entityId.getPlayerId();}
 }
