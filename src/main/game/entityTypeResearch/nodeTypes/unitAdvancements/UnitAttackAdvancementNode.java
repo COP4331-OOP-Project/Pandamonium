@@ -40,10 +40,12 @@ public class UnitAttackAdvancementNode extends EntityTypeAdvancementNode {
     }
 
     public void doResearch() throws EntityTypeDoesNotExistException{
-        this.isResearchCompleted = true;
         iUnitResearchVisitor visitor = new UnitAttackStrengthResearchVisitor(this.unitType, this.increaseAmount);
         try {
-            visitor.visitUnitManager(this.unitManager);
+            if(this.isResearchCompleted == false) {
+                visitor.visitUnitManager(this.unitManager);
+                this.isResearchCompleted = true;
+            }
         } catch (UnitTypeDoesNotExistException e) {
             log.error(e.getLocalizedMessage());
             throw new EntityTypeDoesNotExistException();

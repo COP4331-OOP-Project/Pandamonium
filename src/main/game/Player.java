@@ -12,6 +12,9 @@ import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
 import game.entityTypeResearch.EntityTypeAdvancementManager;
+import game.entityTypeResearch.nodeTypes.EntityTypeAdvancementNode;
+import game.entityTypeResearch.nodeTypes.unitAdvancements.UnitAttackAdvancementNode;
+import game.entityTypeResearch.treeTypes.unitAdvancements.UnitAttackAdvancementTree;
 import game.gameboard.*;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
@@ -53,7 +56,7 @@ public class Player implements iTurnObservable {
 	private Resource metal = new Resource(500, ResourceTypeEnum.METAL);
 
 	private ArrayList<iTurnObserver> turnObservers;
-	private int turnCounter = 1;	// for demo purposes
+	private int turnCounter = 0;	// for demo purposes
 
 	// Constructor
 	public Player(int playerId, Location loc, Gameboard gb) {
@@ -319,8 +322,6 @@ public class Player implements iTurnObservable {
 		this.turnObservers.add(observer);
 	}
 
-
-
 	public void endTurn() {
 		doDemoMove();
 		unitManager.upkeepHandling(nutrients);
@@ -329,7 +330,6 @@ public class Player implements iTurnObservable {
 			observer.onTurnEnded();
 		}
 	}
-
 
 	public void addNutrients(Resource nutrients) {
 		this.nutrients.combine(nutrients);
@@ -342,6 +342,14 @@ public class Player implements iTurnObservable {
 	public void addMetal(Resource metal) {
 		this.metal.combine(metal);
 	}
+
+	public void researchDemo(){
+	    UnitAttackAdvancementTree tree = improvementManager.getMeleeAttackTree();
+        EntityTypeAdvancementNode root = tree.getRoot();
+        try {
+            while(root.isResearchCompleted() == false) root.doResearch();
+        } catch (Exception e){ e.getLocalizedMessage(); }
+    }
 
 
 
@@ -385,6 +393,7 @@ public class Player implements iTurnObservable {
 
 	private Melee m;
 	private Melee m2;
+	private Melee m3;
 	private void two() {
 		Command powerUp = new PowerUpCommand(this.c1);
 		this.c1.addCommandToQueue(powerUp);
@@ -400,6 +409,7 @@ public class Player implements iTurnObservable {
 			if (this.getPlayerId() == 0) {
 				this.m = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
 				this.m2 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location(5, 30));
+				this.m3 = (Melee) this.unitManager.addUnit(EntitySubtypeEnum.MELEE, new Location (4, 30));
 				Command command = new MakeStructureCommand(m, new Location(5, 30), 1, EntitySubtypeEnum.FARM, this.structureManager);
 				m.addCommandToQueue(command);
 			} else {
@@ -408,7 +418,7 @@ public class Player implements iTurnObservable {
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 		}
-	}
+    }
 
 	private void five() {
 		if (this.m != null) {
@@ -422,9 +432,12 @@ public class Player implements iTurnObservable {
 			MoveCommand moveCommand = new MoveCommand(this.m, new Location(6,32), 0, 1);
 			this.m2.addCommandToQueue(moveCommand);
 		}
-	}
+		if (this.getPlayerId() == 0){
+            Command command = new MakeStructureCommand(m3, new Location(5, 32), 1, EntitySubtypeEnum.UNIVERSITY, this.structureManager);
+            m3.addCommandToQueue(command);
+        }
+    }
 
 	private void seven() {
-
 	}
 }

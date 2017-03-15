@@ -1,17 +1,20 @@
 package game.entities.units;
 
+import entityResearch.iUnitResearchObserver;
 import game.commands.CommandEnum;
 import game.entities.*;
+import game.entities.factories.exceptions.UnitTypeDoesNotExistException;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
 import game.resources.Resource;
+import game.semantics.Percentage;
 import game.visitors.AddUnitVisitor;
 import game.visitors.RemoveEntityVisitor;
 
 // TODO: Fix damage taking to account for defense
 
-public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable {
+public abstract class Unit extends Entity implements iAttacker, iDefender, iMoveable, iUnitResearchObserver {
     protected UnitStats stats;
     protected int orientation;
 
@@ -120,4 +123,14 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
             nutrients.decreaseAmountByValue(getUpkeep());
         } else takeDamage(5);
     }
+
+    public void onVisibilityRadiusIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{}
+    public void onAttackStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{
+        if(subtype == getType()){ stats.setOffPow( stats.getOffPow() + increaseAmount); }
+    }
+    public void onDefenseStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{}
+    public void onArmorStrengthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{}
+    public void onHealthIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{}
+    public void onEfficiencyIncreased(EntitySubtypeEnum subtype, Percentage increasePercentage) throws UnitTypeDoesNotExistException{}
+    public void onMovementRangeIncreased(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException{}
 }

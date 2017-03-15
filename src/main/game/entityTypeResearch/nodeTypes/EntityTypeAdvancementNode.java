@@ -40,6 +40,8 @@ public abstract class EntityTypeAdvancementNode {
         return parent;
     }
 
+    public Boolean isRoot(){ return ((getParent() == null) ? true : false); }
+
     public void setParent(EntityTypeAdvancementNode parent) {
         this.parent = parent;
     }
@@ -53,7 +55,7 @@ public abstract class EntityTypeAdvancementNode {
     }
 
     public boolean canCompleteResearch() {
-        return !this.isResearchCompleted() && this.parent.isResearchCompleted();
+        return !this.isResearchCompleted() && (this.parent.isResearchCompleted() || this.isRoot());
     }
 
     public int getProductionRequirement() {

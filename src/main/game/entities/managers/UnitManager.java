@@ -32,6 +32,8 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     private boolean endOfTurnIteration = false;
     private ArrayList<iTurnObserver> observersToBeDeletedAtEndOfTurn;
     private ArrayList<iTurnObserver> observersToBeAddedAtEndOfTurn;
+    private ArrayList<iUnitResearchObserver> observersToBeAddedAtEndOfTurnResearch;
+
 
     private UnitIdManager unitIdManager;
 
@@ -57,29 +59,53 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
             case COLONIST: {
                 Colonist c = this.unitIdManager.createColonist(location);
                 this.colonists.add(c);
-                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(c);
-                else this.attach(c);
+                if (endOfTurnIteration){
+                    this.observersToBeAddedAtEndOfTurn.add(c);
+                    this.observersToBeAddedAtEndOfTurnResearch.add(c);
+                }
+                else {
+                    this.attach((iUnitResearchObserver) c);
+                    this.attach((iTurnObserver) c);
+                }
                 return c;
             }
             case EXPLORER: {
                 Explorer e = this.unitIdManager.createExplorer(location);
                 this.explorers.add(e);
-                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(e);
-                else this.attach(e);
+                if (endOfTurnIteration){
+                    this.observersToBeAddedAtEndOfTurn.add(e);
+                    this.observersToBeAddedAtEndOfTurnResearch.add(e);
+                }
+                else {
+                    this.attach((iUnitResearchObserver) e);
+                    this.attach((iTurnObserver) e);
+                }
                 return e;
             }
             case MELEE: {
                 Melee m = this.unitIdManager.createMelee(location);
                 this.melees.add(m);
-                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(m);
-                else this.attach(m);
+                if (endOfTurnIteration){
+                    this.observersToBeAddedAtEndOfTurn.add(m);
+                    this.observersToBeAddedAtEndOfTurnResearch.add(m);
+                }
+                else {
+                    this.attach((iUnitResearchObserver) m);
+                    this.attach((iTurnObserver) m);
+                }
                 return m;
             }
             case RANGE: {
                 Ranged r = this.unitIdManager.createRanged(location);
                 this.ranges.add(r);
-                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(r);
-                else this.attach(r);
+                if (endOfTurnIteration){
+                    this.observersToBeAddedAtEndOfTurn.add(r);
+                    this.observersToBeAddedAtEndOfTurnResearch.add(r);
+                }
+                else {
+                    this.attach((iUnitResearchObserver) r);
+                    this.attach((iTurnObserver) r);
+                }
                 return r;
             }
             default:
@@ -200,6 +226,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     public void increaseAttackStrength(EntitySubtypeEnum subtype, int increaseAmount) throws UnitTypeDoesNotExistException {
         for (iUnitResearchObserver observer : this.observers) {
             observer.onAttackStrengthIncreased(subtype, increaseAmount);
+            if (observer.getType() == subtype) return;
         }
     }
 
@@ -254,10 +281,15 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         for (iTurnObserver observer : this.observersToBeDeletedAtEndOfTurn) {
             this.turnObservers.remove(observer);
         }
-
         for (iTurnObserver observer : this.observersToBeAddedAtEndOfTurn) {
             this.turnObservers.add(observer);
         }
+        /*
+        for (iUnitResearchObserver observer : this.observersToBeAddedAtEndOfTurnResearch) {
+            this.observers.add(observer);
+        }
+        */
+
 
         this.observersToBeDeletedAtEndOfTurn.clear();
 
