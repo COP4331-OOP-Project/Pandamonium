@@ -75,7 +75,7 @@ public class DeathNotifierTest {
         try {
 
             s = player.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.CAPITOL, new Location(0, 0));
-            s.takeDamage(200);
+            s.takeDamage(1000);
             s = player.getEntityById(s.getEntityId());
 
         } catch (UnitNotFoundException ex) {

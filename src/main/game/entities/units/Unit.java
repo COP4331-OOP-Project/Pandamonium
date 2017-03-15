@@ -6,6 +6,7 @@ import game.entities.*;
 import game.entities.managers.PlacementManager;
 import game.entities.stats.UnitStats;
 import game.gameboard.Location;
+import game.resources.Resource;
 import game.visitors.AddUnitVisitor;
 import game.visitors.RemoveEntityVisitor;
 
@@ -39,6 +40,9 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     public Location getLocation(){return location;}
     public int getLocationX(){return location.getX();}
     public int getLocationY(){return location.getY();}
+
+    /* Stats Accessors */
+    public int getUpkeep() { return stats.getUpkeep(); }
 
     /* Mutators */
     public void setStats(UnitStats stats) { this.stats = stats; }
@@ -86,9 +90,29 @@ public abstract class Unit extends Entity implements iAttacker, iDefender, iMove
     /* iMoveable */
     public int getMoveDistance(){ return stats.getSpeed(); }
 
+    /* Stat-adjusted damage taking */
+    @Override
+    public void takeDamage(double damage){
+        double armor = stats.getArmor();
+        double damageX = 10/(10+armor);
+        double adjDamage = damage * damageX;
+
+        this.health -= adjDamage;
+        this.healthPercent.updateHealthPercentage((double)this.health);
+
+        if (this.health <= 0)
+            this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
+    }
+
     // Instantly kill this unit
     public void instantDeath() {
         this.takeDamage(this.health);
     }
 
+    /* Upkeep handling */
+    public void upkeepHandling(Resource nutrients){
+        if (getUpkeep() <= nutrients.getAmount()){
+            nutrients.decreaseAmountByValue(getUpkeep());
+        } else takeDamage(10);
+    }
 }

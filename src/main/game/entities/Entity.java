@@ -18,7 +18,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     protected Queue<Command> commandQueue;
     protected int health;
     protected HealthPercentage healthPercent;
-    private EntityId entityId;
+    protected EntityId entityId;
     protected Location location;
 
     private ArrayList<CommandEnum> commands = new ArrayList<>();

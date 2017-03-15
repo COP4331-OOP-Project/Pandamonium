@@ -19,10 +19,12 @@ public class Resource {
     public void decreaseAmountByPercentage(Percentage p) {
         this.amount *= (1 - p.getPercentageValue());
     }
+    public void decreaseAmountByValue(double v){ this.amount -= v; }
 
     public void increaseAmountByPercentage(Percentage p) {
         this.amount *= (1 + p.getPercentageValue());
     }
+    public void increaseAmountByValue(double v){ this.amount += v; }
 
     public void combine(Resource resource){
         if(this.resourceType==resource.resourceType) {
