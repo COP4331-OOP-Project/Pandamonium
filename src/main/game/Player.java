@@ -11,9 +11,11 @@ import game.entities.units.*;
 import game.entities.units.exceptions.UnitNotFoundException;
 import game.entities.workers.workerTypes.Worker;
 import game.entities.workers.workerTypes.WorkerTypeEnum;
+import game.entityTypeResearch.EntityTypeAdvancementManager;
 import game.gameboard.*;
 import game.resources.Resource;
 import game.resources.ResourceTypeEnum;
+import game.techTree.TechTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +40,10 @@ public class Player implements iTurnObservable {
 	private ArmyManager armyManager;
 	private ResourceManager resourceManager;
 
+	// Tech Tree and Improvement Manager
+	private TechTree techTree;
+	private EntityTypeAdvancementManager improvementManager;
+
 	// Player visibility board
 	private SimpleTile[][] simpleTiles;
 
@@ -61,6 +67,9 @@ public class Player implements iTurnObservable {
 		this.unitManager = new UnitManager(this, placementManager);
 		this.structureManager = new StructureManager(this, placementManager, workerManager, unitManager);
 		this.armyManager = new ArmyManager(playerId, gb);
+
+		this.techTree = new TechTree(this, placementManager, workerManager, unitManager);
+		this.improvementManager = new EntityTypeAdvancementManager(playerId, unitManager, structureManager);
 
 		this.rallyPoints = new ArrayList<RallyPoint>();
 
@@ -232,6 +241,10 @@ public class Player implements iTurnObservable {
 	public ArmyManager getArmyManager() { return this.armyManager; }
 
 	public PlacementManager getPlacementManager() { return this.placementManager; }
+
+	public TechTree getTechTree() { return this.techTree; }
+
+	public EntityTypeAdvancementManager getImprovementManager() { return this.improvementManager; }
 
 	public void updateSimpleTiles(Tile[][] tiles) {
 		simpleTiles = SimpleTileUpdater.updateTiles(tiles, simpleTiles, this);

@@ -86,7 +86,7 @@ public class EntityTypeAdvancementManager {
     private StructureVisibilityAdvancementTree powerPlantVisibilityTree;
     private StructureVisibilityAdvancementTree universityVisibilityTree;
 
-    public void EntityTypeAdvancementManager(int playerId, UnitManager unitManager, StructureManager structureManager) {
+    public EntityTypeAdvancementManager(int playerId, UnitManager unitManager, StructureManager structureManager) {
         this.playerId = playerId;
         initTrees(unitManager, structureManager);
     }
