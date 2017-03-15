@@ -113,6 +113,10 @@ public class Army extends Entity {
 
     public Location getRallyPointLocation(){return rallyPoint.getLocation();}
 
+    public void addReinforcement(Unit unit){
+        reinforcement.addReinforcement(unit);
+    }
+
     public double getCurrentHealth(){
         return 0;
     }
