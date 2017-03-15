@@ -70,7 +70,7 @@ public class MakeCommandsTest {
         assert(e1.getEntityId().getSubTypeId() == EntitySubtypeEnum.MELEE);
         assert((e1.getCurrentHealth() + 1) == max_health);
 
-        e1.takeDamage(e1.getCurrentHealth());
+        e1.instantDeath();
 
         units = t.getUnits();
 
@@ -99,7 +99,7 @@ public class MakeCommandsTest {
 
         assert(f != null);
 
-        f.takeDamage(f.getCurrentHealth());
+        f.instantDeath();
 
         f = t.getStructure();
 

@@ -48,17 +48,26 @@ public abstract class Entity implements iCommandable, iTurnObserver {
 
     // Health
     public double getCurrentHealth(){ return health; }                              // Return entity health
-    public HealthPercentage getHealthPercentage(){return healthPercent; }                 // Return entity health pct.
-    public void takeDamage(double damage){                                          // Take damage to health
+    public HealthPercentage getHealthPercentage(){return healthPercent; }           // Return entity health pct.
+
+    public void takeDamage(double damage) {                                         // Take damage to health
         this.health -= damage;
         this.healthPercent.updateHealthPercentage((double)this.health);
 
         if (this.health <= 0)
             this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
-    public void heal(double healing){                                               // Heal for a given amount
+
+    public void heal(double healing) {                                               // Heal for a given amount
         this.health += healing;
         this.healthPercent.updateHealthPercentage((double)this.health);
+    }
+
+    // Instantly kill this entity
+    public void instantDeath() {
+        this.health = 0;
+        this.healthPercent.updateHealthPercentage((double) this.health);
+        this.notifer.publishEntityDeath(this.entityId.getTypeId(), (EntitySubtypeEnum) this.entityId.getSubTypeId(), this.entityId, this.location);
     }
 
     // Command queue management
