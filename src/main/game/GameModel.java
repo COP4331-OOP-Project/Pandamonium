@@ -1,5 +1,6 @@
 package game;
 
+import game.commands.CommandEnum;
 import game.commands.MoveCommand;
 import game.entities.EntitySubtypeEnum;
 import game.entities.EntityTypeEnum;
@@ -28,6 +29,8 @@ public class GameModel {
     private int turnNum = 0;
     private Location lastMoveLocation;
     private boolean gameHasStarted = false;
+    private Player human;
+    private Player panda;
     
     public void initializeGame() {
         try {
@@ -58,6 +61,8 @@ public class GameModel {
     }
 
     public void initialUnits(Player human, Player panda) throws GameFailedToStartException {
+        this.human = human;
+        this.panda = panda;
 
         try {
             Unit unit1 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.COLONIST, HUMAN_STARTING_LOCATION);
@@ -70,7 +75,7 @@ public class GameModel {
           
 
             Structure university = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
-=======
+
             Structure university = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
             Structure university2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() + 1));
 
@@ -90,6 +95,7 @@ public class GameModel {
 
             */
       
+
         } catch (EntityTypeDoesNotExistException | UnitTypeDoesNotExistException | StructureTypeDoesNotExist e) {
             log.error("Error initializing game. " + e.getLocalizedMessage());
             throw new GameFailedToStartException();
@@ -143,7 +149,9 @@ public class GameModel {
         return players.get(playerID);
     }
 
+
 	public boolean getGameStarted() {
 		return gameHasStarted;
 	}
+
 }

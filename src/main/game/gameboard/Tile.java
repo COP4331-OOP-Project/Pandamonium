@@ -180,7 +180,7 @@ public class Tile implements iTileAccessors, iTileObservable {
         }
 
         //Structure
-        if(structure!=null) {
+        if (structure != null) {
             if (entityId.compareTo(structure.getEntityId()) == 1) {
                 this.structure = null;
                 return;

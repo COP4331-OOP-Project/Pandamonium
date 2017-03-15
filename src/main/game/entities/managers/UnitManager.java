@@ -29,7 +29,9 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     private ArrayList<iUnitResearchObserver> observers;
     private ArrayList<iTurnObserver> turnObservers;
 
+    private boolean endOfTurnIteration = false;
     private ArrayList<iTurnObserver> observersToBeDeletedAtEndOfTurn;
+    private ArrayList<iTurnObserver> observersToBeAddedAtEndOfTurn;
 
     private UnitIdManager unitIdManager;
 
@@ -44,6 +46,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
         this.observersToBeDeletedAtEndOfTurn = new ArrayList<>();
+        this.observersToBeAddedAtEndOfTurn = new ArrayList<>();
     }
 
     // Add unit based on type at designated location
@@ -54,25 +57,29 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
             case COLONIST: {
                 Colonist c = this.unitIdManager.createColonist(location);
                 this.colonists.add(c);
-                this.attach(c);
+                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(c);
+                else this.attach(c);
                 return c;
             }
             case EXPLORER: {
                 Explorer e = this.unitIdManager.createExplorer(location);
                 this.explorers.add(e);
-                this.attach(e);
+                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(e);
+                else this.attach(e);
                 return e;
             }
             case MELEE: {
                 Melee m = this.unitIdManager.createMelee(location);
                 this.melees.add(m);
-                this.attach(m);
+                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(m);
+                else this.attach(m);
                 return m;
             }
             case RANGE: {
                 Ranged r = this.unitIdManager.createRanged(location);
                 this.ranges.add(r);
-                this.attach(r);
+                if (endOfTurnIteration) this.observersToBeAddedAtEndOfTurn.add(r);
+                else this.attach(r);
                 return r;
             }
             default:
@@ -240,12 +247,21 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     }
 
     public void endTurn() {
+        this.endOfTurnIteration = true;
         for (iTurnObserver observer : this.turnObservers) {
             observer.onTurnEnded();
         }
         for (iTurnObserver observer : this.observersToBeDeletedAtEndOfTurn) {
             this.turnObservers.remove(observer);
         }
+
+        for (iTurnObserver observer : this.observersToBeAddedAtEndOfTurn) {
+            this.turnObservers.add(observer);
+        }
+
+        this.observersToBeDeletedAtEndOfTurn.clear();
+
+        this.endOfTurnIteration = true;
     }
 
     public void upkeepHandling(Resource nutrients){

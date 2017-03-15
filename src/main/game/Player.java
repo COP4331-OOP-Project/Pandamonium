@@ -1,5 +1,7 @@
 package game;
 
+import game.commands.CommandEnum;
+import game.commands.FoundCapitolCommand;
 import game.commands.MoveCommand;
 import game.entities.*;
 import game.entities.factories.EntityTypeDoesNotExistException;
@@ -51,6 +53,7 @@ public class Player implements iTurnObservable {
 	private Resource metal = new Resource(5, ResourceTypeEnum.METAL);
 
 	private ArrayList<iTurnObserver> turnObservers;
+	private int turnCounter = 1;	// for demo purposes
 
 	// Constructor
 	public Player(int playerId, Location loc, Gameboard gb) {
@@ -311,28 +314,9 @@ public class Player implements iTurnObservable {
 	}
 
 
-	boolean test = false;
 
 	public void endTurn() {
-		if (!test) {
-			Colonist c = this.unitManager.getColonists().get(0);
-			Location moveLocation = new Location(c.getLocationX() + 2, c.getLocationY() - 2);
-			Location moveLocation2 = new Location(moveLocation.getX(), moveLocation.getY() - 2);
-			Location moveLocation3 = new Location(moveLocation2.getX(), moveLocation2.getY() - 2);
-			Location moveLocation4 = new Location(5, 29);
-
-			MoveCommand mc = new MoveCommand(c, moveLocation, 1, 1);
-			MoveCommand mc2 = new MoveCommand(c, moveLocation2, 1, 1);
-			MoveCommand mc3 = new MoveCommand(c, moveLocation3, 1, 1);
-			MoveCommand mc4 = new MoveCommand(c, moveLocation4, 1, 1);
-
-			c.addCommandToQueue(mc);
-			c.addCommandToQueue(mc2);
-			c.addCommandToQueue(mc3);
-			c.addCommandToQueue(mc4);
-			test = true;
-
-		}
+		doDemoMove();
 
 		for (iTurnObserver observer : this.turnObservers) {
 			observer.onTurnEnded();
@@ -352,8 +336,37 @@ public class Player implements iTurnObservable {
 	public void addMetal(Resource metal) {
 		this.metal.combine(metal);
 	}
+
 	
 	public ArrayList<TechTreeNode> getRootTechs() {
 		return techTree.getRootNodes();
+	}
+
+
+
+
+	////////////				DEMO STUFF			/////////////////
+
+	private void doDemoMove() {
+		switch (this.turnCounter) {
+			case 1:
+				one();
+				break;
+			case 2:
+				two();
+				break;
+
+		}
+		this.turnCounter++;
+	}
+
+	private void one() {
+		Colonist actor = this.unitManager.getColonists().get(0);
+		FoundCapitolCommand command = new FoundCapitolCommand(actor, actor.getLocation(), 2, this.structureManager, this.unitManager, this.workerManager);
+		actor.addCommandToQueue(command);
+	}
+
+	private void two() {
+		Capitol capitol = this.structureManager.getCapitols().get(0);
 	}
 }
