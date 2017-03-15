@@ -3,6 +3,7 @@ package view.game;
 import game.entities.EntitySubtypeEnum;
 import game.entities.structures.Structure;
 import game.entities.structures.University;
+import game.entityTypeResearch.UniversityAlreadyDoingResearchException;
 import game.techTree.nodeTypes.TechTreeNode;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +62,7 @@ public class TechOverviewPanel extends OverviewPanel{
 	private DropShadow ds = new DropShadow();
 	private EntitySubtypeEnum selectedEntity;
 	private GraphicsContext techGraphics;
+	private boolean initialized = false;
 	private int itemsResearching = 0;
 	private int universityCount = 0;
 	private int player;
@@ -72,7 +74,6 @@ public class TechOverviewPanel extends OverviewPanel{
 		currentUniversities = new ArrayList<>();
 		this.player = player;
 		this.root = root;
-		setUpTechsForPlayer();
 		upgradableList = FXCollections.observableArrayList(
 		        "Colonist",
 		        "Explorer",
@@ -94,7 +95,7 @@ public class TechOverviewPanel extends OverviewPanel{
 		techBox.getChildren().addAll(canvas, label, label2, techsToggle, improvementsToggle, upgradableComboBox);
 	}
 
-	private void setUpTechsForPlayer() {
+	public void setUpTechsForPlayer() {
 		ArrayList<TechTreeNode> techs;
 		if (player == 0) {
 			techs = getAdapter().getHumanTechNodes();
@@ -228,6 +229,12 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
+		if (initialized == false) {
+			if (getAdapter().getGameStarted()) {
+				initialized = true;
+				updatePlayer();
+			}
+		}
 		label2.setText("Available: " + (universityCount - itemsResearching));
 		techGraphics.clearRect(0, 0, 2500, screenDimensions.y);
 		scrollPane.toFront();
@@ -447,12 +454,18 @@ public class TechOverviewPanel extends OverviewPanel{
 	}
 
 	public void research(TechTreeNode techNode) {
-		// TODO Auto-generated method stub
-		
+		int universityToResearchWith = universityCount - itemsResearching - 1;
+		if (itemsResearching < universityCount) {
+			itemsResearching++;
+			try {
+				currentUniversities.get(universityToResearchWith).research(techNode);
+			} catch (UniversityAlreadyDoingResearchException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
-	public void setPlayer(int i) {
-		// TODO Auto-generated method stub
-		
+	public void decreaseItemsResearching() {
+		itemsResearching--;
 	}
 }

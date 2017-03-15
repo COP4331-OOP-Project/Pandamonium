@@ -168,8 +168,14 @@ public class GameModelAdapter {
 	}
 
 
+
 	public void setSubCommand(SubCommandEnum command) { controlMode.setSubCommand(command); }
 
+
+	public boolean getGameStarted() {
+		return gameModel.getGameStarted();
+	}
+	
 	public ArrayList<TechTreeNode> getHumanTechNodes() {
 		return gameModel.getPlayer(0).getRootTechs();
 	}

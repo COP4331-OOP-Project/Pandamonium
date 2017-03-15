@@ -142,4 +142,8 @@ public class GameModel {
     public Player getPlayer(int playerID) {
         return players.get(playerID);
     }
+
+	public boolean getGameStarted() {
+		return gameHasStarted;
+	}
 }
