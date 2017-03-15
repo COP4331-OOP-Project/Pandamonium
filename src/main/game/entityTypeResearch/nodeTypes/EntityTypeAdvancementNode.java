@@ -57,7 +57,7 @@ public abstract class EntityTypeAdvancementNode {
     }
 
     public int getProductionRequirement() {
-        return 5;
+        return 50;
     }
 
     public abstract boolean isResearchCompleted();
