@@ -126,12 +126,12 @@ public class TileTest {
     @Test //Test ownership of the tile
     public void testOwnerShipOfTile(){
         //If no unit, return -1
-        Assert.assertEquals(tileGrass.getOwner(), null);
+        Assert.assertEquals(tileGrass.getOwnerId(), null);
 
         tileGrass.addUnit(melee1);
         tileGrass.addUnit(melee2);
 
-        Assert.assertEquals((int)tileGrass.getOwner(), playerId);
+        Assert.assertEquals((int)tileGrass.getOwnerId(), playerId);
     }
 
     @Test //Test the enemy blocker
@@ -142,7 +142,7 @@ public class TileTest {
         tileGrass.addUnit(melee3);
         tileGrass.addUnit(melee1);
 
-        Assert.assertEquals(this.tileGrass.getUnits().size(), 2);
+        Assert.assertEquals(this.tileGrass.getUnits().size(), 1);
     }
 
     @Test //Test contains unit

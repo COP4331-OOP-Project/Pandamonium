@@ -47,16 +47,18 @@ public class SelectedRallyPointManager {
 	}
 	
 	public void cycleForward() {
-		if (rallyPoints.size() > 0) {
-			if (rallyIterator.hasNext()) {
-				selectedRally = rallyIterator.next();
-				selectedLocation = selectedRally.getLocation();
-			} else {
-				selectedRally = rallyPoints.get(0);
-				rallyIterator = rallyPoints.listIterator(0);
-				selectedLocation = selectedRally.getLocation();
+		if(rallyPoints!=null) {
+			if (rallyPoints.size() > 0) {
+				if (rallyIterator.hasNext()) {
+					selectedRally = rallyIterator.next();
+					selectedLocation = selectedRally.getLocation();
+				} else {
+					selectedRally = rallyPoints.get(0);
+					rallyIterator = rallyPoints.listIterator(0);
+					selectedLocation = selectedRally.getLocation();
+				}
 			}
-		} else {
+		}else {
 			selectedRally = null;
 			selectedLocation = null;
 		}

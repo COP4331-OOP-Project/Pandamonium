@@ -19,7 +19,7 @@ public abstract class TechTreeNode {
         this.imageEnum = imageEnum;
         this.children = new ArrayList<>();
         this.parents = new ArrayList<>();
-        this.productionRequirement = 5;
+        this.productionRequirement = 50;
     }
 
     TechTreeNode(String name, String description, TechNodeImageEnum imageEnum, TechTreeNode... parents) {
@@ -29,7 +29,7 @@ public abstract class TechTreeNode {
         this.parents = new ArrayList<>();
         this.children = new ArrayList<>();
         Collections.addAll(this.parents, parents);
-        this.productionRequirement = 5;
+        this.productionRequirement = 50;
     }
 
     public String getName() {

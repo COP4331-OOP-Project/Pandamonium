@@ -18,6 +18,8 @@ public class DisbandArmyCommand extends Command {
     }
 
     // Execute army disband from Gameboard function
-    public void exec() {}
+    public void exec() {
+      actor.disband();
+    }
 
 }

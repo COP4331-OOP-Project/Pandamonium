@@ -8,11 +8,15 @@ import game.entities.EntityId;
 
 public class CommandManager {
 	private iCommandable commandableItem;
-	private CommandExecutor commandExecutor = new CommandExecutor();
+	private CommandExecutor commandExecutor;
 	private Player currentPlayer;
 	private ArrayList<CommandEnum> possibleCommands = new ArrayList<>();
 	private CommandEnum selectedCommand;
 	private ListIterator<CommandEnum> commandIterator;
+
+	public CommandManager(Player p) {
+		this.currentPlayer = p;
+	}
 	
 	public void updateCommandList() {
 			possibleCommands = commandableItem.getCommands();
@@ -54,6 +58,12 @@ public class CommandManager {
 		commandableItem = null;
 		selectedCommand = null;
 		commandIterator = null;
+		this.commandExecutor =
+				new CommandExecutor(currentPlayer.getStructureManager(),
+						currentPlayer.getUnitManager(),
+						currentPlayer.getWorkerManager(),
+						currentPlayer.getArmyManager(),
+						currentPlayer.getPlacementManager());
 	}
 	
 	public void updateSelectedEntity(iCommandable commandableItem) {

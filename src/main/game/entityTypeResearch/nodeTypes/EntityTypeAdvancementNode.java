@@ -56,6 +56,10 @@ public abstract class EntityTypeAdvancementNode {
         return !this.isResearchCompleted() && this.parent.isResearchCompleted();
     }
 
+    public int getProductionRequirement() {
+        return 50;
+    }
+
     public abstract boolean isResearchCompleted();
 
     public abstract void doResearch() throws EntityTypeDoesNotExistException;

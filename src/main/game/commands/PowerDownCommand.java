@@ -14,7 +14,8 @@ public class PowerDownCommand extends Command {
 
     // Execute power down
     public void exec() {
-        // NEEDS TO CANCEL ALL COMMANDS IN ACTOR QUEUE
+        this.actor.cancelQueuedCommands();
+        this.actor.powerDown();
     }
 
 }

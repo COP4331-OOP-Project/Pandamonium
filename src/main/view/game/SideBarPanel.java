@@ -57,7 +57,7 @@ public class SideBarPanel extends Panel{
 	
 	public void draw(GraphicsContext g, Point screenDimensions, long currentPulse) {
 		drawSideBar(g, screenDimensions);
-		if (gameModelAdapter.getPlayer() == 0) {
+		if (gameModelAdapter.getPlayerId() == 0) {
 			unitButton.setGraphic(humanUnit);
 		} else {
 			unitButton.setGraphic(pandaUnit);

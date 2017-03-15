@@ -29,7 +29,7 @@ public class ModeController {
 		this.gameModel = gameModel;
 		this.selectedManager = new SelectedEntityManager(gameModel, this);
 		currentPlayer = gameModel.getCurrentPlayer();
-		commandManager = new CommandManager();
+		commandManager = new CommandManager(currentPlayer);
 	}
 
 	public void update() {
@@ -108,7 +108,6 @@ public class ModeController {
 	}
 
 	public void endTurn() {
-
 		gameModel.endTurn();
 		commandManager.setPlayer(currentPlayer);
 	}

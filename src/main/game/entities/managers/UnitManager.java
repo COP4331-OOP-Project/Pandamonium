@@ -28,6 +28,8 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
     private ArrayList<iUnitResearchObserver> observers;
     private ArrayList<iTurnObserver> turnObservers;
 
+    private ArrayList<iTurnObserver> observersToBeDeletedAtEndOfTurn;
+
     private UnitIdManager unitIdManager;
 
     // Constructor
@@ -40,7 +42,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         this.colonists = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.turnObservers = new ArrayList<>();
-
+        this.observersToBeDeletedAtEndOfTurn = new ArrayList<>();
     }
 
     // Add unit based on type at designated location
@@ -110,7 +112,6 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
 
     // Return the unit instance of the passed entity id
     public Unit getUnitById(EntityId entityId) throws UnitDoesNotExistException {
-
         // Collect all available instances
         ArrayList<Unit> allUnits = getTotalUnits();
 
@@ -122,7 +123,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         }
 
         throw new UnitDoesNotExistException(); // No unit found
-
+        
     }
 
     // Remove unit of designated id from players list of units
@@ -132,7 +133,7 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         for (Unit u : units) {
             if (u.getEntityId() == entityId) {
                 units.remove(u);
-                this.turnObservers.remove(u);
+                this.observersToBeDeletedAtEndOfTurn.add(u);
                 removed = true;
                 break;
             }
@@ -241,6 +242,9 @@ public class UnitManager implements iUnitResearchObservable, iTurnObserver, iTur
         for (iTurnObserver observer : this.turnObservers) {
             observer.onTurnEnded();
         }
-    }
 
+        for (iTurnObserver observer : this.observersToBeDeletedAtEndOfTurn) {
+            this.turnObservers.remove(observer);
+        }
+    }
 }

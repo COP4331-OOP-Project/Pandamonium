@@ -1,6 +1,7 @@
 package game.gameboard.areaEffects;
 
 import game.entities.units.Unit;
+import game.gameboard.Tile;
 
 public class InstantDeathAreaEffect implements AreaEffect {
 
@@ -10,6 +11,7 @@ public class InstantDeathAreaEffect implements AreaEffect {
 
     public void affectUnit(Unit u) {
         u.instantDeath();
+
     }
 
     public AreaEffectDecalEnum getDecal() {

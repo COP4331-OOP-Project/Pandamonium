@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.Player;
+import game.gameboard.Location;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,11 +18,11 @@ public class DeathNotifier implements iDeathNotificationMediator {
     }
 
     // Notify player of entity death
-    public void publishEntityDeath(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId id) {
+    public void publishEntityDeath(EntityTypeEnum type, EntitySubtypeEnum subtype, EntityId id, Location location) {
 
         // Remove entity from player
         try {
-            player.removeEntity(type, subtype, id);
+            player.removeEntity(type, subtype, id, location);
         } catch(Exception e) {
                 log.error(e.getMessage());
         }

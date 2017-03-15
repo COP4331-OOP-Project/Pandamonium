@@ -47,6 +47,7 @@ public class SelectedArmyManager {
 	}
 
 	public void cycleForward() {
+		if(armies != null){
 		if (armies.size() > 0) {
 			if (armyIterator.hasNext()) {
 				selectedArmy = armyIterator.next();
@@ -56,6 +57,7 @@ public class SelectedArmyManager {
 				armyIterator = armies.listIterator(0);
 				selectedLocation = selectedArmy.getLocation();
 			}
+		}
 		} else {
 			selectedArmy = null;
 			selectedLocation = null;
