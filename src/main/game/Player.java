@@ -43,9 +43,9 @@ public class Player implements iTurnObservable {
 	private SimpleTile[][] simpleTiles;
 
 	// Player resource counts
-	private Resource nutrients = new Resource(0, ResourceTypeEnum.NUTRIENTS);
-	private Resource power = new Resource(0, ResourceTypeEnum.POWER);
-	private Resource metal = new Resource(0, ResourceTypeEnum.METAL);
+	private Resource nutrients = new Resource(5, ResourceTypeEnum.NUTRIENTS);
+	private Resource power = new Resource(5, ResourceTypeEnum.POWER);
+	private Resource metal = new Resource(5, ResourceTypeEnum.METAL);
 
 	private ArrayList<iTurnObserver> turnObservers;
 
