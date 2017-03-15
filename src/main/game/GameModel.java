@@ -70,7 +70,10 @@ public class GameModel {
           
 
             Structure university = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX() - 2, HUMAN_STARTING_LOCATION.getY() + 1));
-            
+=======
+            Structure university = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX(), HUMAN_STARTING_LOCATION.getY() + 1));
+            Structure university2 = (Structure) human.addEntity(EntityTypeEnum.STRUCTURE, EntitySubtypeEnum.UNIVERSITY, new Location (HUMAN_STARTING_LOCATION.getX() -1, HUMAN_STARTING_LOCATION.getY() + 1));
+
           /*
             Unit unit3 = (Unit) human.addEntity(EntityTypeEnum.UNIT, EntitySubtypeEnum.EXPLORER, HUMAN_STARTING_LOCATION);
             
