@@ -4,6 +4,7 @@ import game.commands.MoveCommand;
 import game.entities.managers.PlacementManager;
 
 import game.commands.CommandEnum;
+import game.entities.units.BattleGroupUnit;
 import game.entities.units.Unit;
 import game.gameboard.Location;
 import game.gameboard.PathFinding;
@@ -120,6 +121,7 @@ public class Army extends Entity {
 
     public void addReinforcement(Unit unit){
         reinforcement.addReinforcement(unit);
+        units.add(unit);
     }
 
     public double getCurrentHealth(){
@@ -128,7 +130,25 @@ public class Army extends Entity {
     public HealthPercentage getHealthPercentage(){
         return null;
     }
-    public void takeDamage(double damage) {}
+    public void takeDamage(double damage) {
+        double amount = damage;
+        Iterator<BattleGroupUnit> iterator = battleGroup.getBattleGroup().iterator();
+        while(iterator.hasNext()) {
+            BattleGroupUnit holder = iterator.next();
+            int hp = holder.getHealth();
+            if(amount>0) {
+                if (hp > amount) {
+                    holder.takeDamage(amount);
+                    return;
+                } else {
+                    amount -= hp;
+                    Unit u = getUnitById(holder.getEntityId());
+                    this.notifer.publishEntityDeath(u.getEntityId().getTypeId(), (EntitySubtypeEnum) u.getEntityId().getSubTypeId(), u.getEntityId(), u.getLocation());
+                    iterator.remove();
+                }
+            }
+        }
+    }
     public void heal(double healing) {}
     public void decommissionEntity() {}
     public void disband() {
@@ -137,6 +157,16 @@ public class Army extends Entity {
         }
     }
 
+    public Unit getUnitById(EntityId entityId){
+        Iterator<Unit> iterator = units.iterator();
+        while(iterator.hasNext()){
+            Unit u = iterator.next();
+            if(u.getEntityId().compareTo(entityId)==1){
+                return u;
+            }
+        }
+        return null;
+    }
     public BattleGroup getBattleGroup() { return battleGroup; }
     public Reinforcement getReinforcements() { return reinforcement; }
     public RallyPoint getRallyPoint() { return rallyPoint; }
