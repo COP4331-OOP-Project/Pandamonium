@@ -146,4 +146,8 @@ public class GameModelAdapter {
 	public void setCommand(CommandEnum command) {
 		controlMode.setCommand(command);
 	}
+
+	public boolean isGameOver() {
+		return gameModel.isGameOver();
+	}
 }

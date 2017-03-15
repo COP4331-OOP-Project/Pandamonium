@@ -22,6 +22,7 @@ public class View {
     private Point screenDimensions = new Point();
     private Scene scene;
     private int pulse = 0;
+    private GameModelAdapter gameModelAdapter;
     
     public View(GameModelAdapter gameModelAdapter, Scene scene, Group root) {
     	this.root = root;
@@ -31,6 +32,7 @@ public class View {
     	screenDimensions.y = DEFAULT_SCREEN_HEIGHT;
     	camera = new Camera(screenDimensions);
     	g = canvas.getGraphicsContext2D();
+    	this.gameModelAdapter = gameModelAdapter;
     	panelManager = new PanelManager(gameModelAdapter, assets, root, g, camera);
         setSceneTheme();
     }
@@ -84,5 +86,9 @@ public class View {
 
 	public void endTurn() {
 		panelManager.endTurn();
+		if (this.gameModelAdapter.isGameOver()) {
+		    System.out.println("Game over.");
+		    panelManager.setMode(ViewEnum.MAIN_MENU);
+        }
 	}
 }
