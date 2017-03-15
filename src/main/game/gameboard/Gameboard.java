@@ -1,5 +1,6 @@
 package game.gameboard;
 
+import game.entities.Army;
 import game.entities.BattleGroup;
 import game.entities.RallyPoint;
 import game.entities.structures.Structure;
@@ -80,8 +81,8 @@ public class Gameboard {
     }
 
 
-    public void addArmyToTile(BattleGroup battleGroup, Location location){
-        board[location.getX()][location.getY()].addBattleGroup(battleGroup);
+    public void addArmyToTile(Army army, Location location){
+        board[location.getX()][location.getY()].addArmy(army);
     }
 
     public void addRallyPoinTToTile(RallyPoint rallyPoint, Location location){

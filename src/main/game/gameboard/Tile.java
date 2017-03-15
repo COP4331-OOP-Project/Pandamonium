@@ -1,8 +1,6 @@
 package game.gameboard;
 
-import game.entities.BattleGroup;
-import game.entities.EntityId;
-import game.entities.RallyPoint;
+import game.entities.*;
 import game.entities.structures.Structure;
 import game.entities.units.Unit;
 import game.gameboard.areaEffects.AreaEffect;
@@ -32,7 +30,8 @@ public class Tile implements iTileAccessors, iTileObservable {
     private TerrainEnum Terrain;
     private ArrayList<Unit> units;
     private ArrayList<RallyPoint> rallyPoints;
-    private ArrayList<BattleGroup> battleGroups;
+    private ArrayList<Army> armies;
+    //private ArrayList<BattleGroup> battleGroups;
     private ArrayList<iTileObserver> influencedBy;
     private Structure structure;
     private Location location;
@@ -48,9 +47,10 @@ public class Tile implements iTileAccessors, iTileObservable {
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         units = new ArrayList<>();
-        battleGroups = new ArrayList<>();
+        //battleGroups = new ArrayList<>();
         rallyPoints = new ArrayList<>();
         influencedBy = new ArrayList<>();
+        armies = new ArrayList<Army>();
         containsStructure = false;
         containsRallyPoint = false;
         containsUnit = false;
@@ -66,8 +66,9 @@ public class Tile implements iTileAccessors, iTileObservable {
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         units = new ArrayList<Unit>();
-        battleGroups = new ArrayList<BattleGroup>();
+        //battleGroups = new ArrayList<BattleGroup>();
         rallyPoints = new ArrayList<RallyPoint>();
+        armies = new ArrayList<Army>();
         containsStructure = false;
         containsRallyPoint = false;
         containsUnit = false;
@@ -84,7 +85,8 @@ public class Tile implements iTileAccessors, iTileObservable {
         ore = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         peat = new Resource(resourceValueGenerator.nextDouble() * 300, ResourceTypeEnum.FOOD);
         units = new ArrayList<Unit>();
-        battleGroups = new ArrayList<BattleGroup>();
+        //battleGroups = new ArrayList<BattleGroup>();
+        armies = new ArrayList<Army>();
         rallyPoints = new ArrayList<RallyPoint>();
         containsStructure = false;
         containsRallyPoint = false;
@@ -151,8 +153,8 @@ public class Tile implements iTileAccessors, iTileObservable {
 
     }
 
-    public void addBattleGroup(BattleGroup battleGroup){
-        battleGroups.add(battleGroup);
+    public void addArmy(Army army){
+        armies.add(army);
     }
 
     public void addRallyPoint(RallyPoint rallyPoint){
@@ -179,17 +181,19 @@ public class Tile implements iTileAccessors, iTileObservable {
         }
 
         //Structure
-        if (entityId.compareTo(structure.getEntityId())==1){
-            this.structure = null;
-            return;
+        if(structure!=null) {
+            if (entityId.compareTo(structure.getEntityId()) == 1) {
+                this.structure = null;
+                return;
+            }
         }
 
         //BattleGroup
-        Iterator<BattleGroup> bgIterator = battleGroups.iterator();
-        while (bgIterator.hasNext()) {
-            BattleGroup bgholder = bgIterator.next();
-            if (entityId.compareTo(bgholder.getEntityId())==1){
-                bgIterator.remove();
+        Iterator<Army> armyIterator = armies.iterator();
+        while (armyIterator.hasNext()) {
+            Army armyholder = armyIterator.next();
+            if (entityId.compareTo(armyholder.getEntityId())==1){
+                armyIterator.remove();
                 return;
             }
         }
@@ -220,13 +224,19 @@ public class Tile implements iTileAccessors, iTileObservable {
 
     // Accept tile action visitors
     public void accept(iTileActionVisitor v) {
-        // for (iEntity e : Entities) { e.accept(v) }
+        ArrayList<Entity> entities = new ArrayList<Entity>();
+        entities.addAll(units);
+        entities.addAll(armies);
+        if(structure!=null) {
+            entities.add(structure);
+        }
+         for (Entity e : entities) { e.accept(v); }
     }
 
     // Observable
     public void attach(iTileObserver o){ influencedBy.add(o); }
 
-    public ArrayList<BattleGroup> getBattleGroups(){return  battleGroups;}
+    public ArrayList<Army> getArmies(){return armies;}
 
     public ArrayList<RallyPoint> getRallyPoints() {
         return rallyPoints;
