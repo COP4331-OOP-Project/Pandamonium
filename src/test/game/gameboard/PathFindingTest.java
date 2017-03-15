@@ -22,11 +22,6 @@ public class PathFindingTest {
     }
 
     @Test //Test for moving
-    /*
-                    ---     --x
-                    -x- --->---
-                    ---     ---
-     */
     public void TestMoving45(){
         endLocation = new Location(7,26);
         direction = pathFinder.pathAlgorithm(startLocation, endLocation, playerId);
