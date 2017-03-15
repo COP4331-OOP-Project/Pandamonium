@@ -111,7 +111,7 @@ public abstract class Entity implements iCommandable, iTurnObserver {
     }
 
     // Required Accessors
-    public int getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
+    public Integer getOwnerID(){ return entityId.getPlayerId(); }                       // Get owning player id
     public EntityId getEntityId(){ return entityId; }                               // Get entity id
     public int getInstanceId(){ return entityId.getInstanceId(); }                  // Get entity's instance id
     public PlacementManager getPlacementManager(){return placementManager;}

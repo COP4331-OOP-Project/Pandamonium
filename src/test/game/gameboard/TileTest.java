@@ -192,4 +192,13 @@ public class TileTest {
         Assert.assertEquals(tileGrass.getStructure(), null);
     }
 
+    @Test //Test for ownerId
+    public void testOwnerId(){
+        Assert.assertEquals(null, tileGrass.getOwnerId());
+        tileGrass.addUnit(melee1);
+        Assert.assertEquals(melee1.getOwnerID(), tileGrass.getOwnerId());
+        tileGrass.removeEntity(melee1Id);
+        Assert.assertEquals(null, tileGrass.getOwnerId());
+    }
+
 }
