@@ -52,4 +52,6 @@ public class Reinforcement {
         // shouldn't happen. this function should not be called unless the onLocation function returns true.
         return null;
     }
+
+    public ArrayList<Unit> getReinforcements(){return reinforcements;}
 }
